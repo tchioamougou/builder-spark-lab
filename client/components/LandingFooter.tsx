@@ -134,7 +134,7 @@ const LandingFooter = () => {
                   d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
                 />
               </svg>
-              Coordonnées
+              {t("footer.coordinates")}
             </h4>
             <div className="space-y-3 text-sm">
               <div className="flex items-start">
