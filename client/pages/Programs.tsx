@@ -688,199 +688,303 @@ export default function ProgramsPage() {
 
           {/* Maquettes Tab */}
           <TabsContent value="maquettes" className="space-y-4">
-            <Card>
-              <CardHeader>
-                <CardTitle>Maquettes pédagogiques</CardTitle>
-                <CardDescription>
-                  Structure hiérarchique des programmes
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  {filieres.map((filiere) => (
-                    <div key={filiere.id} className="border rounded-lg p-4">
-                      <Collapsible>
-                        <CollapsibleTrigger
-                          onClick={() =>
-                            toggleExpanded(`filiere-${filiere.id}`)
-                          }
-                          className="flex items-center justify-between w-full text-left"
-                        >
-                          <div className="flex items-center space-x-2">
-                            {expandedItems.has(`filiere-${filiere.id}`) ? (
-                              <ChevronDown className="h-4 w-4" />
-                            ) : (
-                              <ChevronRight className="h-4 w-4" />
-                            )}
-                            <Building className="h-5 w-5 text-blue-600" />
-                            <span className="font-semibold">{filiere.nom}</span>
-                            <Badge
-                              className={statutLabels[filiere.statut].color}
-                            >
-                              {statutLabels[filiere.statut].label}
-                            </Badge>
-                          </div>
-                          <Badge variant="outline">
-                            {filiere.maquettes.length} maquette(s)
-                          </Badge>
-                        </CollapsibleTrigger>
-                        <CollapsibleContent className="mt-4 ml-6">
-                          {filiere.maquettes.length === 0 ? (
-                            <div className="text-center py-8 text-muted-foreground">
-                              <FileText className="h-12 w-12 mx-auto mb-4 opacity-30" />
-                              <p>Aucune maquette définie pour cette filière</p>
-                              <Button
-                                variant="outline"
-                                size="sm"
-                                className="mt-2"
-                              >
-                                <Plus className="h-4 w-4 mr-2" />
-                                Créer une maquette
-                              </Button>
-                            </div>
-                          ) : (
-                            <div className="space-y-3">
-                              {filiere.maquettes.map((maquette) => (
-                                <div
-                                  key={maquette.id}
-                                  className="border rounded-lg p-3 bg-gray-50"
-                                >
-                                  <Collapsible>
-                                    <CollapsibleTrigger
-                                      onClick={() =>
-                                        toggleExpanded(
-                                          `maquette-${maquette.id}`,
-                                        )
-                                      }
-                                      className="flex items-center justify-between w-full text-left"
-                                    >
-                                      <div className="flex items-center space-x-2">
-                                        {expandedItems.has(
-                                          `maquette-${maquette.id}`,
-                                        ) ? (
-                                          <ChevronDown className="h-4 w-4" />
-                                        ) : (
-                                          <ChevronRight className="h-4 w-4" />
-                                        )}
-                                        <FileText className="h-4 w-4 text-green-600" />
-                                        <span className="font-medium">
-                                          {maquette.nom}
-                                        </span>
-                                        <Badge variant="secondary">
-                                          {maquette.version}
-                                        </Badge>
-                                        <Badge
-                                          className={
-                                            statutLabels[maquette.statut].color
-                                          }
-                                        >
-                                          {statutLabels[maquette.statut].label}
-                                        </Badge>
-                                      </div>
-                                      <div className="flex items-center space-x-2">
-                                        <span className="text-sm text-muted-foreground">
-                                          {calculateTotalCredits(maquette)}{" "}
-                                          crédits
-                                        </span>
-                                        <Button variant="ghost" size="sm">
-                                          <Eye className="h-4 w-4" />
-                                        </Button>
-                                      </div>
-                                    </CollapsibleTrigger>
-                                    <CollapsibleContent className="mt-3 ml-6">
-                                      <div className="space-y-2">
-                                        {maquette.sequences.map((sequence) => (
-                                          <div
-                                            key={sequence.id}
-                                            className="border rounded p-2 bg-white"
-                                          >
-                                            <Collapsible>
-                                              <CollapsibleTrigger
-                                                onClick={() =>
-                                                  toggleExpanded(
-                                                    `sequence-${sequence.id}`,
-                                                  )
-                                                }
-                                                className="flex items-center justify-between w-full text-left"
-                                              >
-                                                <div className="flex items-center space-x-2">
-                                                  {expandedItems.has(
-                                                    `sequence-${sequence.id}`,
-                                                  ) ? (
-                                                    <ChevronDown className="h-4 w-4" />
-                                                  ) : (
-                                                    <ChevronRight className="h-4 w-4" />
-                                                  )}
-                                                  <Calendar className="h-4 w-4 text-purple-600" />
-                                                  <span className="font-medium">
-                                                    {sequence.nom}
-                                                  </span>
-                                                  <Badge variant="outline">
-                                                    {sequence.duree} mois
-                                                  </Badge>
-                                                </div>
-                                                <Badge variant="outline">
-                                                  {sequence.domaines.length}{" "}
-                                                  domaine(s)
-                                                </Badge>
-                                              </CollapsibleTrigger>
-                                              <CollapsibleContent className="mt-2 ml-6">
-                                                <div className="space-y-1">
-                                                  {sequence.domaines.map(
-                                                    (domaine) => (
-                                                      <div
-                                                        key={domaine.id}
-                                                        className="flex items-center justify-between p-2 bg-gray-50 rounded"
-                                                      >
-                                                        <div className="flex items-center space-x-2">
-                                                          <Target className="h-4 w-4 text-orange-600" />
-                                                          <span className="text-sm font-medium">
-                                                            {domaine.nom}
-                                                          </span>
-                                                        </div>
-                                                        <div className="flex items-center space-x-2">
-                                                          <Badge
-                                                            variant="outline"
-                                                            className="text-xs"
-                                                          >
-                                                            {domaine.ues.reduce(
-                                                              (total, ue) =>
-                                                                total +
-                                                                ue.credits,
-                                                              0,
-                                                            )}{" "}
-                                                            crédits
-                                                          </Badge>
-                                                          <Badge
-                                                            variant="outline"
-                                                            className="text-xs"
-                                                          >
-                                                            {domaine.ues.length}{" "}
-                                                            UE
-                                                          </Badge>
-                                                        </div>
-                                                      </div>
-                                                    ),
-                                                  )}
-                                                </div>
-                                              </CollapsibleContent>
-                                            </Collapsible>
-                                          </div>
-                                        ))}
-                                      </div>
-                                    </CollapsibleContent>
-                                  </Collapsible>
-                                </div>
-                              ))}
-                            </div>
-                          )}
-                        </CollapsibleContent>
-                      </Collapsible>
+            <div className="flex justify-between items-center mb-4">
+              <h3 className="text-lg font-semibold">Maquettes de formation</h3>
+              <Button className="bg-blue-600 hover:bg-blue-700">
+                <Plus className="h-4 w-4 mr-2" />
+                Ajouter une maquette
+              </Button>
+            </div>
+
+            <div className="space-y-4">
+              {/* Licence 3 Informatique */}
+              <Card className="border-l-4 border-l-blue-500">
+                <CardHeader className="pb-3">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <CardTitle className="text-lg text-blue-900">Licence 3 Informatique (INFO-L3)</CardTitle>
+                      <CardDescription className="flex items-center gap-4 mt-1">
+                        <span>Filière: Informatique</span>
+                        <span>|</span>
+                        <span>Année académique: 2023-2024</span>
+                      </CardDescription>
                     </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
+                    <div className="flex items-center gap-2">
+                      <Badge className="bg-green-100 text-green-800">Active</Badge>
+                      <Button variant="outline" size="sm" className="text-blue-600 border-blue-600">
+                        <Plus className="h-4 w-4 mr-1" />
+                        Ajouter une séquence
+                      </Button>
+                      <Button variant="ghost" size="sm">
+                        <Edit className="h-4 w-4" />
+                      </Button>
+                      <Button variant="ghost" size="sm">
+                        <Trash2 className="h-4 w-4" />
+                      </Button>
+                    </div>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  {/* Semestre 5 */}
+                  <div className="space-y-4">
+                    <Collapsible>
+                      <CollapsibleTrigger
+                        onClick={() => toggleExpanded('semestre-5')}
+                        className="flex items-center justify-between w-full p-3 bg-gray-50 rounded-lg hover:bg-gray-100"
+                      >
+                        <div className="flex items-center space-x-2">
+                          {expandedItems.has('semestre-5') ? (
+                            <ChevronDown className="h-4 w-4" />
+                          ) : (
+                            <ChevronRight className="h-4 w-4" />
+                          )}
+                          <Calendar className="h-4 w-4 text-purple-600" />
+                          <span className="font-medium">Semestre 5 (2023-09-01 - 2024-01-31)</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <Button variant="outline" size="sm" className="text-blue-600 border-blue-600">
+                            <Plus className="h-4 w-4 mr-1" />
+                            Ajouter un domaine
+                          </Button>
+                          <Button variant="ghost" size="sm">
+                            <Edit className="h-4 w-4" />
+                          </Button>
+                          <Button variant="ghost" size="sm">
+                            <Trash2 className="h-4 w-4" />
+                          </Button>
+                        </div>
+                      </CollapsibleTrigger>
+                      <CollapsibleContent className="mt-4 ml-6">
+                        {/* Programmation Domain */}
+                        <div className="space-y-4">
+                          <Collapsible>
+                            <CollapsibleTrigger
+                              onClick={() => toggleExpanded('programmation')}
+                              className="flex items-center justify-between w-full p-3 bg-blue-50 rounded-lg hover:bg-blue-100"
+                            >
+                              <div className="flex items-center space-x-2">
+                                {expandedItems.has('programmation') ? (
+                                  <ChevronDown className="h-4 w-4" />
+                                ) : (
+                                  <ChevronRight className="h-4 w-4" />
+                                )}
+                                <Target className="h-4 w-4 text-orange-600" />
+                                <span className="font-medium">Programmation</span>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <Button variant="outline" size="sm" className="text-blue-600 border-blue-600">
+                                  <Plus className="h-4 w-4 mr-1" />
+                                  Ajouter un module
+                                </Button>
+                                <Button variant="ghost" size="sm">
+                                  <Edit className="h-4 w-4" />
+                                </Button>
+                                <Button variant="ghost" size="sm">
+                                  <Trash2 className="h-4 w-4" />
+                                </Button>
+                              </div>
+                            </CollapsibleTrigger>
+                            <CollapsibleContent className="mt-4 ml-6">
+                              {/* Programmation Java UE */}
+                              <div className="space-y-4">
+                                <Collapsible>
+                                  <CollapsibleTrigger
+                                    onClick={() => toggleExpanded('prog-java')}
+                                    className="flex items-center justify-between w-full p-2 border rounded-lg hover:bg-gray-50"
+                                  >
+                                    <div className="flex items-center space-x-2">
+                                      {expandedItems.has('prog-java') ? (
+                                        <ChevronDown className="h-4 w-4" />
+                                      ) : (
+                                        <ChevronRight className="h-4 w-4" />
+                                      )}
+                                      <BookOpen className="h-4 w-4 text-blue-600" />
+                                      <span className="font-medium">Programmation Java (PROG-JAVA) - Coefficient: 3</span>
+                                    </div>
+                                    <div className="flex items-center gap-2">
+                                      <Button variant="outline" size="sm" className="text-blue-600 border-blue-600">
+                                        <Plus className="h-4 w-4 mr-1" />
+                                        Ajouter une UE
+                                      </Button>
+                                      <Button variant="ghost" size="sm">
+                                        <Edit className="h-4 w-4" />
+                                      </Button>
+                                      <Button variant="ghost" size="sm">
+                                        <Trash2 className="h-4 w-4" />
+                                      </Button>
+                                    </div>
+                                  </CollapsibleTrigger>
+                                  <CollapsibleContent className="mt-4">
+                                    <Table>
+                                      <TableHeader>
+                                        <TableRow className="bg-gray-50">
+                                          <TableHead className="font-semibold">CODE</TableHead>
+                                          <TableHead className="font-semibold">NOM</TableHead>
+                                          <TableHead className="font-semibold">TYPE</TableHead>
+                                          <TableHead className="font-semibold">HEURES</TableHead>
+                                          <TableHead className="font-semibold">ACTIONS</TableHead>
+                                        </TableRow>
+                                      </TableHeader>
+                                      <TableBody>
+                                        <TableRow>
+                                          <TableCell className="font-mono">JAVA-CM</TableCell>
+                                          <TableCell>Cours Magistral Java</TableCell>
+                                          <TableCell>CM</TableCell>
+                                          <TableCell>20</TableCell>
+                                          <TableCell>
+                                            <div className="flex items-center gap-1">
+                                              <Button variant="ghost" size="sm">
+                                                <Edit className="h-4 w-4" />
+                                              </Button>
+                                              <Button variant="ghost" size="sm">
+                                                <Trash2 className="h-4 w-4" />
+                                              </Button>
+                                            </div>
+                                          </TableCell>
+                                        </TableRow>
+                                        <TableRow>
+                                          <TableCell className="font-mono">JAVA-TP</TableCell>
+                                          <TableCell>Travaux Pratiques Java</TableCell>
+                                          <TableCell>TP</TableCell>
+                                          <TableCell>30</TableCell>
+                                          <TableCell>
+                                            <div className="flex items-center gap-1">
+                                              <Button variant="ghost" size="sm">
+                                                <Edit className="h-4 w-4" />
+                                              </Button>
+                                              <Button variant="ghost" size="sm">
+                                                <Trash2 className="h-4 w-4" />
+                                              </Button>
+                                            </div>
+                                          </TableCell>
+                                        </TableRow>
+                                      </TableBody>
+                                    </Table>
+                                  </CollapsibleContent>
+                                </Collapsible>
+
+                                {/* Développement Web UE */}
+                                <Collapsible>
+                                  <CollapsibleTrigger
+                                    onClick={() => toggleExpanded('prog-web')}
+                                    className="flex items-center justify-between w-full p-2 border rounded-lg hover:bg-gray-50"
+                                  >
+                                    <div className="flex items-center space-x-2">
+                                      {expandedItems.has('prog-web') ? (
+                                        <ChevronDown className="h-4 w-4" />
+                                      ) : (
+                                        <ChevronRight className="h-4 w-4" />
+                                      )}
+                                      <BookOpen className="h-4 w-4 text-blue-600" />
+                                      <span className="font-medium">Développement Web (PROG-WEB) - Coefficient: 2</span>
+                                    </div>
+                                    <div className="flex items-center gap-2">
+                                      <Button variant="outline" size="sm" className="text-blue-600 border-blue-600">
+                                        <Plus className="h-4 w-4 mr-1" />
+                                        Ajouter une UE
+                                      </Button>
+                                      <Button variant="ghost" size="sm">
+                                        <Edit className="h-4 w-4" />
+                                      </Button>
+                                      <Button variant="ghost" size="sm">
+                                        <Trash2 className="h-4 w-4" />
+                                      </Button>
+                                    </div>
+                                  </CollapsibleTrigger>
+                                  <CollapsibleContent className="mt-4">
+                                    <Table>
+                                      <TableHeader>
+                                        <TableRow className="bg-gray-50">
+                                          <TableHead className="font-semibold">CODE</TableHead>
+                                          <TableHead className="font-semibold">NOM</TableHead>
+                                          <TableHead className="font-semibold">TYPE</TableHead>
+                                          <TableHead className="font-semibold">HEURES</TableHead>
+                                          <TableHead className="font-semibold">ACTIONS</TableHead>
+                                        </TableRow>
+                                      </TableHeader>
+                                      <TableBody>
+                                        <TableRow>
+                                          <TableCell className="font-mono">WEB-CM</TableCell>
+                                          <TableCell>Cours Magistral Web</TableCell>
+                                          <TableCell>CM</TableCell>
+                                          <TableCell>15</TableCell>
+                                          <TableCell>
+                                            <div className="flex items-center gap-1">
+                                              <Button variant="ghost" size="sm">
+                                                <Edit className="h-4 w-4" />
+                                              </Button>
+                                              <Button variant="ghost" size="sm">
+                                                <Trash2 className="h-4 w-4" />
+                                              </Button>
+                                            </div>
+                                          </TableCell>
+                                        </TableRow>
+                                        <TableRow>
+                                          <TableCell className="font-mono">WEB-TP</TableCell>
+                                          <TableCell>Travaux Pratiques Web</TableCell>
+                                          <TableCell>TP</TableCell>
+                                          <TableCell>25</TableCell>
+                                          <TableCell>
+                                            <div className="flex items-center gap-1">
+                                              <Button variant="ghost" size="sm">
+                                                <Edit className="h-4 w-4" />
+                                              </Button>
+                                              <Button variant="ghost" size="sm">
+                                                <Trash2 className="h-4 w-4" />
+                                              </Button>
+                                            </div>
+                                          </TableCell>
+                                        </TableRow>
+                                      </TableBody>
+                                    </Table>
+                                  </CollapsibleContent>
+                                </Collapsible>
+                              </div>
+                            </CollapsibleContent>
+                          </Collapsible>
+
+                          {/* Bases de données Domain */}
+                          <Collapsible>
+                            <CollapsibleTrigger
+                              onClick={() => toggleExpanded('bases-donnees')}
+                              className="flex items-center justify-between w-full p-3 bg-blue-50 rounded-lg hover:bg-blue-100"
+                            >
+                              <div className="flex items-center space-x-2">
+                                {expandedItems.has('bases-donnees') ? (
+                                  <ChevronDown className="h-4 w-4" />
+                                ) : (
+                                  <ChevronRight className="h-4 w-4" />
+                                )}
+                                <Target className="h-4 w-4 text-orange-600" />
+                                <span className="font-medium">Bases de données</span>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <Button variant="outline" size="sm" className="text-blue-600 border-blue-600">
+                                  <Plus className="h-4 w-4 mr-1" />
+                                  Ajouter un module
+                                </Button>
+                                <Button variant="ghost" size="sm">
+                                  <Edit className="h-4 w-4" />
+                                </Button>
+                                <Button variant="ghost" size="sm">
+                                  <Trash2 className="h-4 w-4" />
+                                </Button>
+                              </div>
+                            </CollapsibleTrigger>
+                            <CollapsibleContent className="mt-4 ml-6">
+                              <div className="text-center py-4 text-gray-500">
+                                <FileText className="h-8 w-8 mx-auto mb-2 opacity-30" />
+                                <p className="text-sm">Aucun module défini</p>
+                              </div>
+                            </CollapsibleContent>
+                          </Collapsible>
+                        </div>
+                      </CollapsibleContent>
+                    </Collapsible>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
           </TabsContent>
 
           {/* Modules Tab */}
