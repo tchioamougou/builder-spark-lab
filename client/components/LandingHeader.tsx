@@ -35,13 +35,13 @@ const LandingHeader = () => {
         {/* Liens de navigation */}
         <div className="hidden lg:flex items-center space-x-6 text-gray-200 font-medium">
           <Link to="/" className="hover:text-[#ff9900] transition-colors duration-300">{t('Accueil')}</Link>
-          <a href="#" className="hover:text-[#ff9900] transition-colors duration-300">{t('À propos')}</a>
-          <a href="#" className="hover:text-[#ff9900] transition-colors duration-300">{t('Formations')}</a>
-          <a href="#" className="hover:text-[#ff9900] transition-colors duration-300">{t('Admissions')}</a>
-          <a href="#" className="hover:text-[#ff9900] transition-colors duration-300">{t('Actualités')}</a>
-          <a href="#" className="hover:text-[#ff9900] transition-colors duration-300">{t('FAQ')}</a>
-          <a href="#" className="hover:text-[#ff9900] transition-colors duration-300">{t('Recrutement')}</a>
-          <a href="#" className="hover:text-[#ff9900] transition-colors duration-300">{t('Contacts')}</a>
+          <Link to="/about" className="hover:text-[#ff9900] transition-colors duration-300">{t('À propos')}</Link>
+          <Link to="/formations" className="hover:text-[#ff9900] transition-colors duration-300">{t('Formations')}</Link>
+          <Link to="/admissions" className="hover:text-[#ff9900] transition-colors duration-300">{t('Admissions')}</Link>
+          <Link to="/actualites" className="hover:text-[#ff9900] transition-colors duration-300">{t('Actualités')}</Link>
+          <Link to="/faq" className="hover:text-[#ff9900] transition-colors duration-300">{t('FAQ')}</Link>
+          <Link to="/recrutement" className="hover:text-[#ff9900] transition-colors duration-300">{t('Recrutement')}</Link>
+          <Link to="/contacts" className="hover:text-[#ff9900] transition-colors duration-300">{t('Contacts')}</Link>
           <Link to="/login" className="bg-[#ff9900] hover:bg-[#e68a00] text-white font-bold py-2 px-4 rounded-full transition-all duration-300 text-sm">
             {t('common.clientArea')}
           </Link>
