@@ -181,7 +181,12 @@ export default function StudentSchedule() {
   };
 
   const getClassesForDay = (day: string) => {
-    return scheduleData.filter(item => item.day === day);
+    return scheduleData.filter(item => {
+      const matchesDay = item.day === day;
+      const matchesType = filterType === "Tous" || item.type === filterType;
+      const matchesTeacher = filterTeacher === "Tous" || item.teacher === filterTeacher;
+      return matchesDay && matchesType && matchesTeacher;
+    });
   };
 
   return (
