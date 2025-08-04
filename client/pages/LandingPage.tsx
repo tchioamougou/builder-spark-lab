@@ -41,11 +41,7 @@ const LandingPage: React.FC = () => {
                 <h1 className="heading-font text-3xl md:text-5xl lg:text-6xl font-extrabold mb-6 leading-tight">
                   Transformez votre vie grâce à l'éducation en santé
                 </h1>
-                <div className="bg-[#ff9900] text-white px-4 py-2 rounded-full inline-block mb-4">
-                  <span className="text-sm font-bold">
-                    Excellence • Innovation • Engagement Communautaire
-                  </span>
-                </div>
+                
                 <div className="space-y-4">
                   <a
                     href="#"
