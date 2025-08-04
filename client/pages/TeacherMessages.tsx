@@ -616,24 +616,24 @@ export default function TeacherMessages() {
                   <div className="flex items-start justify-between">
                     <div className="flex-1">
                       <CardTitle className="text-lg">{selectedMessage.subject}</CardTitle>
-                      <CardDescription className="mt-2">
+                      <div className="mt-2 space-y-2">
                         <div className="flex items-center space-x-4">
                           <div className="flex items-center space-x-2">
                             <Avatar className="h-6 w-6">
                               <AvatarFallback className="text-xs">
-                                {(selectedMessage.type === "received" 
-                                  ? selectedMessage.sender 
+                                {(selectedMessage.type === "received"
+                                  ? selectedMessage.sender
                                   : selectedMessage.recipient).name
                                   .split(" ").map(n => n[0]).join("")}
                               </AvatarFallback>
                             </Avatar>
-                            <span>
-                              {selectedMessage.type === "received" 
-                                ? `De: ${selectedMessage.sender.name}` 
+                            <span className="text-sm text-muted-foreground">
+                              {selectedMessage.type === "received"
+                                ? `De: ${selectedMessage.sender.name}`
                                 : `À: ${selectedMessage.recipient.name}`}
                             </span>
                           </div>
-                          <div className="text-sm">
+                          <div className="text-sm text-muted-foreground">
                             {new Date(selectedMessage.date).toLocaleString("fr-FR")}
                           </div>
                           {selectedMessage.category && (
@@ -643,11 +643,11 @@ export default function TeacherMessages() {
                           )}
                         </div>
                         {selectedMessage.course && (
-                          <div className="text-sm mt-1">
+                          <div className="text-sm text-muted-foreground">
                             Cours: {selectedMessage.course}
                           </div>
                         )}
-                      </CardDescription>
+                      </div>
                     </div>
                     <div className="flex space-x-2">
                       <Button 
