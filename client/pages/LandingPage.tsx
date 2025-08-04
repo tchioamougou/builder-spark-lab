@@ -59,9 +59,16 @@ const LandingPage: React.FC = () => {
               </div>
               <div className="md:w-1/2 rounded-3xl overflow-hidden shadow-2xl">
                 {/* Placeholder de lecteur vidéo YouTube */}
-                <div className="aspect-w-16 aspect-h-9">
-                  <iframe className="w-full h-full" src="https://www.youtube.com/embed/rhgwIhB58PA" title="The Biggest Myth In Education" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
-                  
+                <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
+                  <iframe
+                    className="absolute top-0 left-0 w-full h-full"
+                    src="https://www.youtube.com/embed/rhgwIhB58PA"
+                    title="The Biggest Myth In Education"
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerPolicy="strict-origin-when-cross-origin"
+                    allowFullScreen
+                  />
                 </div>
               </div>
             </div>
