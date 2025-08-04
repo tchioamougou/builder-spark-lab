@@ -43,7 +43,9 @@ const LandingFooter = () => {
                 <h4 className="font-bold text-xl heading-font text-[#ff9900] leading-tight">
                   {t("footer.schoolName2")}
                 </h4>
-                <p className="text-sm text-gray-200 mt-1">{t("footer.location")}</p>
+                <p className="text-sm text-gray-200 mt-1">
+                  {t("footer.location")}
+                </p>
               </div>
             </div>
             <p className="text-gray-200 mb-6 text-sm leading-relaxed">
@@ -221,7 +223,9 @@ const LandingFooter = () => {
           </div>
           {/* Colonne 4: Liens de navigation 2 */}
           <div className="lg:col-span-1">
-            <h4 className="font-semibold text-lg mb-4 text-[#ff9900]">{t("footer.more")}</h4>
+            <h4 className="font-semibold text-lg mb-4 text-[#ff9900]">
+              {t("footer.more")}
+            </h4>
             <ul className="space-y-2 text-sm">
               <li>
                 <Link to="/actualites" className="hover:underline">
@@ -278,9 +282,7 @@ const LandingFooter = () => {
             </div>
           </div>
           <div className="text-center mt-4">
-            <p className="text-xs text-gray-400">
-              {t("footer.recognition")}
-            </p>
+            <p className="text-xs text-gray-400">{t("footer.recognition")}</p>
           </div>
         </div>
       </div>

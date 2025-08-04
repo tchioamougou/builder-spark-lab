@@ -1,13 +1,13 @@
-import React from 'react';
-import { useTranslation } from 'react-i18next';
-import { Button } from '@/components/ui/button';
+import React from "react";
+import { useTranslation } from "react-i18next";
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { ChevronDown } from 'lucide-react';
+} from "@/components/ui/dropdown-menu";
+import { ChevronDown } from "lucide-react";
 
 const LanguageSwitcher: React.FC = () => {
   const { i18n } = useTranslation();
@@ -17,11 +17,12 @@ const LanguageSwitcher: React.FC = () => {
   };
 
   const languages = {
-    fr: { code: 'FR', name: 'Français', flag: '🇫🇷' },
-    en: { code: 'EN', name: 'English', flag: '🇬🇧' }
+    fr: { code: "FR", name: "Français", flag: "🇫🇷" },
+    en: { code: "EN", name: "English", flag: "🇬🇧" },
   };
 
-  const currentLanguage = languages[i18n.language as keyof typeof languages] || languages.fr;
+  const currentLanguage =
+    languages[i18n.language as keyof typeof languages] || languages.fr;
 
   return (
     <DropdownMenu>
@@ -47,7 +48,7 @@ const LanguageSwitcher: React.FC = () => {
             className={`
               flex items-center gap-3 px-3 py-2.5 rounded-md cursor-pointer transition-all duration-200
               hover:bg-[#ff9900] hover:text-white focus:bg-[#ff9900] focus:text-white
-              ${i18n.language === code ? 'bg-gray-50 font-medium' : ''}
+              ${i18n.language === code ? "bg-gray-50 font-medium" : ""}
             `}
           >
             <span className="text-lg leading-none">{lang.flag}</span>
