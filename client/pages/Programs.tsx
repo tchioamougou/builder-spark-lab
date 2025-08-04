@@ -1753,6 +1753,775 @@ export default function ProgramsPage() {
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialog>
+
+        {/* Add Maquette Dialog */}
+        <Dialog open={isAddMaquetteOpen} onOpenChange={setIsAddMaquetteOpen}>
+          <DialogContent className="max-w-2xl">
+            <DialogHeader>
+              <DialogTitle>Ajouter une nouvelle maquette</DialogTitle>
+              <DialogDescription>
+                Créer une nouvelle maquette pédagogique pour la filière
+              </DialogDescription>
+            </DialogHeader>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="maquette-nom">Nom de la maquette</Label>
+                <Input
+                  id="maquette-nom"
+                  placeholder="Ex: Licence 3 Informatique"
+                  value={formData.nom || ""}
+                  onChange={(e) =>
+                    setFormData({ ...formData, nom: e.target.value })
+                  }
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="maquette-version">Version</Label>
+                <Input
+                  id="maquette-version"
+                  placeholder="Ex: 2023.1"
+                  value={formData.version || ""}
+                  onChange={(e) =>
+                    setFormData({ ...formData, version: e.target.value })
+                  }
+                />
+              </div>
+              <div className="col-span-2 space-y-2">
+                <Label htmlFor="maquette-description">Description</Label>
+                <Textarea
+                  id="maquette-description"
+                  placeholder="Description de la maquette..."
+                  value={formData.description || ""}
+                  onChange={(e) =>
+                    setFormData({ ...formData, description: e.target.value })
+                  }
+                />
+              </div>
+            </div>
+            <DialogFooter>
+              <Button
+                variant="outline"
+                onClick={() => {
+                  setIsAddMaquetteOpen(false);
+                  setFormData({});
+                  setSelectedFiliereForActions(null);
+                }}
+              >
+                Annuler
+              </Button>
+              <Button onClick={handleAddMaquette}>Créer la maquette</Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+
+        {/* Add Sequence Dialog */}
+        <Dialog open={isAddSequenceOpen} onOpenChange={setIsAddSequenceOpen}>
+          <DialogContent className="max-w-2xl">
+            <DialogHeader>
+              <DialogTitle>Ajouter une nouvelle séquence</DialogTitle>
+              <DialogDescription>
+                Créer une nouvelle séquence pour la maquette
+              </DialogDescription>
+            </DialogHeader>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="sequence-nom">Nom de la séquence</Label>
+                <Input
+                  id="sequence-nom"
+                  placeholder="Ex: Semestre 6"
+                  value={formData.nom || ""}
+                  onChange={(e) =>
+                    setFormData({ ...formData, nom: e.target.value })
+                  }
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="sequence-duree">Durée (mois)</Label>
+                <Input
+                  id="sequence-duree"
+                  type="number"
+                  placeholder="6"
+                  value={formData.duree || ""}
+                  onChange={(e) =>
+                    setFormData({ ...formData, duree: Number(e.target.value) })
+                  }
+                />
+              </div>
+              <div className="col-span-2 space-y-2">
+                <Label htmlFor="sequence-description">Description</Label>
+                <Textarea
+                  id="sequence-description"
+                  placeholder="Description de la séquence..."
+                  value={formData.description || ""}
+                  onChange={(e) =>
+                    setFormData({ ...formData, description: e.target.value })
+                  }
+                />
+              </div>
+            </div>
+            <DialogFooter>
+              <Button
+                variant="outline"
+                onClick={() => {
+                  setIsAddSequenceOpen(false);
+                  setFormData({});
+                  setSelectedFiliereForActions(null);
+                  setSelectedMaquetteForActions(null);
+                }}
+              >
+                Annuler
+              </Button>
+              <Button onClick={handleAddSequence}>Créer la séquence</Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+
+        {/* Add Domaine Dialog */}
+        <Dialog open={isAddDomaineOpen} onOpenChange={setIsAddDomaineOpen}>
+          <DialogContent className="max-w-2xl">
+            <DialogHeader>
+              <DialogTitle>Ajouter un nouveau domaine</DialogTitle>
+              <DialogDescription>
+                Créer un nouveau domaine d'enseignement
+              </DialogDescription>
+            </DialogHeader>
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="domaine-nom">Nom du domaine</Label>
+                <Input
+                  id="domaine-nom"
+                  placeholder="Ex: Algorithmique et Structures de données"
+                  value={formData.nom || ""}
+                  onChange={(e) =>
+                    setFormData({ ...formData, nom: e.target.value })
+                  }
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="domaine-description">Description</Label>
+                <Textarea
+                  id="domaine-description"
+                  placeholder="Description du domaine..."
+                  value={formData.description || ""}
+                  onChange={(e) =>
+                    setFormData({ ...formData, description: e.target.value })
+                  }
+                />
+              </div>
+            </div>
+            <DialogFooter>
+              <Button
+                variant="outline"
+                onClick={() => {
+                  setIsAddDomaineOpen(false);
+                  setFormData({});
+                  setSelectedFiliereForActions(null);
+                  setSelectedMaquetteForActions(null);
+                  setSelectedSequenceForActions(null);
+                }}
+              >
+                Annuler
+              </Button>
+              <Button onClick={handleAddDomaine}>Créer le domaine</Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+
+        {/* Add UE Dialog */}
+        <Dialog open={isAddUEOpen} onOpenChange={setIsAddUEOpen}>
+          <DialogContent className="max-w-2xl">
+            <DialogHeader>
+              <DialogTitle>Ajouter une nouvelle UE</DialogTitle>
+              <DialogDescription>
+                Créer une nouvelle unité d'enseignement
+              </DialogDescription>
+            </DialogHeader>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="ue-code">Code UE</Label>
+                <Input
+                  id="ue-code"
+                  placeholder="Ex: UE-ALGO-001"
+                  value={formData.code || ""}
+                  onChange={(e) =>
+                    setFormData({ ...formData, code: e.target.value })
+                  }
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="ue-credits">Crédits</Label>
+                <Input
+                  id="ue-credits"
+                  type="number"
+                  placeholder="6"
+                  value={formData.credits || ""}
+                  onChange={(e) =>
+                    setFormData({ ...formData, credits: Number(e.target.value) })
+                  }
+                />
+              </div>
+              <div className="col-span-2 space-y-2">
+                <Label htmlFor="ue-nom">Nom de l'UE</Label>
+                <Input
+                  id="ue-nom"
+                  placeholder="Ex: Algorithmique avancée"
+                  value={formData.nom || ""}
+                  onChange={(e) =>
+                    setFormData({ ...formData, nom: e.target.value })
+                  }
+                />
+              </div>
+              <div className="col-span-2 space-y-2">
+                <Label htmlFor="ue-description">Description</Label>
+                <Textarea
+                  id="ue-description"
+                  placeholder="Description de l'UE..."
+                  value={formData.description || ""}
+                  onChange={(e) =>
+                    setFormData({ ...formData, description: e.target.value })
+                  }
+                />
+              </div>
+            </div>
+            <DialogFooter>
+              <Button
+                variant="outline"
+                onClick={() => {
+                  setIsAddUEOpen(false);
+                  setFormData({});
+                  setSelectedFiliereForActions(null);
+                  setSelectedMaquetteForActions(null);
+                  setSelectedSequenceForActions(null);
+                  setSelectedDomaineForActions(null);
+                }}
+              >
+                Annuler
+              </Button>
+              <Button onClick={handleAddUE}>Créer l'UE</Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+
+        {/* Add Module Dialog */}
+        <Dialog open={isAddModuleOpen} onOpenChange={setIsAddModuleOpen}>
+          <DialogContent className="max-w-3xl">
+            <DialogHeader>
+              <DialogTitle>Ajouter un nouveau module</DialogTitle>
+              <DialogDescription>
+                Créer un nouveau module d'enseignement
+              </DialogDescription>
+            </DialogHeader>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="module-code">Code module</Label>
+                <Input
+                  id="module-code"
+                  placeholder="Ex: ALGO-CM"
+                  value={formData.code || ""}
+                  onChange={(e) =>
+                    setFormData({ ...formData, code: e.target.value })
+                  }
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="module-nom">Nom du module</Label>
+                <Input
+                  id="module-nom"
+                  placeholder="Ex: Cours Magistral Algorithmique"
+                  value={formData.nom || ""}
+                  onChange={(e) =>
+                    setFormData({ ...formData, nom: e.target.value })
+                  }
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="module-credits">Crédits</Label>
+                <Input
+                  id="module-credits"
+                  type="number"
+                  placeholder="3"
+                  value={formData.credits || ""}
+                  onChange={(e) =>
+                    setFormData({ ...formData, credits: Number(e.target.value) })
+                  }
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="module-heures">Heures</Label>
+                <Input
+                  id="module-heures"
+                  type="number"
+                  placeholder="30"
+                  value={formData.heures || ""}
+                  onChange={(e) =>
+                    setFormData({ ...formData, heures: Number(e.target.value) })
+                  }
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="module-enseignant">Enseignant</Label>
+                <Input
+                  id="module-enseignant"
+                  placeholder="Ex: Dr. Martin"
+                  value={formData.enseignant || ""}
+                  onChange={(e) =>
+                    setFormData({ ...formData, enseignant: e.target.value })
+                  }
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="module-semestre">Semestre</Label>
+                <Select
+                  value={formData.semestre?.toString()}
+                  onValueChange={(value) =>
+                    setFormData({ ...formData, semestre: Number(value) })
+                  }
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Sélectionner" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="1">Semestre 1</SelectItem>
+                    <SelectItem value="2">Semestre 2</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="col-span-2 space-y-2">
+                <Label htmlFor="module-description">Description</Label>
+                <Textarea
+                  id="module-description"
+                  placeholder="Description du module..."
+                  value={formData.description || ""}
+                  onChange={(e) =>
+                    setFormData({ ...formData, description: e.target.value })
+                  }
+                />
+              </div>
+              <div className="col-span-2 space-y-2">
+                <Label htmlFor="module-evaluation">Mode d'évaluation</Label>
+                <Input
+                  id="module-evaluation"
+                  placeholder="Ex: Examen écrit + TP"
+                  value={formData.evaluation || ""}
+                  onChange={(e) =>
+                    setFormData({ ...formData, evaluation: e.target.value })
+                  }
+                />
+              </div>
+            </div>
+            <DialogFooter>
+              <Button
+                variant="outline"
+                onClick={() => {
+                  setIsAddModuleOpen(false);
+                  setFormData({});
+                  setSelectedFiliereForActions(null);
+                  setSelectedMaquetteForActions(null);
+                  setSelectedSequenceForActions(null);
+                  setSelectedDomaineForActions(null);
+                  setSelectedUEForEdit(null);
+                }}
+              >
+                Annuler
+              </Button>
+              <Button onClick={handleAddModule}>Créer le module</Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+
+        {/* Edit Maquette Dialog */}
+        <Dialog open={isEditMaquetteOpen} onOpenChange={setIsEditMaquetteOpen}>
+          <DialogContent className="max-w-2xl">
+            <DialogHeader>
+              <DialogTitle>Modifier la maquette</DialogTitle>
+            </DialogHeader>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="edit-maquette-nom">Nom de la maquette</Label>
+                <Input
+                  id="edit-maquette-nom"
+                  value={formData.nom || ""}
+                  onChange={(e) =>
+                    setFormData({ ...formData, nom: e.target.value })
+                  }
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="edit-maquette-version">Version</Label>
+                <Input
+                  id="edit-maquette-version"
+                  value={formData.version || ""}
+                  onChange={(e) =>
+                    setFormData({ ...formData, version: e.target.value })
+                  }
+                />
+              </div>
+              <div className="col-span-2 space-y-2">
+                <Label htmlFor="edit-maquette-description">Description</Label>
+                <Textarea
+                  id="edit-maquette-description"
+                  value={formData.description || ""}
+                  onChange={(e) =>
+                    setFormData({ ...formData, description: e.target.value })
+                  }
+                />
+              </div>
+            </div>
+            <DialogFooter>
+              <Button
+                variant="outline"
+                onClick={() => {
+                  setIsEditMaquetteOpen(false);
+                  setFormData({});
+                  setSelectedMaquetteForEdit(null);
+                }}
+              >
+                Annuler
+              </Button>
+              <Button onClick={() => {
+                toast({
+                  title: "Maquette modifiée",
+                  description: "La maquette a été mise à jour avec succès.",
+                });
+                setIsEditMaquetteOpen(false);
+                setFormData({});
+                setSelectedMaquetteForEdit(null);
+              }}>
+                Modifier
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+
+        {/* Edit Sequence Dialog */}
+        <Dialog open={isEditSequenceOpen} onOpenChange={setIsEditSequenceOpen}>
+          <DialogContent className="max-w-2xl">
+            <DialogHeader>
+              <DialogTitle>Modifier la séquence</DialogTitle>
+            </DialogHeader>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="edit-sequence-nom">Nom de la séquence</Label>
+                <Input
+                  id="edit-sequence-nom"
+                  value={formData.nom || ""}
+                  onChange={(e) =>
+                    setFormData({ ...formData, nom: e.target.value })
+                  }
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="edit-sequence-duree">Durée (mois)</Label>
+                <Input
+                  id="edit-sequence-duree"
+                  type="number"
+                  value={formData.duree || ""}
+                  onChange={(e) =>
+                    setFormData({ ...formData, duree: Number(e.target.value) })
+                  }
+                />
+              </div>
+              <div className="col-span-2 space-y-2">
+                <Label htmlFor="edit-sequence-description">Description</Label>
+                <Textarea
+                  id="edit-sequence-description"
+                  value={formData.description || ""}
+                  onChange={(e) =>
+                    setFormData({ ...formData, description: e.target.value })
+                  }
+                />
+              </div>
+            </div>
+            <DialogFooter>
+              <Button
+                variant="outline"
+                onClick={() => {
+                  setIsEditSequenceOpen(false);
+                  setFormData({});
+                  setSelectedSequenceForEdit(null);
+                }}
+              >
+                Annuler
+              </Button>
+              <Button onClick={() => {
+                toast({
+                  title: "Séquence modifiée",
+                  description: "La séquence a été mise à jour avec succès.",
+                });
+                setIsEditSequenceOpen(false);
+                setFormData({});
+                setSelectedSequenceForEdit(null);
+              }}>
+                Modifier
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+
+        {/* Edit Domaine Dialog */}
+        <Dialog open={isEditDomaineOpen} onOpenChange={setIsEditDomaineOpen}>
+          <DialogContent className="max-w-2xl">
+            <DialogHeader>
+              <DialogTitle>Modifier le domaine</DialogTitle>
+            </DialogHeader>
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="edit-domaine-nom">Nom du domaine</Label>
+                <Input
+                  id="edit-domaine-nom"
+                  value={formData.nom || ""}
+                  onChange={(e) =>
+                    setFormData({ ...formData, nom: e.target.value })
+                  }
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="edit-domaine-description">Description</Label>
+                <Textarea
+                  id="edit-domaine-description"
+                  value={formData.description || ""}
+                  onChange={(e) =>
+                    setFormData({ ...formData, description: e.target.value })
+                  }
+                />
+              </div>
+            </div>
+            <DialogFooter>
+              <Button
+                variant="outline"
+                onClick={() => {
+                  setIsEditDomaineOpen(false);
+                  setFormData({});
+                  setSelectedDomaineForEdit(null);
+                }}
+              >
+                Annuler
+              </Button>
+              <Button onClick={() => {
+                toast({
+                  title: "Domaine modifié",
+                  description: "Le domaine a été mis à jour avec succès.",
+                });
+                setIsEditDomaineOpen(false);
+                setFormData({});
+                setSelectedDomaineForEdit(null);
+              }}>
+                Modifier
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+
+        {/* Edit UE Dialog */}
+        <Dialog open={isEditUEOpen} onOpenChange={setIsEditUEOpen}>
+          <DialogContent className="max-w-2xl">
+            <DialogHeader>
+              <DialogTitle>Modifier l'UE</DialogTitle>
+            </DialogHeader>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="edit-ue-code">Code UE</Label>
+                <Input
+                  id="edit-ue-code"
+                  value={formData.code || ""}
+                  onChange={(e) =>
+                    setFormData({ ...formData, code: e.target.value })
+                  }
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="edit-ue-credits">Crédits</Label>
+                <Input
+                  id="edit-ue-credits"
+                  type="number"
+                  value={formData.credits || ""}
+                  onChange={(e) =>
+                    setFormData({ ...formData, credits: Number(e.target.value) })
+                  }
+                />
+              </div>
+              <div className="col-span-2 space-y-2">
+                <Label htmlFor="edit-ue-nom">Nom de l'UE</Label>
+                <Input
+                  id="edit-ue-nom"
+                  value={formData.nom || ""}
+                  onChange={(e) =>
+                    setFormData({ ...formData, nom: e.target.value })
+                  }
+                />
+              </div>
+              <div className="col-span-2 space-y-2">
+                <Label htmlFor="edit-ue-description">Description</Label>
+                <Textarea
+                  id="edit-ue-description"
+                  value={formData.description || ""}
+                  onChange={(e) =>
+                    setFormData({ ...formData, description: e.target.value })
+                  }
+                />
+              </div>
+            </div>
+            <DialogFooter>
+              <Button
+                variant="outline"
+                onClick={() => {
+                  setIsEditUEOpen(false);
+                  setFormData({});
+                  setSelectedUEForEdit(null);
+                }}
+              >
+                Annuler
+              </Button>
+              <Button onClick={() => {
+                toast({
+                  title: "UE modifiée",
+                  description: "L'UE a été mise à jour avec succès.",
+                });
+                setIsEditUEOpen(false);
+                setFormData({});
+                setSelectedUEForEdit(null);
+              }}>
+                Modifier
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+
+        {/* Delete Maquette Dialog */}
+        <AlertDialog open={deleteMaquetteDialogOpen} onOpenChange={setDeleteMaquetteDialogOpen}>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Supprimer la maquette</AlertDialogTitle>
+              <AlertDialogDescription>
+                Êtes-vous sûr de vouloir supprimer cette maquette ? Cette action est irréversible.
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel onClick={() => {
+                setDeleteMaquetteDialogOpen(false);
+                setSelectedMaquetteForEdit(null);
+              }}>
+                Annuler
+              </AlertDialogCancel>
+              <AlertDialogAction
+                onClick={() => {
+                  toast({
+                    title: "Maquette supprimée",
+                    description: "La maquette a été supprimée avec succès.",
+                    variant: "destructive",
+                  });
+                  setDeleteMaquetteDialogOpen(false);
+                  setSelectedMaquetteForEdit(null);
+                }}
+                className="bg-red-600 hover:bg-red-700"
+              >
+                Supprimer
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
+
+        {/* Delete Sequence Dialog */}
+        <AlertDialog open={deleteSequenceDialogOpen} onOpenChange={setDeleteSequenceDialogOpen}>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Supprimer la séquence</AlertDialogTitle>
+              <AlertDialogDescription>
+                Êtes-vous sûr de vouloir supprimer cette séquence ? Cette action est irréversible.
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel onClick={() => {
+                setDeleteSequenceDialogOpen(false);
+                setSelectedSequenceForEdit(null);
+              }}>
+                Annuler
+              </AlertDialogCancel>
+              <AlertDialogAction
+                onClick={() => {
+                  toast({
+                    title: "Séquence supprimée",
+                    description: "La séquence a été supprimée avec succès.",
+                    variant: "destructive",
+                  });
+                  setDeleteSequenceDialogOpen(false);
+                  setSelectedSequenceForEdit(null);
+                }}
+                className="bg-red-600 hover:bg-red-700"
+              >
+                Supprimer
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
+
+        {/* Delete Domaine Dialog */}
+        <AlertDialog open={deleteDomaineDialogOpen} onOpenChange={setDeleteDomaineDialogOpen}>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Supprimer le domaine</AlertDialogTitle>
+              <AlertDialogDescription>
+                Êtes-vous sûr de vouloir supprimer ce domaine ? Cette action est irréversible.
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel onClick={() => {
+                setDeleteDomaineDialogOpen(false);
+                setSelectedDomaineForEdit(null);
+              }}>
+                Annuler
+              </AlertDialogCancel>
+              <AlertDialogAction
+                onClick={() => {
+                  toast({
+                    title: "Domaine supprimé",
+                    description: "Le domaine a été supprimé avec succès.",
+                    variant: "destructive",
+                  });
+                  setDeleteDomaineDialogOpen(false);
+                  setSelectedDomaineForEdit(null);
+                }}
+                className="bg-red-600 hover:bg-red-700"
+              >
+                Supprimer
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
+
+        {/* Delete UE Dialog */}
+        <AlertDialog open={deleteUEDialogOpen} onOpenChange={setDeleteUEDialogOpen}>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Supprimer l'UE</AlertDialogTitle>
+              <AlertDialogDescription>
+                Êtes-vous sûr de vouloir supprimer cette UE ? Cette action est irréversible.
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel onClick={() => {
+                setDeleteUEDialogOpen(false);
+                setSelectedUEForEdit(null);
+              }}>
+                Annuler
+              </AlertDialogCancel>
+              <AlertDialogAction
+                onClick={() => {
+                  toast({
+                    title: "UE supprimée",
+                    description: "L'UE a été supprimée avec succès.",
+                    variant: "destructive",
+                  });
+                  setDeleteUEDialogOpen(false);
+                  setSelectedUEForEdit(null);
+                }}
+                className="bg-red-600 hover:bg-red-700"
+              >
+                Supprimer
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
       </div>
     </Layout>
   );
