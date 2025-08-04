@@ -271,6 +271,7 @@ export default function TeacherLayout({ children }: TeacherLayoutProps) {
                   variant="outline"
                   size="sm"
                   className="w-full justify-start"
+                  onClick={() => setIsGradeDialogOpen(true)}
                 >
                   <BarChart3 className="h-4 w-4 mr-2" />
                   Saisir notes
@@ -279,6 +280,7 @@ export default function TeacherLayout({ children }: TeacherLayoutProps) {
                   variant="outline"
                   size="sm"
                   className="w-full justify-start"
+                  onClick={() => setIsAbsenceDialogOpen(true)}
                 >
                   <Clock className="h-4 w-4 mr-2" />
                   Signaler absence
