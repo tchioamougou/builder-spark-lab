@@ -1,4 +1,6 @@
 import "./global.css";
+// Import i18n configuration
+import "./i18n";
 
 import { Toaster } from "@/components/ui/toaster";
 import { createRoot } from "react-dom/client";

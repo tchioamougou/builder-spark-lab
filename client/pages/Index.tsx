@@ -22,122 +22,124 @@ import {
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import Layout from "@/components/Layout";
+import { useTranslation } from "react-i18next";
 
-const stats = [
+const getStats = (t: any) => [
   {
-    title: "Étudiants inscrits",
+    title: t('student.enrolledStudents'),
     value: "2,847",
     change: "+12%",
     changeType: "positive" as const,
     icon: Users,
   },
   {
-    title: "Enseignants actifs",
+    title: t('teacher.activeTeachers'),
     value: "156",
     change: "+3%",
     changeType: "positive" as const,
     icon: GraduationCap,
   },
   {
-    title: "Programmes académiques",
+    title: t('common.programs'),
     value: "24",
     change: "0%",
     changeType: "neutral" as const,
     icon: BookOpen,
   },
   {
-    title: "Année académique courante",
+    title: t('common.currentAcademicYear'),
     value: "2023-2024",
-    change: "Semestre 2",
+    change: t('common.semester2'),
     changeType: "neutral" as const,
     icon: Calendar,
   },
 ];
 
-const recentActivities = [
+const getRecentActivities = (t: any) => [
   {
     id: 1,
     type: "inscription",
-    title: "Nouvelle inscription validée",
+    title: t('student.newEnrollmentValidated'),
     description: "Marie Dupont - Pharmacie Année 1",
-    time: "Il y a 2 heures",
+    time: t('dates.hoursAgo', { count: 2 }),
     icon: UserCheck,
     status: "success",
   },
   {
     id: 2,
     type: "demande",
-    title: "Demande d'absence en attente",
+    title: t('student.absenceRequestPending'),
     description: "Jean Martin - Médecine Année 3",
-    time: "Il y a 4 heures",
+    time: t('dates.hoursAgo', { count: 4 }),
     icon: Clock,
     status: "pending",
   },
   {
     id: 3,
     type: "programme",
-    title: "Nouvelle maquette créée",
+    title: t('programs.newCurriculumCreated'),
     description: "Pharmacie Année 2 - Séquence 1",
-    time: "Il y a 1 jour",
+    time: t('dates.daysAgo', { count: 1 }),
     icon: FileText,
     status: "info",
   },
   {
     id: 4,
     type: "enseignant",
-    title: "Candidature enseignant approuvée",
+    title: t('teacher.teacherApplicationApproved'),
     description: "Dr. Sophie Laurent - Anatomie",
-    time: "Il y a 2 jours",
+    time: t('dates.daysAgo', { count: 2 }),
     icon: CheckCircle,
     status: "success",
   },
 ];
 
-const pendingTasks = [
+const getPendingTasks = (t: any) => [
   {
     id: 1,
-    title: "Valider 12 demandes d'inscription",
+    title: t('admin.validateEnrollmentRequests', { count: 12 }),
     priority: "high",
-    module: "Scolarité",
+    module: t('common.academics'),
   },
   {
     id: 2,
-    title: "Réviser 3 candidatures enseignants",
+    title: t('admin.reviewTeacherApplications', { count: 3 }),
     priority: "medium",
-    module: "RH",
+    module: t('common.hr'),
   },
   {
     id: 3,
-    title: "Finaliser calendrier séquence 2",
+    title: t('admin.finalizeCalendar'),
     priority: "high",
-    module: "Administration",
+    module: t('common.administration'),
   },
   {
     id: 4,
-    title: "Traiter 8 justificatifs d'absence",
+    title: t('admin.processAbsenceJustifications', { count: 8 }),
     priority: "low",
-    module: "Scolarité",
+    module: t('common.academics'),
   },
 ];
 
 export default function Index() {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const handlePendingTask = (taskTitle: string, module: string) => {
     // Navigate based on task type and module
     if (
-      taskTitle.includes("demandes d'inscription") ||
-      module === "Scolarité"
+      taskTitle.includes(t('admin.validateEnrollmentRequests', { count: 12 }).split(' ')[0]) ||
+      module === t('common.academics')
     ) {
       navigate("/students");
     } else if (
-      taskTitle.includes("candidatures enseignants") ||
-      module === "RH"
+      taskTitle.includes(t('admin.reviewTeacherApplications', { count: 3 }).split(' ')[0]) ||
+      module === t('common.hr')
     ) {
       navigate("/teachers");
-    } else if (taskTitle.includes("calendrier")) {
+    } else if (taskTitle.includes(t('admin.finalizeCalendar').split(' ')[0])) {
       navigate("/academic-years");
-    } else if (taskTitle.includes("justificatifs")) {
+    } else if (taskTitle.includes(t('admin.processAbsenceJustifications', { count: 8 }).split(' ')[0])) {
       navigate("/files");
     } else {
       navigate("/admin");
@@ -150,16 +152,16 @@ export default function Index() {
         {/* Header */}
         <div>
           <h2 className="text-3xl font-bold tracking-tight text-gray-900">
-            Tableau de bord
+            {t('common.dashboard')}
           </h2>
           <p className="text-muted-foreground">
-            Vue d'ensemble de votre établissement d'enseignement supérieur
+            {t('common.overview')}
           </p>
         </div>
 
         {/* Stats Grid */}
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-          {stats.map((stat) => (
+          {getStats(t).map((stat) => (
             <Card key={stat.title}>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">
@@ -194,15 +196,15 @@ export default function Index() {
             <CardHeader>
               <CardTitle className="flex items-center space-x-2">
                 <School className="h-5 w-5" />
-                <span>Activités récentes</span>
+                <span>{t('common.recentActivities')}</span>
               </CardTitle>
               <CardDescription>
-                Dernières actions dans le système
+                {t('common.latestSystemActions')}
               </CardDescription>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                {recentActivities.map((activity) => (
+                {getRecentActivities(t).map((activity) => (
                   <div key={activity.id} className="flex items-start space-x-3">
                     <div
                       className={`p-2 rounded-full ${
@@ -237,15 +239,15 @@ export default function Index() {
             <CardHeader>
               <CardTitle className="flex items-center space-x-2">
                 <AlertCircle className="h-5 w-5" />
-                <span>Tâches en attente</span>
+                <span>{t('common.pendingTasks')}</span>
               </CardTitle>
               <CardDescription>
-                Actions nécessitant votre attention
+                {t('common.actionsRequiringAttention')}
               </CardDescription>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                {pendingTasks.map((task) => (
+                {getPendingTasks(t).map((task) => (
                   <div
                     key={task.id}
                     className="flex items-center justify-between p-3 border rounded-lg"
@@ -266,10 +268,10 @@ export default function Index() {
                           className="text-xs"
                         >
                           {task.priority === "high"
-                            ? "Urgent"
+                            ? t('common.urgent')
                             : task.priority === "medium"
-                              ? "Moyen"
-                              : "Faible"}
+                              ? t('common.medium')
+                              : t('common.low')}
                         </Badge>
                       </div>
                       <p className="text-xs text-gray-500 mt-1">
@@ -281,7 +283,7 @@ export default function Index() {
                       variant="outline"
                       onClick={() => handlePendingTask(task.title, task.module)}
                     >
-                      Traiter
+                      {t('common.process')}
                     </Button>
                   </div>
                 ))}
@@ -293,9 +295,9 @@ export default function Index() {
         {/* Quick Actions */}
         <Card>
           <CardHeader>
-            <CardTitle>Actions rapides</CardTitle>
+            <CardTitle>{t('common.quickActions')}</CardTitle>
             <CardDescription>
-              Accès direct aux fonctionnalités principales
+              {t('common.directAccessToMainFeatures')}
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -307,7 +309,7 @@ export default function Index() {
               >
                 <Users className="h-6 w-6 text-blue-600 group-hover:text-blue-700" />
                 <span className="text-sm font-medium group-hover:text-blue-700">
-                  Gérer les utilisateurs
+                  {t('common.manageUsers')}
                 </span>
               </Button>
               <Button
@@ -317,7 +319,7 @@ export default function Index() {
               >
                 <BookOpen className="h-6 w-6 text-green-600 group-hover:text-green-700" />
                 <span className="text-sm font-medium group-hover:text-green-700">
-                  Programmes académiques
+                  {t('common.programs')}
                 </span>
               </Button>
               <Button
@@ -327,7 +329,7 @@ export default function Index() {
               >
                 <FileText className="h-6 w-6 text-orange-600 group-hover:text-orange-700" />
                 <span className="text-sm font-medium group-hover:text-orange-700">
-                  Demandes en attente
+                  {t('common.pendingRequests')}
                 </span>
               </Button>
               <Button
@@ -337,7 +339,7 @@ export default function Index() {
               >
                 <Calendar className="h-6 w-6 text-purple-600 group-hover:text-purple-700" />
                 <span className="text-sm font-medium group-hover:text-purple-700">
-                  Calendrier académique
+                  {t('common.academicCalendar')}
                 </span>
               </Button>
             </div>
