@@ -93,21 +93,21 @@ interface StudentDetail {
   nationalite: string;
   sexe: string;
   photoUrl?: string;
-  
+
   // Informations académiques
   filiere: string;
   niveau: string;
   promotion: string;
   dateInscription: string;
   statut: "actif" | "suspendu" | "diplome" | "abandonne" | "transfere";
-  
+
   // Informations financières
   fraisInscription: number;
   fraisScolarite: number;
   montantPaye: number;
   montantDu: number;
   statutFinancier: "a_jour" | "en_retard" | "bourseuse" | "exoneree";
-  
+
   // Parents/Tuteurs
   tuteur1: {
     nom: string;
@@ -290,18 +290,18 @@ const mockPaiements: Paiement[] = [
 ];
 
 const statutLabels = {
-  "actif": { label: "Actif", color: "bg-green-100 text-green-800" },
-  "suspendu": { label: "Suspendu", color: "bg-red-100 text-red-800" },
-  "diplome": { label: "Diplômé", color: "bg-blue-100 text-blue-800" },
-  "abandonne": { label: "Abandon", color: "bg-gray-100 text-gray-800" },
-  "transfere": { label: "Transféré", color: "bg-yellow-100 text-yellow-800" },
+  actif: { label: "Actif", color: "bg-green-100 text-green-800" },
+  suspendu: { label: "Suspendu", color: "bg-red-100 text-red-800" },
+  diplome: { label: "Diplômé", color: "bg-blue-100 text-blue-800" },
+  abandonne: { label: "Abandon", color: "bg-gray-100 text-gray-800" },
+  transfere: { label: "Transféré", color: "bg-yellow-100 text-yellow-800" },
 };
 
 const statutFinancierLabels = {
-  "a_jour": { label: "À jour", color: "bg-green-100 text-green-800" },
-  "en_retard": { label: "En retard", color: "bg-red-100 text-red-800" },
-  "bourseuse": { label: "Boursière", color: "bg-blue-100 text-blue-800" },
-  "exoneree": { label: "Exonérée", color: "bg-purple-100 text-purple-800" },
+  a_jour: { label: "À jour", color: "bg-green-100 text-green-800" },
+  en_retard: { label: "En retard", color: "bg-red-100 text-red-800" },
+  bourseuse: { label: "Boursière", color: "bg-blue-100 text-blue-800" },
+  exoneree: { label: "Exonérée", color: "bg-purple-100 text-purple-800" },
 };
 
 export default function StudentDetailsPage() {
@@ -315,13 +315,21 @@ export default function StudentDetailsPage() {
   const [isStatusDialogOpen, setIsStatusDialogOpen] = useState(false);
   const [newStatus, setNewStatus] = useState(student.statut);
   const [statusComment, setStatusComment] = useState("");
-  
+
   const { toast } = useToast();
 
   const calculateMoyenne = () => {
-    const totalPoints = notes.reduce((sum, note) => sum + (note.note * note.coefficient), 0);
-    const totalCoefficients = notes.reduce((sum, note) => sum + note.coefficient, 0);
-    return totalCoefficients > 0 ? (totalPoints / totalCoefficients).toFixed(2) : "0";
+    const totalPoints = notes.reduce(
+      (sum, note) => sum + note.note * note.coefficient,
+      0,
+    );
+    const totalCoefficients = notes.reduce(
+      (sum, note) => sum + note.coefficient,
+      0,
+    );
+    return totalCoefficients > 0
+      ? (totalPoints / totalCoefficients).toFixed(2)
+      : "0";
   };
 
   const handleDownloadBulletin = () => {
@@ -375,7 +383,10 @@ export default function StudentDetailsPage() {
               <Download className="h-4 w-4 mr-2" />
               Bulletin
             </Button>
-            <Dialog open={isStatusDialogOpen} onOpenChange={setIsStatusDialogOpen}>
+            <Dialog
+              open={isStatusDialogOpen}
+              onOpenChange={setIsStatusDialogOpen}
+            >
               <DialogTrigger asChild>
                 <Button variant="outline">
                   <UserCheck className="h-4 w-4 mr-2" />
@@ -397,11 +408,13 @@ export default function StudentDetailsPage() {
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
-                        {Object.entries(statutLabels).map(([value, { label }]) => (
-                          <SelectItem key={value} value={value}>
-                            {label}
-                          </SelectItem>
-                        ))}
+                        {Object.entries(statutLabels).map(
+                          ([value, { label }]) => (
+                            <SelectItem key={value} value={value}>
+                              {label}
+                            </SelectItem>
+                          ),
+                        )}
                       </SelectContent>
                     </Select>
                   </div>
@@ -416,7 +429,10 @@ export default function StudentDetailsPage() {
                   </div>
                 </div>
                 <DialogFooter>
-                  <Button variant="outline" onClick={() => setIsStatusDialogOpen(false)}>
+                  <Button
+                    variant="outline"
+                    onClick={() => setIsStatusDialogOpen(false)}
+                  >
                     Annuler
                   </Button>
                   <Button onClick={handleStatusChange}>
@@ -443,20 +459,32 @@ export default function StudentDetailsPage() {
             </CardHeader>
             <CardContent className="space-y-3">
               <div>
-                <Label className="text-sm font-medium text-muted-foreground">Nom complet</Label>
-                <p className="text-sm">{student.prenom} {student.nom}</p>
+                <Label className="text-sm font-medium text-muted-foreground">
+                  Nom complet
+                </Label>
+                <p className="text-sm">
+                  {student.prenom} {student.nom}
+                </p>
               </div>
               <div>
-                <Label className="text-sm font-medium text-muted-foreground">Email</Label>
+                <Label className="text-sm font-medium text-muted-foreground">
+                  Email
+                </Label>
                 <p className="text-sm">{student.email}</p>
               </div>
               <div>
-                <Label className="text-sm font-medium text-muted-foreground">Téléphone</Label>
+                <Label className="text-sm font-medium text-muted-foreground">
+                  Téléphone
+                </Label>
                 <p className="text-sm">{student.telephone}</p>
               </div>
               <div>
-                <Label className="text-sm font-medium text-muted-foreground">Date de naissance</Label>
-                <p className="text-sm">{new Date(student.dateNaissance).toLocaleDateString('fr-FR')}</p>
+                <Label className="text-sm font-medium text-muted-foreground">
+                  Date de naissance
+                </Label>
+                <p className="text-sm">
+                  {new Date(student.dateNaissance).toLocaleDateString("fr-FR")}
+                </p>
               </div>
             </CardContent>
           </Card>
@@ -470,22 +498,32 @@ export default function StudentDetailsPage() {
             </CardHeader>
             <CardContent className="space-y-3">
               <div>
-                <Label className="text-sm font-medium text-muted-foreground">Filière</Label>
+                <Label className="text-sm font-medium text-muted-foreground">
+                  Filière
+                </Label>
                 <p className="text-sm">{student.filiere}</p>
               </div>
               <div>
-                <Label className="text-sm font-medium text-muted-foreground">Niveau</Label>
+                <Label className="text-sm font-medium text-muted-foreground">
+                  Niveau
+                </Label>
                 <p className="text-sm">{student.niveau}</p>
               </div>
               <div>
-                <Label className="text-sm font-medium text-muted-foreground">Statut</Label>
+                <Label className="text-sm font-medium text-muted-foreground">
+                  Statut
+                </Label>
                 <Badge className={statutLabels[student.statut].color}>
                   {statutLabels[student.statut].label}
                 </Badge>
               </div>
               <div>
-                <Label className="text-sm font-medium text-muted-foreground">Moyenne générale</Label>
-                <p className="text-lg font-bold text-blue-600">{calculateMoyenne()}/20</p>
+                <Label className="text-sm font-medium text-muted-foreground">
+                  Moyenne générale
+                </Label>
+                <p className="text-lg font-bold text-blue-600">
+                  {calculateMoyenne()}/20
+                </p>
               </div>
             </CardContent>
           </Card>
@@ -499,25 +537,41 @@ export default function StudentDetailsPage() {
             </CardHeader>
             <CardContent className="space-y-3">
               <div>
-                <Label className="text-sm font-medium text-muted-foreground">Montant payé</Label>
+                <Label className="text-sm font-medium text-muted-foreground">
+                  Montant payé
+                </Label>
                 <p className="text-sm">{student.montantPaye}€</p>
               </div>
               <div>
-                <Label className="text-sm font-medium text-muted-foreground">Montant dû</Label>
-                <p className="text-sm text-red-600 font-medium">{student.montantDu}€</p>
+                <Label className="text-sm font-medium text-muted-foreground">
+                  Montant dû
+                </Label>
+                <p className="text-sm text-red-600 font-medium">
+                  {student.montantDu}€
+                </p>
               </div>
               <div>
-                <Label className="text-sm font-medium text-muted-foreground">Statut financier</Label>
-                <Badge className={statutFinancierLabels[student.statutFinancier].color}>
+                <Label className="text-sm font-medium text-muted-foreground">
+                  Statut financier
+                </Label>
+                <Badge
+                  className={
+                    statutFinancierLabels[student.statutFinancier].color
+                  }
+                >
                   {statutFinancierLabels[student.statutFinancier].label}
                 </Badge>
               </div>
               <div>
-                <Label className="text-sm font-medium text-muted-foreground">Progression</Label>
+                <Label className="text-sm font-medium text-muted-foreground">
+                  Progression
+                </Label>
                 <div className="w-full bg-gray-200 rounded-full h-2">
                   <div
                     className="bg-blue-600 h-2 rounded-full"
-                    style={{ width: `${(student.montantPaye / (student.montantPaye + student.montantDu)) * 100}%` }}
+                    style={{
+                      width: `${(student.montantPaye / (student.montantPaye + student.montantDu)) * 100}%`,
+                    }}
                   ></div>
                 </div>
               </div>
@@ -545,45 +599,75 @@ export default function StudentDetailsPage() {
                 <div className="grid grid-cols-2 gap-6">
                   <div className="space-y-4">
                     <div>
-                      <Label className="text-sm font-medium text-muted-foreground">Numéro étudiant</Label>
+                      <Label className="text-sm font-medium text-muted-foreground">
+                        Numéro étudiant
+                      </Label>
                       <p className="text-sm">{student.numeroEtudiant}</p>
                     </div>
                     <div>
-                      <Label className="text-sm font-medium text-muted-foreground">Date de naissance</Label>
-                      <p className="text-sm">{new Date(student.dateNaissance).toLocaleDateString('fr-FR')}</p>
+                      <Label className="text-sm font-medium text-muted-foreground">
+                        Date de naissance
+                      </Label>
+                      <p className="text-sm">
+                        {new Date(student.dateNaissance).toLocaleDateString(
+                          "fr-FR",
+                        )}
+                      </p>
                     </div>
                     <div>
-                      <Label className="text-sm font-medium text-muted-foreground">Lieu de naissance</Label>
+                      <Label className="text-sm font-medium text-muted-foreground">
+                        Lieu de naissance
+                      </Label>
                       <p className="text-sm">{student.lieuNaissance}</p>
                     </div>
                     <div>
-                      <Label className="text-sm font-medium text-muted-foreground">Nationalité</Label>
+                      <Label className="text-sm font-medium text-muted-foreground">
+                        Nationalité
+                      </Label>
                       <p className="text-sm">{student.nationalite}</p>
                     </div>
                     <div>
-                      <Label className="text-sm font-medium text-muted-foreground">Sexe</Label>
-                      <p className="text-sm">{student.sexe === "M" ? "Masculin" : "Féminin"}</p>
+                      <Label className="text-sm font-medium text-muted-foreground">
+                        Sexe
+                      </Label>
+                      <p className="text-sm">
+                        {student.sexe === "M" ? "Masculin" : "Féminin"}
+                      </p>
                     </div>
                   </div>
                   <div className="space-y-4">
                     <div>
-                      <Label className="text-sm font-medium text-muted-foreground">Promotion</Label>
+                      <Label className="text-sm font-medium text-muted-foreground">
+                        Promotion
+                      </Label>
                       <p className="text-sm">{student.promotion}</p>
                     </div>
                     <div>
-                      <Label className="text-sm font-medium text-muted-foreground">Date d'inscription</Label>
-                      <p className="text-sm">{new Date(student.dateInscription).toLocaleDateString('fr-FR')}</p>
+                      <Label className="text-sm font-medium text-muted-foreground">
+                        Date d'inscription
+                      </Label>
+                      <p className="text-sm">
+                        {new Date(student.dateInscription).toLocaleDateString(
+                          "fr-FR",
+                        )}
+                      </p>
                     </div>
                     <div>
-                      <Label className="text-sm font-medium text-muted-foreground">Adresse</Label>
+                      <Label className="text-sm font-medium text-muted-foreground">
+                        Adresse
+                      </Label>
                       <p className="text-sm">{student.adresse}</p>
                     </div>
                     <div>
-                      <Label className="text-sm font-medium text-muted-foreground">Email</Label>
+                      <Label className="text-sm font-medium text-muted-foreground">
+                        Email
+                      </Label>
                       <p className="text-sm">{student.email}</p>
                     </div>
                     <div>
-                      <Label className="text-sm font-medium text-muted-foreground">Téléphone</Label>
+                      <Label className="text-sm font-medium text-muted-foreground">
+                        Téléphone
+                      </Label>
                       <p className="text-sm">{student.telephone}</p>
                     </div>
                   </div>
@@ -618,16 +702,24 @@ export default function StudentDetailsPage() {
                   <TableBody>
                     {notes.map((note) => (
                       <TableRow key={note.id}>
-                        <TableCell className="font-medium">{note.matiere}</TableCell>
+                        <TableCell className="font-medium">
+                          {note.matiere}
+                        </TableCell>
                         <TableCell>{note.semestre}</TableCell>
                         <TableCell>
-                          <Badge variant={note.note >= 10 ? "default" : "destructive"}>
+                          <Badge
+                            variant={
+                              note.note >= 10 ? "default" : "destructive"
+                            }
+                          >
                             {note.note}/20
                           </Badge>
                         </TableCell>
                         <TableCell>{note.coefficient}</TableCell>
                         <TableCell>{note.type}</TableCell>
-                        <TableCell>{new Date(note.date).toLocaleDateString('fr-FR')}</TableCell>
+                        <TableCell>
+                          {new Date(note.date).toLocaleDateString("fr-FR")}
+                        </TableCell>
                         <TableCell>{note.enseignant}</TableCell>
                       </TableRow>
                     ))}
@@ -659,18 +751,25 @@ export default function StudentDetailsPage() {
                       <TableRow key={doc.id}>
                         <TableCell className="font-medium">{doc.nom}</TableCell>
                         <TableCell>{doc.type}</TableCell>
-                        <TableCell>{new Date(doc.dateUpload).toLocaleDateString('fr-FR')}</TableCell>
+                        <TableCell>
+                          {new Date(doc.dateUpload).toLocaleDateString("fr-FR")}
+                        </TableCell>
                         <TableCell>{doc.taille}</TableCell>
                         <TableCell>
-                          <Badge 
+                          <Badge
                             className={
-                              doc.statut === "valide" ? "bg-green-100 text-green-800" :
-                              doc.statut === "en_attente" ? "bg-yellow-100 text-yellow-800" :
-                              "bg-red-100 text-red-800"
+                              doc.statut === "valide"
+                                ? "bg-green-100 text-green-800"
+                                : doc.statut === "en_attente"
+                                  ? "bg-yellow-100 text-yellow-800"
+                                  : "bg-red-100 text-red-800"
                             }
                           >
-                            {doc.statut === "valide" ? "Validé" : 
-                             doc.statut === "en_attente" ? "En attente" : "Rejeté"}
+                            {doc.statut === "valide"
+                              ? "Validé"
+                              : doc.statut === "en_attente"
+                                ? "En attente"
+                                : "Rejeté"}
                           </Badge>
                         </TableCell>
                         <TableCell>
@@ -700,24 +799,35 @@ export default function StudentDetailsPage() {
                 <CardContent className="space-y-4">
                   <div className="flex justify-between">
                     <span>Frais d'inscription:</span>
-                    <span className="font-medium">{student.fraisInscription}€</span>
+                    <span className="font-medium">
+                      {student.fraisInscription}€
+                    </span>
                   </div>
                   <div className="flex justify-between">
                     <span>Frais de scolarité:</span>
-                    <span className="font-medium">{student.fraisScolarite}€</span>
+                    <span className="font-medium">
+                      {student.fraisScolarite}€
+                    </span>
                   </div>
                   <div className="flex justify-between">
                     <span>Total dû:</span>
-                    <span className="font-medium">{student.fraisInscription + student.fraisScolarite}€</span>
+                    <span className="font-medium">
+                      {student.fraisInscription + student.fraisScolarite}€
+                    </span>
                   </div>
                   <div className="flex justify-between">
                     <span>Montant payé:</span>
-                    <span className="font-medium text-green-600">{student.montantPaye}€</span>
+                    <span className="font-medium text-green-600">
+                      {student.montantPaye}€
+                    </span>
                   </div>
                   <div className="flex justify-between border-t pt-2">
                     <span className="font-medium">Solde:</span>
-                    <span className={`font-bold ${student.montantDu > 0 ? 'text-red-600' : 'text-green-600'}`}>
-                      {student.montantDu > 0 ? '-' : '+'}{Math.abs(student.montantDu)}€
+                    <span
+                      className={`font-bold ${student.montantDu > 0 ? "text-red-600" : "text-green-600"}`}
+                    >
+                      {student.montantDu > 0 ? "-" : "+"}
+                      {Math.abs(student.montantDu)}€
                     </span>
                   </div>
                 </CardContent>
@@ -728,17 +838,24 @@ export default function StudentDetailsPage() {
                   <CardTitle>Statut financier</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <Badge className={statutFinancierLabels[student.statutFinancier].color}>
+                  <Badge
+                    className={
+                      statutFinancierLabels[student.statutFinancier].color
+                    }
+                  >
                     {statutFinancierLabels[student.statutFinancier].label}
                   </Badge>
                   {student.statutFinancier === "en_retard" && (
                     <div className="mt-4 p-3 bg-red-50 rounded-lg">
                       <div className="flex items-center space-x-2">
                         <AlertTriangle className="h-4 w-4 text-red-600" />
-                        <span className="text-sm text-red-800">Paiement en retard</span>
+                        <span className="text-sm text-red-800">
+                          Paiement en retard
+                        </span>
                       </div>
                       <p className="text-sm text-red-600 mt-1">
-                        Un montant de {student.montantDu}€ est en attente de paiement.
+                        Un montant de {student.montantDu}€ est en attente de
+                        paiement.
                       </p>
                     </div>
                   )}
@@ -765,17 +882,29 @@ export default function StudentDetailsPage() {
                   <TableBody>
                     {paiements.map((paiement) => (
                       <TableRow key={paiement.id}>
-                        <TableCell>{new Date(paiement.datePaiement).toLocaleDateString('fr-FR')}</TableCell>
-                        <TableCell className="font-medium">{paiement.montant}€</TableCell>
-                        <TableCell>{paiement.methode}</TableCell>
-                        <TableCell className="font-mono text-sm">{paiement.reference}</TableCell>
-                        <TableCell className="capitalize">{paiement.type}</TableCell>
                         <TableCell>
-                          <Badge 
+                          {new Date(paiement.datePaiement).toLocaleDateString(
+                            "fr-FR",
+                          )}
+                        </TableCell>
+                        <TableCell className="font-medium">
+                          {paiement.montant}€
+                        </TableCell>
+                        <TableCell>{paiement.methode}</TableCell>
+                        <TableCell className="font-mono text-sm">
+                          {paiement.reference}
+                        </TableCell>
+                        <TableCell className="capitalize">
+                          {paiement.type}
+                        </TableCell>
+                        <TableCell>
+                          <Badge
                             className={
-                              paiement.statut === "valide" ? "bg-green-100 text-green-800" :
-                              paiement.statut === "en_attente" ? "bg-yellow-100 text-yellow-800" :
-                              "bg-red-100 text-red-800"
+                              paiement.statut === "valide"
+                                ? "bg-green-100 text-green-800"
+                                : paiement.statut === "en_attente"
+                                  ? "bg-yellow-100 text-yellow-800"
+                                  : "bg-red-100 text-red-800"
                             }
                           >
                             {paiement.statut}
@@ -797,23 +926,35 @@ export default function StudentDetailsPage() {
                 </CardHeader>
                 <CardContent className="space-y-3">
                   <div>
-                    <Label className="text-sm font-medium text-muted-foreground">Nom complet</Label>
-                    <p className="text-sm">{student.tuteur1.prenom} {student.tuteur1.nom}</p>
+                    <Label className="text-sm font-medium text-muted-foreground">
+                      Nom complet
+                    </Label>
+                    <p className="text-sm">
+                      {student.tuteur1.prenom} {student.tuteur1.nom}
+                    </p>
                   </div>
                   <div>
-                    <Label className="text-sm font-medium text-muted-foreground">Relation</Label>
+                    <Label className="text-sm font-medium text-muted-foreground">
+                      Relation
+                    </Label>
                     <p className="text-sm">{student.tuteur1.relation}</p>
                   </div>
                   <div>
-                    <Label className="text-sm font-medium text-muted-foreground">Profession</Label>
+                    <Label className="text-sm font-medium text-muted-foreground">
+                      Profession
+                    </Label>
                     <p className="text-sm">{student.tuteur1.profession}</p>
                   </div>
                   <div>
-                    <Label className="text-sm font-medium text-muted-foreground">Téléphone</Label>
+                    <Label className="text-sm font-medium text-muted-foreground">
+                      Téléphone
+                    </Label>
                     <p className="text-sm">{student.tuteur1.telephone}</p>
                   </div>
                   <div>
-                    <Label className="text-sm font-medium text-muted-foreground">Email</Label>
+                    <Label className="text-sm font-medium text-muted-foreground">
+                      Email
+                    </Label>
                     <p className="text-sm">{student.tuteur1.email}</p>
                   </div>
                 </CardContent>
@@ -826,23 +967,35 @@ export default function StudentDetailsPage() {
                   </CardHeader>
                   <CardContent className="space-y-3">
                     <div>
-                      <Label className="text-sm font-medium text-muted-foreground">Nom complet</Label>
-                      <p className="text-sm">{student.tuteur2.prenom} {student.tuteur2.nom}</p>
+                      <Label className="text-sm font-medium text-muted-foreground">
+                        Nom complet
+                      </Label>
+                      <p className="text-sm">
+                        {student.tuteur2.prenom} {student.tuteur2.nom}
+                      </p>
                     </div>
                     <div>
-                      <Label className="text-sm font-medium text-muted-foreground">Relation</Label>
+                      <Label className="text-sm font-medium text-muted-foreground">
+                        Relation
+                      </Label>
                       <p className="text-sm">{student.tuteur2.relation}</p>
                     </div>
                     <div>
-                      <Label className="text-sm font-medium text-muted-foreground">Profession</Label>
+                      <Label className="text-sm font-medium text-muted-foreground">
+                        Profession
+                      </Label>
                       <p className="text-sm">{student.tuteur2.profession}</p>
                     </div>
                     <div>
-                      <Label className="text-sm font-medium text-muted-foreground">Téléphone</Label>
+                      <Label className="text-sm font-medium text-muted-foreground">
+                        Téléphone
+                      </Label>
                       <p className="text-sm">{student.tuteur2.telephone}</p>
                     </div>
                     <div>
-                      <Label className="text-sm font-medium text-muted-foreground">Email</Label>
+                      <Label className="text-sm font-medium text-muted-foreground">
+                        Email
+                      </Label>
                       <p className="text-sm">{student.tuteur2.email}</p>
                     </div>
                   </CardContent>
@@ -862,28 +1015,37 @@ export default function StudentDetailsPage() {
                     <CheckCircle className="h-5 w-5 text-green-600" />
                     <div className="flex-1">
                       <p className="text-sm font-medium">Inscription validée</p>
-                      <p className="text-xs text-muted-foreground">01/09/2023 - Par Pierre Dubois</p>
+                      <p className="text-xs text-muted-foreground">
+                        01/09/2023 - Par Pierre Dubois
+                      </p>
                     </div>
                   </div>
                   <div className="flex items-center space-x-3 p-3 border rounded-lg">
                     <FileText className="h-5 w-5 text-blue-600" />
                     <div className="flex-1">
                       <p className="text-sm font-medium">Documents soumis</p>
-                      <p className="text-xs text-muted-foreground">01/09/2023 - Diplôme baccalauréat et certificat de naissance</p>
+                      <p className="text-xs text-muted-foreground">
+                        01/09/2023 - Diplôme baccalauréat et certificat de
+                        naissance
+                      </p>
                     </div>
                   </div>
                   <div className="flex items-center space-x-3 p-3 border rounded-lg">
                     <CreditCard className="h-5 w-5 text-green-600" />
                     <div className="flex-1">
                       <p className="text-sm font-medium">Paiement reçu</p>
-                      <p className="text-xs text-muted-foreground">15/10/2023 - 1500€ par chèque</p>
+                      <p className="text-xs text-muted-foreground">
+                        15/10/2023 - 1500€ par chèque
+                      </p>
                     </div>
                   </div>
                   <div className="flex items-center space-x-3 p-3 border rounded-lg">
                     <AlertTriangle className="h-5 w-5 text-yellow-600" />
                     <div className="flex-1">
                       <p className="text-sm font-medium">Document rejeté</p>
-                      <p className="text-xs text-muted-foreground">05/09/2023 - Photo d'identité: qualité insuffisante</p>
+                      <p className="text-xs text-muted-foreground">
+                        05/09/2023 - Photo d'identité: qualité insuffisante
+                      </p>
                     </div>
                   </div>
                 </div>
