@@ -244,7 +244,7 @@ const typeInterventionLabels = {
 
 export default function CourseAssignment() {
   const { toast } = useToast();
-  
+
   const [ues, setUes] = useState<UE[]>(mockUEs);
   const [teachers, setTeachers] = useState<Teacher[]>(mockTeachers);
   const [assignments, setAssignments] = useState<Assignment[]>(mockAssignments);
@@ -258,37 +258,47 @@ export default function CourseAssignment() {
     heuresAssignees: "",
   });
 
-  const filteredUEs = ues.filter((ue) =>
-    ue.nom.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    ue.code.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    ue.filiere.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredUEs = ues.filter(
+    (ue) =>
+      ue.nom.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      ue.code.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      ue.filiere.toLowerCase().includes(searchTerm.toLowerCase()),
   );
 
   const getUEAssignments = (ueId: string) => {
-    return assignments.filter(a => a.ueId === ueId);
+    return assignments.filter((a) => a.ueId === ueId);
   };
 
   const getTeacherInfo = (teacherId: string) => {
-    return teachers.find(t => t.id === teacherId);
+    return teachers.find((t) => t.id === teacherId);
   };
 
   const getUEInfo = (ueId: string) => {
-    return ues.find(ue => ue.id === ueId);
+    return ues.find((ue) => ue.id === ueId);
   };
 
   const getTotalAssignedHours = (ueId: string) => {
     return assignments
-      .filter(a => a.ueId === ueId)
+      .filter((a) => a.ueId === ueId)
       .reduce((total, a) => total + a.heuresAssignees, 0);
   };
 
   const getResponsableForUE = (ueId: string) => {
-    const responsableAssignment = assignments.find(a => a.ueId === ueId && a.role === "responsable");
-    return responsableAssignment ? getTeacherInfo(responsableAssignment.teacherId) : null;
+    const responsableAssignment = assignments.find(
+      (a) => a.ueId === ueId && a.role === "responsable",
+    );
+    return responsableAssignment
+      ? getTeacherInfo(responsableAssignment.teacherId)
+      : null;
   };
 
   const handleAssignTeacher = () => {
-    if (!selectedUE || !newAssignment.teacherId || !newAssignment.typeIntervention || !newAssignment.heuresAssignees) {
+    if (
+      !selectedUE ||
+      !newAssignment.teacherId ||
+      !newAssignment.typeIntervention ||
+      !newAssignment.heuresAssignees
+    ) {
       toast({
         title: "Erreur",
         description: "Veuillez remplir tous les champs obligatoires.",
@@ -299,7 +309,7 @@ export default function CourseAssignment() {
 
     // Check if teacher is already assigned as responsable
     const existingResponsable = assignments.find(
-      a => a.ueId === selectedUE.id && a.role === "responsable"
+      (a) => a.ueId === selectedUE.id && a.role === "responsable",
     );
 
     if (newAssignment.role === "responsable" && existingResponsable) {
@@ -313,7 +323,8 @@ export default function CourseAssignment() {
 
     // Check if teacher is already assigned to this UE
     const existingAssignment = assignments.find(
-      a => a.ueId === selectedUE.id && a.teacherId === newAssignment.teacherId
+      (a) =>
+        a.ueId === selectedUE.id && a.teacherId === newAssignment.teacherId,
     );
 
     if (existingAssignment) {
@@ -337,11 +348,18 @@ export default function CourseAssignment() {
     setAssignments([...assignments, assignment]);
 
     // Update teacher's assigned hours
-    setTeachers(prev => prev.map(teacher => 
-      teacher.id === newAssignment.teacherId
-        ? { ...teacher, heuresAssignees: teacher.heuresAssignees + parseInt(newAssignment.heuresAssignees) }
-        : teacher
-    ));
+    setTeachers((prev) =>
+      prev.map((teacher) =>
+        teacher.id === newAssignment.teacherId
+          ? {
+              ...teacher,
+              heuresAssignees:
+                teacher.heuresAssignees +
+                parseInt(newAssignment.heuresAssignees),
+            }
+          : teacher,
+      ),
+    );
 
     toast({
       title: "Assignation créée",
@@ -360,17 +378,23 @@ export default function CourseAssignment() {
   };
 
   const handleRemoveAssignment = (assignmentId: string) => {
-    const assignment = assignments.find(a => a.id === assignmentId);
+    const assignment = assignments.find((a) => a.id === assignmentId);
     if (!assignment) return;
 
-    setAssignments(prev => prev.filter(a => a.id !== assignmentId));
+    setAssignments((prev) => prev.filter((a) => a.id !== assignmentId));
 
     // Update teacher's assigned hours
-    setTeachers(prev => prev.map(teacher => 
-      teacher.id === assignment.teacherId
-        ? { ...teacher, heuresAssignees: teacher.heuresAssignees - assignment.heuresAssignees }
-        : teacher
-    ));
+    setTeachers((prev) =>
+      prev.map((teacher) =>
+        teacher.id === assignment.teacherId
+          ? {
+              ...teacher,
+              heuresAssignees:
+                teacher.heuresAssignees - assignment.heuresAssignees,
+            }
+          : teacher,
+      ),
+    );
 
     toast({
       title: "Assignation supprimée",
@@ -378,14 +402,18 @@ export default function CourseAssignment() {
     });
   };
 
-  const getTeacherWorkload = (teacherId: string): { current: number; max: number; percentage: number } => {
-    const teacher = teachers.find(t => t.id === teacherId);
+  const getTeacherWorkload = (
+    teacherId: string,
+  ): { current: number; max: number; percentage: number } => {
+    const teacher = teachers.find((t) => t.id === teacherId);
     if (!teacher) return { current: 0, max: 0, percentage: 0 };
-    
+
     return {
       current: teacher.heuresAssignees,
       max: teacher.maxHeures,
-      percentage: Math.round((teacher.heuresAssignees / teacher.maxHeures) * 100),
+      percentage: Math.round(
+        (teacher.heuresAssignees / teacher.maxHeures) * 100,
+      ),
     };
   };
 
@@ -395,7 +423,9 @@ export default function CourseAssignment() {
         {/* Header */}
         <div className="flex justify-between items-center">
           <div>
-            <h2 className="text-3xl font-bold tracking-tight">Assignation des UE</h2>
+            <h2 className="text-3xl font-bold tracking-tight">
+              Assignation des UE
+            </h2>
             <p className="text-muted-foreground">
               Gestion de l'assignation des unités d'enseignement aux enseignants
             </p>
@@ -411,7 +441,9 @@ export default function CourseAssignment() {
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{ues.length}</div>
-              <p className="text-xs text-muted-foreground">Unités d'enseignement</p>
+              <p className="text-xs text-muted-foreground">
+                Unités d'enseignement
+              </p>
             </CardContent>
           </Card>
           <Card>
@@ -422,30 +454,37 @@ export default function CourseAssignment() {
             <CardContent>
               <div className="text-2xl font-bold">{teachers.length}</div>
               <p className="text-xs text-muted-foreground">
-                {teachers.filter(t => t.statut === "permanent").length} permanents, {teachers.filter(t => t.statut === "vacataire").length} vacataires
+                {teachers.filter((t) => t.statut === "permanent").length}{" "}
+                permanents,{" "}
+                {teachers.filter((t) => t.statut === "vacataire").length}{" "}
+                vacataires
               </p>
             </CardContent>
           </Card>
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">UE assignées</CardTitle>
+              <CardTitle className="text-sm font-medium">
+                UE assignées
+              </CardTitle>
               <CheckCircle className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">
-                {ues.filter(ue => getResponsableForUE(ue.id)).length}
+                {ues.filter((ue) => getResponsableForUE(ue.id)).length}
               </div>
               <p className="text-xs text-muted-foreground">Avec responsable</p>
             </CardContent>
           </Card>
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">UE sans responsable</CardTitle>
+              <CardTitle className="text-sm font-medium">
+                UE sans responsable
+              </CardTitle>
               <AlertTriangle className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">
-                {ues.filter(ue => !getResponsableForUE(ue.id)).length}
+                {ues.filter((ue) => !getResponsableForUE(ue.id)).length}
               </div>
               <p className="text-xs text-muted-foreground">À assigner</p>
             </CardContent>
@@ -468,7 +507,9 @@ export default function CourseAssignment() {
           <TabsList>
             <TabsTrigger value="ues">Unités d'Enseignement</TabsTrigger>
             <TabsTrigger value="teachers">Charge Enseignants</TabsTrigger>
-            <TabsTrigger value="assignments">Toutes les Assignations</TabsTrigger>
+            <TabsTrigger value="assignments">
+              Toutes les Assignations
+            </TabsTrigger>
           </TabsList>
 
           <TabsContent value="ues" className="space-y-4">
@@ -476,7 +517,8 @@ export default function CourseAssignment() {
               <CardHeader>
                 <CardTitle>Gestion des assignations par UE</CardTitle>
                 <CardDescription>
-                  Assignez les enseignants responsables et intervenants pour chaque UE
+                  Assignez les enseignants responsables et intervenants pour
+                  chaque UE
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -496,29 +538,37 @@ export default function CourseAssignment() {
                     {filteredUEs.map((ue) => {
                       const ueAssignments = getUEAssignments(ue.id);
                       const responsable = getResponsableForUE(ue.id);
-                      const intervenants = ueAssignments.filter(a => a.role === "intervenant");
+                      const intervenants = ueAssignments.filter(
+                        (a) => a.role === "intervenant",
+                      );
                       const totalAssigned = getTotalAssignedHours(ue.id);
-                      const isFullyAssigned = totalAssigned >= ue.heuresCoursTotal;
+                      const isFullyAssigned =
+                        totalAssigned >= ue.heuresCoursTotal;
 
                       return (
                         <TableRow key={ue.id}>
                           <TableCell>
                             <div>
                               <div className="font-medium">{ue.code}</div>
-                              <div className="text-sm text-muted-foreground">{ue.nom}</div>
+                              <div className="text-sm text-muted-foreground">
+                                {ue.nom}
+                              </div>
                             </div>
                           </TableCell>
                           <TableCell>
                             <div>
                               <div className="font-medium">{ue.filiere}</div>
-                              <div className="text-sm text-muted-foreground">{ue.niveau} - {ue.semestre}</div>
+                              <div className="text-sm text-muted-foreground">
+                                {ue.niveau} - {ue.semestre}
+                              </div>
                             </div>
                           </TableCell>
                           <TableCell>
                             <div className="text-sm">
                               <div>Total: {ue.heuresCoursTotal}h</div>
                               <div className="text-muted-foreground">
-                                CM: {ue.heuresCM}h | TD: {ue.heuresTD}h | TP: {ue.heuresTP}h
+                                CM: {ue.heuresCM}h | TD: {ue.heuresTD}h | TP:{" "}
+                                {ue.heuresTP}h
                               </div>
                             </div>
                           </TableCell>
@@ -538,10 +588,18 @@ export default function CourseAssignment() {
                           <TableCell>
                             <div className="space-y-1">
                               {intervenants.map((assignment) => {
-                                const teacher = getTeacherInfo(assignment.teacherId);
+                                const teacher = getTeacherInfo(
+                                  assignment.teacherId,
+                                );
                                 return teacher ? (
-                                  <div key={assignment.id} className="flex items-center justify-between">
-                                    <Badge className={roleLabels.intervenant.color} size="sm">
+                                  <div
+                                    key={assignment.id}
+                                    className="flex items-center justify-between"
+                                  >
+                                    <Badge
+                                      className={roleLabels.intervenant.color}
+                                      size="sm"
+                                    >
                                       {teacher.prenom} {teacher.nom}
                                     </Badge>
                                     <div className="text-xs text-muted-foreground ml-2">
@@ -551,13 +609,17 @@ export default function CourseAssignment() {
                                 ) : null;
                               })}
                               {intervenants.length === 0 && (
-                                <span className="text-sm text-muted-foreground">Aucun</span>
+                                <span className="text-sm text-muted-foreground">
+                                  Aucun
+                                </span>
                               )}
                             </div>
                           </TableCell>
                           <TableCell>
                             <div className="flex items-center space-x-2">
-                              <span className={`font-medium ${isFullyAssigned ? "text-green-600" : "text-orange-600"}`}>
+                              <span
+                                className={`font-medium ${isFullyAssigned ? "text-green-600" : "text-orange-600"}`}
+                              >
                                 {totalAssigned}h / {ue.heuresCoursTotal}h
                               </span>
                               {isFullyAssigned ? (
@@ -612,21 +674,37 @@ export default function CourseAssignment() {
                   <TableBody>
                     {teachers.map((teacher) => {
                       const workload = getTeacherWorkload(teacher.id);
-                      const teacherAssignments = assignments.filter(a => a.teacherId === teacher.id);
-                      const uniqueUEs = new Set(teacherAssignments.map(a => a.ueId));
+                      const teacherAssignments = assignments.filter(
+                        (a) => a.teacherId === teacher.id,
+                      );
+                      const uniqueUEs = new Set(
+                        teacherAssignments.map((a) => a.ueId),
+                      );
 
                       return (
                         <TableRow key={teacher.id}>
                           <TableCell>
                             <div>
-                              <div className="font-medium">{teacher.prenom} {teacher.nom}</div>
-                              <div className="text-sm text-muted-foreground">{teacher.email}</div>
+                              <div className="font-medium">
+                                {teacher.prenom} {teacher.nom}
+                              </div>
+                              <div className="text-sm text-muted-foreground">
+                                {teacher.email}
+                              </div>
                             </div>
                           </TableCell>
                           <TableCell>{teacher.specialite}</TableCell>
                           <TableCell>
-                            <Badge variant={teacher.statut === "permanent" ? "default" : "outline"}>
-                              {teacher.statut === "permanent" ? "Permanent" : "Vacataire"}
+                            <Badge
+                              variant={
+                                teacher.statut === "permanent"
+                                  ? "default"
+                                  : "outline"
+                              }
+                            >
+                              {teacher.statut === "permanent"
+                                ? "Permanent"
+                                : "Vacataire"}
                             </Badge>
                           </TableCell>
                           <TableCell>
@@ -643,18 +721,30 @@ export default function CourseAssignment() {
                             <div className="space-y-1">
                               {Array.from(uniqueUEs).map((ueId) => {
                                 const ue = getUEInfo(ueId);
-                                const assignment = teacherAssignments.find(a => a.ueId === ueId);
+                                const assignment = teacherAssignments.find(
+                                  (a) => a.ueId === ueId,
+                                );
                                 return ue && assignment ? (
-                                  <div key={ueId} className="flex items-center justify-between">
+                                  <div
+                                    key={ueId}
+                                    className="flex items-center justify-between"
+                                  >
                                     <span className="text-sm">{ue.code}</span>
-                                    <Badge className={roleLabels[assignment.role].color} size="sm">
+                                    <Badge
+                                      className={
+                                        roleLabels[assignment.role].color
+                                      }
+                                      size="sm"
+                                    >
                                       {roleLabels[assignment.role].label}
                                     </Badge>
                                   </div>
                                 ) : null;
                               })}
                               {uniqueUEs.size === 0 && (
-                                <span className="text-sm text-muted-foreground">Aucune UE</span>
+                                <span className="text-sm text-muted-foreground">
+                                  Aucune UE
+                                </span>
                               )}
                             </div>
                           </TableCell>
@@ -662,11 +752,15 @@ export default function CourseAssignment() {
                             <div className="w-full bg-gray-200 rounded-full h-2">
                               <div
                                 className={`h-2 rounded-full ${
-                                  workload.percentage >= 90 ? "bg-red-500" :
-                                  workload.percentage >= 70 ? "bg-orange-500" :
-                                  "bg-green-500"
+                                  workload.percentage >= 90
+                                    ? "bg-red-500"
+                                    : workload.percentage >= 70
+                                      ? "bg-orange-500"
+                                      : "bg-green-500"
                                 }`}
-                                style={{ width: `${Math.min(workload.percentage, 100)}%` }}
+                                style={{
+                                  width: `${Math.min(workload.percentage, 100)}%`,
+                                }}
                               ></div>
                             </div>
                           </TableCell>
@@ -710,25 +804,37 @@ export default function CourseAssignment() {
                             {ue && (
                               <div>
                                 <div className="font-medium">{ue.code}</div>
-                                <div className="text-sm text-muted-foreground">{ue.nom}</div>
+                                <div className="text-sm text-muted-foreground">
+                                  {ue.nom}
+                                </div>
                               </div>
                             )}
                           </TableCell>
                           <TableCell>
                             {teacher && (
                               <div>
-                                <div className="font-medium">{teacher.prenom} {teacher.nom}</div>
-                                <div className="text-sm text-muted-foreground">{teacher.specialite}</div>
+                                <div className="font-medium">
+                                  {teacher.prenom} {teacher.nom}
+                                </div>
+                                <div className="text-sm text-muted-foreground">
+                                  {teacher.specialite}
+                                </div>
                               </div>
                             )}
                           </TableCell>
                           <TableCell>
-                            <Badge className={roleLabels[assignment.role].color}>
+                            <Badge
+                              className={roleLabels[assignment.role].color}
+                            >
                               {roleLabels[assignment.role].label}
                             </Badge>
                           </TableCell>
                           <TableCell>
-                            {typeInterventionLabels[assignment.typeIntervention]}
+                            {
+                              typeInterventionLabels[
+                                assignment.typeIntervention
+                              ]
+                            }
                           </TableCell>
                           <TableCell>{assignment.heuresAssignees}h</TableCell>
                           <TableCell>
@@ -740,15 +846,21 @@ export default function CourseAssignment() {
                               </AlertDialogTrigger>
                               <AlertDialogContent>
                                 <AlertDialogHeader>
-                                  <AlertDialogTitle>Supprimer l'assignation</AlertDialogTitle>
+                                  <AlertDialogTitle>
+                                    Supprimer l'assignation
+                                  </AlertDialogTitle>
                                   <AlertDialogDescription>
-                                    Êtes-vous sûr de vouloir supprimer cette assignation ? Cette action ne peut pas être annulée.
+                                    Êtes-vous sûr de vouloir supprimer cette
+                                    assignation ? Cette action ne peut pas être
+                                    annulée.
                                   </AlertDialogDescription>
                                 </AlertDialogHeader>
                                 <AlertDialogFooter>
                                   <AlertDialogCancel>Annuler</AlertDialogCancel>
                                   <AlertDialogAction
-                                    onClick={() => handleRemoveAssignment(assignment.id)}
+                                    onClick={() =>
+                                      handleRemoveAssignment(assignment.id)
+                                    }
                                     className="bg-red-600 hover:bg-red-700"
                                   >
                                     Supprimer
@@ -773,7 +885,8 @@ export default function CourseAssignment() {
             <DialogHeader>
               <DialogTitle>Assigner un enseignant</DialogTitle>
               <DialogDescription>
-                {selectedUE && `Assignation pour l'UE ${selectedUE.code} - ${selectedUE.nom}`}
+                {selectedUE &&
+                  `Assignation pour l'UE ${selectedUE.code} - ${selectedUE.nom}`}
               </DialogDescription>
             </DialogHeader>
             {selectedUE && (
@@ -781,22 +894,30 @@ export default function CourseAssignment() {
                 <div className="p-4 bg-gray-50 rounded-lg">
                   <div className="grid grid-cols-3 gap-4 text-sm">
                     <div>
-                      <span className="font-medium">Volume total:</span> {selectedUE.heuresCoursTotal}h
+                      <span className="font-medium">Volume total:</span>{" "}
+                      {selectedUE.heuresCoursTotal}h
                     </div>
                     <div>
-                      <span className="font-medium">CM:</span> {selectedUE.heuresCM}h
+                      <span className="font-medium">CM:</span>{" "}
+                      {selectedUE.heuresCM}h
                     </div>
                     <div>
-                      <span className="font-medium">TD:</span> {selectedUE.heuresTD}h
+                      <span className="font-medium">TD:</span>{" "}
+                      {selectedUE.heuresTD}h
                     </div>
                     <div>
-                      <span className="font-medium">TP:</span> {selectedUE.heuresTP}h
+                      <span className="font-medium">TP:</span>{" "}
+                      {selectedUE.heuresTP}h
                     </div>
                     <div>
-                      <span className="font-medium">Assigné:</span> {getTotalAssignedHours(selectedUE.id)}h
+                      <span className="font-medium">Assigné:</span>{" "}
+                      {getTotalAssignedHours(selectedUE.id)}h
                     </div>
                     <div>
-                      <span className="font-medium">Restant:</span> {selectedUE.heuresCoursTotal - getTotalAssignedHours(selectedUE.id)}h
+                      <span className="font-medium">Restant:</span>{" "}
+                      {selectedUE.heuresCoursTotal -
+                        getTotalAssignedHours(selectedUE.id)}
+                      h
                     </div>
                   </div>
                 </div>
@@ -806,7 +927,9 @@ export default function CourseAssignment() {
                     <Label htmlFor="teacher">Enseignant</Label>
                     <Select
                       value={newAssignment.teacherId}
-                      onValueChange={(value) => setNewAssignment({...newAssignment, teacherId: value})}
+                      onValueChange={(value) =>
+                        setNewAssignment({ ...newAssignment, teacherId: value })
+                      }
                     >
                       <SelectTrigger>
                         <SelectValue placeholder="Sélectionner un enseignant" />
@@ -817,9 +940,12 @@ export default function CourseAssignment() {
                           return (
                             <SelectItem key={teacher.id} value={teacher.id}>
                               <div className="flex items-center justify-between w-full">
-                                <span>{teacher.prenom} {teacher.nom}</span>
+                                <span>
+                                  {teacher.prenom} {teacher.nom}
+                                </span>
                                 <span className="text-xs text-muted-foreground ml-4">
-                                  {workload.current}h/{workload.max}h ({workload.percentage}%)
+                                  {workload.current}h/{workload.max}h (
+                                  {workload.percentage}%)
                                 </span>
                               </div>
                             </SelectItem>
@@ -833,13 +959,20 @@ export default function CourseAssignment() {
                     <Label htmlFor="role">Rôle</Label>
                     <Select
                       value={newAssignment.role}
-                      onValueChange={(value) => setNewAssignment({...newAssignment, role: value as any})}
+                      onValueChange={(value) =>
+                        setNewAssignment({
+                          ...newAssignment,
+                          role: value as any,
+                        })
+                      }
                     >
                       <SelectTrigger>
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="responsable">Responsable UE</SelectItem>
+                        <SelectItem value="responsable">
+                          Responsable UE
+                        </SelectItem>
                         <SelectItem value="intervenant">Intervenant</SelectItem>
                       </SelectContent>
                     </Select>
@@ -849,19 +982,38 @@ export default function CourseAssignment() {
                     <Label htmlFor="type">Type d'intervention</Label>
                     <Select
                       value={newAssignment.typeIntervention}
-                      onValueChange={(value) => setNewAssignment({...newAssignment, typeIntervention: value as any})}
+                      onValueChange={(value) =>
+                        setNewAssignment({
+                          ...newAssignment,
+                          typeIntervention: value as any,
+                        })
+                      }
                     >
                       <SelectTrigger>
                         <SelectValue placeholder="Sélectionner le type" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="cm">Cours Magistral ({selectedUE.heuresCM}h)</SelectItem>
-                        <SelectItem value="td">Travaux Dirigés ({selectedUE.heuresTD}h)</SelectItem>
-                        <SelectItem value="tp">Travaux Pratiques ({selectedUE.heuresTP}h)</SelectItem>
-                        <SelectItem value="cm_td">CM + TD ({selectedUE.heuresCM + selectedUE.heuresTD}h)</SelectItem>
-                        <SelectItem value="cm_tp">CM + TP ({selectedUE.heuresCM + selectedUE.heuresTP}h)</SelectItem>
-                        <SelectItem value="td_tp">TD + TP ({selectedUE.heuresTD + selectedUE.heuresTP}h)</SelectItem>
-                        <SelectItem value="all">Tous types ({selectedUE.heuresCoursTotal}h)</SelectItem>
+                        <SelectItem value="cm">
+                          Cours Magistral ({selectedUE.heuresCM}h)
+                        </SelectItem>
+                        <SelectItem value="td">
+                          Travaux Dirigés ({selectedUE.heuresTD}h)
+                        </SelectItem>
+                        <SelectItem value="tp">
+                          Travaux Pratiques ({selectedUE.heuresTP}h)
+                        </SelectItem>
+                        <SelectItem value="cm_td">
+                          CM + TD ({selectedUE.heuresCM + selectedUE.heuresTD}h)
+                        </SelectItem>
+                        <SelectItem value="cm_tp">
+                          CM + TP ({selectedUE.heuresCM + selectedUE.heuresTP}h)
+                        </SelectItem>
+                        <SelectItem value="td_tp">
+                          TD + TP ({selectedUE.heuresTD + selectedUE.heuresTP}h)
+                        </SelectItem>
+                        <SelectItem value="all">
+                          Tous types ({selectedUE.heuresCoursTotal}h)
+                        </SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
@@ -872,25 +1024,43 @@ export default function CourseAssignment() {
                       id="hours"
                       type="number"
                       min="1"
-                      max={selectedUE.heuresCoursTotal - getTotalAssignedHours(selectedUE.id)}
+                      max={
+                        selectedUE.heuresCoursTotal -
+                        getTotalAssignedHours(selectedUE.id)
+                      }
                       placeholder="Nombre d'heures"
                       value={newAssignment.heuresAssignees}
-                      onChange={(e) => setNewAssignment({...newAssignment, heuresAssignees: e.target.value})}
+                      onChange={(e) =>
+                        setNewAssignment({
+                          ...newAssignment,
+                          heuresAssignees: e.target.value,
+                        })
+                      }
                     />
                   </div>
                 </div>
 
                 {/* Current assignments for this UE */}
                 <div className="border-t pt-4">
-                  <h4 className="font-medium mb-2">Assignations actuelles pour cette UE :</h4>
+                  <h4 className="font-medium mb-2">
+                    Assignations actuelles pour cette UE :
+                  </h4>
                   <div className="space-y-2">
                     {getUEAssignments(selectedUE.id).map((assignment) => {
                       const teacher = getTeacherInfo(assignment.teacherId);
                       return teacher ? (
-                        <div key={assignment.id} className="flex items-center justify-between text-sm">
-                          <span>{teacher.prenom} {teacher.nom}</span>
+                        <div
+                          key={assignment.id}
+                          className="flex items-center justify-between text-sm"
+                        >
+                          <span>
+                            {teacher.prenom} {teacher.nom}
+                          </span>
                           <div className="flex items-center space-x-2">
-                            <Badge className={roleLabels[assignment.role].color} size="sm">
+                            <Badge
+                              className={roleLabels[assignment.role].color}
+                              size="sm"
+                            >
                               {roleLabels[assignment.role].label}
                             </Badge>
                             <span>{assignment.heuresAssignees}h</span>
@@ -899,14 +1069,19 @@ export default function CourseAssignment() {
                       ) : null;
                     })}
                     {getUEAssignments(selectedUE.id).length === 0 && (
-                      <span className="text-sm text-muted-foreground">Aucune assignation</span>
+                      <span className="text-sm text-muted-foreground">
+                        Aucune assignation
+                      </span>
                     )}
                   </div>
                 </div>
               </div>
             )}
             <DialogFooter>
-              <Button variant="outline" onClick={() => setIsAssignDialogOpen(false)}>
+              <Button
+                variant="outline"
+                onClick={() => setIsAssignDialogOpen(false)}
+              >
                 Annuler
               </Button>
               <Button onClick={handleAssignTeacher}>
