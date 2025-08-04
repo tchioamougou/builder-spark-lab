@@ -30,6 +30,7 @@ import StudentMessages from "./pages/StudentMessages";
 import TeacherDashboard from "./pages/TeacherDashboard";
 import TeacherStudents from "./pages/TeacherStudents";
 import TeacherGrades from "./pages/TeacherGrades";
+import TeacherGradeEntry from "./pages/TeacherGradeEntry";
 import TeacherSchedule from "./pages/TeacherSchedule";
 import TeacherCourses from "./pages/TeacherCourses";
 import TeacherDocuments from "./pages/TeacherDocuments";
