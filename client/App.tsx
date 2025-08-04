@@ -28,6 +28,7 @@ import StudentSchedule from "./pages/StudentSchedule";
 import StudentRequests from "./pages/StudentRequests";
 import StudentMessages from "./pages/StudentMessages";
 import TeacherDashboard from "./pages/TeacherDashboard";
+import TeacherStudents from "./pages/TeacherStudents";
 import UserManagement from "./pages/UserManagement";
 import StudentDetails from "./pages/StudentDetails";
 import RoleManagement from "./pages/RoleManagement";
