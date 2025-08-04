@@ -949,7 +949,13 @@ export default function ProgramsPage() {
           <TabsContent value="maquettes" className="space-y-4">
             <div className="flex justify-between items-center mb-4">
               <h3 className="text-lg font-semibold">Maquettes de formation</h3>
-              <Button className="bg-blue-600 hover:bg-blue-700">
+              <Button
+                className="bg-blue-600 hover:bg-blue-700"
+                onClick={() => {
+                  setSelectedFiliereForActions("1"); // Default to first filiere for demo
+                  setIsAddMaquetteOpen(true);
+                }}
+              >
                 <Plus className="h-4 w-4 mr-2" />
                 Ajouter une maquette
               </Button>
