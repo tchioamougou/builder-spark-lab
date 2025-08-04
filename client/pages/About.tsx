@@ -22,12 +22,10 @@ const About: React.FC = () => {
           <div className="absolute inset-0 bg-black/60"></div>
           <div className="container mx-auto px-4 relative z-10 text-center">
             <h1 className="heading-font text-4xl md:text-6xl font-bold mb-6">
-              {t('about.title').split(' ').map((word, index) =>
-                word === 'EPFPS' ? <span key={index} className="text-[#ff9900]">{word}</span> : word + ' '
-              )}
+              À propos de l'<span className="text-[#ff9900]">EPFPS</span>
             </h1>
             <p className="text-xl md:text-2xl text-gray-200 max-w-3xl mx-auto leading-relaxed">
-              {t('about.subtitle')}
+              École Privée de Formation des Professionnels de Santé de Meiganga
             </p>
           </div>
         </section>
