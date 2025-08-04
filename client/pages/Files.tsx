@@ -254,7 +254,7 @@ export default function FilesPage() {
 
   const getFileIcon = (format: string) => {
     switch (format.toLowerCase()) {
-      case "pdf": return <FilePdf className="h-4 w-4 text-red-600" />;
+      case "pdf": return <FileText className="h-4 w-4 text-red-600" />;
       case "jpg": case "png": case "jpeg": return <FileImage className="h-4 w-4 text-blue-600" />;
       case "xlsx": case "xls": return <FileSpreadsheet className="h-4 w-4 text-green-600" />;
       default: return <File className="h-4 w-4 text-gray-600" />;
