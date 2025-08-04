@@ -121,6 +121,23 @@ const pendingTasks = [
 ];
 
 export default function Index() {
+  const navigate = useNavigate();
+
+  const handlePendingTask = (taskTitle: string, module: string) => {
+    // Navigate based on task type and module
+    if (taskTitle.includes("demandes d'inscription") || module === "Scolarité") {
+      navigate('/students');
+    } else if (taskTitle.includes("candidatures enseignants") || module === "RH") {
+      navigate('/teachers');
+    } else if (taskTitle.includes("calendrier")) {
+      navigate('/academic-years');
+    } else if (taskTitle.includes("justificatifs")) {
+      navigate('/files');
+    } else {
+      navigate('/admin');
+    }
+  };
+
   return (
     <Layout>
       <div className="space-y-8">
