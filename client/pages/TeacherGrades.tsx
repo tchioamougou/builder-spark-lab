@@ -256,6 +256,13 @@ export default function TeacherGrades() {
               <Upload className="h-4 w-4 mr-2" />
               Importer
             </Button>
+            <Button
+              variant="outline"
+              onClick={() => navigate("/teacher/grade-entry")}
+            >
+              <Plus className="h-4 w-4 mr-2" />
+              Saisie par UE
+            </Button>
             <Dialog open={isAddGradeOpen} onOpenChange={setIsAddGradeOpen}>
               <DialogTrigger asChild>
                 <Button>
