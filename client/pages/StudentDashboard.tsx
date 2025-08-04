@@ -361,14 +361,24 @@ export default function StudentDashboard() {
           </CardHeader>
           <CardContent>
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-              <Button className="h-20 flex-col space-y-2" variant="outline">
+              <Button
+                className="h-20 flex-col space-y-2"
+                variant="outline"
+                onClick={handleDownloadBulletin}
+              >
                 <Download className="h-6 w-6" />
                 <span>Télécharger bulletin</span>
               </Button>
-              <Button className="h-20 flex-col space-y-2" variant="outline">
-                <Clock className="h-6 w-6" />
-                <span>Signaler absence</span>
-              </Button>
+              <AbsenceRequestDialog
+                open={isAbsenceDialogOpen}
+                onOpenChange={setIsAbsenceDialogOpen}
+                trigger={
+                  <Button className="h-20 flex-col space-y-2" variant="outline">
+                    <Clock className="h-6 w-6" />
+                    <span>Signaler absence</span>
+                  </Button>
+                }
+              />
               <Button className="h-20 flex-col space-y-2" variant="outline">
                 <FileText className="h-6 w-6" />
                 <span>Demander attestation</span>
