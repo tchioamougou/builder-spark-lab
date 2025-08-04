@@ -651,7 +651,18 @@ export default function FilesPage() {
                       <TableRow key={demande.id}>
                         <TableCell>
                           <div>
-                            <div className="font-medium">
+                            <div
+                              className="font-medium cursor-pointer text-blue-600 hover:underline"
+                              onClick={() => {
+                                // Determine if it's a student or teacher based on name pattern
+                                const isTeacher = demande.demandeur.startsWith('Dr.');
+                                if (isTeacher) {
+                                  navigate('/teachers');
+                                } else {
+                                  navigate('/student-details/1'); // Using ID 1 for demo
+                                }
+                              }}
+                            >
                               {demande.demandeur}
                             </div>
                             <div className="text-sm text-muted-foreground">
