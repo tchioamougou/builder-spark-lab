@@ -113,8 +113,25 @@ const LandingFooter = () => {
             </ul>
           </div>
         </div>
-        <div className="text-center mt-12 text-sm text-gray-300 border-t border-gray-700 pt-8">
-          <p>© {new Date().getFullYear()} Nom de l'école. Tous droits réservés.</p>
+        {/* Séparateur et copyright */}
+        <div className="border-t border-white/20 mt-12 pt-8">
+          <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+            <div className="text-sm text-gray-300">
+              <p>© {new Date().getFullYear()} École Privée de Formation des Professionnels de Santé de Meiganga (EPFPS). Tous droits réservés.</p>
+            </div>
+            <div className="flex space-x-4 text-sm">
+              <a href="#" className="text-gray-300 hover:text-[#ff9900] transition-colors">Mentions légales</a>
+              <span className="text-gray-500">|</span>
+              <a href="#" className="text-gray-300 hover:text-[#ff9900] transition-colors">Politique de confidentialité</a>
+              <span className="text-gray-500">|</span>
+              <a href="#" className="text-gray-300 hover:text-[#ff9900] transition-colors">Plan du site</a>
+            </div>
+          </div>
+          <div className="text-center mt-4">
+            <p className="text-xs text-gray-400">
+              Établissement reconnu par le Ministère de la Santé Publique du Cameroun
+            </p>
+          </div>
         </div>
       </div>
     </footer>
