@@ -151,18 +151,23 @@ export default function StudentLayout({ children }: StudentLayoutProps) {
                 Actions rapides
               </h3>
               <div className="space-y-2">
+                <AbsenceRequestDialog
+                  trigger={
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="w-full justify-start"
+                    >
+                      <Clock className="h-4 w-4 mr-2" />
+                      Signaler absence
+                    </Button>
+                  }
+                />
                 <Button
                   variant="outline"
                   size="sm"
                   className="w-full justify-start"
-                >
-                  <Clock className="h-4 w-4 mr-2" />
-                  Signaler absence
-                </Button>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className="w-full justify-start"
+                  onClick={handleDownloadBulletin}
                 >
                   <Download className="h-4 w-4 mr-2" />
                   Télécharger bulletin
