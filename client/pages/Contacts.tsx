@@ -64,7 +64,7 @@ const Contacts: React.FC = () => {
                   <form onSubmit={handleSubmit} className="space-y-6">
                     <div>
                       <label htmlFor="nom" className="block text-sm font-semibold text-[#3b2c6a] mb-2">
-                        Nom complet *
+                        {t('contact.fullName')} *
                       </label>
                       <input
                         type="text"
@@ -74,7 +74,7 @@ const Contacts: React.FC = () => {
                         onChange={handleChange}
                         required
                         className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#ff9900] focus:border-transparent"
-                        placeholder="Votre nom complet"
+                        placeholder={t('contact.fullNamePlaceholder')}
                       />
                     </div>
 
