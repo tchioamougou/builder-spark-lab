@@ -1362,15 +1362,17 @@ export default function ProgramsPage() {
             <AlertDialogHeader>
               <AlertDialogTitle>Êtes-vous sûr ?</AlertDialogTitle>
               <AlertDialogDescription>
-                Cette action supprimera définitivement la filière et toutes ses maquettes.
-                Cette action ne peut pas être annulée.
+                Cette action supprimera définitivement la filière et toutes ses
+                maquettes. Cette action ne peut pas être annulée.
               </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
-              <AlertDialogCancel onClick={() => {
-                setDeleteDialogOpen(false);
-                setFiliereToDelete(null);
-              }}>
+              <AlertDialogCancel
+                onClick={() => {
+                  setDeleteDialogOpen(false);
+                  setFiliereToDelete(null);
+                }}
+              >
                 Annuler
               </AlertDialogCancel>
               <AlertDialogAction

@@ -57,9 +57,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import {
-  Checkbox,
-} from "@/components/ui/checkbox";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   Shield,
   Users,
@@ -114,31 +112,133 @@ interface UserRole {
 
 const mockPermissions: Permission[] = [
   // Gestion des utilisateurs
-  { id: "users_read", nom: "Voir utilisateurs", description: "Consulter la liste des utilisateurs", module: "Utilisateurs", type: "read" },
-  { id: "users_write", nom: "Modifier utilisateurs", description: "Créer et modifier des utilisateurs", module: "Utilisateurs", type: "write" },
-  { id: "users_delete", nom: "Supprimer utilisateurs", description: "Supprimer des utilisateurs", module: "Utilisateurs", type: "delete" },
-  { id: "users_admin", nom: "Administration utilisateurs", description: "Gestion complète des utilisateurs", module: "Utilisateurs", type: "admin" },
-  
+  {
+    id: "users_read",
+    nom: "Voir utilisateurs",
+    description: "Consulter la liste des utilisateurs",
+    module: "Utilisateurs",
+    type: "read",
+  },
+  {
+    id: "users_write",
+    nom: "Modifier utilisateurs",
+    description: "Créer et modifier des utilisateurs",
+    module: "Utilisateurs",
+    type: "write",
+  },
+  {
+    id: "users_delete",
+    nom: "Supprimer utilisateurs",
+    description: "Supprimer des utilisateurs",
+    module: "Utilisateurs",
+    type: "delete",
+  },
+  {
+    id: "users_admin",
+    nom: "Administration utilisateurs",
+    description: "Gestion complète des utilisateurs",
+    module: "Utilisateurs",
+    type: "admin",
+  },
+
   // Gestion des étudiants
-  { id: "students_read", nom: "Voir étudiants", description: "Consulter les dossiers étudiants", module: "Étudiants", type: "read" },
-  { id: "students_write", nom: "Modifier étudiants", description: "Modifier les informations étudiants", module: "Étudiants", type: "write" },
-  { id: "students_grades", nom: "Gérer notes", description: "Saisir et modifier les notes", module: "Étudiants", type: "write" },
-  { id: "students_financial", nom: "Gestion financière", description: "Accès aux informations financières", module: "Étudiants", type: "admin" },
-  
+  {
+    id: "students_read",
+    nom: "Voir étudiants",
+    description: "Consulter les dossiers étudiants",
+    module: "Étudiants",
+    type: "read",
+  },
+  {
+    id: "students_write",
+    nom: "Modifier étudiants",
+    description: "Modifier les informations étudiants",
+    module: "Étudiants",
+    type: "write",
+  },
+  {
+    id: "students_grades",
+    nom: "Gérer notes",
+    description: "Saisir et modifier les notes",
+    module: "Étudiants",
+    type: "write",
+  },
+  {
+    id: "students_financial",
+    nom: "Gestion financière",
+    description: "Accès aux informations financières",
+    module: "Étudiants",
+    type: "admin",
+  },
+
   // Gestion des enseignants
-  { id: "teachers_read", nom: "Voir enseignants", description: "Consulter la liste des enseignants", module: "Enseignants", type: "read" },
-  { id: "teachers_write", nom: "Modifier enseignants", description: "Gérer les informations enseignants", module: "Enseignants", type: "write" },
-  { id: "teachers_hire", nom: "Recrutement", description: "Gérer le recrutement d'enseignants", module: "Enseignants", type: "admin" },
-  
+  {
+    id: "teachers_read",
+    nom: "Voir enseignants",
+    description: "Consulter la liste des enseignants",
+    module: "Enseignants",
+    type: "read",
+  },
+  {
+    id: "teachers_write",
+    nom: "Modifier enseignants",
+    description: "Gérer les informations enseignants",
+    module: "Enseignants",
+    type: "write",
+  },
+  {
+    id: "teachers_hire",
+    nom: "Recrutement",
+    description: "Gérer le recrutement d'enseignants",
+    module: "Enseignants",
+    type: "admin",
+  },
+
   // Programmes académiques
-  { id: "programs_read", nom: "Voir programmes", description: "Consulter les programmes académiques", module: "Programmes", type: "read" },
-  { id: "programs_write", nom: "Modifier programmes", description: "Modifier les maquettes pédagogiques", module: "Programmes", type: "write" },
-  { id: "programs_admin", nom: "Administration programmes", description: "Gestion complète des programmes", module: "Programmes", type: "admin" },
-  
+  {
+    id: "programs_read",
+    nom: "Voir programmes",
+    description: "Consulter les programmes académiques",
+    module: "Programmes",
+    type: "read",
+  },
+  {
+    id: "programs_write",
+    nom: "Modifier programmes",
+    description: "Modifier les maquettes pédagogiques",
+    module: "Programmes",
+    type: "write",
+  },
+  {
+    id: "programs_admin",
+    nom: "Administration programmes",
+    description: "Gestion complète des programmes",
+    module: "Programmes",
+    type: "admin",
+  },
+
   // Administration système
-  { id: "system_config", nom: "Configuration système", description: "Accès aux paramètres système", module: "Système", type: "admin" },
-  { id: "system_logs", nom: "Logs système", description: "Consulter les logs d'audit", module: "Système", type: "read" },
-  { id: "system_backup", nom: "Sauvegardes", description: "Gérer les sauvegardes", module: "Système", type: "admin" },
+  {
+    id: "system_config",
+    nom: "Configuration système",
+    description: "Accès aux paramètres système",
+    module: "Système",
+    type: "admin",
+  },
+  {
+    id: "system_logs",
+    nom: "Logs système",
+    description: "Consulter les logs d'audit",
+    module: "Système",
+    type: "read",
+  },
+  {
+    id: "system_backup",
+    nom: "Sauvegardes",
+    description: "Gérer les sauvegardes",
+    module: "Système",
+    type: "admin",
+  },
 ];
 
 const mockRoles: Role[] = [
@@ -146,7 +246,7 @@ const mockRoles: Role[] = [
     id: "admin",
     nom: "Administrateur",
     description: "Accès complet au système",
-    permissions: mockPermissions.map(p => p.id),
+    permissions: mockPermissions.map((p) => p.id),
     statut: "actif",
     dateCreation: "2023-01-01",
     utilisateursCount: 2,
@@ -156,7 +256,13 @@ const mockRoles: Role[] = [
     id: "scolarite",
     nom: "Service Scolarité",
     description: "Gestion des étudiants et programmes",
-    permissions: ["students_read", "students_write", "students_grades", "programs_read", "programs_write"],
+    permissions: [
+      "students_read",
+      "students_write",
+      "students_grades",
+      "programs_read",
+      "programs_write",
+    ],
     statut: "actif",
     dateCreation: "2023-01-01",
     utilisateursCount: 5,
@@ -166,7 +272,13 @@ const mockRoles: Role[] = [
     id: "rh",
     nom: "Ressources Humaines",
     description: "Gestion du personnel enseignant",
-    permissions: ["users_read", "users_write", "teachers_read", "teachers_write", "teachers_hire"],
+    permissions: [
+      "users_read",
+      "users_write",
+      "teachers_read",
+      "teachers_write",
+      "teachers_hire",
+    ],
     statut: "actif",
     dateCreation: "2023-01-01",
     utilisateursCount: 3,
@@ -266,20 +378,20 @@ export default function RoleManagementPage() {
   const [formData, setFormData] = useState<any>({});
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [roleToDelete, setRoleToDelete] = useState<string | null>(null);
-  
+
   const { toast } = useToast();
 
   const handleCreateRole = () => {
     const newRole: Role = {
       id: Date.now().toString(),
-      dateCreation: new Date().toISOString().split('T')[0],
+      dateCreation: new Date().toISOString().split("T")[0],
       statut: "actif",
       utilisateursCount: 0,
       couleur: "#6b7280",
       permissions: [],
       ...formData,
     } as Role;
-    
+
     setRoles([...roles, newRole]);
     toast({
       title: "Rôle créé",
@@ -290,7 +402,7 @@ export default function RoleManagementPage() {
   };
 
   const handleDeleteRole = (roleId: string) => {
-    setRoles(roles => roles.filter(r => r.id !== roleId));
+    setRoles((roles) => roles.filter((r) => r.id !== roleId));
     toast({
       title: "Rôle supprimé",
       description: "Le rôle a été supprimé définitivement.",
@@ -299,12 +411,18 @@ export default function RoleManagementPage() {
   };
 
   const handleToggleRoleStatus = (roleId: string) => {
-    setRoles(roles => 
-      roles.map(role => 
-        role.id === roleId 
-          ? { ...role, statut: role.statut === "actif" ? "inactif" as const : "actif" as const }
-          : role
-      )
+    setRoles((roles) =>
+      roles.map((role) =>
+        role.id === roleId
+          ? {
+              ...role,
+              statut:
+                role.statut === "actif"
+                  ? ("inactif" as const)
+                  : ("actif" as const),
+            }
+          : role,
+      ),
     );
     toast({
       title: "Statut modifié",
@@ -313,28 +431,29 @@ export default function RoleManagementPage() {
   };
 
   const handleTogglePermission = (roleId: string, permissionId: string) => {
-    setRoles(roles => 
-      roles.map(role => {
+    setRoles((roles) =>
+      roles.map((role) => {
         if (role.id === roleId) {
           const permissions = role.permissions.includes(permissionId)
-            ? role.permissions.filter(p => p !== permissionId)
+            ? role.permissions.filter((p) => p !== permissionId)
             : [...role.permissions, permissionId];
           return { ...role, permissions };
         }
         return role;
-      })
+      }),
     );
   };
 
-  const modules = Array.from(new Set(mockPermissions.map(p => p.module)));
+  const modules = Array.from(new Set(mockPermissions.map((p) => p.module)));
 
   const filteredPermissions = mockPermissions.filter((permission) => {
-    const matchesSearch = 
+    const matchesSearch =
       permission.nom.toLowerCase().includes(searchTerm.toLowerCase()) ||
       permission.description.toLowerCase().includes(searchTerm.toLowerCase());
-    
-    const matchesModule = filterModule === "all" || permission.module === filterModule;
-    
+
+    const matchesModule =
+      filterModule === "all" || permission.module === filterModule;
+
     return matchesSearch && matchesModule;
   });
 
@@ -379,18 +498,14 @@ export default function RoleManagementPage() {
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">
-                {roles.filter(r => r.statut === "actif").length}
+                {roles.filter((r) => r.statut === "actif").length}
               </div>
-              <p className="text-xs text-muted-foreground">
-                Rôles configurés
-              </p>
+              <p className="text-xs text-muted-foreground">Rôles configurés</p>
             </CardContent>
           </Card>
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">
-                Permissions
-              </CardTitle>
+              <CardTitle className="text-sm font-medium">Permissions</CardTitle>
               <Key className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
@@ -425,9 +540,7 @@ export default function RoleManagementPage() {
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{modules.length}</div>
-              <p className="text-xs text-muted-foreground">
-                Zones sécurisées
-              </p>
+              <p className="text-xs text-muted-foreground">Zones sécurisées</p>
             </CardContent>
           </Card>
         </div>
@@ -435,18 +548,14 @@ export default function RoleManagementPage() {
         {/* Main Content */}
         <Tabs defaultValue="roles" className="space-y-4">
           <TabsList className="grid w-full grid-cols-4">
-            <TabsTrigger value="roles">
-              Rôles ({roles.length})
-            </TabsTrigger>
+            <TabsTrigger value="roles">Rôles ({roles.length})</TabsTrigger>
             <TabsTrigger value="permissions">
               Permissions ({mockPermissions.length})
             </TabsTrigger>
             <TabsTrigger value="assignations">
               Assignations ({userRoles.length})
             </TabsTrigger>
-            <TabsTrigger value="audit">
-              Audit des accès
-            </TabsTrigger>
+            <TabsTrigger value="audit">Audit des accès</TabsTrigger>
           </TabsList>
 
           {/* Roles Tab */}
@@ -489,9 +598,15 @@ export default function RoleManagementPage() {
                         <TableCell>
                           <div className="flex flex-wrap gap-1">
                             {role.permissions.slice(0, 3).map((permId) => {
-                              const perm = mockPermissions.find(p => p.id === permId);
+                              const perm = mockPermissions.find(
+                                (p) => p.id === permId,
+                              );
                               return perm ? (
-                                <Badge key={permId} variant="outline" className="text-xs">
+                                <Badge
+                                  key={permId}
+                                  variant="outline"
+                                  className="text-xs"
+                                >
                                   {perm.nom}
                                 </Badge>
                               ) : null;
@@ -510,7 +625,13 @@ export default function RoleManagementPage() {
                           </div>
                         </TableCell>
                         <TableCell>
-                          <Badge className={role.statut === "actif" ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"}>
+                          <Badge
+                            className={
+                              role.statut === "actif"
+                                ? "bg-green-100 text-green-800"
+                                : "bg-red-100 text-red-800"
+                            }
+                          >
                             {role.statut === "actif" ? "Actif" : "Inactif"}
                           </Badge>
                         </TableCell>
@@ -523,23 +644,29 @@ export default function RoleManagementPage() {
                             </DropdownMenuTrigger>
                             <DropdownMenuContent align="end">
                               <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                              <DropdownMenuItem onClick={() => {
-                                setSelectedRole(role);
-                                setFormData(role);
-                                setIsRoleDialogOpen(true);
-                              }}>
+                              <DropdownMenuItem
+                                onClick={() => {
+                                  setSelectedRole(role);
+                                  setFormData(role);
+                                  setIsRoleDialogOpen(true);
+                                }}
+                              >
                                 <Edit className="mr-2 h-4 w-4" />
                                 Modifier
                               </DropdownMenuItem>
-                              <DropdownMenuItem onClick={() => {
-                                setSelectedRole(role);
-                                setIsPermissionDialogOpen(true);
-                              }}>
+                              <DropdownMenuItem
+                                onClick={() => {
+                                  setSelectedRole(role);
+                                  setIsPermissionDialogOpen(true);
+                                }}
+                              >
                                 <Key className="mr-2 h-4 w-4" />
                                 Gérer permissions
                               </DropdownMenuItem>
                               <DropdownMenuSeparator />
-                              <DropdownMenuItem onClick={() => handleToggleRoleStatus(role.id)}>
+                              <DropdownMenuItem
+                                onClick={() => handleToggleRoleStatus(role.id)}
+                              >
                                 {role.statut === "actif" ? (
                                   <>
                                     <Lock className="mr-2 h-4 w-4" />
@@ -553,10 +680,12 @@ export default function RoleManagementPage() {
                                 )}
                               </DropdownMenuItem>
                               {role.id !== "admin" && (
-                                <DropdownMenuItem onClick={() => {
-                                  setRoleToDelete(role.id);
-                                  setDeleteDialogOpen(true);
-                                }}>
+                                <DropdownMenuItem
+                                  onClick={() => {
+                                    setRoleToDelete(role.id);
+                                    setDeleteDialogOpen(true);
+                                  }}
+                                >
                                   <Trash2 className="mr-2 h-4 w-4" />
                                   Supprimer
                                 </DropdownMenuItem>
@@ -593,7 +722,10 @@ export default function RoleManagementPage() {
                     />
                   </div>
                   <div className="flex space-x-2">
-                    <Select value={filterModule} onValueChange={setFilterModule}>
+                    <Select
+                      value={filterModule}
+                      onValueChange={setFilterModule}
+                    >
                       <SelectTrigger className="w-48">
                         <SelectValue placeholder="Filtrer par module" />
                       </SelectTrigger>
@@ -611,31 +743,46 @@ export default function RoleManagementPage() {
 
                 <div className="space-y-4">
                   {modules.map((module) => {
-                    const modulePermissions = filteredPermissions.filter(p => p.module === module);
+                    const modulePermissions = filteredPermissions.filter(
+                      (p) => p.module === module,
+                    );
                     if (modulePermissions.length === 0) return null;
-                    
+
                     return (
                       <div key={module} className="border rounded-lg p-4">
                         <h3 className="font-semibold mb-3 flex items-center space-x-2">
                           <Settings className="h-5 w-5" />
                           <span>{module}</span>
-                          <Badge variant="outline">{modulePermissions.length}</Badge>
+                          <Badge variant="outline">
+                            {modulePermissions.length}
+                          </Badge>
                         </h3>
                         <div className="grid gap-2">
                           {modulePermissions.map((permission) => (
-                            <div key={permission.id} className="flex items-center justify-between p-3 bg-gray-50 rounded">
+                            <div
+                              key={permission.id}
+                              className="flex items-center justify-between p-3 bg-gray-50 rounded"
+                            >
                               <div className="flex items-center space-x-3">
-                                <div className={`p-1 rounded ${getPermissionTypeColor(permission.type)}`}>
+                                <div
+                                  className={`p-1 rounded ${getPermissionTypeColor(permission.type)}`}
+                                >
                                   {getPermissionTypeIcon(permission.type)}
                                 </div>
                                 <div>
-                                  <div className="font-medium">{permission.nom}</div>
+                                  <div className="font-medium">
+                                    {permission.nom}
+                                  </div>
                                   <div className="text-sm text-muted-foreground">
                                     {permission.description}
                                   </div>
                                 </div>
                               </div>
-                              <Badge className={getPermissionTypeColor(permission.type)}>
+                              <Badge
+                                className={getPermissionTypeColor(
+                                  permission.type,
+                                )}
+                              >
                                 {permission.type}
                               </Badge>
                             </div>
@@ -674,7 +821,9 @@ export default function RoleManagementPage() {
                       <TableRow key={userRole.id}>
                         <TableCell>
                           <div>
-                            <div className="font-medium">{userRole.utilisateur}</div>
+                            <div className="font-medium">
+                              {userRole.utilisateur}
+                            </div>
                             <div className="text-sm text-muted-foreground">
                               {userRole.email}
                             </div>
@@ -683,13 +832,16 @@ export default function RoleManagementPage() {
                         <TableCell>
                           <div className="flex flex-wrap gap-1">
                             {userRole.roles.map((roleId) => {
-                              const role = roles.find(r => r.id === roleId);
+                              const role = roles.find((r) => r.id === roleId);
                               return role ? (
-                                <Badge 
-                                  key={roleId} 
+                                <Badge
+                                  key={roleId}
                                   variant="outline"
                                   className="text-xs"
-                                  style={{ borderColor: role.couleur, color: role.couleur }}
+                                  style={{
+                                    borderColor: role.couleur,
+                                    color: role.couleur,
+                                  }}
                                 >
                                   {role.nom}
                                 </Badge>
@@ -698,17 +850,27 @@ export default function RoleManagementPage() {
                           </div>
                         </TableCell>
                         <TableCell>
-                          <Badge className={userRole.statut === "actif" ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"}>
+                          <Badge
+                            className={
+                              userRole.statut === "actif"
+                                ? "bg-green-100 text-green-800"
+                                : "bg-red-100 text-red-800"
+                            }
+                          >
                             {userRole.statut === "actif" ? "Actif" : "Suspendu"}
                           </Badge>
                         </TableCell>
                         <TableCell>
                           {userRole.derniereConnexion ? (
                             <div className="text-sm">
-                              {new Date(userRole.derniereConnexion).toLocaleString('fr-FR')}
+                              {new Date(
+                                userRole.derniereConnexion,
+                              ).toLocaleString("fr-FR")}
                             </div>
                           ) : (
-                            <span className="text-muted-foreground">Jamais</span>
+                            <span className="text-muted-foreground">
+                              Jamais
+                            </span>
                           )}
                         </TableCell>
                         <TableCell>
@@ -766,7 +928,9 @@ export default function RoleManagementPage() {
                 <div className="text-center py-8 text-muted-foreground">
                   <Shield className="h-12 w-12 mx-auto mb-4 opacity-30" />
                   <p>Fonctionnalité d'audit en cours de développement</p>
-                  <p className="text-sm">Logs de sécurité et traçabilité des actions</p>
+                  <p className="text-sm">
+                    Logs de sécurité et traçabilité des actions
+                  </p>
                 </div>
               </CardContent>
             </Card>
@@ -785,7 +949,9 @@ export default function RoleManagementPage() {
                 <Input
                   id="nom"
                   value={formData.nom || ""}
-                  onChange={(e) => setFormData({...formData, nom: e.target.value})}
+                  onChange={(e) =>
+                    setFormData({ ...formData, nom: e.target.value })
+                  }
                 />
               </div>
               <div className="space-y-2">
@@ -794,7 +960,9 @@ export default function RoleManagementPage() {
                   id="couleur"
                   type="color"
                   value={formData.couleur || "#6b7280"}
-                  onChange={(e) => setFormData({...formData, couleur: e.target.value})}
+                  onChange={(e) =>
+                    setFormData({ ...formData, couleur: e.target.value })
+                  }
                 />
               </div>
               <div className="col-span-2 space-y-2">
@@ -802,20 +970,23 @@ export default function RoleManagementPage() {
                 <Textarea
                   id="description"
                   value={formData.description || ""}
-                  onChange={(e) => setFormData({...formData, description: e.target.value})}
+                  onChange={(e) =>
+                    setFormData({ ...formData, description: e.target.value })
+                  }
                 />
               </div>
             </div>
             <DialogFooter>
-              <Button variant="outline" onClick={() => {
-                setIsCreateRoleOpen(false);
-                setFormData({});
-              }}>
+              <Button
+                variant="outline"
+                onClick={() => {
+                  setIsCreateRoleOpen(false);
+                  setFormData({});
+                }}
+              >
                 Annuler
               </Button>
-              <Button onClick={handleCreateRole}>
-                Créer le rôle
-              </Button>
+              <Button onClick={handleCreateRole}>Créer le rôle</Button>
             </DialogFooter>
           </DialogContent>
         </Dialog>
@@ -832,7 +1003,9 @@ export default function RoleManagementPage() {
                 <Input
                   id="edit-nom"
                   value={formData.nom || ""}
-                  onChange={(e) => setFormData({...formData, nom: e.target.value})}
+                  onChange={(e) =>
+                    setFormData({ ...formData, nom: e.target.value })
+                  }
                 />
               </div>
               <div className="space-y-2">
@@ -841,7 +1014,9 @@ export default function RoleManagementPage() {
                   id="edit-couleur"
                   type="color"
                   value={formData.couleur || "#6b7280"}
-                  onChange={(e) => setFormData({...formData, couleur: e.target.value})}
+                  onChange={(e) =>
+                    setFormData({ ...formData, couleur: e.target.value })
+                  }
                 />
               </div>
               <div className="col-span-2 space-y-2">
@@ -849,32 +1024,42 @@ export default function RoleManagementPage() {
                 <Textarea
                   id="edit-description"
                   value={formData.description || ""}
-                  onChange={(e) => setFormData({...formData, description: e.target.value})}
+                  onChange={(e) =>
+                    setFormData({ ...formData, description: e.target.value })
+                  }
                 />
               </div>
             </div>
             <DialogFooter>
-              <Button variant="outline" onClick={() => {
-                setIsRoleDialogOpen(false);
-                setSelectedRole(null);
-                setFormData({});
-              }}>
-                Annuler
-              </Button>
-              <Button onClick={() => {
-                if (selectedRole) {
-                  setRoles(roles => 
-                    roles.map(r => r.id === selectedRole.id ? {...r, ...formData} : r)
-                  );
-                  toast({
-                    title: "Rôle modifié",
-                    description: "Les informations ont été mises à jour avec succès.",
-                  });
+              <Button
+                variant="outline"
+                onClick={() => {
                   setIsRoleDialogOpen(false);
                   setSelectedRole(null);
                   setFormData({});
-                }
-              }}>
+                }}
+              >
+                Annuler
+              </Button>
+              <Button
+                onClick={() => {
+                  if (selectedRole) {
+                    setRoles((roles) =>
+                      roles.map((r) =>
+                        r.id === selectedRole.id ? { ...r, ...formData } : r,
+                      ),
+                    );
+                    toast({
+                      title: "Rôle modifié",
+                      description:
+                        "Les informations ont été mises à jour avec succès.",
+                    });
+                    setIsRoleDialogOpen(false);
+                    setSelectedRole(null);
+                    setFormData({});
+                  }
+                }}
+              >
                 Modifier
               </Button>
             </DialogFooter>
@@ -882,7 +1067,10 @@ export default function RoleManagementPage() {
         </Dialog>
 
         {/* Permissions Management Dialog */}
-        <Dialog open={isPermissionDialogOpen} onOpenChange={setIsPermissionDialogOpen}>
+        <Dialog
+          open={isPermissionDialogOpen}
+          onOpenChange={setIsPermissionDialogOpen}
+        >
           <DialogContent className="max-w-4xl">
             <DialogHeader>
               <DialogTitle>
@@ -895,25 +1083,43 @@ export default function RoleManagementPage() {
             <div className="max-h-96 overflow-y-auto">
               <div className="space-y-4">
                 {modules.map((module) => {
-                  const modulePermissions = mockPermissions.filter(p => p.module === module);
+                  const modulePermissions = mockPermissions.filter(
+                    (p) => p.module === module,
+                  );
                   return (
                     <div key={module} className="border rounded-lg p-4">
                       <h3 className="font-semibold mb-3">{module}</h3>
                       <div className="space-y-2">
                         {modulePermissions.map((permission) => (
-                          <div key={permission.id} className="flex items-center space-x-3">
+                          <div
+                            key={permission.id}
+                            className="flex items-center space-x-3"
+                          >
                             <Checkbox
-                              checked={selectedRole?.permissions.includes(permission.id) || false}
+                              checked={
+                                selectedRole?.permissions.includes(
+                                  permission.id,
+                                ) || false
+                              }
                               onCheckedChange={() => {
                                 if (selectedRole) {
-                                  handleTogglePermission(selectedRole.id, permission.id);
+                                  handleTogglePermission(
+                                    selectedRole.id,
+                                    permission.id,
+                                  );
                                 }
                               }}
                             />
                             <div className="flex-1">
                               <div className="flex items-center space-x-2">
-                                <span className="font-medium">{permission.nom}</span>
-                                <Badge className={getPermissionTypeColor(permission.type)}>
+                                <span className="font-medium">
+                                  {permission.nom}
+                                </span>
+                                <Badge
+                                  className={getPermissionTypeColor(
+                                    permission.type,
+                                  )}
+                                >
                                   {permission.type}
                                 </Badge>
                               </div>
@@ -930,20 +1136,25 @@ export default function RoleManagementPage() {
               </div>
             </div>
             <DialogFooter>
-              <Button variant="outline" onClick={() => {
-                setIsPermissionDialogOpen(false);
-                setSelectedRole(null);
-              }}>
+              <Button
+                variant="outline"
+                onClick={() => {
+                  setIsPermissionDialogOpen(false);
+                  setSelectedRole(null);
+                }}
+              >
                 Fermer
               </Button>
-              <Button onClick={() => {
-                toast({
-                  title: "Permissions mises à jour",
-                  description: "Les permissions du rôle ont été modifiées.",
-                });
-                setIsPermissionDialogOpen(false);
-                setSelectedRole(null);
-              }}>
+              <Button
+                onClick={() => {
+                  toast({
+                    title: "Permissions mises à jour",
+                    description: "Les permissions du rôle ont été modifiées.",
+                  });
+                  setIsPermissionDialogOpen(false);
+                  setSelectedRole(null);
+                }}
+              >
                 Enregistrer
               </Button>
             </DialogFooter>
@@ -956,15 +1167,17 @@ export default function RoleManagementPage() {
             <AlertDialogHeader>
               <AlertDialogTitle>Êtes-vous sûr ?</AlertDialogTitle>
               <AlertDialogDescription>
-                Cette action supprimera définitivement le rôle.
-                Cette action ne peut pas être annulée.
+                Cette action supprimera définitivement le rôle. Cette action ne
+                peut pas être annulée.
               </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
-              <AlertDialogCancel onClick={() => {
-                setDeleteDialogOpen(false);
-                setRoleToDelete(null);
-              }}>
+              <AlertDialogCancel
+                onClick={() => {
+                  setDeleteDialogOpen(false);
+                  setRoleToDelete(null);
+                }}
+              >
                 Annuler
               </AlertDialogCancel>
               <AlertDialogAction
