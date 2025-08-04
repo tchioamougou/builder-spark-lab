@@ -597,6 +597,19 @@ export default function FilesPage() {
                                 Modifier
                               </DropdownMenuItem>
                               <DropdownMenuSeparator />
+                              <DropdownMenuItem
+                                onClick={() => handleProprietaireRedirect(doc.proprietaire, doc.typeProprietaire)}
+                              >
+                                <User className="mr-2 h-4 w-4" />
+                                Voir le propriétaire
+                              </DropdownMenuItem>
+                              <DropdownMenuItem
+                                onClick={() => navigate('/programs')}
+                              >
+                                <FileText className="mr-2 h-4 w-4" />
+                                Voir la filière
+                              </DropdownMenuItem>
+                              <DropdownMenuSeparator />
                               {doc.statut === "En révision" && (
                                 <>
                                   <DropdownMenuItem>
