@@ -246,25 +246,25 @@ const mockApplications: Application[] = [
 ];
 
 const statutLabels = {
-  actif: { label: "Actif", color: "bg-green-100 text-green-800" },
-  suspendu: { label: "Suspendu", color: "bg-red-100 text-red-800" },
-  conge: { label: "En congé", color: "bg-yellow-100 text-yellow-800" },
-  archive: { label: "Archivé", color: "bg-gray-100 text-gray-800" },
-  candidat: { label: "Candidat", color: "bg-blue-100 text-blue-800" },
+  "actif": { label: "Actif", color: "bg-green-100 text-green-800" },
+  "suspendu": { label: "Suspendu", color: "bg-red-100 text-red-800" },
+  "conge": { label: "En congé", color: "bg-yellow-100 text-yellow-800" },
+  "archive": { label: "Archivé", color: "bg-gray-100 text-gray-800" },
+  "candidat": { label: "Candidat", color: "bg-blue-100 text-blue-800" },
 };
 
 const statutApplicationLabels = {
-  en_attente: { label: "En attente", color: "bg-yellow-100 text-yellow-800" },
-  en_entretien: { label: "En entretien", color: "bg-blue-100 text-blue-800" },
-  accepte: { label: "Accepté", color: "bg-green-100 text-green-800" },
-  refuse: { label: "Refusé", color: "bg-red-100 text-red-800" },
+  "en_attente": { label: "En attente", color: "bg-yellow-100 text-yellow-800" },
+  "en_entretien": { label: "En entretien", color: "bg-blue-100 text-blue-800" },
+  "accepte": { label: "Accepté", color: "bg-green-100 text-green-800" },
+  "refuse": { label: "Refusé", color: "bg-red-100 text-red-800" },
 };
 
 const typeContratLabels = {
-  CDI: { label: "CDI", color: "bg-green-100 text-green-800" },
-  CDD: { label: "CDD", color: "bg-yellow-100 text-yellow-800" },
-  Vacataire: { label: "Vacataire", color: "bg-blue-100 text-blue-800" },
-  Stage: { label: "Stage", color: "bg-purple-100 text-purple-800" },
+  "CDI": { label: "CDI", color: "bg-green-100 text-green-800" },
+  "CDD": { label: "CDD", color: "bg-yellow-100 text-yellow-800" },
+  "Vacataire": { label: "Vacataire", color: "bg-blue-100 text-blue-800" },
+  "Stage": { label: "Stage", color: "bg-purple-100 text-purple-800" },
 };
 
 export default function TeachersPage() {
@@ -272,25 +272,25 @@ export default function TeachersPage() {
   const [filterDepartement, setFilterDepartement] = useState("all");
   const [filterStatut, setFilterStatut] = useState("all");
   const [teachers, setTeachers] = useState<Teacher[]>(mockTeachers);
-  const [applications, setApplications] =
-    useState<Application[]>(mockApplications);
+  const [applications, setApplications] = useState<Application[]>(mockApplications);
   const [selectedTeacher, setSelectedTeacher] = useState<Teacher | null>(null);
-  const [selectedApplication, setSelectedApplication] =
-    useState<Application | null>(null);
+  const [selectedApplication, setSelectedApplication] = useState<Application | null>(null);
   const [isTeacherDialogOpen, setIsTeacherDialogOpen] = useState(false);
   const [isApplicationDialogOpen, setIsApplicationDialogOpen] = useState(false);
   const [isCreateTeacherOpen, setIsCreateTeacherOpen] = useState(false);
   const [isViewTeacherOpen, setIsViewTeacherOpen] = useState(false);
   const [applicationComment, setApplicationComment] = useState("");
   const [formData, setFormData] = useState<Partial<Teacher>>({});
-
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [teacherToDelete, setTeacherToDelete] = useState<string | null>(null);
+  
   const { toast } = useToast();
 
   const handleApproveApplication = (applicationId: string) => {
-    setApplications((apps) =>
-      apps.map((app) =>
-        app.id === applicationId ? { ...app, statut: "accepte" as const } : app,
-      ),
+    setApplications(apps => 
+      apps.map(app => 
+        app.id === applicationId ? { ...app, statut: "accepte" as const } : app
+      )
     );
     toast({
       title: "Candidature acceptée",
@@ -299,12 +299,10 @@ export default function TeachersPage() {
   };
 
   const handleRejectApplication = (applicationId: string, comment: string) => {
-    setApplications((apps) =>
-      apps.map((app) =>
-        app.id === applicationId
-          ? { ...app, statut: "refuse" as const, commentaire: comment }
-          : app,
-      ),
+    setApplications(apps => 
+      apps.map(app => 
+        app.id === applicationId ? { ...app, statut: "refuse" as const, commentaire: comment } : app
+      )
     );
     toast({
       title: "Candidature refusée",
@@ -316,12 +314,10 @@ export default function TeachersPage() {
   };
 
   const handleChangeTeacherStatus = (teacherId: string, newStatus: string) => {
-    setTeachers((teachers) =>
-      teachers.map((teacher) =>
-        teacher.id === teacherId
-          ? { ...teacher, statut: newStatus as any }
-          : teacher,
-      ),
+    setTeachers(teachers => 
+      teachers.map(teacher => 
+        teacher.id === teacherId ? { ...teacher, statut: newStatus as any } : teacher
+      )
     );
     toast({
       title: "Statut modifié",
@@ -330,7 +326,7 @@ export default function TeachersPage() {
   };
 
   const handleDeleteTeacher = (teacherId: string) => {
-    setTeachers((teachers) => teachers.filter((t) => t.id !== teacherId));
+    setTeachers(teachers => teachers.filter(t => t.id !== teacherId));
     toast({
       title: "Enseignant supprimé",
       description: "L'enseignant a été supprimé définitivement.",
@@ -342,12 +338,12 @@ export default function TeachersPage() {
     const newTeacher: Teacher = {
       id: Date.now().toString(),
       matricule: `ENS${String(Date.now()).slice(-3)}`,
-      dateEmbauche: new Date().toISOString().split("T")[0],
+      dateEmbauche: new Date().toISOString().split('T')[0],
       statut: "actif",
       matieres: [],
       ...formData,
     } as Teacher;
-
+    
     setTeachers([...teachers, newTeacher]);
     toast({
       title: "Enseignant créé",
@@ -358,18 +354,16 @@ export default function TeachersPage() {
   };
 
   const filteredTeachers = teachers.filter((teacher) => {
-    const matchesSearch =
+    const matchesSearch = 
       teacher.nom.toLowerCase().includes(searchTerm.toLowerCase()) ||
       teacher.prenom.toLowerCase().includes(searchTerm.toLowerCase()) ||
       teacher.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
       teacher.matricule.toLowerCase().includes(searchTerm.toLowerCase()) ||
       teacher.specialite.toLowerCase().includes(searchTerm.toLowerCase());
-
-    const matchesDepartement =
-      filterDepartement === "all" || teacher.departement === filterDepartement;
-    const matchesStatut =
-      filterStatut === "all" || teacher.statut === filterStatut;
-
+    
+    const matchesDepartement = filterDepartement === "all" || teacher.departement === filterDepartement;
+    const matchesStatut = filterStatut === "all" || teacher.statut === filterStatut;
+    
     return matchesSearch && matchesDepartement && matchesStatut;
   });
 
@@ -414,7 +408,7 @@ export default function TeachersPage() {
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">
-                {teachers.filter((t) => t.statut === "actif").length}
+                {teachers.filter(t => t.statut === "actif").length}
               </div>
               <p className="text-xs text-muted-foreground">
                 Personnel en activité
@@ -430,7 +424,7 @@ export default function TeachersPage() {
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">
-                {applications.filter((a) => a.statut === "en_attente").length}
+                {applications.filter(a => a.statut === "en_attente").length}
               </div>
               <p className="text-xs text-muted-foreground">
                 En attente de traitement
@@ -446,12 +440,11 @@ export default function TeachersPage() {
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">
-                {teachers.reduce(
-                  (sum, t) => sum + (t.heuresEnseignement || 0),
-                  0,
-                )}
+                {teachers.reduce((sum, t) => sum + (t.heuresEnseignement || 0), 0)}
               </div>
-              <p className="text-xs text-muted-foreground">Total annuel</p>
+              <p className="text-xs text-muted-foreground">
+                Total annuel
+              </p>
             </CardContent>
           </Card>
           <Card>
@@ -479,7 +472,9 @@ export default function TeachersPage() {
             <TabsTrigger value="candidatures">
               Candidatures ({applications.length})
             </TabsTrigger>
-            <TabsTrigger value="evaluations">Évaluations</TabsTrigger>
+            <TabsTrigger value="evaluations">
+              Évaluations
+            </TabsTrigger>
           </TabsList>
 
           {/* Teachers Tab */}
@@ -487,7 +482,9 @@ export default function TeachersPage() {
             <Card>
               <CardHeader>
                 <CardTitle>Personnel enseignant</CardTitle>
-                <CardDescription>Gestion du corps professoral</CardDescription>
+                <CardDescription>
+                  Gestion du corps professoral
+                </CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="flex justify-between items-center mb-4">
@@ -501,32 +498,18 @@ export default function TeachersPage() {
                     />
                   </div>
                   <div className="flex space-x-2">
-                    <Select
-                      value={filterDepartement}
-                      onValueChange={setFilterDepartement}
-                    >
+                    <Select value={filterDepartement} onValueChange={setFilterDepartement}>
                       <SelectTrigger className="w-48">
                         <SelectValue placeholder="Filtrer par département" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="all">
-                          Tous les départements
-                        </SelectItem>
-                        <SelectItem value="Sciences Médicales">
-                          Sciences Médicales
-                        </SelectItem>
-                        <SelectItem value="Sciences Biologiques">
-                          Sciences Biologiques
-                        </SelectItem>
-                        <SelectItem value="Sciences Chimiques">
-                          Sciences Chimiques
-                        </SelectItem>
+                        <SelectItem value="all">Tous les départements</SelectItem>
+                        <SelectItem value="Sciences Médicales">Sciences Médicales</SelectItem>
+                        <SelectItem value="Sciences Biologiques">Sciences Biologiques</SelectItem>
+                        <SelectItem value="Sciences Chimiques">Sciences Chimiques</SelectItem>
                       </SelectContent>
                     </Select>
-                    <Select
-                      value={filterStatut}
-                      onValueChange={setFilterStatut}
-                    >
+                    <Select value={filterStatut} onValueChange={setFilterStatut}>
                       <SelectTrigger className="w-48">
                         <SelectValue placeholder="Filtrer par statut" />
                       </SelectTrigger>
@@ -570,9 +553,7 @@ export default function TeachersPage() {
                         </TableCell>
                         <TableCell>
                           <div>
-                            <div className="font-medium">
-                              {teacher.specialite}
-                            </div>
+                            <div className="font-medium">{teacher.specialite}</div>
                             <div className="text-sm text-muted-foreground">
                               {teacher.departement}
                             </div>
@@ -583,16 +564,11 @@ export default function TeachersPage() {
                         </TableCell>
                         <TableCell>
                           <div className="space-y-1">
-                            <Badge
-                              className={
-                                typeContratLabels[teacher.typeContrat].color
-                              }
-                            >
+                            <Badge className={typeContratLabels[teacher.typeContrat].color}>
                               {typeContratLabels[teacher.typeContrat].label}
                             </Badge>
                             <div className="text-sm text-muted-foreground">
-                              Depuis{" "}
-                              {new Date(teacher.dateEmbauche).getFullYear()}
+                              Depuis {new Date(teacher.dateEmbauche).getFullYear()}
                             </div>
                             {teacher.salaire && (
                               <div className="text-sm text-green-600">
@@ -605,9 +581,7 @@ export default function TeachersPage() {
                           {teacher.evaluation && (
                             <div className="flex items-center space-x-1">
                               <Star className="h-4 w-4 text-yellow-400 fill-current" />
-                              <span className="font-medium">
-                                {teacher.evaluation}/5
-                              </span>
+                              <span className="font-medium">{teacher.evaluation}/5</span>
                             </div>
                           )}
                         </TableCell>
@@ -630,22 +604,18 @@ export default function TeachersPage() {
                             </DropdownMenuTrigger>
                             <DropdownMenuContent align="end">
                               <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                              <DropdownMenuItem
-                                onClick={() => {
-                                  setSelectedTeacher(teacher);
-                                  setIsViewTeacherOpen(true);
-                                }}
-                              >
+                              <DropdownMenuItem onClick={() => {
+                                setSelectedTeacher(teacher);
+                                setIsViewTeacherOpen(true);
+                              }}>
                                 <Eye className="mr-2 h-4 w-4" />
                                 Voir le dossier
                               </DropdownMenuItem>
-                              <DropdownMenuItem
-                                onClick={() => {
-                                  setSelectedTeacher(teacher);
-                                  setFormData(teacher);
-                                  setIsTeacherDialogOpen(true);
-                                }}
-                              >
+                              <DropdownMenuItem onClick={() => {
+                                setSelectedTeacher(teacher);
+                                setFormData(teacher);
+                                setIsTeacherDialogOpen(true);
+                              }}>
                                 <Edit className="mr-2 h-4 w-4" />
                                 Modifier
                               </DropdownMenuItem>
@@ -668,72 +638,45 @@ export default function TeachersPage() {
                               </DropdownMenuItem>
                               <DropdownMenuSeparator />
                               {teacher.statut === "actif" ? (
-                                <DropdownMenuItem
+                                <DropdownMenuItem 
                                   className="text-red-600"
-                                  onClick={() =>
-                                    handleChangeTeacherStatus(
-                                      teacher.id,
-                                      "suspendu",
-                                    )
-                                  }
+                                  onClick={() => handleChangeTeacherStatus(teacher.id, "suspendu")}
                                 >
                                   <Lock className="mr-2 h-4 w-4" />
                                   Suspendre
                                 </DropdownMenuItem>
                               ) : (
-                                <DropdownMenuItem
+                                <DropdownMenuItem 
                                   className="text-green-600"
-                                  onClick={() =>
-                                    handleChangeTeacherStatus(
-                                      teacher.id,
-                                      "actif",
-                                    )
-                                  }
+                                  onClick={() => handleChangeTeacherStatus(teacher.id, "actif")}
                                 >
                                   <Unlock className="mr-2 h-4 w-4" />
                                   Réactiver
                                 </DropdownMenuItem>
                               )}
-                              <DropdownMenuItem
-                                onClick={() =>
-                                  handleChangeTeacherStatus(
-                                    teacher.id,
-                                    "archive",
-                                  )
-                                }
-                              >
+                              <DropdownMenuItem onClick={() => handleChangeTeacherStatus(teacher.id, "archive")}>
                                 <UserX className="mr-2 h-4 w-4" />
                                 Archiver
                               </DropdownMenuItem>
                               <AlertDialog>
                                 <AlertDialogTrigger asChild>
-                                  <DropdownMenuItem
-                                    onSelect={(e) => e.preventDefault()}
-                                  >
+                                  <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
                                     <Trash2 className="mr-2 h-4 w-4" />
                                     Supprimer
                                   </DropdownMenuItem>
                                 </AlertDialogTrigger>
                                 <AlertDialogContent>
                                   <AlertDialogHeader>
-                                    <AlertDialogTitle>
-                                      Êtes-vous sûr ?
-                                    </AlertDialogTitle>
+                                    <AlertDialogTitle>Êtes-vous sûr ?</AlertDialogTitle>
                                     <AlertDialogDescription>
-                                      Cette action supprimera définitivement
-                                      l'enseignant "{teacher.prenom}{" "}
-                                      {teacher.nom}". Cette action ne peut pas
-                                      être annulée.
+                                      Cette action supprimera définitivement l'enseignant "{teacher.prenom} {teacher.nom}". 
+                                      Cette action ne peut pas être annulée.
                                     </AlertDialogDescription>
                                   </AlertDialogHeader>
                                   <AlertDialogFooter>
-                                    <AlertDialogCancel>
-                                      Annuler
-                                    </AlertDialogCancel>
-                                    <AlertDialogAction
-                                      onClick={() =>
-                                        handleDeleteTeacher(teacher.id)
-                                      }
+                                    <AlertDialogCancel>Annuler</AlertDialogCancel>
+                                    <AlertDialogAction 
+                                      onClick={() => handleDeleteTeacher(teacher.id)}
                                       className="bg-red-600 hover:bg-red-700"
                                     >
                                       Supprimer
@@ -792,9 +735,7 @@ export default function TeachersPage() {
                         </TableCell>
                         <TableCell>
                           <div>
-                            <div className="font-medium">
-                              {application.posteVise}
-                            </div>
+                            <div className="font-medium">{application.posteVise}</div>
                             <div className="text-sm text-muted-foreground">
                               {application.specialite}
                             </div>
@@ -810,11 +751,7 @@ export default function TeachersPage() {
                           )}
                         </TableCell>
                         <TableCell>
-                          <Badge
-                            className={
-                              statutApplicationLabels[application.statut].color
-                            }
-                          >
+                          <Badge className={statutApplicationLabels[application.statut].color}>
                             {statutApplicationLabels[application.statut].label}
                           </Badge>
                           {application.commentaire && (
@@ -851,39 +788,31 @@ export default function TeachersPage() {
                               <DropdownMenuSeparator />
                               {application.statut === "en_attente" && (
                                 <>
-                                  <DropdownMenuItem
+                                  <DropdownMenuItem 
                                     className="text-green-600"
-                                    onClick={() =>
-                                      handleApproveApplication(application.id)
-                                    }
+                                    onClick={() => handleApproveApplication(application.id)}
                                   >
                                     <CheckCircle className="mr-2 h-4 w-4" />
                                     Accepter
                                   </DropdownMenuItem>
-                                  <DropdownMenuItem
+                                  <DropdownMenuItem 
                                     className="text-blue-600"
                                     onClick={() => {
-                                      setApplications((apps) =>
-                                        apps.map((app) =>
-                                          app.id === application.id
-                                            ? {
-                                                ...app,
-                                                statut: "en_entretien" as const,
-                                              }
-                                            : app,
-                                        ),
+                                      setApplications(apps => 
+                                        apps.map(app => 
+                                          app.id === application.id ? { ...app, statut: "en_entretien" as const } : app
+                                        )
                                       );
                                       toast({
                                         title: "Candidature mise à jour",
-                                        description:
-                                          "Le statut a été changé en 'En entretien'.",
+                                        description: "Le statut a été changé en 'En entretien'.",
                                       });
                                     }}
                                   >
                                     <UserCheck className="mr-2 h-4 w-4" />
                                     Convoquer entretien
                                   </DropdownMenuItem>
-                                  <DropdownMenuItem
+                                  <DropdownMenuItem 
                                     className="text-red-600"
                                     onClick={() => {
                                       setSelectedApplication(application);
@@ -896,7 +825,7 @@ export default function TeachersPage() {
                                 </>
                               )}
                               {application.statut === "accepte" && (
-                                <DropdownMenuItem
+                                <DropdownMenuItem 
                                   className="text-green-600"
                                   onClick={() => {
                                     // Convertir en enseignant
@@ -911,9 +840,7 @@ export default function TeachersPage() {
                                       departement: "À définir",
                                       statut: "candidat",
                                       typeContrat: "CDD",
-                                      dateEmbauche: new Date()
-                                        .toISOString()
-                                        .split("T")[0],
+                                      dateEmbauche: new Date().toISOString().split('T')[0],
                                       qualification: application.qualification,
                                       experience: application.experience,
                                       matieres: [],
@@ -921,8 +848,7 @@ export default function TeachersPage() {
                                     setTeachers([...teachers, newTeacher]);
                                     toast({
                                       title: "Enseignant ajouté",
-                                      description:
-                                        "Le candidat a été converti en enseignant.",
+                                      description: "Le candidat a été converti en enseignant.",
                                     });
                                   }}
                                 >
@@ -952,61 +878,40 @@ export default function TeachersPage() {
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
-                  {teachers
-                    .filter((t) => t.evaluation)
-                    .map((teacher) => (
-                      <div
-                        key={teacher.id}
-                        className="flex items-center justify-between p-4 border rounded-lg"
-                      >
-                        <div className="flex items-center space-x-4">
-                          <div>
-                            <div className="font-medium">
-                              {teacher.prenom} {teacher.nom}
-                            </div>
-                            <div className="text-sm text-muted-foreground">
-                              {teacher.specialite}
-                            </div>
-                            <div className="flex items-center space-x-2 mt-1">
-                              {teacher.matieres.map((matiere, index) => (
-                                <Badge
-                                  key={index}
-                                  variant="outline"
-                                  className="text-xs"
-                                >
-                                  {matiere}
-                                </Badge>
-                              ))}
-                            </div>
+                  {teachers.filter(t => t.evaluation).map((teacher) => (
+                    <div key={teacher.id} className="flex items-center justify-between p-4 border rounded-lg">
+                      <div className="flex items-center space-x-4">
+                        <div>
+                          <div className="font-medium">{teacher.prenom} {teacher.nom}</div>
+                          <div className="text-sm text-muted-foreground">{teacher.specialite}</div>
+                          <div className="flex items-center space-x-2 mt-1">
+                            {teacher.matieres.map((matiere, index) => (
+                              <Badge key={index} variant="outline" className="text-xs">
+                                {matiere}
+                              </Badge>
+                            ))}
                           </div>
-                        </div>
-                        <div className="flex items-center space-x-4">
-                          <div className="text-center">
-                            <div className="flex items-center space-x-1">
-                              <Star className="h-4 w-4 text-yellow-400 fill-current" />
-                              <span className="font-bold text-lg">
-                                {teacher.evaluation}/5
-                              </span>
-                            </div>
-                            <div className="text-sm text-muted-foreground">
-                              Note étudiants
-                            </div>
-                          </div>
-                          <div className="text-center">
-                            <div className="font-bold text-lg">
-                              {teacher.heuresEnseignement}h
-                            </div>
-                            <div className="text-sm text-muted-foreground">
-                              Heures/an
-                            </div>
-                          </div>
-                          <Button variant="outline" size="sm">
-                            <Eye className="h-4 w-4 mr-2" />
-                            Détails
-                          </Button>
                         </div>
                       </div>
-                    ))}
+                      <div className="flex items-center space-x-4">
+                        <div className="text-center">
+                          <div className="flex items-center space-x-1">
+                            <Star className="h-4 w-4 text-yellow-400 fill-current" />
+                            <span className="font-bold text-lg">{teacher.evaluation}/5</span>
+                          </div>
+                          <div className="text-sm text-muted-foreground">Note étudiants</div>
+                        </div>
+                        <div className="text-center">
+                          <div className="font-bold text-lg">{teacher.heuresEnseignement}h</div>
+                          <div className="text-sm text-muted-foreground">Heures/an</div>
+                        </div>
+                        <Button variant="outline" size="sm">
+                          <Eye className="h-4 w-4 mr-2" />
+                          Détails
+                        </Button>
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </CardContent>
             </Card>
@@ -1014,10 +919,7 @@ export default function TeachersPage() {
         </Tabs>
 
         {/* Reject Application Dialog */}
-        <Dialog
-          open={isApplicationDialogOpen}
-          onOpenChange={setIsApplicationDialogOpen}
-        >
+        <Dialog open={isApplicationDialogOpen} onOpenChange={setIsApplicationDialogOpen}>
           <DialogContent>
             <DialogHeader>
               <DialogTitle>Refuser la candidature</DialogTitle>
@@ -1037,21 +939,12 @@ export default function TeachersPage() {
               </div>
             </div>
             <DialogFooter>
-              <Button
-                variant="outline"
-                onClick={() => setIsApplicationDialogOpen(false)}
-              >
+              <Button variant="outline" onClick={() => setIsApplicationDialogOpen(false)}>
                 Annuler
               </Button>
-              <Button
-                variant="destructive"
-                onClick={() =>
-                  selectedApplication &&
-                  handleRejectApplication(
-                    selectedApplication.id,
-                    applicationComment,
-                  )
-                }
+              <Button 
+                variant="destructive" 
+                onClick={() => selectedApplication && handleRejectApplication(selectedApplication.id, applicationComment)}
               >
                 Refuser
               </Button>
@@ -1060,10 +953,7 @@ export default function TeachersPage() {
         </Dialog>
 
         {/* Create Teacher Dialog */}
-        <Dialog
-          open={isCreateTeacherOpen}
-          onOpenChange={setIsCreateTeacherOpen}
-        >
+        <Dialog open={isCreateTeacherOpen} onOpenChange={setIsCreateTeacherOpen}>
           <DialogContent className="max-w-2xl">
             <DialogHeader>
               <DialogTitle>Créer un nouvel enseignant</DialogTitle>
@@ -1074,9 +964,7 @@ export default function TeachersPage() {
                 <Input
                   id="prenom"
                   value={formData.prenom || ""}
-                  onChange={(e) =>
-                    setFormData({ ...formData, prenom: e.target.value })
-                  }
+                  onChange={(e) => setFormData({...formData, prenom: e.target.value})}
                 />
               </div>
               <div className="space-y-2">
@@ -1084,9 +972,7 @@ export default function TeachersPage() {
                 <Input
                   id="nom"
                   value={formData.nom || ""}
-                  onChange={(e) =>
-                    setFormData({ ...formData, nom: e.target.value })
-                  }
+                  onChange={(e) => setFormData({...formData, nom: e.target.value})}
                 />
               </div>
               <div className="space-y-2">
@@ -1095,9 +981,7 @@ export default function TeachersPage() {
                   id="email"
                   type="email"
                   value={formData.email || ""}
-                  onChange={(e) =>
-                    setFormData({ ...formData, email: e.target.value })
-                  }
+                  onChange={(e) => setFormData({...formData, email: e.target.value})}
                 />
               </div>
               <div className="space-y-2">
@@ -1105,9 +989,7 @@ export default function TeachersPage() {
                 <Input
                   id="telephone"
                   value={formData.telephone || ""}
-                  onChange={(e) =>
-                    setFormData({ ...formData, telephone: e.target.value })
-                  }
+                  onChange={(e) => setFormData({...formData, telephone: e.target.value})}
                 />
               </div>
               <div className="space-y-2">
@@ -1115,51 +997,31 @@ export default function TeachersPage() {
                 <Input
                   id="specialite"
                   value={formData.specialite || ""}
-                  onChange={(e) =>
-                    setFormData({ ...formData, specialite: e.target.value })
-                  }
+                  onChange={(e) => setFormData({...formData, specialite: e.target.value})}
                 />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="departement">Département</Label>
-                <Select
-                  value={formData.departement}
-                  onValueChange={(value) =>
-                    setFormData({ ...formData, departement: value })
-                  }
-                >
+                <Select value={formData.departement} onValueChange={(value) => setFormData({...formData, departement: value})}>
                   <SelectTrigger>
                     <SelectValue placeholder="Sélectionner un département" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="Sciences Médicales">
-                      Sciences Médicales
-                    </SelectItem>
-                    <SelectItem value="Sciences Biologiques">
-                      Sciences Biologiques
-                    </SelectItem>
-                    <SelectItem value="Sciences Chimiques">
-                      Sciences Chimiques
-                    </SelectItem>
+                    <SelectItem value="Sciences Médicales">Sciences Médicales</SelectItem>
+                    <SelectItem value="Sciences Biologiques">Sciences Biologiques</SelectItem>
+                    <SelectItem value="Sciences Chimiques">Sciences Chimiques</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
               <div className="space-y-2">
                 <Label htmlFor="qualification">Qualification</Label>
-                <Select
-                  value={formData.qualification}
-                  onValueChange={(value) =>
-                    setFormData({ ...formData, qualification: value })
-                  }
-                >
+                <Select value={formData.qualification} onValueChange={(value) => setFormData({...formData, qualification: value})}>
                   <SelectTrigger>
                     <SelectValue placeholder="Sélectionner une qualification" />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="Professeur">Professeur</SelectItem>
-                    <SelectItem value="Maître de Conférences">
-                      Maître de Conférences
-                    </SelectItem>
+                    <SelectItem value="Maître de Conférences">Maître de Conférences</SelectItem>
                     <SelectItem value="Docteur">Docteur</SelectItem>
                     <SelectItem value="Assistant">Assistant</SelectItem>
                   </SelectContent>
@@ -1167,12 +1029,7 @@ export default function TeachersPage() {
               </div>
               <div className="space-y-2">
                 <Label htmlFor="typeContrat">Type de contrat</Label>
-                <Select
-                  value={formData.typeContrat}
-                  onValueChange={(value) =>
-                    setFormData({ ...formData, typeContrat: value as any })
-                  }
-                >
+                <Select value={formData.typeContrat} onValueChange={(value) => setFormData({...formData, typeContrat: value as any})}>
                   <SelectTrigger>
                     <SelectValue placeholder="Sélectionner un type" />
                   </SelectTrigger>
@@ -1186,25 +1043,21 @@ export default function TeachersPage() {
               </div>
             </div>
             <DialogFooter>
-              <Button
-                variant="outline"
-                onClick={() => {
-                  setIsCreateTeacherOpen(false);
-                  setFormData({});
-                }}
-              >
+              <Button variant="outline" onClick={() => {
+                setIsCreateTeacherOpen(false);
+                setFormData({});
+              }}>
                 Annuler
               </Button>
-              <Button onClick={handleCreateTeacher}>Créer l'enseignant</Button>
+              <Button onClick={handleCreateTeacher}>
+                Créer l'enseignant
+              </Button>
             </DialogFooter>
           </DialogContent>
         </Dialog>
 
         {/* Edit Teacher Dialog */}
-        <Dialog
-          open={isTeacherDialogOpen}
-          onOpenChange={setIsTeacherDialogOpen}
-        >
+        <Dialog open={isTeacherDialogOpen} onOpenChange={setIsTeacherDialogOpen}>
           <DialogContent className="max-w-2xl">
             <DialogHeader>
               <DialogTitle>Modifier l'enseignant</DialogTitle>
@@ -1215,9 +1068,7 @@ export default function TeachersPage() {
                 <Input
                   id="edit-prenom"
                   value={formData.prenom || ""}
-                  onChange={(e) =>
-                    setFormData({ ...formData, prenom: e.target.value })
-                  }
+                  onChange={(e) => setFormData({...formData, prenom: e.target.value})}
                 />
               </div>
               <div className="space-y-2">
@@ -1225,9 +1076,7 @@ export default function TeachersPage() {
                 <Input
                   id="edit-nom"
                   value={formData.nom || ""}
-                  onChange={(e) =>
-                    setFormData({ ...formData, nom: e.target.value })
-                  }
+                  onChange={(e) => setFormData({...formData, nom: e.target.value})}
                 />
               </div>
               <div className="space-y-2">
@@ -1236,9 +1085,7 @@ export default function TeachersPage() {
                   id="edit-email"
                   type="email"
                   value={formData.email || ""}
-                  onChange={(e) =>
-                    setFormData({ ...formData, email: e.target.value })
-                  }
+                  onChange={(e) => setFormData({...formData, email: e.target.value})}
                 />
               </div>
               <div className="space-y-2">
@@ -1246,9 +1093,7 @@ export default function TeachersPage() {
                 <Input
                   id="edit-telephone"
                   value={formData.telephone || ""}
-                  onChange={(e) =>
-                    setFormData({ ...formData, telephone: e.target.value })
-                  }
+                  onChange={(e) => setFormData({...formData, telephone: e.target.value})}
                 />
               </div>
               <div className="space-y-2">
@@ -1257,12 +1102,7 @@ export default function TeachersPage() {
                   id="edit-salaire"
                   type="number"
                   value={formData.salaire || ""}
-                  onChange={(e) =>
-                    setFormData({
-                      ...formData,
-                      salaire: Number(e.target.value),
-                    })
-                  }
+                  onChange={(e) => setFormData({...formData, salaire: Number(e.target.value)})}
                 />
               </div>
               <div className="space-y-2">
@@ -1271,45 +1111,32 @@ export default function TeachersPage() {
                   id="edit-heures"
                   type="number"
                   value={formData.heuresEnseignement || ""}
-                  onChange={(e) =>
-                    setFormData({
-                      ...formData,
-                      heuresEnseignement: Number(e.target.value),
-                    })
-                  }
+                  onChange={(e) => setFormData({...formData, heuresEnseignement: Number(e.target.value)})}
                 />
               </div>
             </div>
             <DialogFooter>
-              <Button
-                variant="outline"
-                onClick={() => {
+              <Button variant="outline" onClick={() => {
+                setIsTeacherDialogOpen(false);
+                setSelectedTeacher(null);
+                setFormData({});
+              }}>
+                Annuler
+              </Button>
+              <Button onClick={() => {
+                if (selectedTeacher) {
+                  setTeachers(teachers => 
+                    teachers.map(t => t.id === selectedTeacher.id ? {...t, ...formData} : t)
+                  );
+                  toast({
+                    title: "Enseignant modifié",
+                    description: "Les informations ont été mises à jour avec succès.",
+                  });
                   setIsTeacherDialogOpen(false);
                   setSelectedTeacher(null);
                   setFormData({});
-                }}
-              >
-                Annuler
-              </Button>
-              <Button
-                onClick={() => {
-                  if (selectedTeacher) {
-                    setTeachers((teachers) =>
-                      teachers.map((t) =>
-                        t.id === selectedTeacher.id ? { ...t, ...formData } : t,
-                      ),
-                    );
-                    toast({
-                      title: "Enseignant modifié",
-                      description:
-                        "Les informations ont été mises à jour avec succès.",
-                    });
-                    setIsTeacherDialogOpen(false);
-                    setSelectedTeacher(null);
-                    setFormData({});
-                  }
-                }}
-              >
+                }
+              }}>
                 Modifier
               </Button>
             </DialogFooter>
@@ -1326,113 +1153,67 @@ export default function TeachersPage() {
               <div className="grid grid-cols-2 gap-6">
                 <div className="space-y-4">
                   <div>
-                    <Label className="text-sm font-medium text-muted-foreground">
-                      Nom complet
-                    </Label>
-                    <p className="text-sm">
-                      {selectedTeacher.prenom} {selectedTeacher.nom}
-                    </p>
+                    <Label className="text-sm font-medium text-muted-foreground">Nom complet</Label>
+                    <p className="text-sm">{selectedTeacher.prenom} {selectedTeacher.nom}</p>
                   </div>
                   <div>
-                    <Label className="text-sm font-medium text-muted-foreground">
-                      Matricule
-                    </Label>
+                    <Label className="text-sm font-medium text-muted-foreground">Matricule</Label>
                     <p className="text-sm">{selectedTeacher.matricule}</p>
                   </div>
                   <div>
-                    <Label className="text-sm font-medium text-muted-foreground">
-                      Email
-                    </Label>
+                    <Label className="text-sm font-medium text-muted-foreground">Email</Label>
                     <p className="text-sm">{selectedTeacher.email}</p>
                   </div>
                   <div>
-                    <Label className="text-sm font-medium text-muted-foreground">
-                      Téléphone
-                    </Label>
-                    <p className="text-sm">
-                      {selectedTeacher.telephone || "Non renseigné"}
-                    </p>
+                    <Label className="text-sm font-medium text-muted-foreground">Téléphone</Label>
+                    <p className="text-sm">{selectedTeacher.telephone || "Non renseigné"}</p>
                   </div>
                   <div>
-                    <Label className="text-sm font-medium text-muted-foreground">
-                      Spécialité
-                    </Label>
+                    <Label className="text-sm font-medium text-muted-foreground">Spécialité</Label>
                     <p className="text-sm">{selectedTeacher.specialite}</p>
                   </div>
                   <div>
-                    <Label className="text-sm font-medium text-muted-foreground">
-                      Département
-                    </Label>
+                    <Label className="text-sm font-medium text-muted-foreground">Département</Label>
                     <p className="text-sm">{selectedTeacher.departement}</p>
                   </div>
                 </div>
                 <div className="space-y-4">
                   <div>
-                    <Label className="text-sm font-medium text-muted-foreground">
-                      Qualification
-                    </Label>
+                    <Label className="text-sm font-medium text-muted-foreground">Qualification</Label>
                     <p className="text-sm">{selectedTeacher.qualification}</p>
                   </div>
                   <div>
-                    <Label className="text-sm font-medium text-muted-foreground">
-                      Type de contrat
-                    </Label>
-                    <Badge
-                      className={
-                        typeContratLabels[selectedTeacher.typeContrat].color
-                      }
-                    >
+                    <Label className="text-sm font-medium text-muted-foreground">Type de contrat</Label>
+                    <Badge className={typeContratLabels[selectedTeacher.typeContrat].color}>
                       {typeContratLabels[selectedTeacher.typeContrat].label}
                     </Badge>
                   </div>
                   <div>
-                    <Label className="text-sm font-medium text-muted-foreground">
-                      Date d'embauche
-                    </Label>
-                    <p className="text-sm">
-                      {new Date(
-                        selectedTeacher.dateEmbauche,
-                      ).toLocaleDateString("fr-FR")}
-                    </p>
+                    <Label className="text-sm font-medium text-muted-foreground">Date d'embauche</Label>
+                    <p className="text-sm">{new Date(selectedTeacher.dateEmbauche).toLocaleDateString('fr-FR')}</p>
                   </div>
                   <div>
-                    <Label className="text-sm font-medium text-muted-foreground">
-                      Expérience
-                    </Label>
+                    <Label className="text-sm font-medium text-muted-foreground">Expérience</Label>
                     <p className="text-sm">{selectedTeacher.experience} ans</p>
                   </div>
                   {selectedTeacher.salaire && (
                     <div>
-                      <Label className="text-sm font-medium text-muted-foreground">
-                        Salaire
-                      </Label>
-                      <p className="text-sm text-green-600">
-                        {selectedTeacher.salaire}€/mois
-                      </p>
+                      <Label className="text-sm font-medium text-muted-foreground">Salaire</Label>
+                      <p className="text-sm text-green-600">{selectedTeacher.salaire}€/mois</p>
                     </div>
                   )}
                   <div>
-                    <Label className="text-sm font-medium text-muted-foreground">
-                      Statut
-                    </Label>
-                    <Badge
-                      className={statutLabels[selectedTeacher.statut].color}
-                    >
+                    <Label className="text-sm font-medium text-muted-foreground">Statut</Label>
+                    <Badge className={statutLabels[selectedTeacher.statut].color}>
                       {statutLabels[selectedTeacher.statut].label}
                     </Badge>
                   </div>
                 </div>
                 <div className="col-span-2">
-                  <Label className="text-sm font-medium text-muted-foreground">
-                    Matières enseignées
-                  </Label>
+                  <Label className="text-sm font-medium text-muted-foreground">Matières enseignées</Label>
                   <div className="flex flex-wrap gap-1 mt-1">
                     {selectedTeacher.matieres.map((matiere, index) => (
-                      <Badge
-                        key={index}
-                        variant="secondary"
-                        className="text-xs"
-                      >
+                      <Badge key={index} variant="secondary" className="text-xs">
                         {matiere}
                       </Badge>
                     ))}
