@@ -553,32 +553,13 @@ export default function RoleManagementPage() {
                                 )}
                               </DropdownMenuItem>
                               {role.id !== "admin" && (
-                                <AlertDialog>
-                                  <AlertDialogTrigger asChild>
-                                    <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
-                                      <Trash2 className="mr-2 h-4 w-4" />
-                                      Supprimer
-                                    </DropdownMenuItem>
-                                  </AlertDialogTrigger>
-                                  <AlertDialogContent>
-                                    <AlertDialogHeader>
-                                      <AlertDialogTitle>Êtes-vous sûr ?</AlertDialogTitle>
-                                      <AlertDialogDescription>
-                                        Cette action supprimera définitivement le rôle "{role.nom}". 
-                                        Cette action ne peut pas être annulée.
-                                      </AlertDialogDescription>
-                                    </AlertDialogHeader>
-                                    <AlertDialogFooter>
-                                      <AlertDialogCancel>Annuler</AlertDialogCancel>
-                                      <AlertDialogAction 
-                                        onClick={() => handleDeleteRole(role.id)}
-                                        className="bg-red-600 hover:bg-red-700"
-                                      >
-                                        Supprimer
-                                      </AlertDialogAction>
-                                    </AlertDialogFooter>
-                                  </AlertDialogContent>
-                                </AlertDialog>
+                                <DropdownMenuItem onClick={() => {
+                                  setRoleToDelete(role.id);
+                                  setDeleteDialogOpen(true);
+                                }}>
+                                  <Trash2 className="mr-2 h-4 w-4" />
+                                  Supprimer
+                                </DropdownMenuItem>
                               )}
                             </DropdownMenuContent>
                           </DropdownMenu>
