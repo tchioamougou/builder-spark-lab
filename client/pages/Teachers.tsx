@@ -527,7 +527,7 @@ export default function TeachersPage() {
                   <TableHeader>
                     <TableRow>
                       <TableHead>Enseignant</TableHead>
-                      <TableHead>Spécialité</TableHead>
+                      <TableHead>Sp��cialité</TableHead>
                       <TableHead>Contrat</TableHead>
                       <TableHead>Évaluation</TableHead>
                       <TableHead>Heures</TableHead>
@@ -658,32 +658,13 @@ export default function TeachersPage() {
                                 <UserX className="mr-2 h-4 w-4" />
                                 Archiver
                               </DropdownMenuItem>
-                              <AlertDialog>
-                                <AlertDialogTrigger asChild>
-                                  <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
-                                    <Trash2 className="mr-2 h-4 w-4" />
-                                    Supprimer
-                                  </DropdownMenuItem>
-                                </AlertDialogTrigger>
-                                <AlertDialogContent>
-                                  <AlertDialogHeader>
-                                    <AlertDialogTitle>Êtes-vous sûr ?</AlertDialogTitle>
-                                    <AlertDialogDescription>
-                                      Cette action supprimera définitivement l'enseignant "{teacher.prenom} {teacher.nom}". 
-                                      Cette action ne peut pas être annulée.
-                                    </AlertDialogDescription>
-                                  </AlertDialogHeader>
-                                  <AlertDialogFooter>
-                                    <AlertDialogCancel>Annuler</AlertDialogCancel>
-                                    <AlertDialogAction 
-                                      onClick={() => handleDeleteTeacher(teacher.id)}
-                                      className="bg-red-600 hover:bg-red-700"
-                                    >
-                                      Supprimer
-                                    </AlertDialogAction>
-                                  </AlertDialogFooter>
-                                </AlertDialogContent>
-                              </AlertDialog>
+                              <DropdownMenuItem onClick={() => {
+                                setTeacherToDelete(teacher.id);
+                                setDeleteDialogOpen(true);
+                              }}>
+                                <Trash2 className="mr-2 h-4 w-4" />
+                                Supprimer
+                              </DropdownMenuItem>
                             </DropdownMenuContent>
                           </DropdownMenu>
                         </TableCell>
