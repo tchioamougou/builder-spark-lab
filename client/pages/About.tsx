@@ -133,6 +133,108 @@ const About: React.FC = () => {
           </div>
         </section>
 
+        {/* Section Nos Missions */}
+        <section className="py-20 md:py-32 bg-white">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-16">
+              <h2 className="heading-font text-3xl md:text-4xl text-[#3b2c6a] font-bold mb-4">
+                Nos <span className="text-[#ff9900]">Missions</span>
+              </h2>
+              <div className="w-20 h-1 bg-[#ff9900] mx-auto mb-6"></div>
+              <p className="text-gray-600 max-w-3xl mx-auto text-lg">
+                L'EPFPS s'engage dans une approche holistique de la formation en santé,
+                intégrant innovation, engagement communautaire et développement durable.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {/* Formation de Qualité */}
+              <div className="bg-gray-50 rounded-3xl p-8 hover:shadow-lg transition-shadow duration-300">
+                <div className="w-16 h-16 bg-[#3b2c6a] rounded-2xl flex items-center justify-center mb-6">
+                  <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                  </svg>
+                </div>
+                <h4 className="heading-font text-xl font-bold text-[#3b2c6a] mb-4">Formation de Qualité</h4>
+                <p className="text-gray-600 leading-relaxed">
+                  Programmes académiques innovants et performants, avec un accent sur les compétences
+                  pratiques et l'intégration des technologies modernes dans l'enseignement médical.
+                </p>
+              </div>
+
+              {/* Engagement Communautaire */}
+              <div className="bg-gray-50 rounded-3xl p-8 hover:shadow-lg transition-shadow duration-300">
+                <div className="w-16 h-16 bg-[#ff9900] rounded-2xl flex items-center justify-center mb-6">
+                  <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                  </svg>
+                </div>
+                <h4 className="heading-font text-xl font-bold text-[#3b2c6a] mb-4">Engagement Communautaire</h4>
+                <p className="text-gray-600 leading-relaxed">
+                  Promotion de l'engagement social des jeunes et implication active dans des projets
+                  communautaires de santé publique dans la région de l'Adamaoua.
+                </p>
+              </div>
+
+              {/* Développement Durable */}
+              <div className="bg-gray-50 rounded-3xl p-8 hover:shadow-lg transition-shadow duration-300">
+                <div className="w-16 h-16 bg-[#3b2c6a] rounded-2xl flex items-center justify-center mb-6">
+                  <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+                <h4 className="heading-font text-xl font-bold text-[#3b2c6a] mb-4">Développement Durable</h4>
+                <p className="text-gray-600 leading-relaxed">
+                  Initiatives de sensibilisation aux enjeux climatiques et sociaux, intégrant
+                  les principes de durabilité dans la pratique médicale et les soins de santé.
+                </p>
+              </div>
+
+              {/* Innovation et Recherche */}
+              <div className="bg-gray-50 rounded-3xl p-8 hover:shadow-lg transition-shadow duration-300">
+                <div className="w-16 h-16 bg-[#ff9900] rounded-2xl flex items-center justify-center mb-6">
+                  <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                  </svg>
+                </div>
+                <h4 className="heading-font text-xl font-bold text-[#3b2c6a] mb-4">Innovation et Recherche</h4>
+                <p className="text-gray-600 leading-relaxed">
+                  Encouragement de la recherche appliquée et de l'innovation locale dans le domaine
+                  de la santé, avec un focus sur les solutions adaptées au contexte africain.
+                </p>
+              </div>
+
+              {/* Technologies TIC */}
+              <div className="bg-gray-50 rounded-3xl p-8 hover:shadow-lg transition-shadow duration-300">
+                <div className="w-16 h-16 bg-[#3b2c6a] rounded-2xl flex items-center justify-center mb-6">
+                  <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  </svg>
+                </div>
+                <h4 className="heading-font text-xl font-bold text-[#3b2c6a] mb-4">Technologies TIC</h4>
+                <p className="text-gray-600 leading-relaxed">
+                  Intégration des Technologies de l'Information et de la Communication dans nos programmes
+                  pour développer des compétences numériques essentielles aux professionnels de santé modernes.
+                </p>
+              </div>
+
+              {/* Partenariats */}
+              <div className="bg-gray-50 rounded-3xl p-8 hover:shadow-lg transition-shadow duration-300">
+                <div className="w-16 h-16 bg-[#ff9900] rounded-2xl flex items-center justify-center mb-6">
+                  <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2-2v2m8 0V6a2 2 0 012 2v6a2 2 0 01-2 2H6a2 2 0 01-2-2V8a2 2 0 012-2V6" />
+                  </svg>
+                </div>
+                <h4 className="heading-font text-xl font-bold text-[#3b2c6a] mb-4">Partenariats Stratégiques</h4>
+                <p className="text-gray-600 leading-relaxed">
+                  Collaborations actives avec des entreprises locales, hôpitaux partenaires et
+                  institutions académiques internationales pour enrichir l'expérience étudiante.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Section Équipe dirigeante */}
         <section className="py-20 md:py-32 bg-white">
           <div className="container mx-auto px-4">
