@@ -379,5 +379,27 @@
     "landmarksText": "The school is located near Meiganga regional hospital, opposite the Total gas station.",
     "parkingAvailable": "Parking available",
     "parkingText": "Free parking available on campus for visitors and students."
+  },
+  "footer": {
+    "schoolName1": "Private School for Health",
+    "schoolName2": "Professionals Training",
+    "location": "Meiganga",
+    "description": "Training tomorrow's health professionals with excellence, rigor and humanity. Your future in the health sector starts here.",
+    "coordinates": "Coordinates",
+    "navigation": "Navigation",
+    "more": "More",
+    "address": "Address",
+    "phone": "Phone",
+    "email": "Email",
+    "openingHours": "Opening hours",
+    "mondayFriday": "Monday - Friday:",
+    "saturday": "Saturday:",
+    "sunday": "Sunday:",
+    "closed": "Closed",
+    "copyright": "Private School for Health Professionals Training of Meiganga (EPFPS). All rights reserved.",
+    "legalNotices": "Legal notices",
+    "privacyPolicy": "Privacy policy",
+    "siteMap": "Site map",
+    "recognition": "Institution recognized by the Ministry of Public Health of Cameroon"
   }
 }
