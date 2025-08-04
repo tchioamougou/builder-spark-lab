@@ -290,19 +290,35 @@ export default function Index() {
           </CardHeader>
           <CardContent>
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-              <Button className="h-20 flex-col space-y-2" variant="outline">
+              <Button
+                className="h-20 flex-col space-y-2"
+                variant="outline"
+                onClick={() => navigate('/user-management')}
+              >
                 <Users className="h-6 w-6" />
                 <span>Gérer les utilisateurs</span>
               </Button>
-              <Button className="h-20 flex-col space-y-2" variant="outline">
+              <Button
+                className="h-20 flex-col space-y-2"
+                variant="outline"
+                onClick={() => navigate('/programs')}
+              >
                 <BookOpen className="h-6 w-6" />
                 <span>Programmes académiques</span>
               </Button>
-              <Button className="h-20 flex-col space-y-2" variant="outline">
+              <Button
+                className="h-20 flex-col space-y-2"
+                variant="outline"
+                onClick={() => navigate('/files')}
+              >
                 <FileText className="h-6 w-6" />
                 <span>Demandes en attente</span>
               </Button>
-              <Button className="h-20 flex-col space-y-2" variant="outline">
+              <Button
+                className="h-20 flex-col space-y-2"
+                variant="outline"
+                onClick={() => navigate('/academic-years')}
+              >
                 <Calendar className="h-6 w-6" />
                 <span>Calendrier académique</span>
               </Button>
