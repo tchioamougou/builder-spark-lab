@@ -293,6 +293,221 @@ export default function TeacherLayout({ children }: TeacherLayoutProps) {
         {/* Main content */}
         <main className="flex-1 p-6">{children}</main>
       </div>
+
+      {/* Grade Dialog */}
+      <Dialog open={isGradeDialogOpen} onOpenChange={setIsGradeDialogOpen}>
+        <DialogContent className="max-w-2xl">
+          <DialogHeader>
+            <DialogTitle>Saisir une note</DialogTitle>
+            <DialogDescription>
+              Enregistrer une note pour un étudiant
+            </DialogDescription>
+          </DialogHeader>
+          <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <Label htmlFor="grade-course">Cours</Label>
+              <Select
+                value={gradeForm.course}
+                onValueChange={(value) => setGradeForm({...gradeForm, course: value})}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Sélectionner un cours" />
+                </SelectTrigger>
+                <SelectContent>
+                  {mockCourses.map((course) => (
+                    <SelectItem key={course.id} value={course.id}>
+                      {course.name} - {course.filiere} {course.niveau}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="grade-student">Étudiant</Label>
+              <Select
+                value={gradeForm.student}
+                onValueChange={(value) => setGradeForm({...gradeForm, student: value})}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Sélectionner un étudiant" />
+                </SelectTrigger>
+                <SelectContent>
+                  {mockStudents.map((student) => (
+                    <SelectItem key={student.id} value={student.id}>
+                      {student.name} ({student.numeroEtudiant})
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="evaluation-type">Type d'évaluation</Label>
+              <Select
+                value={gradeForm.evaluationType}
+                onValueChange={(value) => setGradeForm({...gradeForm, evaluationType: value})}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Type d'évaluation" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="examen_partiel">Examen partiel</SelectItem>
+                  <SelectItem value="examen_final">Examen final</SelectItem>
+                  <SelectItem value="tp">Travaux pratiques</SelectItem>
+                  <SelectItem value="controle_continu">Contrôle continu</SelectItem>
+                  <SelectItem value="projet">Projet</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="grid grid-cols-2 gap-2">
+              <div className="space-y-2">
+                <Label htmlFor="grade">Note</Label>
+                <Input
+                  id="grade"
+                  type="number"
+                  step="0.1"
+                  min="0"
+                  max={gradeForm.maxGrade}
+                  placeholder="15.5"
+                  value={gradeForm.grade}
+                  onChange={(e) => setGradeForm({...gradeForm, grade: e.target.value})}
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="max-grade">Barème</Label>
+                <Input
+                  id="max-grade"
+                  type="number"
+                  value={gradeForm.maxGrade}
+                  onChange={(e) => setGradeForm({...gradeForm, maxGrade: e.target.value})}
+                />
+              </div>
+            </div>
+            <div className="col-span-2 space-y-2">
+              <Label htmlFor="grade-comment">Commentaire (optionnel)</Label>
+              <Textarea
+                id="grade-comment"
+                placeholder="Commentaire sur la performance de l'étudiant..."
+                value={gradeForm.comment}
+                onChange={(e) => setGradeForm({...gradeForm, comment: e.target.value})}
+                rows={3}
+              />
+            </div>
+          </div>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setIsGradeDialogOpen(false)}>
+              Annuler
+            </Button>
+            <Button onClick={handleSubmitGrade}>
+              <Save className="h-4 w-4 mr-2" />
+              Enregistrer la note
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Absence Dialog */}
+      <Dialog open={isAbsenceDialogOpen} onOpenChange={setIsAbsenceDialogOpen}>
+        <DialogContent className="max-w-2xl">
+          <DialogHeader>
+            <DialogTitle>Signaler des absences</DialogTitle>
+            <DialogDescription>
+              Marquer les étudiants absents pour une séance
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4">
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="absence-course">Cours</Label>
+                <Select
+                  value={absenceForm.course}
+                  onValueChange={(value) => setAbsenceForm({...absenceForm, course: value})}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Sélectionner un cours" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {mockCourses.map((course) => (
+                      <SelectItem key={course.id} value={course.id}>
+                        {course.name} - {course.filiere} {course.niveau}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="absence-date">Date</Label>
+                <Input
+                  id="absence-date"
+                  type="date"
+                  value={absenceForm.date}
+                  onChange={(e) => setAbsenceForm({...absenceForm, date: e.target.value})}
+                />
+              </div>
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="session-type">Type de séance</Label>
+              <Select
+                value={absenceForm.session}
+                onValueChange={(value) => setAbsenceForm({...absenceForm, session: value})}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Sélectionner le type de séance" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="cours">Cours magistral</SelectItem>
+                  <SelectItem value="tp">Travaux pratiques</SelectItem>
+                  <SelectItem value="td">Travaux dirigés</SelectItem>
+                  <SelectItem value="examen">Examen</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="space-y-2">
+              <Label>Étudiants absents</Label>
+              <div className="border rounded-lg p-4 max-h-48 overflow-y-auto">
+                <div className="space-y-3">
+                  {mockStudents.map((student) => (
+                    <div key={student.id} className="flex items-center space-x-2">
+                      <Checkbox
+                        id={`student-${student.id}`}
+                        checked={absenceForm.students.includes(student.id)}
+                        onCheckedChange={() => handleStudentToggle(student.id)}
+                      />
+                      <Label
+                        htmlFor={`student-${student.id}`}
+                        className="text-sm font-normal cursor-pointer flex-1"
+                      >
+                        {student.name} ({student.numeroEtudiant})
+                      </Label>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <p className="text-xs text-muted-foreground">
+                {absenceForm.students.length} étudiant(s) sélectionné(s)
+              </p>
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="absence-comment">Commentaire (optionnel)</Label>
+              <Textarea
+                id="absence-comment"
+                placeholder="Motif ou commentaire sur les absences..."
+                value={absenceForm.comment}
+                onChange={(e) => setAbsenceForm({...absenceForm, comment: e.target.value})}
+                rows={3}
+              />
+            </div>
+          </div>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setIsAbsenceDialogOpen(false)}>
+              Annuler
+            </Button>
+            <Button onClick={handleSubmitAbsence}>
+              <UserCheck className="h-4 w-4 mr-2" />
+              Signaler les absences
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
