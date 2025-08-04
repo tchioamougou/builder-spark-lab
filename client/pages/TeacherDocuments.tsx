@@ -94,7 +94,7 @@ const mockDocuments: Document[] = [
     lastModified: "2024-01-15",
     visibility: "students",
     downloads: 42,
-    description: "Introduction générale aux concepts anatomiques de base"
+    description: "Introduction générale aux concepts anatomiques de base",
   },
   {
     id: "2",
@@ -107,7 +107,7 @@ const mockDocuments: Document[] = [
     lastModified: "2024-01-20",
     visibility: "students",
     downloads: 38,
-    description: "Protocole détaillé pour la première séance de dissection"
+    description: "Protocole détaillé pour la première séance de dissection",
   },
   {
     id: "3",
@@ -120,7 +120,7 @@ const mockDocuments: Document[] = [
     lastModified: "2024-01-10",
     visibility: "private",
     downloads: 0,
-    description: "Sujet d'examen partiel de l'année précédente"
+    description: "Sujet d'examen partiel de l'année précédente",
   },
   {
     id: "4",
@@ -133,7 +133,7 @@ const mockDocuments: Document[] = [
     lastModified: "2024-01-12",
     visibility: "public",
     downloads: 65,
-    description: "Schéma anatomique détaillé du cœur humain"
+    description: "Schéma anatomique détaillé du cœur humain",
   },
   {
     id: "5",
@@ -146,8 +146,8 @@ const mockDocuments: Document[] = [
     lastModified: "2024-01-08",
     visibility: "students",
     downloads: 28,
-    description: "Démonstration vidéo des techniques de dissection"
-  }
+    description: "Démonstration vidéo des techniques de dissection",
+  },
 ];
 
 const documentTypeIcons = {
@@ -179,7 +179,9 @@ export default function TeacherDocuments() {
   const [filterCategory, setFilterCategory] = useState<string>("all");
   const [filterCourse, setFilterCourse] = useState<string>("all");
   const [isUploadOpen, setIsUploadOpen] = useState(false);
-  const [selectedDocument, setSelectedDocument] = useState<Document | null>(null);
+  const [selectedDocument, setSelectedDocument] = useState<Document | null>(
+    null,
+  );
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
   const [newDocument, setNewDocument] = useState({
     name: "",
@@ -195,23 +197,22 @@ export default function TeacherDocuments() {
     const matchesSearch =
       doc.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       doc.description?.toLowerCase().includes(searchTerm.toLowerCase());
-    
-    const matchesCategory = filterCategory === "all" || doc.category === filterCategory;
+
+    const matchesCategory =
+      filterCategory === "all" || doc.category === filterCategory;
     const matchesCourse = filterCourse === "all" || doc.course === filterCourse;
 
     return matchesSearch && matchesCategory && matchesCourse;
   });
 
   // Get unique courses for filter
-  const uniqueCourses = Array.from(new Set(documents.map(doc => doc.course)));
+  const uniqueCourses = Array.from(new Set(documents.map((doc) => doc.course)));
 
   const handleDownload = (documentId: string) => {
-    setDocuments(docs => 
-      docs.map(doc => 
-        doc.id === documentId 
-          ? { ...doc, downloads: doc.downloads + 1 }
-          : doc
-      )
+    setDocuments((docs) =>
+      docs.map((doc) =>
+        doc.id === documentId ? { ...doc, downloads: doc.downloads + 1 } : doc,
+      ),
     );
     toast({
       title: "Téléchargement démarré",
@@ -220,7 +221,7 @@ export default function TeacherDocuments() {
   };
 
   const handleDelete = (documentId: string) => {
-    setDocuments(docs => docs.filter(doc => doc.id !== documentId));
+    setDocuments((docs) => docs.filter((doc) => doc.id !== documentId));
     toast({
       title: "Document supprimé",
       description: "Le document a été supprimé avec succès.",
@@ -260,7 +261,7 @@ export default function TeacherDocuments() {
       description: "",
     });
     setIsUploadOpen(false);
-    
+
     toast({
       title: "Document ajouté",
       description: "Le document a été uploadé avec succès.",
@@ -269,9 +270,14 @@ export default function TeacherDocuments() {
 
   const totalDocuments = documents.length;
   const totalDownloads = documents.reduce((sum, doc) => sum + doc.downloads, 0);
-  const publicDocuments = documents.filter(doc => doc.visibility === "public").length;
+  const publicDocuments = documents.filter(
+    (doc) => doc.visibility === "public",
+  ).length;
   const recentDocuments = documents
-    .sort((a, b) => new Date(b.uploadDate).getTime() - new Date(a.uploadDate).getTime())
+    .sort(
+      (a, b) =>
+        new Date(b.uploadDate).getTime() - new Date(a.uploadDate).getTime(),
+    )
     .slice(0, 5);
 
   return (
@@ -280,7 +286,9 @@ export default function TeacherDocuments() {
         {/* Header */}
         <div className="flex justify-between items-center">
           <div>
-            <h2 className="text-3xl font-bold tracking-tight">Documents de Cours</h2>
+            <h2 className="text-3xl font-bold tracking-tight">
+              Documents de Cours
+            </h2>
             <p className="text-muted-foreground">
               Gestion de vos ressources pédagogiques
             </p>
@@ -318,7 +326,9 @@ export default function TeacherDocuments() {
                     <Input
                       id="name"
                       value={newDocument.name}
-                      onChange={(e) => setNewDocument({...newDocument, name: e.target.value})}
+                      onChange={(e) =>
+                        setNewDocument({ ...newDocument, name: e.target.value })
+                      }
                       placeholder="Nom du document"
                     />
                   </div>
@@ -327,7 +337,9 @@ export default function TeacherDocuments() {
                       <Label htmlFor="category">Catégorie</Label>
                       <Select
                         value={newDocument.category}
-                        onValueChange={(value) => setNewDocument({...newDocument, category: value})}
+                        onValueChange={(value) =>
+                          setNewDocument({ ...newDocument, category: value })
+                        }
                       >
                         <SelectTrigger>
                           <SelectValue placeholder="Sélectionner" />
@@ -345,7 +357,9 @@ export default function TeacherDocuments() {
                       <Label htmlFor="course">Cours</Label>
                       <Select
                         value={newDocument.course}
-                        onValueChange={(value) => setNewDocument({...newDocument, course: value})}
+                        onValueChange={(value) =>
+                          setNewDocument({ ...newDocument, course: value })
+                        }
                       >
                         <SelectTrigger>
                           <SelectValue placeholder="Sélectionner" />
@@ -364,30 +378,44 @@ export default function TeacherDocuments() {
                     <Label htmlFor="visibility">Visibilité</Label>
                     <Select
                       value={newDocument.visibility}
-                      onValueChange={(value) => setNewDocument({...newDocument, visibility: value})}
+                      onValueChange={(value) =>
+                        setNewDocument({ ...newDocument, visibility: value })
+                      }
                     >
                       <SelectTrigger>
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="public">Public</SelectItem>
-                        <SelectItem value="students">Étudiants seulement</SelectItem>
+                        <SelectItem value="students">
+                          Étudiants seulement
+                        </SelectItem>
                         <SelectItem value="private">Privé</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="description">Description (optionnelle)</Label>
+                    <Label htmlFor="description">
+                      Description (optionnelle)
+                    </Label>
                     <Textarea
                       id="description"
                       value={newDocument.description}
-                      onChange={(e) => setNewDocument({...newDocument, description: e.target.value})}
+                      onChange={(e) =>
+                        setNewDocument({
+                          ...newDocument,
+                          description: e.target.value,
+                        })
+                      }
                       placeholder="Description du document..."
                     />
                   </div>
                 </div>
                 <DialogFooter>
-                  <Button variant="outline" onClick={() => setIsUploadOpen(false)}>
+                  <Button
+                    variant="outline"
+                    onClick={() => setIsUploadOpen(false)}
+                  >
                     Annuler
                   </Button>
                   <Button onClick={handleUpload}>
@@ -425,9 +453,7 @@ export default function TeacherDocuments() {
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{totalDownloads}</div>
-              <p className="text-xs text-muted-foreground">
-                Par vos étudiants
-              </p>
+              <p className="text-xs text-muted-foreground">Par vos étudiants</p>
             </CardContent>
           </Card>
           <Card>
@@ -534,14 +560,16 @@ export default function TeacherDocuments() {
                   <TableBody>
                     {filteredDocuments.map((document) => {
                       const IconComponent = documentTypeIcons[document.type];
-                      
+
                       return (
                         <TableRow key={document.id}>
                           <TableCell>
                             <div className="flex items-center space-x-3">
                               <IconComponent className="h-5 w-5 text-muted-foreground" />
                               <div>
-                                <div className="font-medium">{document.name}</div>
+                                <div className="font-medium">
+                                  {document.name}
+                                </div>
                                 {document.description && (
                                   <div className="text-sm text-muted-foreground truncate max-w-xs">
                                     {document.description}
@@ -552,19 +580,29 @@ export default function TeacherDocuments() {
                           </TableCell>
                           <TableCell>{document.course}</TableCell>
                           <TableCell>
-                            <Badge className={categoryLabels[document.category].color}>
+                            <Badge
+                              className={
+                                categoryLabels[document.category].color
+                              }
+                            >
                               {categoryLabels[document.category].label}
                             </Badge>
                           </TableCell>
                           <TableCell>{document.size}</TableCell>
                           <TableCell>
-                            <Badge className={visibilityLabels[document.visibility].color}>
+                            <Badge
+                              className={
+                                visibilityLabels[document.visibility].color
+                              }
+                            >
                               {visibilityLabels[document.visibility].label}
                             </Badge>
                           </TableCell>
                           <TableCell>{document.downloads}</TableCell>
                           <TableCell>
-                            {new Date(document.uploadDate).toLocaleDateString("fr-FR")}
+                            {new Date(document.uploadDate).toLocaleDateString(
+                              "fr-FR",
+                            )}
                           </TableCell>
                           <TableCell>
                             <DropdownMenu>
@@ -584,7 +622,9 @@ export default function TeacherDocuments() {
                                   <Eye className="mr-2 h-4 w-4" />
                                   Voir détails
                                 </DropdownMenuItem>
-                                <DropdownMenuItem onClick={() => handleDownload(document.id)}>
+                                <DropdownMenuItem
+                                  onClick={() => handleDownload(document.id)}
+                                >
                                   <Download className="mr-2 h-4 w-4" />
                                   Télécharger
                                 </DropdownMenuItem>
@@ -628,9 +668,12 @@ export default function TeacherDocuments() {
                 <div className="space-y-4">
                   {recentDocuments.map((document) => {
                     const IconComponent = documentTypeIcons[document.type];
-                    
+
                     return (
-                      <div key={document.id} className="flex items-center justify-between p-4 border rounded-lg">
+                      <div
+                        key={document.id}
+                        className="flex items-center justify-between p-4 border rounded-lg"
+                      >
                         <div className="flex items-center space-x-3">
                           <IconComponent className="h-8 w-8 text-muted-foreground" />
                           <div>
@@ -641,11 +684,15 @@ export default function TeacherDocuments() {
                           </div>
                         </div>
                         <div className="text-right">
-                          <Badge className={categoryLabels[document.category].color}>
+                          <Badge
+                            className={categoryLabels[document.category].color}
+                          >
                             {categoryLabels[document.category].label}
                           </Badge>
                           <div className="text-sm text-muted-foreground mt-1">
-                            {new Date(document.uploadDate).toLocaleDateString("fr-FR")}
+                            {new Date(document.uploadDate).toLocaleDateString(
+                              "fr-FR",
+                            )}
                           </div>
                         </div>
                       </div>
@@ -671,19 +718,25 @@ export default function TeacherDocuments() {
                     .slice(0, 5)
                     .map((document) => {
                       const IconComponent = documentTypeIcons[document.type];
-                      
+
                       return (
-                        <div key={document.id} className="flex items-center justify-between p-4 border rounded-lg">
+                        <div
+                          key={document.id}
+                          className="flex items-center justify-between p-4 border rounded-lg"
+                        >
                           <div className="flex items-center space-x-3">
                             <IconComponent className="h-8 w-8 text-muted-foreground" />
                             <div>
                               <div className="font-medium">{document.name}</div>
                               <div className="text-sm text-muted-foreground">
-                                {document.course} • {document.downloads} téléchargements
+                                {document.course} • {document.downloads}{" "}
+                                téléchargements
                               </div>
                             </div>
                           </div>
-                          <Badge className={categoryLabels[document.category].color}>
+                          <Badge
+                            className={categoryLabels[document.category].color}
+                          >
                             {categoryLabels[document.category].label}
                           </Badge>
                         </div>
@@ -702,9 +755,12 @@ export default function TeacherDocuments() {
               <DialogTitle className="flex items-center space-x-2">
                 {selectedDocument && (
                   <>
-                    {React.createElement(documentTypeIcons[selectedDocument.type], {
-                      className: "h-5 w-5"
-                    })}
+                    {React.createElement(
+                      documentTypeIcons[selectedDocument.type],
+                      {
+                        className: "h-5 w-5",
+                      },
+                    )}
                     <span>{selectedDocument.name}</span>
                   </>
                 )}
@@ -720,7 +776,11 @@ export default function TeacherDocuments() {
                   <div>
                     <Label>Catégorie</Label>
                     <div className="text-sm">
-                      <Badge className={categoryLabels[selectedDocument.category].color}>
+                      <Badge
+                        className={
+                          categoryLabels[selectedDocument.category].color
+                        }
+                      >
                         {categoryLabels[selectedDocument.category].label}
                       </Badge>
                     </div>
@@ -732,7 +792,11 @@ export default function TeacherDocuments() {
                   <div>
                     <Label>Visibilité</Label>
                     <div className="text-sm">
-                      <Badge className={visibilityLabels[selectedDocument.visibility].color}>
+                      <Badge
+                        className={
+                          visibilityLabels[selectedDocument.visibility].color
+                        }
+                      >
                         {visibilityLabels[selectedDocument.visibility].label}
                       </Badge>
                     </div>
@@ -744,7 +808,9 @@ export default function TeacherDocuments() {
                   <div>
                     <Label>Date d'upload</Label>
                     <div className="text-sm">
-                      {new Date(selectedDocument.uploadDate).toLocaleDateString("fr-FR")}
+                      {new Date(selectedDocument.uploadDate).toLocaleDateString(
+                        "fr-FR",
+                      )}
                     </div>
                   </div>
                 </div>
@@ -762,7 +828,11 @@ export default function TeacherDocuments() {
               <Button variant="outline" onClick={() => setIsDetailsOpen(false)}>
                 Fermer
               </Button>
-              <Button onClick={() => selectedDocument && handleDownload(selectedDocument.id)}>
+              <Button
+                onClick={() =>
+                  selectedDocument && handleDownload(selectedDocument.id)
+                }
+              >
                 <Download className="h-4 w-4 mr-2" />
                 Télécharger
               </Button>

@@ -87,7 +87,7 @@ const mockProfile: TeacherProfile = {
   diplomes: [
     "Doctorat en Sciences Médicales - Université de Paris (2005)",
     "Master en Anatomie - Université Lyon 1 (2000)",
-    "Licence en Sciences de la Vie - Université Toulouse III (1998)"
+    "Licence en Sciences de la Vie - Université Toulouse III (1998)",
   ],
   experience: "15 ans d'enseignement universitaire",
   bio: "Professeur passionné par l'anatomie humaine avec une expertise particulière dans le système cardiovasculaire. Auteur de plusieurs publications scientifiques et membre de l'Association Française d'Anatomie.",
@@ -96,8 +96,12 @@ const mockProfile: TeacherProfile = {
   departement: "Sciences Médicales",
   bureau: "Bâtiment A - Bureau 205",
   heuresEnseignement: 192,
-  coursEnseignes: ["Anatomie générale", "Physiologie spécialisée", "TP Anatomie"],
-  avatar: undefined
+  coursEnseignes: [
+    "Anatomie générale",
+    "Physiologie spécialisée",
+    "TP Anatomie",
+  ],
+  avatar: undefined,
 };
 
 interface NotificationSettings {
@@ -121,9 +125,11 @@ const mockNotificationSettings: NotificationSettings = {
 export default function TeacherProfile() {
   const { user } = useAuth();
   const { toast } = useToast();
-  
+
   const [profile, setProfile] = useState<TeacherProfile>(mockProfile);
-  const [notifications, setNotifications] = useState<NotificationSettings>(mockNotificationSettings);
+  const [notifications, setNotifications] = useState<NotificationSettings>(
+    mockNotificationSettings,
+  );
   const [isEditing, setIsEditing] = useState(false);
   const [isPasswordDialogOpen, setIsPasswordDialogOpen] = useState(false);
   const [passwordData, setPasswordData] = useState({
@@ -166,7 +172,7 @@ export default function TeacherProfile() {
       confirmPassword: "",
     });
     setIsPasswordDialogOpen(false);
-    
+
     toast({
       title: "Mot de passe modifié",
       description: "Votre mot de passe a été modifié avec succès.",
@@ -216,8 +222,12 @@ export default function TeacherProfile() {
         {/* Main Content */}
         <Tabs defaultValue="personal" className="space-y-4">
           <TabsList>
-            <TabsTrigger value="personal">Informations personnelles</TabsTrigger>
-            <TabsTrigger value="professional">Informations professionnelles</TabsTrigger>
+            <TabsTrigger value="personal">
+              Informations personnelles
+            </TabsTrigger>
+            <TabsTrigger value="professional">
+              Informations professionnelles
+            </TabsTrigger>
             <TabsTrigger value="security">Sécurité</TabsTrigger>
             <TabsTrigger value="notifications">Notifications</TabsTrigger>
           </TabsList>
@@ -233,16 +243,21 @@ export default function TeacherProfile() {
                   <Avatar className="h-32 w-32">
                     <AvatarImage src={profile.avatar} />
                     <AvatarFallback className="text-2xl">
-                      {profile.prenom[0]}{profile.nom[0]}
+                      {profile.prenom[0]}
+                      {profile.nom[0]}
                     </AvatarFallback>
                   </Avatar>
                   <div className="text-center">
                     <h3 className="font-semibold text-lg">
                       {profile.prenom} {profile.nom}
                     </h3>
-                    <p className="text-muted-foreground">{profile.specialite}</p>
+                    <p className="text-muted-foreground">
+                      {profile.specialite}
+                    </p>
                     <Badge className="mt-2">
-                      {profile.statut === "permanent" ? "Enseignant permanent" : "Vacataire"}
+                      {profile.statut === "permanent"
+                        ? "Enseignant permanent"
+                        : "Vacataire"}
                     </Badge>
                   </div>
                   {isEditing && (
@@ -257,7 +272,9 @@ export default function TeacherProfile() {
                       <Button
                         variant="outline"
                         size="sm"
-                        onClick={() => document.getElementById("avatar-upload")?.click()}
+                        onClick={() =>
+                          document.getElementById("avatar-upload")?.click()
+                        }
                       >
                         <Camera className="h-4 w-4 mr-2" />
                         Changer la photo
@@ -282,7 +299,9 @@ export default function TeacherProfile() {
                       <Input
                         id="prenom"
                         value={profile.prenom}
-                        onChange={(e) => setProfile({...profile, prenom: e.target.value})}
+                        onChange={(e) =>
+                          setProfile({ ...profile, prenom: e.target.value })
+                        }
                         disabled={!isEditing}
                       />
                     </div>
@@ -291,12 +310,14 @@ export default function TeacherProfile() {
                       <Input
                         id="nom"
                         value={profile.nom}
-                        onChange={(e) => setProfile({...profile, nom: e.target.value})}
+                        onChange={(e) =>
+                          setProfile({ ...profile, nom: e.target.value })
+                        }
                         disabled={!isEditing}
                       />
                     </div>
                   </div>
-                  
+
                   <div className="grid grid-cols-2 gap-4">
                     <div className="space-y-2">
                       <Label htmlFor="email">Email</Label>
@@ -306,7 +327,9 @@ export default function TeacherProfile() {
                           id="email"
                           type="email"
                           value={profile.email}
-                          onChange={(e) => setProfile({...profile, email: e.target.value})}
+                          onChange={(e) =>
+                            setProfile({ ...profile, email: e.target.value })
+                          }
                           disabled={!isEditing}
                         />
                       </div>
@@ -318,7 +341,12 @@ export default function TeacherProfile() {
                         <Input
                           id="telephone"
                           value={profile.telephone}
-                          onChange={(e) => setProfile({...profile, telephone: e.target.value})}
+                          onChange={(e) =>
+                            setProfile({
+                              ...profile,
+                              telephone: e.target.value,
+                            })
+                          }
                           disabled={!isEditing}
                         />
                       </div>
@@ -332,7 +360,9 @@ export default function TeacherProfile() {
                       <Input
                         id="adresse"
                         value={profile.adresse}
-                        onChange={(e) => setProfile({...profile, adresse: e.target.value})}
+                        onChange={(e) =>
+                          setProfile({ ...profile, adresse: e.target.value })
+                        }
                         disabled={!isEditing}
                       />
                     </div>
@@ -346,7 +376,12 @@ export default function TeacherProfile() {
                         id="dateNaissance"
                         type="date"
                         value={profile.dateNaissance}
-                        onChange={(e) => setProfile({...profile, dateNaissance: e.target.value})}
+                        onChange={(e) =>
+                          setProfile({
+                            ...profile,
+                            dateNaissance: e.target.value,
+                          })
+                        }
                         disabled={!isEditing}
                       />
                     </div>
@@ -357,7 +392,9 @@ export default function TeacherProfile() {
                     <Textarea
                       id="bio"
                       value={profile.bio}
-                      onChange={(e) => setProfile({...profile, bio: e.target.value})}
+                      onChange={(e) =>
+                        setProfile({ ...profile, bio: e.target.value })
+                      }
                       disabled={!isEditing}
                       rows={4}
                       placeholder="Décrivez votre parcours et vos centres d'intérêt..."
@@ -384,17 +421,21 @@ export default function TeacherProfile() {
                     <Input
                       id="specialite"
                       value={profile.specialite}
-                      onChange={(e) => setProfile({...profile, specialite: e.target.value})}
+                      onChange={(e) =>
+                        setProfile({ ...profile, specialite: e.target.value })
+                      }
                       disabled={!isEditing}
                     />
                   </div>
-                  
+
                   <div className="space-y-2">
                     <Label htmlFor="departement">Département</Label>
                     <Input
                       id="departement"
                       value={profile.departement}
-                      onChange={(e) => setProfile({...profile, departement: e.target.value})}
+                      onChange={(e) =>
+                        setProfile({ ...profile, departement: e.target.value })
+                      }
                       disabled={!isEditing}
                     />
                   </div>
@@ -404,7 +445,9 @@ export default function TeacherProfile() {
                     <Input
                       id="bureau"
                       value={profile.bureau}
-                      onChange={(e) => setProfile({...profile, bureau: e.target.value})}
+                      onChange={(e) =>
+                        setProfile({ ...profile, bureau: e.target.value })
+                      }
                       disabled={!isEditing}
                     />
                   </div>
@@ -416,17 +459,29 @@ export default function TeacherProfile() {
                         id="dateEmbauche"
                         type="date"
                         value={profile.dateEmbauche}
-                        onChange={(e) => setProfile({...profile, dateEmbauche: e.target.value})}
+                        onChange={(e) =>
+                          setProfile({
+                            ...profile,
+                            dateEmbauche: e.target.value,
+                          })
+                        }
                         disabled={!isEditing}
                       />
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="heuresEnseignement">Heures d'enseignement/an</Label>
+                      <Label htmlFor="heuresEnseignement">
+                        Heures d'enseignement/an
+                      </Label>
                       <Input
                         id="heuresEnseignement"
                         type="number"
                         value={profile.heuresEnseignement}
-                        onChange={(e) => setProfile({...profile, heuresEnseignement: parseInt(e.target.value)})}
+                        onChange={(e) =>
+                          setProfile({
+                            ...profile,
+                            heuresEnseignement: parseInt(e.target.value),
+                          })
+                        }
                         disabled={!isEditing}
                       />
                     </div>
@@ -436,14 +491,18 @@ export default function TeacherProfile() {
                     <Label htmlFor="statut">Statut</Label>
                     <Select
                       value={profile.statut}
-                      onValueChange={(value) => setProfile({...profile, statut: value as any})}
+                      onValueChange={(value) =>
+                        setProfile({ ...profile, statut: value as any })
+                      }
                       disabled={!isEditing}
                     >
                       <SelectTrigger>
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="permanent">Enseignant permanent</SelectItem>
+                        <SelectItem value="permanent">
+                          Enseignant permanent
+                        </SelectItem>
                         <SelectItem value="vacataire">Vacataire</SelectItem>
                       </SelectContent>
                     </Select>
@@ -462,7 +521,10 @@ export default function TeacherProfile() {
                 <CardContent>
                   <div className="space-y-2">
                     {profile.coursEnseignes.map((cours, index) => (
-                      <div key={index} className="flex items-center space-x-2 p-2 border rounded">
+                      <div
+                        key={index}
+                        className="flex items-center space-x-2 p-2 border rounded"
+                      >
                         <BookOpen className="h-4 w-4 text-muted-foreground" />
                         <span className="flex-1">{cours}</span>
                         {isEditing && (
@@ -470,8 +532,13 @@ export default function TeacherProfile() {
                             variant="ghost"
                             size="sm"
                             onClick={() => {
-                              const newCours = profile.coursEnseignes.filter((_, i) => i !== index);
-                              setProfile({...profile, coursEnseignes: newCours});
+                              const newCours = profile.coursEnseignes.filter(
+                                (_, i) => i !== index,
+                              );
+                              setProfile({
+                                ...profile,
+                                coursEnseignes: newCours,
+                              });
                             }}
                           >
                             ×
@@ -488,7 +555,10 @@ export default function TeacherProfile() {
                           if (newCours) {
                             setProfile({
                               ...profile,
-                              coursEnseignes: [...profile.coursEnseignes, newCours]
+                              coursEnseignes: [
+                                ...profile.coursEnseignes,
+                                newCours,
+                              ],
                             });
                           }
                         }}
@@ -515,7 +585,10 @@ export default function TeacherProfile() {
                   <Label>Diplômes</Label>
                   <div className="space-y-2">
                     {profile.diplomes.map((diplome, index) => (
-                      <div key={index} className="flex items-start space-x-2 p-3 border rounded">
+                      <div
+                        key={index}
+                        className="flex items-start space-x-2 p-3 border rounded"
+                      >
                         <Award className="h-4 w-4 text-muted-foreground mt-1" />
                         <span className="flex-1">{diplome}</span>
                         {isEditing && (
@@ -523,8 +596,10 @@ export default function TeacherProfile() {
                             variant="ghost"
                             size="sm"
                             onClick={() => {
-                              const newDiplomes = profile.diplomes.filter((_, i) => i !== index);
-                              setProfile({...profile, diplomes: newDiplomes});
+                              const newDiplomes = profile.diplomes.filter(
+                                (_, i) => i !== index,
+                              );
+                              setProfile({ ...profile, diplomes: newDiplomes });
                             }}
                           >
                             ×
@@ -541,7 +616,7 @@ export default function TeacherProfile() {
                           if (newDiplome) {
                             setProfile({
                               ...profile,
-                              diplomes: [...profile.diplomes, newDiplome]
+                              diplomes: [...profile.diplomes, newDiplome],
                             });
                           }
                         }}
@@ -558,7 +633,9 @@ export default function TeacherProfile() {
                   <Textarea
                     id="experience"
                     value={profile.experience}
-                    onChange={(e) => setProfile({...profile, experience: e.target.value})}
+                    onChange={(e) =>
+                      setProfile({ ...profile, experience: e.target.value })
+                    }
                     disabled={!isEditing}
                     rows={3}
                     placeholder="Décrivez votre expérience professionnelle..."
@@ -587,59 +664,76 @@ export default function TeacherProfile() {
                       </div>
                     </div>
                   </div>
-                  <Dialog open={isPasswordDialogOpen} onOpenChange={setIsPasswordDialogOpen}>
+                  <Dialog
+                    open={isPasswordDialogOpen}
+                    onOpenChange={setIsPasswordDialogOpen}
+                  >
                     <DialogTrigger asChild>
-                      <Button variant="outline">
-                        Modifier
-                      </Button>
+                      <Button variant="outline">Modifier</Button>
                     </DialogTrigger>
                     <DialogContent>
                       <DialogHeader>
                         <DialogTitle>Modifier le mot de passe</DialogTitle>
                         <DialogDescription>
-                          Saisissez votre mot de passe actuel et choisissez un nouveau mot de passe
+                          Saisissez votre mot de passe actuel et choisissez un
+                          nouveau mot de passe
                         </DialogDescription>
                       </DialogHeader>
                       <div className="space-y-4">
                         <div className="space-y-2">
-                          <Label htmlFor="currentPassword">Mot de passe actuel</Label>
+                          <Label htmlFor="currentPassword">
+                            Mot de passe actuel
+                          </Label>
                           <Input
                             id="currentPassword"
                             type="password"
                             value={passwordData.currentPassword}
-                            onChange={(e) => setPasswordData({
-                              ...passwordData,
-                              currentPassword: e.target.value
-                            })}
+                            onChange={(e) =>
+                              setPasswordData({
+                                ...passwordData,
+                                currentPassword: e.target.value,
+                              })
+                            }
                           />
                         </div>
                         <div className="space-y-2">
-                          <Label htmlFor="newPassword">Nouveau mot de passe</Label>
+                          <Label htmlFor="newPassword">
+                            Nouveau mot de passe
+                          </Label>
                           <Input
                             id="newPassword"
                             type="password"
                             value={passwordData.newPassword}
-                            onChange={(e) => setPasswordData({
-                              ...passwordData,
-                              newPassword: e.target.value
-                            })}
+                            onChange={(e) =>
+                              setPasswordData({
+                                ...passwordData,
+                                newPassword: e.target.value,
+                              })
+                            }
                           />
                         </div>
                         <div className="space-y-2">
-                          <Label htmlFor="confirmPassword">Confirmer le nouveau mot de passe</Label>
+                          <Label htmlFor="confirmPassword">
+                            Confirmer le nouveau mot de passe
+                          </Label>
                           <Input
                             id="confirmPassword"
                             type="password"
                             value={passwordData.confirmPassword}
-                            onChange={(e) => setPasswordData({
-                              ...passwordData,
-                              confirmPassword: e.target.value
-                            })}
+                            onChange={(e) =>
+                              setPasswordData({
+                                ...passwordData,
+                                confirmPassword: e.target.value,
+                              })
+                            }
                           />
                         </div>
                       </div>
                       <DialogFooter>
-                        <Button variant="outline" onClick={() => setIsPasswordDialogOpen(false)}>
+                        <Button
+                          variant="outline"
+                          onClick={() => setIsPasswordDialogOpen(false)}
+                        >
                           Annuler
                         </Button>
                         <Button onClick={handleChangePassword}>
@@ -660,9 +754,7 @@ export default function TeacherProfile() {
                       </div>
                     </div>
                   </div>
-                  <Button variant="outline">
-                    Gérer les sessions
-                  </Button>
+                  <Button variant="outline">Gérer les sessions</Button>
                 </div>
 
                 <div className="flex items-center justify-between p-4 border rounded-lg">
@@ -675,9 +767,7 @@ export default function TeacherProfile() {
                       </div>
                     </div>
                   </div>
-                  <Button variant="outline">
-                    Télécharger
-                  </Button>
+                  <Button variant="outline">Télécharger</Button>
                 </div>
               </CardContent>
             </Card>
@@ -702,8 +792,11 @@ export default function TeacherProfile() {
                     </div>
                     <Switch
                       checked={notifications.emailNotifications}
-                      onCheckedChange={(checked) => 
-                        setNotifications({...notifications, emailNotifications: checked})
+                      onCheckedChange={(checked) =>
+                        setNotifications({
+                          ...notifications,
+                          emailNotifications: checked,
+                        })
                       }
                     />
                   </div>
@@ -717,15 +810,18 @@ export default function TeacherProfile() {
                     </div>
                     <Switch
                       checked={notifications.smsNotifications}
-                      onCheckedChange={(checked) => 
-                        setNotifications({...notifications, smsNotifications: checked})
+                      onCheckedChange={(checked) =>
+                        setNotifications({
+                          ...notifications,
+                          smsNotifications: checked,
+                        })
                       }
                     />
                   </div>
 
                   <div className="border-t pt-4">
                     <h4 className="font-medium mb-4">Types de notifications</h4>
-                    
+
                     <div className="space-y-4">
                       <div className="flex items-center justify-between">
                         <div className="space-y-0.5">
@@ -736,8 +832,11 @@ export default function TeacherProfile() {
                         </div>
                         <Switch
                           checked={notifications.newMessages}
-                          onCheckedChange={(checked) => 
-                            setNotifications({...notifications, newMessages: checked})
+                          onCheckedChange={(checked) =>
+                            setNotifications({
+                              ...notifications,
+                              newMessages: checked,
+                            })
                           }
                         />
                       </div>
@@ -751,38 +850,51 @@ export default function TeacherProfile() {
                         </div>
                         <Switch
                           checked={notifications.gradeReminders}
-                          onCheckedChange={(checked) => 
-                            setNotifications({...notifications, gradeReminders: checked})
+                          onCheckedChange={(checked) =>
+                            setNotifications({
+                              ...notifications,
+                              gradeReminders: checked,
+                            })
                           }
                         />
                       </div>
 
                       <div className="flex items-center justify-between">
                         <div className="space-y-0.5">
-                          <div className="font-medium">Changements d'emploi du temps</div>
+                          <div className="font-medium">
+                            Changements d'emploi du temps
+                          </div>
                           <div className="text-sm text-muted-foreground">
                             Modifications dans votre planning
                           </div>
                         </div>
                         <Switch
                           checked={notifications.scheduleChanges}
-                          onCheckedChange={(checked) => 
-                            setNotifications({...notifications, scheduleChanges: checked})
+                          onCheckedChange={(checked) =>
+                            setNotifications({
+                              ...notifications,
+                              scheduleChanges: checked,
+                            })
                           }
                         />
                       </div>
 
                       <div className="flex items-center justify-between">
                         <div className="space-y-0.5">
-                          <div className="font-medium">Mises à jour système</div>
+                          <div className="font-medium">
+                            Mises à jour système
+                          </div>
                           <div className="text-sm text-muted-foreground">
                             Nouvelles fonctionnalités et maintenances
                           </div>
                         </div>
                         <Switch
                           checked={notifications.systemUpdates}
-                          onCheckedChange={(checked) => 
-                            setNotifications({...notifications, systemUpdates: checked})
+                          onCheckedChange={(checked) =>
+                            setNotifications({
+                              ...notifications,
+                              systemUpdates: checked,
+                            })
                           }
                         />
                       </div>

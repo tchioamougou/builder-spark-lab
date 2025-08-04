@@ -58,9 +58,24 @@ const teacherNavigation = [
 
 // Mock data for courses and students
 const mockCourses = [
-  { id: "1", name: "Anatomie générale", filiere: "Pharmacie", niveau: "Année 1" },
-  { id: "2", name: "Physiologie spécialisée", filiere: "Médecine", niveau: "Année 2" },
-  { id: "3", name: "TP Anatomie", filiere: "Kinésithérapie", niveau: "Année 1" },
+  {
+    id: "1",
+    name: "Anatomie générale",
+    filiere: "Pharmacie",
+    niveau: "Année 1",
+  },
+  {
+    id: "2",
+    name: "Physiologie spécialisée",
+    filiere: "Médecine",
+    niveau: "Année 2",
+  },
+  {
+    id: "3",
+    name: "TP Anatomie",
+    filiere: "Kinésithérapie",
+    niveau: "Année 1",
+  },
 ];
 
 const mockStudents = [
@@ -101,7 +116,12 @@ export default function TeacherLayout({ children }: TeacherLayoutProps) {
   });
 
   const handleSubmitGrade = () => {
-    if (!gradeForm.course || !gradeForm.student || !gradeForm.evaluationType || !gradeForm.grade) {
+    if (
+      !gradeForm.course ||
+      !gradeForm.student ||
+      !gradeForm.evaluationType ||
+      !gradeForm.grade
+    ) {
       toast({
         title: "Erreur",
         description: "Veuillez remplir tous les champs obligatoires.",
@@ -129,10 +149,15 @@ export default function TeacherLayout({ children }: TeacherLayoutProps) {
   };
 
   const handleSubmitAbsence = () => {
-    if (!absenceForm.course || !absenceForm.session || absenceForm.students.length === 0) {
+    if (
+      !absenceForm.course ||
+      !absenceForm.session ||
+      absenceForm.students.length === 0
+    ) {
       toast({
         title: "Erreur",
-        description: "Veuillez remplir tous les champs obligatoires et sélectionner au moins un étudiant.",
+        description:
+          "Veuillez remplir tous les champs obligatoires et sélectionner au moins un étudiant.",
         variant: "destructive",
       });
       return;
@@ -156,11 +181,11 @@ export default function TeacherLayout({ children }: TeacherLayoutProps) {
   };
 
   const handleStudentToggle = (studentId: string) => {
-    setAbsenceForm(prev => ({
+    setAbsenceForm((prev) => ({
       ...prev,
       students: prev.students.includes(studentId)
-        ? prev.students.filter(id => id !== studentId)
-        : [...prev.students, studentId]
+        ? prev.students.filter((id) => id !== studentId)
+        : [...prev.students, studentId],
     }));
   };
 
@@ -272,7 +297,7 @@ export default function TeacherLayout({ children }: TeacherLayoutProps) {
                   variant="outline"
                   size="sm"
                   className="w-full justify-start"
-                  onClick={() => navigate('/teacher/grade-entry')}
+                  onClick={() => navigate("/teacher/grade-entry")}
                 >
                   <BarChart3 className="h-4 w-4 mr-2" />
                   Saisir notes
@@ -309,7 +334,9 @@ export default function TeacherLayout({ children }: TeacherLayoutProps) {
               <Label htmlFor="grade-course">Cours</Label>
               <Select
                 value={gradeForm.course}
-                onValueChange={(value) => setGradeForm({...gradeForm, course: value})}
+                onValueChange={(value) =>
+                  setGradeForm({ ...gradeForm, course: value })
+                }
               >
                 <SelectTrigger>
                   <SelectValue placeholder="Sélectionner un cours" />
@@ -327,7 +354,9 @@ export default function TeacherLayout({ children }: TeacherLayoutProps) {
               <Label htmlFor="grade-student">Étudiant</Label>
               <Select
                 value={gradeForm.student}
-                onValueChange={(value) => setGradeForm({...gradeForm, student: value})}
+                onValueChange={(value) =>
+                  setGradeForm({ ...gradeForm, student: value })
+                }
               >
                 <SelectTrigger>
                   <SelectValue placeholder="Sélectionner un étudiant" />
@@ -345,7 +374,9 @@ export default function TeacherLayout({ children }: TeacherLayoutProps) {
               <Label htmlFor="evaluation-type">Type d'évaluation</Label>
               <Select
                 value={gradeForm.evaluationType}
-                onValueChange={(value) => setGradeForm({...gradeForm, evaluationType: value})}
+                onValueChange={(value) =>
+                  setGradeForm({ ...gradeForm, evaluationType: value })
+                }
               >
                 <SelectTrigger>
                   <SelectValue placeholder="Type d'évaluation" />
@@ -354,7 +385,9 @@ export default function TeacherLayout({ children }: TeacherLayoutProps) {
                   <SelectItem value="examen_partiel">Examen partiel</SelectItem>
                   <SelectItem value="examen_final">Examen final</SelectItem>
                   <SelectItem value="tp">Travaux pratiques</SelectItem>
-                  <SelectItem value="controle_continu">Contrôle continu</SelectItem>
+                  <SelectItem value="controle_continu">
+                    Contrôle continu
+                  </SelectItem>
                   <SelectItem value="projet">Projet</SelectItem>
                 </SelectContent>
               </Select>
@@ -370,7 +403,9 @@ export default function TeacherLayout({ children }: TeacherLayoutProps) {
                   max={gradeForm.maxGrade}
                   placeholder="15.5"
                   value={gradeForm.grade}
-                  onChange={(e) => setGradeForm({...gradeForm, grade: e.target.value})}
+                  onChange={(e) =>
+                    setGradeForm({ ...gradeForm, grade: e.target.value })
+                  }
                 />
               </div>
               <div className="space-y-2">
@@ -379,7 +414,9 @@ export default function TeacherLayout({ children }: TeacherLayoutProps) {
                   id="max-grade"
                   type="number"
                   value={gradeForm.maxGrade}
-                  onChange={(e) => setGradeForm({...gradeForm, maxGrade: e.target.value})}
+                  onChange={(e) =>
+                    setGradeForm({ ...gradeForm, maxGrade: e.target.value })
+                  }
                 />
               </div>
             </div>
@@ -389,13 +426,18 @@ export default function TeacherLayout({ children }: TeacherLayoutProps) {
                 id="grade-comment"
                 placeholder="Commentaire sur la performance de l'étudiant..."
                 value={gradeForm.comment}
-                onChange={(e) => setGradeForm({...gradeForm, comment: e.target.value})}
+                onChange={(e) =>
+                  setGradeForm({ ...gradeForm, comment: e.target.value })
+                }
                 rows={3}
               />
             </div>
           </div>
           <DialogFooter>
-            <Button variant="outline" onClick={() => setIsGradeDialogOpen(false)}>
+            <Button
+              variant="outline"
+              onClick={() => setIsGradeDialogOpen(false)}
+            >
               Annuler
             </Button>
             <Button onClick={handleSubmitGrade}>
@@ -421,7 +463,9 @@ export default function TeacherLayout({ children }: TeacherLayoutProps) {
                 <Label htmlFor="absence-course">Cours</Label>
                 <Select
                   value={absenceForm.course}
-                  onValueChange={(value) => setAbsenceForm({...absenceForm, course: value})}
+                  onValueChange={(value) =>
+                    setAbsenceForm({ ...absenceForm, course: value })
+                  }
                 >
                   <SelectTrigger>
                     <SelectValue placeholder="Sélectionner un cours" />
@@ -441,7 +485,9 @@ export default function TeacherLayout({ children }: TeacherLayoutProps) {
                   id="absence-date"
                   type="date"
                   value={absenceForm.date}
-                  onChange={(e) => setAbsenceForm({...absenceForm, date: e.target.value})}
+                  onChange={(e) =>
+                    setAbsenceForm({ ...absenceForm, date: e.target.value })
+                  }
                 />
               </div>
             </div>
@@ -449,7 +495,9 @@ export default function TeacherLayout({ children }: TeacherLayoutProps) {
               <Label htmlFor="session-type">Type de séance</Label>
               <Select
                 value={absenceForm.session}
-                onValueChange={(value) => setAbsenceForm({...absenceForm, session: value})}
+                onValueChange={(value) =>
+                  setAbsenceForm({ ...absenceForm, session: value })
+                }
               >
                 <SelectTrigger>
                   <SelectValue placeholder="Sélectionner le type de séance" />
@@ -467,7 +515,10 @@ export default function TeacherLayout({ children }: TeacherLayoutProps) {
               <div className="border rounded-lg p-4 max-h-48 overflow-y-auto">
                 <div className="space-y-3">
                   {mockStudents.map((student) => (
-                    <div key={student.id} className="flex items-center space-x-2">
+                    <div
+                      key={student.id}
+                      className="flex items-center space-x-2"
+                    >
                       <Checkbox
                         id={`student-${student.id}`}
                         checked={absenceForm.students.includes(student.id)}
@@ -493,13 +544,18 @@ export default function TeacherLayout({ children }: TeacherLayoutProps) {
                 id="absence-comment"
                 placeholder="Motif ou commentaire sur les absences..."
                 value={absenceForm.comment}
-                onChange={(e) => setAbsenceForm({...absenceForm, comment: e.target.value})}
+                onChange={(e) =>
+                  setAbsenceForm({ ...absenceForm, comment: e.target.value })
+                }
                 rows={3}
               />
             </div>
           </div>
           <DialogFooter>
-            <Button variant="outline" onClick={() => setIsAbsenceDialogOpen(false)}>
+            <Button
+              variant="outline"
+              onClick={() => setIsAbsenceDialogOpen(false)}
+            >
               Annuler
             </Button>
             <Button onClick={handleSubmitAbsence}>

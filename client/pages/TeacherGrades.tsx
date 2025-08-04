@@ -176,7 +176,12 @@ export default function TeacherGrades() {
   };
 
   const handleAddGrade = () => {
-    if (!newGrade.studentName || !newGrade.evaluationType || !newGrade.subject || !newGrade.grade) {
+    if (
+      !newGrade.studentName ||
+      !newGrade.evaluationType ||
+      !newGrade.subject ||
+      !newGrade.grade
+    ) {
       toast({
         title: "Erreur",
         description: "Veuillez remplir tous les champs obligatoires.",
@@ -208,7 +213,7 @@ export default function TeacherGrades() {
       comment: "",
     });
     setIsAddGradeOpen(false);
-    
+
     toast({
       title: "Note ajoutée",
       description: "La note a été ajoutée avec succès.",
@@ -218,23 +223,33 @@ export default function TeacherGrades() {
   const handleEditGrade = () => {
     if (!editingGrade) return;
 
-    setGrades(grades.map(grade => 
-      grade.id === editingGrade.id ? editingGrade : grade
-    ));
+    setGrades(
+      grades.map((grade) =>
+        grade.id === editingGrade.id ? editingGrade : grade,
+      ),
+    );
     setIsEditGradeOpen(false);
     setEditingGrade(null);
-    
+
     toast({
       title: "Note modifiée",
       description: "La note a été modifiée avec succès.",
     });
   };
 
-  const averageGrade = grades.length > 0 
-    ? Math.round((grades.reduce((sum, grade) => sum + (grade.grade / grade.maxGrade) * 20, 0) / grades.length) * 10) / 10
-    : 0;
+  const averageGrade =
+    grades.length > 0
+      ? Math.round(
+          (grades.reduce(
+            (sum, grade) => sum + (grade.grade / grade.maxGrade) * 20,
+            0,
+          ) /
+            grades.length) *
+            10,
+        ) / 10
+      : 0;
 
-  const totalStudents = new Set(grades.map(g => g.studentId)).size;
+  const totalStudents = new Set(grades.map((g) => g.studentId)).size;
   const gradesPending = 23; // Mock data
   const recentGrades = grades.slice(-5);
 
@@ -244,7 +259,9 @@ export default function TeacherGrades() {
         {/* Header */}
         <div className="flex justify-between items-center">
           <div>
-            <h2 className="text-3xl font-bold tracking-tight">Gestion des Notes</h2>
+            <h2 className="text-3xl font-bold tracking-tight">
+              Gestion des Notes
+            </h2>
             <p className="text-muted-foreground">
               Saisie et suivi des évaluations de vos étudiants
             </p>
@@ -286,23 +303,36 @@ export default function TeacherGrades() {
                       id="student"
                       placeholder="Nom de l'étudiant"
                       value={newGrade.studentName}
-                      onChange={(e) => setNewGrade({...newGrade, studentName: e.target.value})}
+                      onChange={(e) =>
+                        setNewGrade({
+                          ...newGrade,
+                          studentName: e.target.value,
+                        })
+                      }
                     />
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="evaluation">Type d'évaluation</Label>
                     <Select
                       value={newGrade.evaluationType}
-                      onValueChange={(value) => setNewGrade({...newGrade, evaluationType: value})}
+                      onValueChange={(value) =>
+                        setNewGrade({ ...newGrade, evaluationType: value })
+                      }
                     >
                       <SelectTrigger>
                         <SelectValue placeholder="Sélectionner le type" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="Examen partiel">Examen partiel</SelectItem>
-                        <SelectItem value="Examen final">Examen final</SelectItem>
+                        <SelectItem value="Examen partiel">
+                          Examen partiel
+                        </SelectItem>
+                        <SelectItem value="Examen final">
+                          Examen final
+                        </SelectItem>
                         <SelectItem value="TP">Travaux pratiques</SelectItem>
-                        <SelectItem value="Contrôle continu">Contrôle continu</SelectItem>
+                        <SelectItem value="Contrôle continu">
+                          Contrôle continu
+                        </SelectItem>
                         <SelectItem value="Projet">Projet</SelectItem>
                       </SelectContent>
                     </Select>
@@ -311,7 +341,9 @@ export default function TeacherGrades() {
                     <Label htmlFor="subject">Mati��re</Label>
                     <Select
                       value={newGrade.subject}
-                      onValueChange={(value) => setNewGrade({...newGrade, subject: value})}
+                      onValueChange={(value) =>
+                        setNewGrade({ ...newGrade, subject: value })
+                      }
                     >
                       <SelectTrigger>
                         <SelectValue placeholder="Sélectionner la matière" />
@@ -334,7 +366,9 @@ export default function TeacherGrades() {
                         step="0.1"
                         placeholder="15.5"
                         value={newGrade.grade}
-                        onChange={(e) => setNewGrade({...newGrade, grade: e.target.value})}
+                        onChange={(e) =>
+                          setNewGrade({ ...newGrade, grade: e.target.value })
+                        }
                       />
                     </div>
                     <div className="space-y-2">
@@ -343,7 +377,9 @@ export default function TeacherGrades() {
                         id="maxGrade"
                         type="number"
                         value={newGrade.maxGrade}
-                        onChange={(e) => setNewGrade({...newGrade, maxGrade: e.target.value})}
+                        onChange={(e) =>
+                          setNewGrade({ ...newGrade, maxGrade: e.target.value })
+                        }
                       />
                     </div>
                   </div>
@@ -353,12 +389,17 @@ export default function TeacherGrades() {
                       id="comment"
                       placeholder="Commentaire sur la performance"
                       value={newGrade.comment}
-                      onChange={(e) => setNewGrade({...newGrade, comment: e.target.value})}
+                      onChange={(e) =>
+                        setNewGrade({ ...newGrade, comment: e.target.value })
+                      }
                     />
                   </div>
                 </div>
                 <DialogFooter>
-                  <Button variant="outline" onClick={() => setIsAddGradeOpen(false)}>
+                  <Button
+                    variant="outline"
+                    onClick={() => setIsAddGradeOpen(false)}
+                  >
                     Annuler
                   </Button>
                   <Button onClick={handleAddGrade}>
@@ -385,7 +426,9 @@ export default function TeacherGrades() {
           </Card>
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Moyenne générale</CardTitle>
+              <CardTitle className="text-sm font-medium">
+                Moyenne générale
+              </CardTitle>
               <Award className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
@@ -395,7 +438,9 @@ export default function TeacherGrades() {
           </Card>
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Étudiants évalués</CardTitle>
+              <CardTitle className="text-sm font-medium">
+                Étudiants évalués
+              </CardTitle>
               <Users className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
@@ -442,7 +487,10 @@ export default function TeacherGrades() {
                       className="pl-8"
                     />
                   </div>
-                  <Select value={selectedCourse} onValueChange={setSelectedCourse}>
+                  <Select
+                    value={selectedCourse}
+                    onValueChange={setSelectedCourse}
+                  >
                     <SelectTrigger className="w-64">
                       <SelectValue placeholder="Filtrer par matière" />
                     </SelectTrigger>
@@ -474,7 +522,9 @@ export default function TeacherGrades() {
                       <TableRow key={grade.id}>
                         <TableCell>
                           <div>
-                            <div className="font-medium">{grade.studentName}</div>
+                            <div className="font-medium">
+                              {grade.studentName}
+                            </div>
                             <div className="text-sm text-muted-foreground">
                               {grade.studentNumber}
                             </div>
@@ -482,10 +532,17 @@ export default function TeacherGrades() {
                         </TableCell>
                         <TableCell>{grade.subject}</TableCell>
                         <TableCell>
-                          <Badge variant="outline">{grade.evaluationType}</Badge>
+                          <Badge variant="outline">
+                            {grade.evaluationType}
+                          </Badge>
                         </TableCell>
                         <TableCell>
-                          <Badge className={getGradeColor(grade.grade, grade.maxGrade)}>
+                          <Badge
+                            className={getGradeColor(
+                              grade.grade,
+                              grade.maxGrade,
+                            )}
+                          >
                             {grade.grade}/{grade.maxGrade}
                           </Badge>
                         </TableCell>
@@ -521,14 +578,15 @@ export default function TeacherGrades() {
             <Card>
               <CardHeader>
                 <CardTitle>Notes récentes</CardTitle>
-                <CardDescription>
-                  Les 5 dernières notes saisies
-                </CardDescription>
+                <CardDescription>Les 5 dernières notes saisies</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
                   {recentGrades.map((grade) => (
-                    <div key={grade.id} className="flex items-center justify-between p-4 border rounded-lg">
+                    <div
+                      key={grade.id}
+                      className="flex items-center justify-between p-4 border rounded-lg"
+                    >
                       <div className="flex-1">
                         <div className="font-medium">{grade.studentName}</div>
                         <div className="text-sm text-muted-foreground">
@@ -536,7 +594,9 @@ export default function TeacherGrades() {
                         </div>
                       </div>
                       <div className="text-right">
-                        <Badge className={getGradeColor(grade.grade, grade.maxGrade)}>
+                        <Badge
+                          className={getGradeColor(grade.grade, grade.maxGrade)}
+                        >
                           {grade.grade}/{grade.maxGrade}
                         </Badge>
                         <div className="text-sm text-muted-foreground mt-1">
@@ -562,11 +622,21 @@ export default function TeacherGrades() {
                 <CardContent>
                   <div className="space-y-4">
                     {mockCourses.map((course) => {
-                      const courseGrades = grades.filter(g => g.subject === course.name);
-                      const average = courseGrades.length > 0 
-                        ? Math.round((courseGrades.reduce((sum, g) => sum + (g.grade / g.maxGrade) * 20, 0) / courseGrades.length) * 10) / 10
-                        : 0;
-                      
+                      const courseGrades = grades.filter(
+                        (g) => g.subject === course.name,
+                      );
+                      const average =
+                        courseGrades.length > 0
+                          ? Math.round(
+                              (courseGrades.reduce(
+                                (sum, g) => sum + (g.grade / g.maxGrade) * 20,
+                                0,
+                              ) /
+                                courseGrades.length) *
+                                10,
+                            ) / 10
+                          : 0;
+
                       return (
                         <div key={course.id} className="border rounded-lg p-4">
                           <div className="font-medium">{course.name}</div>
@@ -574,8 +644,13 @@ export default function TeacherGrades() {
                             {course.filiere} - {course.niveau}
                           </div>
                           <div className="flex justify-between text-sm">
-                            <span>Moyenne: <strong>{average}/20</strong></span>
-                            <span>Notes saisies: <strong>{courseGrades.length}</strong></span>
+                            <span>
+                              Moyenne: <strong>{average}/20</strong>
+                            </span>
+                            <span>
+                              Notes saisies:{" "}
+                              <strong>{courseGrades.length}</strong>
+                            </span>
                           </div>
                         </div>
                       );
@@ -591,25 +666,56 @@ export default function TeacherGrades() {
                 <CardContent>
                   <div className="space-y-3">
                     {[
-                      { range: "16-20", label: "Très bien", color: "bg-green-500" },
+                      {
+                        range: "16-20",
+                        label: "Très bien",
+                        color: "bg-green-500",
+                      },
                       { range: "14-16", label: "Bien", color: "bg-blue-500" },
-                      { range: "12-14", label: "Assez bien", color: "bg-yellow-500" },
-                      { range: "10-12", label: "Passable", color: "bg-orange-500" },
-                      { range: "0-10", label: "Insuffisant", color: "bg-red-500" },
+                      {
+                        range: "12-14",
+                        label: "Assez bien",
+                        color: "bg-yellow-500",
+                      },
+                      {
+                        range: "10-12",
+                        label: "Passable",
+                        color: "bg-orange-500",
+                      },
+                      {
+                        range: "0-10",
+                        label: "Insuffisant",
+                        color: "bg-red-500",
+                      },
                     ].map((category) => {
-                      const count = grades.filter(grade => {
-                        const normalizedGrade = (grade.grade / grade.maxGrade) * 20;
-                        const [min, max] = category.range.split('-').map(Number);
+                      const count = grades.filter((grade) => {
+                        const normalizedGrade =
+                          (grade.grade / grade.maxGrade) * 20;
+                        const [min, max] = category.range
+                          .split("-")
+                          .map(Number);
                         return normalizedGrade >= min && normalizedGrade < max;
                       }).length;
-                      const percentage = grades.length > 0 ? Math.round((count / grades.length) * 100) : 0;
-                      
+                      const percentage =
+                        grades.length > 0
+                          ? Math.round((count / grades.length) * 100)
+                          : 0;
+
                       return (
-                        <div key={category.range} className="flex items-center space-x-3">
-                          <div className={`w-4 h-4 rounded ${category.color}`}></div>
+                        <div
+                          key={category.range}
+                          className="flex items-center space-x-3"
+                        >
+                          <div
+                            className={`w-4 h-4 rounded ${category.color}`}
+                          ></div>
                           <div className="flex-1 flex justify-between">
-                            <span className="text-sm">{category.label} ({category.range})</span>
-                            <span className="text-sm font-medium">{count} ({percentage}%)</span>
+                            <span className="text-sm">
+                              {category.label} ({category.range})
+                            </span>
+                            <span className="text-sm font-medium">
+                              {count} ({percentage}%)
+                            </span>
                           </div>
                         </div>
                       );
@@ -636,10 +742,12 @@ export default function TeacherGrades() {
                       type="number"
                       step="0.1"
                       value={editingGrade.grade}
-                      onChange={(e) => setEditingGrade({
-                        ...editingGrade,
-                        grade: parseFloat(e.target.value)
-                      })}
+                      onChange={(e) =>
+                        setEditingGrade({
+                          ...editingGrade,
+                          grade: parseFloat(e.target.value),
+                        })
+                      }
                     />
                   </div>
                   <div className="space-y-2">
@@ -647,10 +755,12 @@ export default function TeacherGrades() {
                     <Input
                       type="number"
                       value={editingGrade.maxGrade}
-                      onChange={(e) => setEditingGrade({
-                        ...editingGrade,
-                        maxGrade: parseFloat(e.target.value)
-                      })}
+                      onChange={(e) =>
+                        setEditingGrade({
+                          ...editingGrade,
+                          maxGrade: parseFloat(e.target.value),
+                        })
+                      }
                     />
                   </div>
                 </div>
@@ -658,16 +768,21 @@ export default function TeacherGrades() {
                   <Label>Commentaire</Label>
                   <Input
                     value={editingGrade.comment || ""}
-                    onChange={(e) => setEditingGrade({
-                      ...editingGrade,
-                      comment: e.target.value
-                    })}
+                    onChange={(e) =>
+                      setEditingGrade({
+                        ...editingGrade,
+                        comment: e.target.value,
+                      })
+                    }
                   />
                 </div>
               </div>
             )}
             <DialogFooter>
-              <Button variant="outline" onClick={() => setIsEditGradeOpen(false)}>
+              <Button
+                variant="outline"
+                onClick={() => setIsEditGradeOpen(false)}
+              >
                 Annuler
               </Button>
               <Button onClick={handleEditGrade}>Modifier</Button>

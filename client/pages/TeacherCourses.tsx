@@ -83,12 +83,13 @@ const mockCourses: Course[] = [
     startDate: "2023-09-01",
     endDate: "2024-01-31",
     status: "active",
-    description: "Introduction à l'anatomie humaine avec focus sur les systèmes cardiovasculaire, respiratoire et nerveux.",
+    description:
+      "Introduction à l'anatomie humaine avec focus sur les systèmes cardiovasculaire, respiratoire et nerveux.",
     objectives: [
       "Comprendre la structure anatomique du corps humain",
       "Identifier les organes et leurs fonctions",
       "Maîtriser la terminologie anatomique",
-      "Analyser les relations entre structure et fonction"
+      "Analyser les relations entre structure et fonction",
     ],
     sessions: [
       {
@@ -98,7 +99,7 @@ const mockCourses: Course[] = [
         date: "2024-01-15",
         duration: 1.5,
         completed: true,
-        attendance: 44
+        attendance: 44,
       },
       {
         id: "2",
@@ -107,7 +108,7 @@ const mockCourses: Course[] = [
         date: "2024-01-18",
         duration: 2,
         completed: true,
-        attendance: 43
+        attendance: 43,
       },
       {
         id: "3",
@@ -115,9 +116,9 @@ const mockCourses: Course[] = [
         type: "tp",
         date: "2024-01-22",
         duration: 3,
-        completed: false
-      }
-    ]
+        completed: false,
+      },
+    ],
   },
   {
     id: "2",
@@ -138,7 +139,7 @@ const mockCourses: Course[] = [
       "Analyser les mécanismes de régulation physiologique",
       "Comprendre les interactions entre systèmes",
       "Interpréter les données physiologiques",
-      "Appliquer les connaissances en contexte clinique"
+      "Appliquer les connaissances en contexte clinique",
     ],
     sessions: [
       {
@@ -148,7 +149,7 @@ const mockCourses: Course[] = [
         date: "2024-01-20",
         duration: 2,
         completed: true,
-        attendance: 36
+        attendance: 36,
       },
       {
         id: "5",
@@ -156,9 +157,9 @@ const mockCourses: Course[] = [
         type: "tp",
         date: "2024-01-25",
         duration: 4,
-        completed: false
-      }
-    ]
+        completed: false,
+      },
+    ],
   },
   {
     id: "3",
@@ -174,12 +175,13 @@ const mockCourses: Course[] = [
     startDate: "2023-09-15",
     endDate: "2024-01-15",
     status: "completed",
-    description: "Travaux pratiques d'anatomie avec manipulation et observation directe.",
+    description:
+      "Travaux pratiques d'anatomie avec manipulation et observation directe.",
     objectives: [
       "Manipuler les préparations anatomiques",
       "Observer et identifier les structures",
       "Développer les compétences pratiques",
-      "Comprendre l'anatomie palpatoire"
+      "Comprendre l'anatomie palpatoire",
     ],
     sessions: [
       {
@@ -189,7 +191,7 @@ const mockCourses: Course[] = [
         date: "2024-01-10",
         duration: 3,
         completed: true,
-        attendance: 22
+        attendance: 22,
       },
       {
         id: "7",
@@ -198,10 +200,10 @@ const mockCourses: Course[] = [
         date: "2024-01-15",
         duration: 3,
         completed: true,
-        attendance: 21
-      }
-    ]
-  }
+        attendance: 21,
+      },
+    ],
+  },
 ];
 
 const statusLabels = {
@@ -222,17 +224,29 @@ export default function TeacherCourses() {
   const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
 
-  const filteredCourses = mockCourses.filter((course) =>
-    course.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    course.code.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    course.filiere.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredCourses = mockCourses.filter(
+    (course) =>
+      course.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      course.code.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      course.filiere.toLowerCase().includes(searchTerm.toLowerCase()),
   );
 
-  const activeCourses = mockCourses.filter(course => course.status === "active");
-  const totalStudents = mockCourses.reduce((sum, course) => sum + course.students, 0);
-  const totalHours = mockCourses.reduce((sum, course) => sum + course.completedHours, 0);
+  const activeCourses = mockCourses.filter(
+    (course) => course.status === "active",
+  );
+  const totalStudents = mockCourses.reduce(
+    (sum, course) => sum + course.students,
+    0,
+  );
+  const totalHours = mockCourses.reduce(
+    (sum, course) => sum + course.completedHours,
+    0,
+  );
   const averageProgress = Math.round(
-    mockCourses.reduce((sum, course) => sum + (course.completedHours / course.totalHours) * 100, 0) / mockCourses.length
+    mockCourses.reduce(
+      (sum, course) => sum + (course.completedHours / course.totalHours) * 100,
+      0,
+    ) / mockCourses.length,
   );
 
   const getProgressColor = (progress: number) => {
@@ -243,8 +257,8 @@ export default function TeacherCourses() {
   };
 
   const upcomingSessions = mockCourses
-    .flatMap(course => course.sessions)
-    .filter(session => !session.completed)
+    .flatMap((course) => course.sessions)
+    .filter((session) => !session.completed)
     .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
     .slice(0, 5);
 
@@ -343,15 +357,22 @@ export default function TeacherCourses() {
           <TabsContent value="courses" className="space-y-4">
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
               {filteredCourses.map((course) => {
-                const progress = Math.round((course.completedHours / course.totalHours) * 100);
-                const nextSession = course.sessions.find(s => !s.completed);
-                
+                const progress = Math.round(
+                  (course.completedHours / course.totalHours) * 100,
+                );
+                const nextSession = course.sessions.find((s) => !s.completed);
+
                 return (
-                  <Card key={course.id} className="hover:shadow-lg transition-shadow">
+                  <Card
+                    key={course.id}
+                    className="hover:shadow-lg transition-shadow"
+                  >
                     <CardHeader>
                       <div className="flex justify-between items-start">
                         <div className="flex-1">
-                          <CardTitle className="text-lg">{course.name}</CardTitle>
+                          <CardTitle className="text-lg">
+                            {course.name}
+                          </CardTitle>
                           <CardDescription>
                             {course.code} • {course.filiere} - {course.niveau}
                           </CardDescription>
@@ -368,8 +389,8 @@ export default function TeacherCourses() {
                           <span>Progression</span>
                           <span className="font-medium">{progress}%</span>
                         </div>
-                        <Progress 
-                          value={progress} 
+                        <Progress
+                          value={progress}
                           className={`h-2 ${getProgressColor(progress)}`}
                         />
                         <div className="text-xs text-muted-foreground">
@@ -400,7 +421,11 @@ export default function TeacherCourses() {
                           </div>
                           <div className="text-xs text-blue-600 flex items-center space-x-2 mt-1">
                             <Calendar className="h-3 w-3" />
-                            <span>{new Date(nextSession.date).toLocaleDateString("fr-FR")}</span>
+                            <span>
+                              {new Date(nextSession.date).toLocaleDateString(
+                                "fr-FR",
+                              )}
+                            </span>
                             <Clock className="h-3 w-3 ml-2" />
                             <span>{nextSession.duration}h</span>
                           </div>
@@ -409,9 +434,9 @@ export default function TeacherCourses() {
 
                       {/* Actions */}
                       <div className="flex space-x-2">
-                        <Button 
-                          variant="outline" 
-                          size="sm" 
+                        <Button
+                          variant="outline"
+                          size="sm"
                           className="flex-1"
                           onClick={() => {
                             setSelectedCourse(course);
@@ -439,20 +464,25 @@ export default function TeacherCourses() {
             <Card>
               <CardHeader>
                 <CardTitle>Prochaines séances</CardTitle>
-                <CardDescription>
-                  Vos cours et TP à venir
-                </CardDescription>
+                <CardDescription>Vos cours et TP à venir</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
                   {upcomingSessions.map((session) => {
-                    const course = mockCourses.find(c => c.sessions.some(s => s.id === session.id));
-                    
+                    const course = mockCourses.find((c) =>
+                      c.sessions.some((s) => s.id === session.id),
+                    );
+
                     return (
-                      <div key={session.id} className="flex items-center justify-between p-4 border rounded-lg">
+                      <div
+                        key={session.id}
+                        className="flex items-center justify-between p-4 border rounded-lg"
+                      >
                         <div className="flex-1">
                           <div className="flex items-center space-x-3">
-                            <Badge className={sessionTypeLabels[session.type].color}>
+                            <Badge
+                              className={sessionTypeLabels[session.type].color}
+                            >
                               {sessionTypeLabels[session.type].label}
                             </Badge>
                             <div className="font-medium">{session.title}</div>
@@ -463,7 +493,11 @@ export default function TeacherCourses() {
                           <div className="flex items-center space-x-4 text-sm text-muted-foreground mt-2">
                             <div className="flex items-center space-x-1">
                               <Calendar className="h-4 w-4" />
-                              <span>{new Date(session.date).toLocaleDateString("fr-FR")}</span>
+                              <span>
+                                {new Date(session.date).toLocaleDateString(
+                                  "fr-FR",
+                                )}
+                              </span>
                             </div>
                             <div className="flex items-center space-x-1">
                               <Clock className="h-4 w-4" />
@@ -504,7 +538,9 @@ export default function TeacherCourses() {
                 <div className="text-center py-8 text-muted-foreground">
                   <Calendar className="h-12 w-12 mx-auto mb-4 opacity-50" />
                   <p>Planification avancée - À venir</p>
-                  <p className="text-sm">Cette fonctionnalité sera disponible prochainement</p>
+                  <p className="text-sm">
+                    Cette fonctionnalité sera disponible prochainement
+                  </p>
                 </div>
               </CardContent>
             </Card>
@@ -517,15 +553,24 @@ export default function TeacherCourses() {
             <DialogHeader>
               <DialogTitle className="flex items-center justify-between">
                 <span>{selectedCourse?.name}</span>
-                <Badge className={selectedCourse ? statusLabels[selectedCourse.status].color : ""}>
-                  {selectedCourse ? statusLabels[selectedCourse.status].label : ""}
+                <Badge
+                  className={
+                    selectedCourse
+                      ? statusLabels[selectedCourse.status].color
+                      : ""
+                  }
+                >
+                  {selectedCourse
+                    ? statusLabels[selectedCourse.status].label
+                    : ""}
                 </Badge>
               </DialogTitle>
               <DialogDescription>
-                {selectedCourse?.code} - {selectedCourse?.filiere} {selectedCourse?.niveau}
+                {selectedCourse?.code} - {selectedCourse?.filiere}{" "}
+                {selectedCourse?.niveau}
               </DialogDescription>
             </DialogHeader>
-            
+
             {selectedCourse && (
               <div className="space-y-6">
                 {/* Course Info */}
@@ -538,10 +583,15 @@ export default function TeacherCourses() {
                       </p>
                     </div>
                     <div>
-                      <h4 className="font-medium mb-2">Objectifs pédagogiques</h4>
+                      <h4 className="font-medium mb-2">
+                        Objectifs pédagogiques
+                      </h4>
                       <ul className="space-y-1">
                         {selectedCourse.objectives.map((objective, index) => (
-                          <li key={index} className="text-sm text-muted-foreground flex items-start space-x-2">
+                          <li
+                            key={index}
+                            className="text-sm text-muted-foreground flex items-start space-x-2"
+                          >
                             <CheckCircle className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
                             <span>{objective}</span>
                           </li>
@@ -549,35 +599,60 @@ export default function TeacherCourses() {
                       </ul>
                     </div>
                   </div>
-                  
+
                   <div className="space-y-4">
                     <div className="grid grid-cols-2 gap-4">
                       <div className="text-center p-4 bg-gray-50 rounded-lg">
-                        <div className="text-2xl font-bold">{selectedCourse.students}</div>
-                        <div className="text-sm text-muted-foreground">Étudiants</div>
+                        <div className="text-2xl font-bold">
+                          {selectedCourse.students}
+                        </div>
+                        <div className="text-sm text-muted-foreground">
+                          Étudiants
+                        </div>
                       </div>
                       <div className="text-center p-4 bg-gray-50 rounded-lg">
-                        <div className="text-2xl font-bold">{selectedCourse.credits}</div>
-                        <div className="text-sm text-muted-foreground">Crédits</div>
+                        <div className="text-2xl font-bold">
+                          {selectedCourse.credits}
+                        </div>
+                        <div className="text-sm text-muted-foreground">
+                          Crédits
+                        </div>
                       </div>
                       <div className="text-center p-4 bg-gray-50 rounded-lg">
-                        <div className="text-2xl font-bold">{selectedCourse.totalHours}h</div>
-                        <div className="text-sm text-muted-foreground">Volume total</div>
+                        <div className="text-2xl font-bold">
+                          {selectedCourse.totalHours}h
+                        </div>
+                        <div className="text-sm text-muted-foreground">
+                          Volume total
+                        </div>
                       </div>
                       <div className="text-center p-4 bg-gray-50 rounded-lg">
-                        <div className="text-2xl font-bold">{selectedCourse.completedHours}h</div>
-                        <div className="text-sm text-muted-foreground">Réalisées</div>
+                        <div className="text-2xl font-bold">
+                          {selectedCourse.completedHours}h
+                        </div>
+                        <div className="text-sm text-muted-foreground">
+                          Réalisées
+                        </div>
                       </div>
                     </div>
-                    
+
                     <div>
                       <h4 className="font-medium mb-2">Progression</h4>
-                      <Progress 
-                        value={(selectedCourse.completedHours / selectedCourse.totalHours) * 100} 
+                      <Progress
+                        value={
+                          (selectedCourse.completedHours /
+                            selectedCourse.totalHours) *
+                          100
+                        }
                         className="h-3"
                       />
                       <div className="text-sm text-muted-foreground mt-1">
-                        {Math.round((selectedCourse.completedHours / selectedCourse.totalHours) * 100)}% terminé
+                        {Math.round(
+                          (selectedCourse.completedHours /
+                            selectedCourse.totalHours) *
+                            100,
+                        )}
+                        % terminé
                       </div>
                     </div>
                   </div>
@@ -588,7 +663,10 @@ export default function TeacherCourses() {
                   <h4 className="font-medium mb-4">Séances de cours</h4>
                   <div className="space-y-2">
                     {selectedCourse.sessions.map((session) => (
-                      <div key={session.id} className="flex items-center justify-between p-3 border rounded-lg">
+                      <div
+                        key={session.id}
+                        className="flex items-center justify-between p-3 border rounded-lg"
+                      >
                         <div className="flex items-center space-x-3">
                           {session.completed ? (
                             <CheckCircle className="h-5 w-5 text-green-500" />
@@ -598,14 +676,23 @@ export default function TeacherCourses() {
                           <div>
                             <div className="font-medium">{session.title}</div>
                             <div className="text-sm text-muted-foreground">
-                              {new Date(session.date).toLocaleDateString("fr-FR")} • {session.duration}h
+                              {new Date(session.date).toLocaleDateString(
+                                "fr-FR",
+                              )}{" "}
+                              • {session.duration}h
                               {session.attendance && (
-                                <span> • {session.attendance}/{selectedCourse.students} présents</span>
+                                <span>
+                                  {" "}
+                                  • {session.attendance}/
+                                  {selectedCourse.students} présents
+                                </span>
                               )}
                             </div>
                           </div>
                         </div>
-                        <Badge className={sessionTypeLabels[session.type].color}>
+                        <Badge
+                          className={sessionTypeLabels[session.type].color}
+                        >
                           {sessionTypeLabels[session.type].label}
                         </Badge>
                       </div>

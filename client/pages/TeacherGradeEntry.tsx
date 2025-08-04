@@ -82,7 +82,7 @@ const mockUEs: UE[] = [
   {
     id: "ue2",
     code: "PHYS201",
-    nom: "Physiologie spécialisée", 
+    nom: "Physiologie spécialisée",
     filiere: "Médecine",
     niveau: "Année 2",
     coefficient: 4,
@@ -175,45 +175,59 @@ export default function TeacherGradeEntry() {
   const [grades, setGrades] = useState<Record<string, GradeEntry>>({});
 
   // Get unique filieres
-  const filieres = Array.from(new Set(mockUEs.map(ue => ue.filiere)));
+  const filieres = Array.from(new Set(mockUEs.map((ue) => ue.filiere)));
 
   // Get niveaux for selected filiere
-  const niveaux = selectedFiliere 
-    ? Array.from(new Set(mockUEs.filter(ue => ue.filiere === selectedFiliere).map(ue => ue.niveau)))
+  const niveaux = selectedFiliere
+    ? Array.from(
+        new Set(
+          mockUEs
+            .filter((ue) => ue.filiere === selectedFiliere)
+            .map((ue) => ue.niveau),
+        ),
+      )
     : [];
 
   // Get UEs for selected filiere and niveau
   const availableUEs = mockUEs.filter(
-    ue => ue.filiere === selectedFiliere && ue.niveau === selectedNiveau
+    (ue) => ue.filiere === selectedFiliere && ue.niveau === selectedNiveau,
   );
 
-  const selectedUEData = mockUEs.find(ue => ue.id === selectedUE);
+  const selectedUEData = mockUEs.find((ue) => ue.id === selectedUE);
 
   const calculateMoyenne = (cc: number, examen: number, ue: UE): number => {
-    return Math.round(((cc * ue.ccPourcentage + examen * ue.examenPourcentage) / 100) * 100) / 100;
+    return (
+      Math.round(
+        ((cc * ue.ccPourcentage + examen * ue.examenPourcentage) / 100) * 100,
+      ) / 100
+    );
   };
 
-  const handleGradeChange = (studentId: string, type: 'cc' | 'examen', value: string) => {
-    setGrades(prev => ({
+  const handleGradeChange = (
+    studentId: string,
+    type: "cc" | "examen",
+    value: string,
+  ) => {
+    setGrades((prev) => ({
       ...prev,
       [studentId]: {
         ...prev[studentId],
         [type]: value,
-      }
+      },
     }));
   };
 
   const getStudentMoyenne = (studentId: string): number | null => {
     const studentGrades = grades[studentId];
     if (!studentGrades || !selectedUEData) return null;
-    
-    const cc = parseFloat(studentGrades.cc || '0');
-    const examen = parseFloat(studentGrades.examen || '0');
-    
+
+    const cc = parseFloat(studentGrades.cc || "0");
+    const examen = parseFloat(studentGrades.examen || "0");
+
     if (studentGrades.cc && studentGrades.examen) {
       return calculateMoyenne(cc, examen, selectedUEData);
     }
-    
+
     return null;
   };
 
@@ -235,13 +249,14 @@ export default function TeacherGradeEntry() {
     }
 
     const completedGrades = Object.entries(grades).filter(
-      ([_, grade]) => grade.cc && grade.examen
+      ([_, grade]) => grade.cc && grade.examen,
     );
 
     if (completedGrades.length === 0) {
       toast({
-        title: "Erreur", 
-        description: "Veuillez saisir au moins une note complète (CC + Examen).",
+        title: "Erreur",
+        description:
+          "Veuillez saisir au moins une note complète (CC + Examen).",
         variant: "destructive",
       });
       return;
@@ -264,7 +279,9 @@ export default function TeacherGradeEntry() {
     setGrades({});
   };
 
-  const completedCount = Object.values(grades).filter(g => g.cc && g.examen).length;
+  const completedCount = Object.values(grades).filter(
+    (g) => g.cc && g.examen,
+  ).length;
   const totalStudents = students.length;
 
   return (
@@ -273,16 +290,18 @@ export default function TeacherGradeEntry() {
         {/* Header */}
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-4">
-            <Button 
-              variant="outline" 
+            <Button
+              variant="outline"
               size="sm"
-              onClick={() => navigate('/teacher/grades')}
+              onClick={() => navigate("/teacher/grades")}
             >
               <ArrowLeft className="h-4 w-4 mr-2" />
               Retour
             </Button>
             <div>
-              <h2 className="text-3xl font-bold tracking-tight">Saisir des Notes</h2>
+              <h2 className="text-3xl font-bold tracking-tight">
+                Saisir des Notes
+              </h2>
               <p className="text-muted-foreground">
                 Saisie des notes par unité d'enseignement
               </p>
@@ -383,16 +402,20 @@ export default function TeacherGradeEntry() {
               <div className="mt-4 p-4 bg-blue-50 rounded-lg">
                 <div className="grid grid-cols-4 gap-4 text-sm">
                   <div>
-                    <span className="font-medium">Code:</span> {selectedUEData.code}
+                    <span className="font-medium">Code:</span>{" "}
+                    {selectedUEData.code}
                   </div>
                   <div>
-                    <span className="font-medium">Coefficient:</span> {selectedUEData.coefficient}
+                    <span className="font-medium">Coefficient:</span>{" "}
+                    {selectedUEData.coefficient}
                   </div>
                   <div>
-                    <span className="font-medium">CC:</span> {selectedUEData.ccPourcentage}%
+                    <span className="font-medium">CC:</span>{" "}
+                    {selectedUEData.ccPourcentage}%
                   </div>
                   <div>
-                    <span className="font-medium">Examen:</span> {selectedUEData.examenPourcentage}%
+                    <span className="font-medium">Examen:</span>{" "}
+                    {selectedUEData.examenPourcentage}%
                   </div>
                 </div>
               </div>
@@ -405,7 +428,9 @@ export default function TeacherGradeEntry() {
           <div className="grid gap-4 md:grid-cols-4">
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Total étudiants</CardTitle>
+                <CardTitle className="text-sm font-medium">
+                  Total étudiants
+                </CardTitle>
                 <Users className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
@@ -415,17 +440,23 @@ export default function TeacherGradeEntry() {
             </Card>
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Notes complètes</CardTitle>
+                <CardTitle className="text-sm font-medium">
+                  Notes complètes
+                </CardTitle>
                 <CheckCircle className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">{completedCount}</div>
-                <p className="text-xs text-muted-foreground">CC + Examen saisis</p>
+                <p className="text-xs text-muted-foreground">
+                  CC + Examen saisis
+                </p>
               </CardContent>
             </Card>
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Progression</CardTitle>
+                <CardTitle className="text-sm font-medium">
+                  Progression
+                </CardTitle>
                 <Calculator className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
@@ -441,7 +472,9 @@ export default function TeacherGradeEntry() {
                 <AlertTriangle className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">{totalStudents - completedCount}</div>
+                <div className="text-2xl font-bold">
+                  {totalStudents - completedCount}
+                </div>
                 <p className="text-xs text-muted-foreground">À compléter</p>
               </CardContent>
             </Card>
@@ -464,7 +497,8 @@ export default function TeacherGradeEntry() {
                 </div>
               </CardTitle>
               <CardDescription>
-                Saisissez les notes de contrôle continu et d'examen final. La moyenne sera calculée automatiquement.
+                Saisissez les notes de contrôle continu et d'examen final. La
+                moyenne sera calculée automatiquement.
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -473,18 +507,25 @@ export default function TeacherGradeEntry() {
                   <TableRow>
                     <TableHead className="w-[100px]">N° Étudiant</TableHead>
                     <TableHead>Nom et Prénom</TableHead>
-                    <TableHead className="w-[120px]">CC ({selectedUEData?.ccPourcentage}%)</TableHead>
-                    <TableHead className="w-[120px]">Examen ({selectedUEData?.examenPourcentage}%)</TableHead>
+                    <TableHead className="w-[120px]">
+                      CC ({selectedUEData?.ccPourcentage}%)
+                    </TableHead>
+                    <TableHead className="w-[120px]">
+                      Examen ({selectedUEData?.examenPourcentage}%)
+                    </TableHead>
                     <TableHead className="w-[120px]">Moyenne</TableHead>
                     <TableHead className="w-[100px]">Statut</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {students.map((student) => {
-                    const studentGrades = grades[student.id] || { cc: '', examen: '' };
+                    const studentGrades = grades[student.id] || {
+                      cc: "",
+                      examen: "",
+                    };
                     const moyenne = getStudentMoyenne(student.id);
                     const isComplete = studentGrades.cc && studentGrades.examen;
-                    
+
                     return (
                       <TableRow key={student.id}>
                         <TableCell className="font-mono text-sm">
@@ -503,7 +544,13 @@ export default function TeacherGradeEntry() {
                             step="0.25"
                             placeholder="0.00"
                             value={studentGrades.cc}
-                            onChange={(e) => handleGradeChange(student.id, 'cc', e.target.value)}
+                            onChange={(e) =>
+                              handleGradeChange(
+                                student.id,
+                                "cc",
+                                e.target.value,
+                              )
+                            }
                             className="w-full"
                           />
                         </TableCell>
@@ -515,7 +562,13 @@ export default function TeacherGradeEntry() {
                             step="0.25"
                             placeholder="0.00"
                             value={studentGrades.examen}
-                            onChange={(e) => handleGradeChange(student.id, 'examen', e.target.value)}
+                            onChange={(e) =>
+                              handleGradeChange(
+                                student.id,
+                                "examen",
+                                e.target.value,
+                              )
+                            }
                             className="w-full"
                           />
                         </TableCell>
@@ -525,12 +578,17 @@ export default function TeacherGradeEntry() {
                               {moyenne.toFixed(2)}/20
                             </Badge>
                           ) : (
-                            <span className="text-muted-foreground text-sm">-</span>
+                            <span className="text-muted-foreground text-sm">
+                              -
+                            </span>
                           )}
                         </TableCell>
                         <TableCell>
                           {isComplete ? (
-                            <Badge variant="default" className="bg-green-100 text-green-800">
+                            <Badge
+                              variant="default"
+                              className="bg-green-100 text-green-800"
+                            >
                               <CheckCircle className="w-3 h-3 mr-1" />
                               Complet
                             </Badge>
@@ -546,15 +604,24 @@ export default function TeacherGradeEntry() {
                   })}
                 </TableBody>
               </Table>
-              
+
               <div className="mt-4 p-4 bg-gray-50 rounded-lg">
                 <div className="text-sm text-muted-foreground">
                   <strong>Instructions:</strong>
                   <ul className="list-disc list-inside mt-2 space-y-1">
                     <li>Saisissez les notes sur 20</li>
-                    <li>La moyenne est calculée automatiquement : CC ({selectedUEData?.ccPourcentage}%) + Examen ({selectedUEData?.examenPourcentage}%)</li>
-                    <li>Les notes peuvent être saisies avec des décimales (ex: 15.75)</li>
-                    <li>Assurez-vous de sauvegarder vos saisies avant de quitter</li>
+                    <li>
+                      La moyenne est calculée automatiquement : CC (
+                      {selectedUEData?.ccPourcentage}%) + Examen (
+                      {selectedUEData?.examenPourcentage}%)
+                    </li>
+                    <li>
+                      Les notes peuvent être saisies avec des décimales (ex:
+                      15.75)
+                    </li>
+                    <li>
+                      Assurez-vous de sauvegarder vos saisies avant de quitter
+                    </li>
                   </ul>
                 </div>
               </div>

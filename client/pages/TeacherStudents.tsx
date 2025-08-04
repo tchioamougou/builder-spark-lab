@@ -244,7 +244,7 @@ export default function TeacherStudents() {
     const matchesClass =
       selectedClass === "all" ||
       mockClassGroups.find((group) =>
-        group.etudiants.some((s) => s.id === student.id)
+        group.etudiants.some((s) => s.id === student.id),
       )?.id === selectedClass;
 
     return matchesSearch && matchesClass;
@@ -268,17 +268,18 @@ export default function TeacherStudents() {
   };
 
   const totalStudents = allStudents.length;
-  const averageGrade = Math.round(
-    (allStudents.reduce((sum, student) => sum + (student.moyenne || 0), 0) /
-      totalStudents) *
-      10
-  ) / 10;
+  const averageGrade =
+    Math.round(
+      (allStudents.reduce((sum, student) => sum + (student.moyenne || 0), 0) /
+        totalStudents) *
+        10,
+    ) / 10;
   const totalAbsences = allStudents.reduce(
     (sum, student) => sum + (student.absences || 0),
-    0
+    0,
   );
   const studentsWithIssues = allStudents.filter(
-    (student) => (student.moyenne || 0) < 10 || (student.absences || 0) > 5
+    (student) => (student.moyenne || 0) < 10 || (student.absences || 0) > 5,
   ).length;
 
   return (
@@ -353,7 +354,11 @@ export default function TeacherStudents() {
         </div>
 
         {/* Main Content */}
-        <Tabs value={selectedTab} onValueChange={setSelectedTab} className="space-y-4">
+        <Tabs
+          value={selectedTab}
+          onValueChange={setSelectedTab}
+          className="space-y-4"
+        >
           <TabsList className="grid w-full grid-cols-2">
             <TabsTrigger value="list">Liste des étudiants</TabsTrigger>
             <TabsTrigger value="classes">Par cours</TabsTrigger>
@@ -380,7 +385,10 @@ export default function TeacherStudents() {
                     />
                   </div>
                   <div className="flex space-x-2">
-                    <Select value={selectedClass} onValueChange={setSelectedClass}>
+                    <Select
+                      value={selectedClass}
+                      onValueChange={setSelectedClass}
+                    >
                       <SelectTrigger className="w-48">
                         <SelectValue placeholder="Filtrer par cours" />
                       </SelectTrigger>
@@ -458,7 +466,7 @@ export default function TeacherStudents() {
                           <div className="text-sm">
                             {student.derniereConnexion &&
                               new Date(
-                                student.derniereConnexion
+                                student.derniereConnexion,
                               ).toLocaleDateString("fr-FR")}
                           </div>
                         </TableCell>
@@ -541,10 +549,10 @@ export default function TeacherStudents() {
                           {Math.round(
                             (classGroup.etudiants.reduce(
                               (sum, student) => sum + (student.moyenne || 0),
-                              0
+                              0,
                             ) /
                               classGroup.etudiants.length) *
-                              10
+                              10,
                           ) / 10}
                         </div>
                         <div className="text-sm text-muted-foreground">
@@ -555,7 +563,7 @@ export default function TeacherStudents() {
                         <div className="text-2xl font-bold">
                           {
                             classGroup.etudiants.filter(
-                              (s) => (s.moyenne || 0) >= 10
+                              (s) => (s.moyenne || 0) >= 10,
                             ).length
                           }
                           /{classGroup.etudiants.length}
@@ -568,7 +576,7 @@ export default function TeacherStudents() {
                         <div className="text-2xl font-bold">
                           {classGroup.etudiants.reduce(
                             (sum, student) => sum + (student.absences || 0),
-                            0
+                            0,
                           )}
                         </div>
                         <div className="text-sm text-muted-foreground">

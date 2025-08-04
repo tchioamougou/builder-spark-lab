@@ -114,7 +114,9 @@ const typeLabels = {
 
 export default function TeacherSchedule() {
   const [currentDate, setCurrentDate] = useState(new Date());
-  const [selectedView, setSelectedView] = useState<"day" | "week" | "month">("week");
+  const [selectedView, setSelectedView] = useState<"day" | "week" | "month">(
+    "week",
+  );
 
   // Get current week dates
   const getWeekDates = (date: Date) => {
@@ -134,16 +136,16 @@ export default function TeacherSchedule() {
   const today = new Date();
 
   // Filter events for current week
-  const weekEvents = mockSchedule.filter(event => {
+  const weekEvents = mockSchedule.filter((event) => {
     const eventDate = new Date(event.date);
-    return weekDates.some(date => 
-      date.toDateString() === eventDate.toDateString()
+    return weekDates.some(
+      (date) => date.toDateString() === eventDate.toDateString(),
     );
   });
 
   // Get events for a specific date
   const getEventsForDate = (date: Date) => {
-    return mockSchedule.filter(event => {
+    return mockSchedule.filter((event) => {
       const eventDate = new Date(event.date);
       return eventDate.toDateString() === date.toDateString();
     });
@@ -181,7 +183,9 @@ export default function TeacherSchedule() {
         {/* Header */}
         <div className="flex justify-between items-center">
           <div>
-            <h2 className="text-3xl font-bold tracking-tight">Emploi du Temps</h2>
+            <h2 className="text-3xl font-bold tracking-tight">
+              Emploi du Temps
+            </h2>
             <p className="text-muted-foreground">
               Planning de vos cours et activités
             </p>
@@ -224,38 +228,34 @@ export default function TeacherSchedule() {
           </Card>
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">
-                Étudiants
-              </CardTitle>
+              <CardTitle className="text-sm font-medium">Étudiants</CardTitle>
               <Users className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">
                 {weekEvents.reduce((total, event) => total + event.students, 0)}
               </div>
-              <p className="text-xs text-muted-foreground">
-                Total à encadrer
-              </p>
+              <p className="text-xs text-muted-foreground">Total à encadrer</p>
             </CardContent>
           </Card>
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">
-                Aujourd'hui
-              </CardTitle>
+              <CardTitle className="text-sm font-medium">Aujourd'hui</CardTitle>
               <Calendar className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{todayEvents.length}</div>
-              <p className="text-xs text-muted-foreground">
-                Cours du jour
-              </p>
+              <p className="text-xs text-muted-foreground">Cours du jour</p>
             </CardContent>
           </Card>
         </div>
 
         {/* Main Content */}
-        <Tabs value={selectedView} onValueChange={(value) => setSelectedView(value as any)} className="space-y-4">
+        <Tabs
+          value={selectedView}
+          onValueChange={(value) => setSelectedView(value as any)}
+          className="space-y-4"
+        >
           <TabsList>
             <TabsTrigger value="week">Vue semaine</TabsTrigger>
             <TabsTrigger value="day">Vue jour</TabsTrigger>
@@ -268,18 +268,30 @@ export default function TeacherSchedule() {
               <CardHeader>
                 <div className="flex justify-between items-center">
                   <CardTitle className="flex items-center space-x-4">
-                    <Button variant="outline" size="sm" onClick={() => navigateWeek("prev")}>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => navigateWeek("prev")}
+                    >
                       <ChevronLeft className="h-4 w-4" />
                     </Button>
                     <span>
                       Semaine du {weekDates[0].toLocaleDateString("fr-FR")} au{" "}
                       {weekDates[6].toLocaleDateString("fr-FR")}
                     </span>
-                    <Button variant="outline" size="sm" onClick={() => navigateWeek("next")}>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => navigateWeek("next")}
+                    >
                       <ChevronRight className="h-4 w-4" />
                     </Button>
                   </CardTitle>
-                  <Button variant="outline" size="sm" onClick={() => setCurrentDate(new Date())}>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setCurrentDate(new Date())}
+                  >
                     Aujourd'hui
                   </Button>
                 </div>
@@ -288,13 +300,27 @@ export default function TeacherSchedule() {
                 <div className="grid grid-cols-7 gap-4">
                   {weekDates.map((date, index) => {
                     const dayEvents = getEventsForDate(date);
-                    const dayNames = ["Lun", "Mar", "Mer", "Jeu", "Ven", "Sam", "Dim"];
-                    
+                    const dayNames = [
+                      "Lun",
+                      "Mar",
+                      "Mer",
+                      "Jeu",
+                      "Ven",
+                      "Sam",
+                      "Dim",
+                    ];
+
                     return (
                       <div key={index} className="space-y-2">
-                        <div className={`text-center p-2 rounded ${isToday(date) ? "bg-primary text-primary-foreground" : "bg-gray-50"}`}>
-                          <div className="text-xs font-medium">{dayNames[index]}</div>
-                          <div className="text-lg font-bold">{date.getDate()}</div>
+                        <div
+                          className={`text-center p-2 rounded ${isToday(date) ? "bg-primary text-primary-foreground" : "bg-gray-50"}`}
+                        >
+                          <div className="text-xs font-medium">
+                            {dayNames[index]}
+                          </div>
+                          <div className="text-lg font-bold">
+                            {date.getDate()}
+                          </div>
                         </div>
                         <div className="space-y-1 min-h-[200px]">
                           {dayEvents.map((event) => (
@@ -303,7 +329,8 @@ export default function TeacherSchedule() {
                               className="p-2 rounded-lg border-l-4 border-primary bg-white shadow-sm hover:shadow-md transition-shadow cursor-pointer"
                             >
                               <div className="text-xs font-medium text-primary">
-                                {formatTime(event.startTime)} - {formatTime(event.endTime)}
+                                {formatTime(event.startTime)} -{" "}
+                                {formatTime(event.endTime)}
                               </div>
                               <div className="text-sm font-medium truncate">
                                 {event.title}
@@ -311,7 +338,10 @@ export default function TeacherSchedule() {
                               <div className="text-xs text-muted-foreground truncate">
                                 {event.room}
                               </div>
-                              <Badge size="sm" className={typeLabels[event.type].color}>
+                              <Badge
+                                size="sm"
+                                className={typeLabels[event.type].color}
+                              >
                                 {typeLabels[event.type].label}
                               </Badge>
                             </div>
@@ -330,28 +360,42 @@ export default function TeacherSchedule() {
               <CardHeader>
                 <CardTitle className="flex items-center justify-between">
                   <div className="flex items-center space-x-4">
-                    <Button variant="outline" size="sm" onClick={() => {
-                      const newDate = new Date(currentDate);
-                      newDate.setDate(currentDate.getDate() - 1);
-                      setCurrentDate(newDate);
-                    }}>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => {
+                        const newDate = new Date(currentDate);
+                        newDate.setDate(currentDate.getDate() - 1);
+                        setCurrentDate(newDate);
+                      }}
+                    >
                       <ChevronLeft className="h-4 w-4" />
                     </Button>
-                    <span>{currentDate.toLocaleDateString("fr-FR", { 
-                      weekday: "long", 
-                      year: "numeric", 
-                      month: "long", 
-                      day: "numeric" 
-                    })}</span>
-                    <Button variant="outline" size="sm" onClick={() => {
-                      const newDate = new Date(currentDate);
-                      newDate.setDate(currentDate.getDate() + 1);
-                      setCurrentDate(newDate);
-                    }}>
+                    <span>
+                      {currentDate.toLocaleDateString("fr-FR", {
+                        weekday: "long",
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                      })}
+                    </span>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => {
+                        const newDate = new Date(currentDate);
+                        newDate.setDate(currentDate.getDate() + 1);
+                        setCurrentDate(newDate);
+                      }}
+                    >
                       <ChevronRight className="h-4 w-4" />
                     </Button>
                   </div>
-                  <Button variant="outline" size="sm" onClick={() => setCurrentDate(new Date())}>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setCurrentDate(new Date())}
+                  >
                     Aujourd'hui
                   </Button>
                 </CardTitle>
@@ -367,7 +411,10 @@ export default function TeacherSchedule() {
                     getEventsForDate(currentDate)
                       .sort((a, b) => a.startTime.localeCompare(b.startTime))
                       .map((event) => (
-                        <div key={event.id} className="border rounded-lg p-4 hover:shadow-md transition-shadow">
+                        <div
+                          key={event.id}
+                          className="border rounded-lg p-4 hover:shadow-md transition-shadow"
+                        >
                           <div className="flex justify-between items-start">
                             <div className="flex-1">
                               <div className="flex items-center space-x-3 mb-2">
@@ -375,10 +422,13 @@ export default function TeacherSchedule() {
                                   {typeLabels[event.type].label}
                                 </Badge>
                                 <span className="text-sm font-medium text-primary">
-                                  {formatTime(event.startTime)} - {formatTime(event.endTime)}
+                                  {formatTime(event.startTime)} -{" "}
+                                  {formatTime(event.endTime)}
                                 </span>
                               </div>
-                              <h3 className="text-lg font-semibold">{event.title}</h3>
+                              <h3 className="text-lg font-semibold">
+                                {event.title}
+                              </h3>
                               <div className="text-sm text-muted-foreground space-y-1">
                                 <div className="flex items-center space-x-1">
                                   <MapPin className="h-4 w-4" />
@@ -386,7 +436,9 @@ export default function TeacherSchedule() {
                                 </div>
                                 <div className="flex items-center space-x-1">
                                   <BookOpen className="h-4 w-4" />
-                                  <span>{event.filiere} - {event.niveau}</span>
+                                  <span>
+                                    {event.filiere} - {event.niveau}
+                                  </span>
                                 </div>
                                 <div className="flex items-center space-x-1">
                                   <Users className="h-4 w-4" />
@@ -394,7 +446,8 @@ export default function TeacherSchedule() {
                                 </div>
                                 {event.description && (
                                   <div className="mt-2 text-sm">
-                                    <strong>Description:</strong> {event.description}
+                                    <strong>Description:</strong>{" "}
+                                    {event.description}
                                   </div>
                                 )}
                               </div>
@@ -420,15 +473,15 @@ export default function TeacherSchedule() {
             <Card>
               <CardHeader>
                 <CardTitle>Vue mensuelle</CardTitle>
-                <CardDescription>
-                  Aperçu complet du mois
-                </CardDescription>
+                <CardDescription>Aperçu complet du mois</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="text-center py-8 text-muted-foreground">
                   <Calendar className="h-12 w-12 mx-auto mb-4 opacity-50" />
                   <p>Vue mensuelle - À implémenter</p>
-                  <p className="text-sm">Cette fonctionnalité sera disponible prochainement</p>
+                  <p className="text-sm">
+                    Cette fonctionnalité sera disponible prochainement
+                  </p>
                 </div>
               </CardContent>
             </Card>
@@ -442,9 +495,7 @@ export default function TeacherSchedule() {
               <Clock className="h-5 w-5" />
               <span>Programme d'aujourd'hui</span>
             </CardTitle>
-            <CardDescription>
-              Vos cours et activités du jour
-            </CardDescription>
+            <CardDescription>Vos cours et activités du jour</CardDescription>
           </CardHeader>
           <CardContent>
             {todayEvents.length === 0 ? (
@@ -456,7 +507,10 @@ export default function TeacherSchedule() {
                 {todayEvents
                   .sort((a, b) => a.startTime.localeCompare(b.startTime))
                   .map((event) => (
-                    <div key={event.id} className="flex items-center justify-between border-l-4 border-primary pl-4 py-2">
+                    <div
+                      key={event.id}
+                      className="flex items-center justify-between border-l-4 border-primary pl-4 py-2"
+                    >
                       <div className="flex-1">
                         <div className="font-medium">{event.title}</div>
                         <div className="text-sm text-muted-foreground">
@@ -465,9 +519,13 @@ export default function TeacherSchedule() {
                       </div>
                       <div className="text-right">
                         <div className="font-medium text-sm">
-                          {formatTime(event.startTime)} - {formatTime(event.endTime)}
+                          {formatTime(event.startTime)} -{" "}
+                          {formatTime(event.endTime)}
                         </div>
-                        <Badge size="sm" className={typeLabels[event.type].color}>
+                        <Badge
+                          size="sm"
+                          className={typeLabels[event.type].color}
+                        >
                           {typeLabels[event.type].label}
                         </Badge>
                       </div>

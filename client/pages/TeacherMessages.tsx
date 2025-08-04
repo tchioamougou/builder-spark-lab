@@ -77,37 +77,39 @@ const mockMessages: Message[] = [
   {
     id: "1",
     subject: "Question sur le cours d'anatomie",
-    content: "Bonjour professeur, j'aurais une question concernant le chapitre 3 sur le système cardiovasculaire. Pourriez-vous m'expliquer la différence entre les artères et les veines ? Merci beaucoup.",
+    content:
+      "Bonjour professeur, j'aurais une question concernant le chapitre 3 sur le système cardiovasculaire. Pourriez-vous m'expliquer la différence entre les artères et les veines ? Merci beaucoup.",
     sender: {
       id: "s1",
       name: "Marie Dupont",
-      role: "student"
+      role: "student",
     },
     recipient: {
       id: "t1",
       name: "Prof. Martin",
-      role: "teacher"
+      role: "teacher",
     },
     date: "2024-01-20T14:30:00",
     read: false,
     starred: false,
     type: "received",
     category: "question",
-    course: "Anatomie générale"
+    course: "Anatomie générale",
   },
   {
     id: "2",
     subject: "Justificatif d'absence",
-    content: "Bonjour, je vous écris pour justifier mon absence au TP du 18 janvier. J'ai eu un rendez-vous médical urgent. Vous trouverez le certificat médical en pièce jointe.",
+    content:
+      "Bonjour, je vous écris pour justifier mon absence au TP du 18 janvier. J'ai eu un rendez-vous médical urgent. Vous trouverez le certificat médical en pièce jointe.",
     sender: {
       id: "s2",
       name: "Jean Martin",
-      role: "student"
+      role: "student",
     },
     recipient: {
       id: "t1",
       name: "Prof. Martin",
-      role: "teacher"
+      role: "teacher",
     },
     date: "2024-01-19T09:15:00",
     read: true,
@@ -115,49 +117,51 @@ const mockMessages: Message[] = [
     type: "received",
     category: "absence",
     course: "Anatomie générale",
-    attachments: ["certificat_medical.pdf"]
+    attachments: ["certificat_medical.pdf"],
   },
   {
     id: "3",
     subject: "Planning des examens finalisé",
-    content: "Le planning des examens de fin de semestre est maintenant disponible. Veuillez consulter le portail étudiant pour les détails.",
+    content:
+      "Le planning des examens de fin de semestre est maintenant disponible. Veuillez consulter le portail étudiant pour les détails.",
     sender: {
       id: "a1",
       name: "Secrétariat",
-      role: "admin"
+      role: "admin",
     },
     recipient: {
       id: "t1",
       name: "Prof. Martin",
-      role: "teacher"
+      role: "teacher",
     },
     date: "2024-01-18T16:45:00",
     read: true,
     starred: false,
     type: "received",
-    category: "admin"
+    category: "admin",
   },
   {
     id: "4",
     subject: "Réponse: Question sur le cours d'anatomie",
-    content: "Bonjour Marie, excellente question ! Les artères transportent le sang oxygénée du cœur vers les organes, tandis que les veines ramènent le sang désoxygéné vers le cœur. Je vous recommande de revoir le schéma de la page 45 de votre manuel.",
+    content:
+      "Bonjour Marie, excellente question ! Les artères transportent le sang oxygénée du cœur vers les organes, tandis que les veines ramènent le sang désoxygéné vers le cœur. Je vous recommande de revoir le schéma de la page 45 de votre manuel.",
     sender: {
       id: "t1",
       name: "Prof. Martin",
-      role: "teacher"
+      role: "teacher",
     },
     recipient: {
       id: "s1",
       name: "Marie Dupont",
-      role: "student"
+      role: "student",
     },
     date: "2024-01-20T15:15:00",
     read: true,
     starred: false,
     type: "sent",
     category: "question",
-    course: "Anatomie générale"
-  }
+    course: "Anatomie générale",
+  },
 ];
 
 const categoryLabels = {
@@ -184,33 +188,31 @@ export default function TeacherMessages() {
   const filteredMessages = (type: "received" | "sent" | "all") => {
     return messages.filter((message) => {
       const matchesType = type === "all" || message.type === type;
-      const matchesSearch = 
+      const matchesSearch =
         message.subject.toLowerCase().includes(searchTerm.toLowerCase()) ||
         message.content.toLowerCase().includes(searchTerm.toLowerCase()) ||
         message.sender.name.toLowerCase().includes(searchTerm.toLowerCase());
-      
+
       return matchesType && matchesSearch;
     });
   };
 
   const handleMarkAsRead = (messageId: string) => {
-    setMessages(msgs => 
-      msgs.map(msg => 
-        msg.id === messageId ? { ...msg, read: true } : msg
-      )
+    setMessages((msgs) =>
+      msgs.map((msg) => (msg.id === messageId ? { ...msg, read: true } : msg)),
     );
   };
 
   const handleStarMessage = (messageId: string) => {
-    setMessages(msgs => 
-      msgs.map(msg => 
-        msg.id === messageId ? { ...msg, starred: !msg.starred } : msg
-      )
+    setMessages((msgs) =>
+      msgs.map((msg) =>
+        msg.id === messageId ? { ...msg, starred: !msg.starred } : msg,
+      ),
     );
   };
 
   const handleDeleteMessage = (messageId: string) => {
-    setMessages(msgs => msgs.filter(msg => msg.id !== messageId));
+    setMessages((msgs) => msgs.filter((msg) => msg.id !== messageId));
     setSelectedMessage(null);
     toast({
       title: "Message supprimé",
@@ -235,12 +237,12 @@ export default function TeacherMessages() {
       sender: {
         id: "t1",
         name: "Prof. Martin",
-        role: "teacher"
+        role: "teacher",
       },
       recipient: {
         id: "s" + Date.now(),
         name: newMessage.recipient,
-        role: "student"
+        role: "student",
       },
       date: new Date().toISOString(),
       read: true,
@@ -257,7 +259,7 @@ export default function TeacherMessages() {
       category: "general",
     });
     setIsComposeOpen(false);
-    
+
     toast({
       title: "Message envoyé",
       description: "Votre message a été envoyé avec succès.",
@@ -274,10 +276,14 @@ export default function TeacherMessages() {
     setIsComposeOpen(true);
   };
 
-  const unreadCount = messages.filter(msg => msg.type === "received" && !msg.read).length;
-  const receivedCount = messages.filter(msg => msg.type === "received").length;
-  const sentCount = messages.filter(msg => msg.type === "sent").length;
-  const starredCount = messages.filter(msg => msg.starred).length;
+  const unreadCount = messages.filter(
+    (msg) => msg.type === "received" && !msg.read,
+  ).length;
+  const receivedCount = messages.filter(
+    (msg) => msg.type === "received",
+  ).length;
+  const sentCount = messages.filter((msg) => msg.type === "sent").length;
+  const starredCount = messages.filter((msg) => msg.starred).length;
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -322,7 +328,12 @@ export default function TeacherMessages() {
                   <Input
                     id="recipient"
                     value={newMessage.recipient}
-                    onChange={(e) => setNewMessage({...newMessage, recipient: e.target.value})}
+                    onChange={(e) =>
+                      setNewMessage({
+                        ...newMessage,
+                        recipient: e.target.value,
+                      })
+                    }
                     placeholder="Nom du destinataire"
                   />
                 </div>
@@ -332,7 +343,12 @@ export default function TeacherMessages() {
                     <Input
                       id="subject"
                       value={newMessage.subject}
-                      onChange={(e) => setNewMessage({...newMessage, subject: e.target.value})}
+                      onChange={(e) =>
+                        setNewMessage({
+                          ...newMessage,
+                          subject: e.target.value,
+                        })
+                      }
                       placeholder="Sujet du message"
                     />
                   </div>
@@ -340,7 +356,9 @@ export default function TeacherMessages() {
                     <Label htmlFor="category">Catégorie</Label>
                     <Select
                       value={newMessage.category}
-                      onValueChange={(value) => setNewMessage({...newMessage, category: value})}
+                      onValueChange={(value) =>
+                        setNewMessage({ ...newMessage, category: value })
+                      }
                     >
                       <SelectTrigger>
                         <SelectValue />
@@ -359,14 +377,19 @@ export default function TeacherMessages() {
                   <Textarea
                     id="content"
                     value={newMessage.content}
-                    onChange={(e) => setNewMessage({...newMessage, content: e.target.value})}
+                    onChange={(e) =>
+                      setNewMessage({ ...newMessage, content: e.target.value })
+                    }
                     placeholder="Votre message..."
                     rows={6}
                   />
                 </div>
               </div>
               <DialogFooter>
-                <Button variant="outline" onClick={() => setIsComposeOpen(false)}>
+                <Button
+                  variant="outline"
+                  onClick={() => setIsComposeOpen(false)}
+                >
                   Annuler
                 </Button>
                 <Button onClick={handleSendMessage}>
@@ -389,51 +412,37 @@ export default function TeacherMessages() {
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{unreadCount}</div>
-              <p className="text-xs text-muted-foreground">
-                À traiter
-              </p>
+              <p className="text-xs text-muted-foreground">À traiter</p>
             </CardContent>
           </Card>
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">
-                Reçus
-              </CardTitle>
+              <CardTitle className="text-sm font-medium">Reçus</CardTitle>
               <MailOpen className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{receivedCount}</div>
-              <p className="text-xs text-muted-foreground">
-                Total reçus
-              </p>
+              <p className="text-xs text-muted-foreground">Total reçus</p>
             </CardContent>
           </Card>
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">
-                Envoyés
-              </CardTitle>
+              <CardTitle className="text-sm font-medium">Envoyés</CardTitle>
               <Send className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{sentCount}</div>
-              <p className="text-xs text-muted-foreground">
-                Messages envoyés
-              </p>
+              <p className="text-xs text-muted-foreground">Messages envoyés</p>
             </CardContent>
           </Card>
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">
-                Favoris
-              </CardTitle>
+              <CardTitle className="text-sm font-medium">Favoris</CardTitle>
               <Star className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{starredCount}</div>
-              <p className="text-xs text-muted-foreground">
-                Messages marqués
-              </p>
+              <p className="text-xs text-muted-foreground">Messages marqués</p>
             </CardContent>
           </Card>
         </div>
@@ -455,17 +464,23 @@ export default function TeacherMessages() {
           <div className="col-span-5">
             <Tabs defaultValue="received" className="space-y-4">
               <TabsList className="grid w-full grid-cols-3">
-                <TabsTrigger value="received">Reçus ({receivedCount})</TabsTrigger>
+                <TabsTrigger value="received">
+                  Reçus ({receivedCount})
+                </TabsTrigger>
                 <TabsTrigger value="sent">Envoyés ({sentCount})</TabsTrigger>
-                <TabsTrigger value="starred">Favoris ({starredCount})</TabsTrigger>
+                <TabsTrigger value="starred">
+                  Favoris ({starredCount})
+                </TabsTrigger>
               </TabsList>
 
               <TabsContent value="received" className="space-y-2">
                 {filteredMessages("received").map((message) => (
-                  <Card 
-                    key={message.id} 
+                  <Card
+                    key={message.id}
                     className={`cursor-pointer hover:shadow-md transition-shadow ${
-                      selectedMessage?.id === message.id ? "ring-2 ring-primary" : ""
+                      selectedMessage?.id === message.id
+                        ? "ring-2 ring-primary"
+                        : ""
                     } ${!message.read ? "bg-blue-50" : ""}`}
                     onClick={() => {
                       setSelectedMessage(message);
@@ -480,21 +495,33 @@ export default function TeacherMessages() {
                           <Avatar className="h-8 w-8">
                             <AvatarImage src={message.sender.avatar} />
                             <AvatarFallback>
-                              {message.sender.name.split(" ").map(n => n[0]).join("")}
+                              {message.sender.name
+                                .split(" ")
+                                .map((n) => n[0])
+                                .join("")}
                             </AvatarFallback>
                           </Avatar>
                           <div className="flex-1 min-w-0">
                             <div className="flex items-center space-x-2">
-                              <div className={`font-medium truncate ${!message.read ? "font-bold" : ""}`}>
+                              <div
+                                className={`font-medium truncate ${!message.read ? "font-bold" : ""}`}
+                              >
                                 {message.sender.name}
                               </div>
                               {message.category && (
-                                <Badge size="sm" className={categoryLabels[message.category].color}>
+                                <Badge
+                                  size="sm"
+                                  className={
+                                    categoryLabels[message.category].color
+                                  }
+                                >
                                   {categoryLabels[message.category].label}
                                 </Badge>
                               )}
                             </div>
-                            <div className={`text-sm truncate ${!message.read ? "font-semibold" : "text-muted-foreground"}`}>
+                            <div
+                              className={`text-sm truncate ${!message.read ? "font-semibold" : "text-muted-foreground"}`}
+                            >
                               {message.subject}
                             </div>
                             <div className="text-xs text-muted-foreground truncate mt-1">
@@ -511,9 +538,10 @@ export default function TeacherMessages() {
                                 {message.starred && (
                                   <Star className="h-3 w-3 text-yellow-500 fill-current" />
                                 )}
-                                {message.attachments && message.attachments.length > 0 && (
-                                  <Paperclip className="h-3 w-3 text-muted-foreground" />
-                                )}
+                                {message.attachments &&
+                                  message.attachments.length > 0 && (
+                                    <Paperclip className="h-3 w-3 text-muted-foreground" />
+                                  )}
                               </div>
                             </div>
                           </div>
@@ -526,10 +554,12 @@ export default function TeacherMessages() {
 
               <TabsContent value="sent" className="space-y-2">
                 {filteredMessages("sent").map((message) => (
-                  <Card 
-                    key={message.id} 
+                  <Card
+                    key={message.id}
                     className={`cursor-pointer hover:shadow-md transition-shadow ${
-                      selectedMessage?.id === message.id ? "ring-2 ring-primary" : ""
+                      selectedMessage?.id === message.id
+                        ? "ring-2 ring-primary"
+                        : ""
                     }`}
                     onClick={() => setSelectedMessage(message)}
                   >
@@ -537,7 +567,10 @@ export default function TeacherMessages() {
                       <div className="flex items-start space-x-3">
                         <Avatar className="h-8 w-8">
                           <AvatarFallback>
-                            {message.recipient.name.split(" ").map(n => n[0]).join("")}
+                            {message.recipient.name
+                              .split(" ")
+                              .map((n) => n[0])
+                              .join("")}
                           </AvatarFallback>
                         </Avatar>
                         <div className="flex-1 min-w-0">
@@ -546,7 +579,12 @@ export default function TeacherMessages() {
                               À: {message.recipient.name}
                             </div>
                             {message.category && (
-                              <Badge size="sm" className={categoryLabels[message.category].color}>
+                              <Badge
+                                size="sm"
+                                className={
+                                  categoryLabels[message.category].color
+                                }
+                              >
                                 {categoryLabels[message.category].label}
                               </Badge>
                             )}
@@ -568,42 +606,51 @@ export default function TeacherMessages() {
               </TabsContent>
 
               <TabsContent value="starred" className="space-y-2">
-                {messages.filter(msg => msg.starred).map((message) => (
-                  <Card 
-                    key={message.id} 
-                    className={`cursor-pointer hover:shadow-md transition-shadow ${
-                      selectedMessage?.id === message.id ? "ring-2 ring-primary" : ""
-                    }`}
-                    onClick={() => setSelectedMessage(message)}
-                  >
-                    <CardContent className="p-4">
-                      <div className="flex items-start space-x-3">
-                        <Avatar className="h-8 w-8">
-                          <AvatarFallback>
-                            {(message.type === "received" ? message.sender : message.recipient).name
-                              .split(" ").map(n => n[0]).join("")}
-                          </AvatarFallback>
-                        </Avatar>
-                        <div className="flex-1 min-w-0">
-                          <div className="flex items-center space-x-2">
-                            <div className="font-medium truncate">
-                              {message.type === "received" 
-                                ? message.sender.name 
-                                : `À: ${message.recipient.name}`}
+                {messages
+                  .filter((msg) => msg.starred)
+                  .map((message) => (
+                    <Card
+                      key={message.id}
+                      className={`cursor-pointer hover:shadow-md transition-shadow ${
+                        selectedMessage?.id === message.id
+                          ? "ring-2 ring-primary"
+                          : ""
+                      }`}
+                      onClick={() => setSelectedMessage(message)}
+                    >
+                      <CardContent className="p-4">
+                        <div className="flex items-start space-x-3">
+                          <Avatar className="h-8 w-8">
+                            <AvatarFallback>
+                              {(message.type === "received"
+                                ? message.sender
+                                : message.recipient
+                              ).name
+                                .split(" ")
+                                .map((n) => n[0])
+                                .join("")}
+                            </AvatarFallback>
+                          </Avatar>
+                          <div className="flex-1 min-w-0">
+                            <div className="flex items-center space-x-2">
+                              <div className="font-medium truncate">
+                                {message.type === "received"
+                                  ? message.sender.name
+                                  : `À: ${message.recipient.name}`}
+                              </div>
+                              <Star className="h-4 w-4 text-yellow-500 fill-current" />
                             </div>
-                            <Star className="h-4 w-4 text-yellow-500 fill-current" />
-                          </div>
-                          <div className="text-sm text-muted-foreground truncate">
-                            {message.subject}
-                          </div>
-                          <div className="text-xs text-muted-foreground mt-2">
-                            {formatDate(message.date)}
+                            <div className="text-sm text-muted-foreground truncate">
+                              {message.subject}
+                            </div>
+                            <div className="text-xs text-muted-foreground mt-2">
+                              {formatDate(message.date)}
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
+                      </CardContent>
+                    </Card>
+                  ))}
               </TabsContent>
             </Tabs>
           </div>
@@ -615,7 +662,9 @@ export default function TeacherMessages() {
                 <CardHeader>
                   <div className="flex items-start justify-between">
                     <div className="flex-1">
-                      <CardTitle className="text-lg">{selectedMessage.subject}</CardTitle>
+                      <CardTitle className="text-lg">
+                        {selectedMessage.subject}
+                      </CardTitle>
                       <div className="mt-2 space-y-2">
                         <div className="flex items-center space-x-4">
                           <div className="flex items-center space-x-2">
@@ -623,8 +672,11 @@ export default function TeacherMessages() {
                               <AvatarFallback className="text-xs">
                                 {(selectedMessage.type === "received"
                                   ? selectedMessage.sender
-                                  : selectedMessage.recipient).name
-                                  .split(" ").map(n => n[0]).join("")}
+                                  : selectedMessage.recipient
+                                ).name
+                                  .split(" ")
+                                  .map((n) => n[0])
+                                  .join("")}
                               </AvatarFallback>
                             </Avatar>
                             <span className="text-sm text-muted-foreground">
@@ -634,10 +686,16 @@ export default function TeacherMessages() {
                             </span>
                           </div>
                           <div className="text-sm text-muted-foreground">
-                            {new Date(selectedMessage.date).toLocaleString("fr-FR")}
+                            {new Date(selectedMessage.date).toLocaleString(
+                              "fr-FR",
+                            )}
                           </div>
                           {selectedMessage.category && (
-                            <Badge className={categoryLabels[selectedMessage.category].color}>
+                            <Badge
+                              className={
+                                categoryLabels[selectedMessage.category].color
+                              }
+                            >
                               {categoryLabels[selectedMessage.category].label}
                             </Badge>
                           )}
@@ -650,22 +708,24 @@ export default function TeacherMessages() {
                       </div>
                     </div>
                     <div className="flex space-x-2">
-                      <Button 
-                        variant="ghost" 
+                      <Button
+                        variant="ghost"
                         size="sm"
                         onClick={() => handleStarMessage(selectedMessage.id)}
                       >
-                        <Star className={`h-4 w-4 ${selectedMessage.starred ? "text-yellow-500 fill-current" : ""}`} />
+                        <Star
+                          className={`h-4 w-4 ${selectedMessage.starred ? "text-yellow-500 fill-current" : ""}`}
+                        />
                       </Button>
-                      <Button 
-                        variant="ghost" 
+                      <Button
+                        variant="ghost"
                         size="sm"
                         onClick={() => handleReply(selectedMessage)}
                       >
                         <Reply className="h-4 w-4" />
                       </Button>
-                      <Button 
-                        variant="ghost" 
+                      <Button
+                        variant="ghost"
                         size="sm"
                         onClick={() => handleDeleteMessage(selectedMessage.id)}
                       >
@@ -680,22 +740,30 @@ export default function TeacherMessages() {
                       {selectedMessage.content}
                     </div>
                   </div>
-                  {selectedMessage.attachments && selectedMessage.attachments.length > 0 && (
-                    <div className="mt-4 pt-4 border-t">
-                      <div className="text-sm font-medium mb-2">Pièces jointes:</div>
-                      <div className="space-y-2">
-                        {selectedMessage.attachments.map((attachment, index) => (
-                          <div key={index} className="flex items-center space-x-2 p-2 bg-gray-50 rounded">
-                            <Paperclip className="h-4 w-4" />
-                            <span className="text-sm">{attachment}</span>
-                            <Button variant="ghost" size="sm">
-                              Télécharger
-                            </Button>
-                          </div>
-                        ))}
+                  {selectedMessage.attachments &&
+                    selectedMessage.attachments.length > 0 && (
+                      <div className="mt-4 pt-4 border-t">
+                        <div className="text-sm font-medium mb-2">
+                          Pièces jointes:
+                        </div>
+                        <div className="space-y-2">
+                          {selectedMessage.attachments.map(
+                            (attachment, index) => (
+                              <div
+                                key={index}
+                                className="flex items-center space-x-2 p-2 bg-gray-50 rounded"
+                              >
+                                <Paperclip className="h-4 w-4" />
+                                <span className="text-sm">{attachment}</span>
+                                <Button variant="ghost" size="sm">
+                                  Télécharger
+                                </Button>
+                              </div>
+                            ),
+                          )}
+                        </div>
                       </div>
-                    </div>
-                  )}
+                    )}
                   {selectedMessage.type === "received" && (
                     <div className="mt-6 pt-4 border-t">
                       <Button onClick={() => handleReply(selectedMessage)}>
