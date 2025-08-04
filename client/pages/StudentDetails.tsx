@@ -570,31 +570,35 @@ export default function StudentDetailsPage() {
                   {student.montantDu}€
                 </p>
               </div>
-              <div>
-                <Label className="text-sm font-medium text-muted-foreground">
-                  Statut financier
-                </Label>
-                <Badge
-                  className={
-                    statutFinancierLabels[student.statutFinancier].color
-                  }
-                >
-                  {statutFinancierLabels[student.statutFinancier].label}
-                </Badge>
-              </div>
-              <div>
-                <Label className="text-sm font-medium text-muted-foreground">
-                  Progression
-                </Label>
-                <div className="w-full bg-gray-200 rounded-full h-2">
-                  <div
-                    className="bg-blue-600 h-2 rounded-full"
-                    style={{
-                      width: `${(student.montantPaye / (student.montantPaye + student.montantDu)) * 100}%`,
-                    }}
-                  ></div>
-                </div>
-              </div>
+              {canViewFinancial && (
+                <>
+                  <div>
+                    <Label className="text-sm font-medium text-muted-foreground">
+                      Statut financier
+                    </Label>
+                    <Badge
+                      className={
+                        statutFinancierLabels[student.statutFinancier].color
+                      }
+                    >
+                      {statutFinancierLabels[student.statutFinancier].label}
+                    </Badge>
+                  </div>
+                  <div>
+                    <Label className="text-sm font-medium text-muted-foreground">
+                      Progression
+                    </Label>
+                    <div className="w-full bg-gray-200 rounded-full h-2">
+                      <div
+                        className="bg-blue-600 h-2 rounded-full"
+                        style={{
+                          width: `${(student.montantPaye / (student.montantPaye + student.montantDu)) * 100}%`,
+                        }}
+                      ></div>
+                    </div>
+                  </div>
+                </>
+              )}
             </CardContent>
           </Card>
         </div>
