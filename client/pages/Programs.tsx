@@ -1184,11 +1184,11 @@ export default function ProgramsPage() {
                               {/* Programmation Java UE */}
                               <div className="space-y-4">
                                 <Collapsible>
-                                  <CollapsibleTrigger
-                                    onClick={() => toggleExpanded('prog-java')}
-                                    className="flex items-center justify-between w-full p-2 border rounded-lg hover:bg-gray-50"
-                                  >
-                                    <div className="flex items-center space-x-2">
+                                  <div className="flex items-center justify-between w-full p-2 border rounded-lg hover:bg-gray-50">
+                                    <CollapsibleTrigger
+                                      onClick={() => toggleExpanded('prog-java')}
+                                      className="flex items-center space-x-2 flex-1"
+                                    >
                                       {expandedItems.has('prog-java') ? (
                                         <ChevronDown className="h-4 w-4" />
                                       ) : (
@@ -1196,20 +1196,76 @@ export default function ProgramsPage() {
                                       )}
                                       <BookOpen className="h-4 w-4 text-blue-600" />
                                       <span className="font-medium">Programmation Java (PROG-JAVA) - Coefficient: 3</span>
-                                    </div>
+                                    </CollapsibleTrigger>
                                     <div className="flex items-center gap-2">
-                                      <Button variant="outline" size="sm" className="text-blue-600 border-blue-600">
+                                      <Button
+                                        variant="outline"
+                                        size="sm"
+                                        className="text-blue-600 border-blue-600"
+                                        onClick={() => {
+                                          setSelectedFiliereForActions("1");
+                                          setSelectedMaquetteForActions("1");
+                                          setSelectedSequenceForActions("semestre-5");
+                                          setSelectedDomaineForActions("programmation");
+                                          setSelectedUEForEdit({
+                                            id: "prog-java",
+                                            code: "PROG-JAVA",
+                                            nom: "Programmation Java",
+                                            description: "Programmation orientée objet en Java",
+                                            credits: 3,
+                                            modules: [],
+                                            statut: "actif"
+                                          });
+                                          setIsAddModuleOpen(true);
+                                        }}
+                                      >
                                         <Plus className="h-4 w-4 mr-1" />
                                         Ajouter une UE
                                       </Button>
-                                      <Button variant="ghost" size="sm">
+                                      <Button
+                                        variant="ghost"
+                                        size="sm"
+                                        onClick={() => {
+                                          setSelectedUEForEdit({
+                                            id: "prog-java",
+                                            code: "PROG-JAVA",
+                                            nom: "Programmation Java",
+                                            description: "Programmation orientée objet en Java",
+                                            credits: 3,
+                                            modules: [],
+                                            statut: "actif"
+                                          });
+                                          setFormData({
+                                            code: "PROG-JAVA",
+                                            nom: "Programmation Java",
+                                            description: "Programmation orientée objet en Java",
+                                            credits: 3
+                                          });
+                                          setIsEditUEOpen(true);
+                                        }}
+                                      >
                                         <Edit className="h-4 w-4" />
                                       </Button>
-                                      <Button variant="ghost" size="sm">
+                                      <Button
+                                        variant="ghost"
+                                        size="sm"
+                                        onClick={() => {
+                                          setSelectedUEForEdit({
+                                            id: "prog-java",
+                                            code: "PROG-JAVA",
+                                            nom: "Programmation Java",
+                                            description: "Programmation orientée objet en Java",
+                                            credits: 3,
+                                            modules: [],
+                                            statut: "actif"
+                                          });
+                                          setDeleteUEDialogOpen(true);
+                                        }}
+                                      >
                                         <Trash2 className="h-4 w-4" />
                                       </Button>
                                     </div>
-                                  </CollapsibleTrigger>
+                                  </div>
                                   <CollapsibleContent className="mt-4">
                                     <Table>
                                       <TableHeader>
