@@ -56,9 +56,112 @@ const teacherNavigation = [
   { name: "Mon profil", href: "/teacher/profile", icon: User },
 ];
 
+// Mock data for courses and students
+const mockCourses = [
+  { id: "1", name: "Anatomie générale", filiere: "Pharmacie", niveau: "Année 1" },
+  { id: "2", name: "Physiologie spécialisée", filiere: "Médecine", niveau: "Année 2" },
+  { id: "3", name: "TP Anatomie", filiere: "Kinésithérapie", niveau: "Année 1" },
+];
+
+const mockStudents = [
+  { id: "1", name: "Marie Dupont", numeroEtudiant: "ETU2024001" },
+  { id: "2", name: "Jean Martin", numeroEtudiant: "ETU2024002" },
+  { id: "3", name: "Sophie Bernard", numeroEtudiant: "ETU2024003" },
+  { id: "4", name: "Lucas Moreau", numeroEtudiant: "ETU2024045" },
+  { id: "5", name: "Emma Rousseau", numeroEtudiant: "ETU2024046" },
+];
+
 export default function TeacherLayout({ children }: TeacherLayoutProps) {
   const location = useLocation();
   const { user, logout } = useAuth();
+  const { toast } = useToast();
+
+  // State for dialogs
+  const [isGradeDialogOpen, setIsGradeDialogOpen] = useState(false);
+  const [isAbsenceDialogOpen, setIsAbsenceDialogOpen] = useState(false);
+
+  // State for grade form
+  const [gradeForm, setGradeForm] = useState({
+    course: "",
+    student: "",
+    evaluationType: "",
+    grade: "",
+    maxGrade: "20",
+    comment: "",
+  });
+
+  // State for absence form
+  const [absenceForm, setAbsenceForm] = useState({
+    course: "",
+    date: new Date().toISOString().split("T")[0],
+    session: "",
+    students: [] as string[],
+    comment: "",
+  });
+
+  const handleSubmitGrade = () => {
+    if (!gradeForm.course || !gradeForm.student || !gradeForm.evaluationType || !gradeForm.grade) {
+      toast({
+        title: "Erreur",
+        description: "Veuillez remplir tous les champs obligatoires.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    // Here you would normally submit to your API
+    toast({
+      title: "Note saisie",
+      description: "La note a été enregistrée avec succès.",
+    });
+
+    // Reset form and close dialog
+    setGradeForm({
+      course: "",
+      student: "",
+      evaluationType: "",
+      grade: "",
+      maxGrade: "20",
+      comment: "",
+    });
+    setIsGradeDialogOpen(false);
+  };
+
+  const handleSubmitAbsence = () => {
+    if (!absenceForm.course || !absenceForm.session || absenceForm.students.length === 0) {
+      toast({
+        title: "Erreur",
+        description: "Veuillez remplir tous les champs obligatoires et sélectionner au moins un étudiant.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    // Here you would normally submit to your API
+    toast({
+      title: "Absences signalées",
+      description: `${absenceForm.students.length} absence(s) signalée(s) avec succès.`,
+    });
+
+    // Reset form and close dialog
+    setAbsenceForm({
+      course: "",
+      date: new Date().toISOString().split("T")[0],
+      session: "",
+      students: [],
+      comment: "",
+    });
+    setIsAbsenceDialogOpen(false);
+  };
+
+  const handleStudentToggle = (studentId: string) => {
+    setAbsenceForm(prev => ({
+      ...prev,
+      students: prev.students.includes(studentId)
+        ? prev.students.filter(id => id !== studentId)
+        : [...prev.students, studentId]
+    }));
+  };
 
   return (
     <div className="min-h-screen bg-gray-50">
