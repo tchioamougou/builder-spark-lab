@@ -47,9 +47,7 @@ const LandingFooter = () => {
               </div>
             </div>
             <p className="text-gray-200 mb-6 text-sm leading-relaxed">
-              Former les professionnels de santé de demain avec excellence,
-              rigueur et humanité. Votre avenir dans le secteur de la santé
-              commence ici.
+              {t("footer.description")}
             </p>
             <div className="flex space-x-4 mt-6">
               <a
