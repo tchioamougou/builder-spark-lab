@@ -28,6 +28,8 @@ import StudentSchedule from "./pages/StudentSchedule";
 import StudentRequests from "./pages/StudentRequests";
 import StudentMessages from "./pages/StudentMessages";
 import TeacherDashboard from "./pages/TeacherDashboard";
+import UserManagement from "./pages/UserManagement";
+import StudentDetails from "./pages/StudentDetails";
 
 const queryClient = new QueryClient();
 
