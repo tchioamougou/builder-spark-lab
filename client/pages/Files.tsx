@@ -434,6 +434,83 @@ export default function FilesPage() {
           </div>
         </div>
 
+        {/* Quick Actions */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-lg">Actions rapides</CardTitle>
+            <CardDescription>
+              Accès rapide aux fonctions principales
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-4">
+              <Button
+                variant="outline"
+                className="justify-start h-auto p-4"
+                onClick={() => navigate('/students')}
+              >
+                <div className="flex flex-col items-start">
+                  <div className="flex items-center space-x-2 mb-1">
+                    <User className="h-4 w-4" />
+                    <span className="font-medium">Étudiants</span>
+                  </div>
+                  <span className="text-xs text-muted-foreground">
+                    Gestion des dossiers étudiants
+                  </span>
+                </div>
+              </Button>
+
+              <Button
+                variant="outline"
+                className="justify-start h-auto p-4"
+                onClick={() => navigate('/teachers')}
+              >
+                <div className="flex flex-col items-start">
+                  <div className="flex items-center space-x-2 mb-1">
+                    <User className="h-4 w-4" />
+                    <span className="font-medium">Enseignants</span>
+                  </div>
+                  <span className="text-xs text-muted-foreground">
+                    Gestion des dossiers enseignants
+                  </span>
+                </div>
+              </Button>
+
+              <Button
+                variant="outline"
+                className="justify-start h-auto p-4"
+                onClick={() => navigate('/programs')}
+              >
+                <div className="flex flex-col items-start">
+                  <div className="flex items-center space-x-2 mb-1">
+                    <FileText className="h-4 w-4" />
+                    <span className="font-medium">Programmes</span>
+                  </div>
+                  <span className="text-xs text-muted-foreground">
+                    Maquettes pédagogiques
+                  </span>
+                </div>
+              </Button>
+
+              <Button
+                variant="outline"
+                className="justify-start h-auto p-4"
+                onClick={() => navigate('/academic-years')}
+              >
+                <div className="flex flex-col items-start">
+                  <div className="flex items-center space-x-2 mb-1">
+                    <Calendar className="h-4 w-4" />
+                    <span className="font-medium">Années</span>
+                  </div>
+                  <span className="text-xs text-muted-foreground">
+                    Gestion des années académiques
+                  </span>
+                </div>
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+
         {/* Tabs */}
         <Tabs defaultValue="documents" className="space-y-6">
           <TabsList className="grid w-full grid-cols-5">
@@ -586,7 +663,7 @@ export default function FilesPage() {
                               <DropdownMenuLabel>Actions</DropdownMenuLabel>
                               <DropdownMenuItem>
                                 <Eye className="mr-2 h-4 w-4" />
-                                Prévisualiser
+                                Pr��visualiser
                               </DropdownMenuItem>
                               <DropdownMenuItem>
                                 <Download className="mr-2 h-4 w-4" />
