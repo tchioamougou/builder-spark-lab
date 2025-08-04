@@ -298,6 +298,37 @@ export default function ProgramsPage() {
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [filiereToDelete, setFiliereToDelete] = useState<string | null>(null);
 
+  // Modal states for maquettes actions
+  const [isAddMaquetteOpen, setIsAddMaquetteOpen] = useState(false);
+  const [isAddSequenceOpen, setIsAddSequenceOpen] = useState(false);
+  const [isAddDomaineOpen, setIsAddDomaineOpen] = useState(false);
+  const [isAddModuleOpen, setIsAddModuleOpen] = useState(false);
+  const [isAddUEOpen, setIsAddUEOpen] = useState(false);
+
+  // Edit modals
+  const [isEditMaquetteOpen, setIsEditMaquetteOpen] = useState(false);
+  const [isEditSequenceOpen, setIsEditSequenceOpen] = useState(false);
+  const [isEditDomaineOpen, setIsEditDomaineOpen] = useState(false);
+  const [isEditUEOpen, setIsEditUEOpen] = useState(false);
+
+  // Delete confirmation states
+  const [deleteMaquetteDialogOpen, setDeleteMaquetteDialogOpen] = useState(false);
+  const [deleteSequenceDialogOpen, setDeleteSequenceDialogOpen] = useState(false);
+  const [deleteDomaineDialogOpen, setDeleteDomaineDialogOpen] = useState(false);
+  const [deleteUEDialogOpen, setDeleteUEDialogOpen] = useState(false);
+
+  // Selected items for editing/deleting
+  const [selectedMaquetteForEdit, setSelectedMaquetteForEdit] = useState<Maquette | null>(null);
+  const [selectedSequenceForEdit, setSelectedSequenceForEdit] = useState<Sequence | null>(null);
+  const [selectedDomaineForEdit, setSelectedDomaineForEdit] = useState<Domaine | null>(null);
+  const [selectedUEForEdit, setSelectedUEForEdit] = useState<UE | null>(null);
+
+  // Context for add actions
+  const [selectedFiliereForActions, setSelectedFiliereForActions] = useState<string | null>(null);
+  const [selectedMaquetteForActions, setSelectedMaquetteForActions] = useState<string | null>(null);
+  const [selectedSequenceForActions, setSelectedSequenceForActions] = useState<string | null>(null);
+  const [selectedDomaineForActions, setSelectedDomaineForActions] = useState<string | null>(null);
+
   const { toast } = useToast();
 
   const toggleExpanded = (id: string) => {
@@ -702,9 +733,7 @@ export default function ProgramsPage() {
                 <CardHeader className="pb-3">
                   <div className="flex items-center justify-between">
                     <div>
-                      <CardTitle className="text-lg text-blue-900">
-                        Licence 3 Informatique (INFO-L3)
-                      </CardTitle>
+                      <CardTitle className="text-lg text-blue-900">Licence 3 Informatique (INFO-L3)</CardTitle>
                       <CardDescription className="flex items-center gap-4 mt-1">
                         <span>Filière: Informatique</span>
                         <span>|</span>
@@ -712,14 +741,8 @@ export default function ProgramsPage() {
                       </CardDescription>
                     </div>
                     <div className="flex items-center gap-2">
-                      <Badge className="bg-green-100 text-green-800">
-                        Active
-                      </Badge>
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        className="text-blue-600 border-blue-600"
-                      >
+                      <Badge className="bg-green-100 text-green-800">Active</Badge>
+                      <Button variant="outline" size="sm" className="text-blue-600 border-blue-600">
                         <Plus className="h-4 w-4 mr-1" />
                         Ajouter une séquence
                       </Button>
@@ -737,26 +760,20 @@ export default function ProgramsPage() {
                   <div className="space-y-4">
                     <Collapsible>
                       <CollapsibleTrigger
-                        onClick={() => toggleExpanded("semestre-5")}
+                        onClick={() => toggleExpanded('semestre-5')}
                         className="flex items-center justify-between w-full p-3 bg-gray-50 rounded-lg hover:bg-gray-100"
                       >
                         <div className="flex items-center space-x-2">
-                          {expandedItems.has("semestre-5") ? (
+                          {expandedItems.has('semestre-5') ? (
                             <ChevronDown className="h-4 w-4" />
                           ) : (
                             <ChevronRight className="h-4 w-4" />
                           )}
                           <Calendar className="h-4 w-4 text-purple-600" />
-                          <span className="font-medium">
-                            Semestre 5 (2023-09-01 - 2024-01-31)
-                          </span>
+                          <span className="font-medium">Semestre 5 (2023-09-01 - 2024-01-31)</span>
                         </div>
                         <div className="flex items-center gap-2">
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            className="text-blue-600 border-blue-600"
-                          >
+                          <Button variant="outline" size="sm" className="text-blue-600 border-blue-600">
                             <Plus className="h-4 w-4 mr-1" />
                             Ajouter un domaine
                           </Button>
@@ -773,26 +790,20 @@ export default function ProgramsPage() {
                         <div className="space-y-4">
                           <Collapsible>
                             <CollapsibleTrigger
-                              onClick={() => toggleExpanded("programmation")}
+                              onClick={() => toggleExpanded('programmation')}
                               className="flex items-center justify-between w-full p-3 bg-blue-50 rounded-lg hover:bg-blue-100"
                             >
                               <div className="flex items-center space-x-2">
-                                {expandedItems.has("programmation") ? (
+                                {expandedItems.has('programmation') ? (
                                   <ChevronDown className="h-4 w-4" />
                                 ) : (
                                   <ChevronRight className="h-4 w-4" />
                                 )}
                                 <Target className="h-4 w-4 text-orange-600" />
-                                <span className="font-medium">
-                                  Programmation
-                                </span>
+                                <span className="font-medium">Programmation</span>
                               </div>
                               <div className="flex items-center gap-2">
-                                <Button
-                                  variant="outline"
-                                  size="sm"
-                                  className="text-blue-600 border-blue-600"
-                                >
+                                <Button variant="outline" size="sm" className="text-blue-600 border-blue-600">
                                   <Plus className="h-4 w-4 mr-1" />
                                   Ajouter un module
                                 </Button>
@@ -809,27 +820,20 @@ export default function ProgramsPage() {
                               <div className="space-y-4">
                                 <Collapsible>
                                   <CollapsibleTrigger
-                                    onClick={() => toggleExpanded("prog-java")}
+                                    onClick={() => toggleExpanded('prog-java')}
                                     className="flex items-center justify-between w-full p-2 border rounded-lg hover:bg-gray-50"
                                   >
                                     <div className="flex items-center space-x-2">
-                                      {expandedItems.has("prog-java") ? (
+                                      {expandedItems.has('prog-java') ? (
                                         <ChevronDown className="h-4 w-4" />
                                       ) : (
                                         <ChevronRight className="h-4 w-4" />
                                       )}
                                       <BookOpen className="h-4 w-4 text-blue-600" />
-                                      <span className="font-medium">
-                                        Programmation Java (PROG-JAVA) -
-                                        Coefficient: 3
-                                      </span>
+                                      <span className="font-medium">Programmation Java (PROG-JAVA) - Coefficient: 3</span>
                                     </div>
                                     <div className="flex items-center gap-2">
-                                      <Button
-                                        variant="outline"
-                                        size="sm"
-                                        className="text-blue-600 border-blue-600"
-                                      >
+                                      <Button variant="outline" size="sm" className="text-blue-600 border-blue-600">
                                         <Plus className="h-4 w-4 mr-1" />
                                         Ajouter une UE
                                       </Button>
@@ -845,31 +849,17 @@ export default function ProgramsPage() {
                                     <Table>
                                       <TableHeader>
                                         <TableRow className="bg-gray-50">
-                                          <TableHead className="font-semibold">
-                                            CODE
-                                          </TableHead>
-                                          <TableHead className="font-semibold">
-                                            NOM
-                                          </TableHead>
-                                          <TableHead className="font-semibold">
-                                            TYPE
-                                          </TableHead>
-                                          <TableHead className="font-semibold">
-                                            HEURES
-                                          </TableHead>
-                                          <TableHead className="font-semibold">
-                                            ACTIONS
-                                          </TableHead>
+                                          <TableHead className="font-semibold">CODE</TableHead>
+                                          <TableHead className="font-semibold">NOM</TableHead>
+                                          <TableHead className="font-semibold">TYPE</TableHead>
+                                          <TableHead className="font-semibold">HEURES</TableHead>
+                                          <TableHead className="font-semibold">ACTIONS</TableHead>
                                         </TableRow>
                                       </TableHeader>
                                       <TableBody>
                                         <TableRow>
-                                          <TableCell className="font-mono">
-                                            JAVA-CM
-                                          </TableCell>
-                                          <TableCell>
-                                            Cours Magistral Java
-                                          </TableCell>
+                                          <TableCell className="font-mono">JAVA-CM</TableCell>
+                                          <TableCell>Cours Magistral Java</TableCell>
                                           <TableCell>CM</TableCell>
                                           <TableCell>20</TableCell>
                                           <TableCell>
@@ -884,12 +874,8 @@ export default function ProgramsPage() {
                                           </TableCell>
                                         </TableRow>
                                         <TableRow>
-                                          <TableCell className="font-mono">
-                                            JAVA-TP
-                                          </TableCell>
-                                          <TableCell>
-                                            Travaux Pratiques Java
-                                          </TableCell>
+                                          <TableCell className="font-mono">JAVA-TP</TableCell>
+                                          <TableCell>Travaux Pratiques Java</TableCell>
                                           <TableCell>TP</TableCell>
                                           <TableCell>30</TableCell>
                                           <TableCell>
@@ -911,27 +897,20 @@ export default function ProgramsPage() {
                                 {/* Développement Web UE */}
                                 <Collapsible>
                                   <CollapsibleTrigger
-                                    onClick={() => toggleExpanded("prog-web")}
+                                    onClick={() => toggleExpanded('prog-web')}
                                     className="flex items-center justify-between w-full p-2 border rounded-lg hover:bg-gray-50"
                                   >
                                     <div className="flex items-center space-x-2">
-                                      {expandedItems.has("prog-web") ? (
+                                      {expandedItems.has('prog-web') ? (
                                         <ChevronDown className="h-4 w-4" />
                                       ) : (
                                         <ChevronRight className="h-4 w-4" />
                                       )}
                                       <BookOpen className="h-4 w-4 text-blue-600" />
-                                      <span className="font-medium">
-                                        Développement Web (PROG-WEB) -
-                                        Coefficient: 2
-                                      </span>
+                                      <span className="font-medium">Développement Web (PROG-WEB) - Coefficient: 2</span>
                                     </div>
                                     <div className="flex items-center gap-2">
-                                      <Button
-                                        variant="outline"
-                                        size="sm"
-                                        className="text-blue-600 border-blue-600"
-                                      >
+                                      <Button variant="outline" size="sm" className="text-blue-600 border-blue-600">
                                         <Plus className="h-4 w-4 mr-1" />
                                         Ajouter une UE
                                       </Button>
@@ -947,31 +926,17 @@ export default function ProgramsPage() {
                                     <Table>
                                       <TableHeader>
                                         <TableRow className="bg-gray-50">
-                                          <TableHead className="font-semibold">
-                                            CODE
-                                          </TableHead>
-                                          <TableHead className="font-semibold">
-                                            NOM
-                                          </TableHead>
-                                          <TableHead className="font-semibold">
-                                            TYPE
-                                          </TableHead>
-                                          <TableHead className="font-semibold">
-                                            HEURES
-                                          </TableHead>
-                                          <TableHead className="font-semibold">
-                                            ACTIONS
-                                          </TableHead>
+                                          <TableHead className="font-semibold">CODE</TableHead>
+                                          <TableHead className="font-semibold">NOM</TableHead>
+                                          <TableHead className="font-semibold">TYPE</TableHead>
+                                          <TableHead className="font-semibold">HEURES</TableHead>
+                                          <TableHead className="font-semibold">ACTIONS</TableHead>
                                         </TableRow>
                                       </TableHeader>
                                       <TableBody>
                                         <TableRow>
-                                          <TableCell className="font-mono">
-                                            WEB-CM
-                                          </TableCell>
-                                          <TableCell>
-                                            Cours Magistral Web
-                                          </TableCell>
+                                          <TableCell className="font-mono">WEB-CM</TableCell>
+                                          <TableCell>Cours Magistral Web</TableCell>
                                           <TableCell>CM</TableCell>
                                           <TableCell>15</TableCell>
                                           <TableCell>
@@ -986,12 +951,8 @@ export default function ProgramsPage() {
                                           </TableCell>
                                         </TableRow>
                                         <TableRow>
-                                          <TableCell className="font-mono">
-                                            WEB-TP
-                                          </TableCell>
-                                          <TableCell>
-                                            Travaux Pratiques Web
-                                          </TableCell>
+                                          <TableCell className="font-mono">WEB-TP</TableCell>
+                                          <TableCell>Travaux Pratiques Web</TableCell>
                                           <TableCell>TP</TableCell>
                                           <TableCell>25</TableCell>
                                           <TableCell>
@@ -1016,26 +977,20 @@ export default function ProgramsPage() {
                           {/* Bases de données Domain */}
                           <Collapsible>
                             <CollapsibleTrigger
-                              onClick={() => toggleExpanded("bases-donnees")}
+                              onClick={() => toggleExpanded('bases-donnees')}
                               className="flex items-center justify-between w-full p-3 bg-blue-50 rounded-lg hover:bg-blue-100"
                             >
                               <div className="flex items-center space-x-2">
-                                {expandedItems.has("bases-donnees") ? (
+                                {expandedItems.has('bases-donnees') ? (
                                   <ChevronDown className="h-4 w-4" />
                                 ) : (
                                   <ChevronRight className="h-4 w-4" />
                                 )}
                                 <Target className="h-4 w-4 text-orange-600" />
-                                <span className="font-medium">
-                                  Bases de données
-                                </span>
+                                <span className="font-medium">Bases de données</span>
                               </div>
                               <div className="flex items-center gap-2">
-                                <Button
-                                  variant="outline"
-                                  size="sm"
-                                  className="text-blue-600 border-blue-600"
-                                >
+                                <Button variant="outline" size="sm" className="text-blue-600 border-blue-600">
                                   <Plus className="h-4 w-4 mr-1" />
                                   Ajouter un module
                                 </Button>
