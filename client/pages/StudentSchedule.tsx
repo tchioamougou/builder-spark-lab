@@ -197,11 +197,30 @@ export default function StudentSchedule() {
           </div>
           
           <div className="flex space-x-2">
-            <Button variant="outline">
-              <Filter className="h-4 w-4 mr-2" />
-              Filtrer
-            </Button>
-            <Button variant="outline">
+            <Select value={filterType} onValueChange={setFilterType}>
+              <SelectTrigger className="w-[180px]">
+                <SelectValue placeholder="Type de cours" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="Tous">Tous les types</SelectItem>
+                <SelectItem value="Cours magistral">Cours magistraux</SelectItem>
+                <SelectItem value="Travaux pratiques">Travaux pratiques</SelectItem>
+                <SelectItem value="TD">TD</SelectItem>
+              </SelectContent>
+            </Select>
+            <Select value={filterTeacher} onValueChange={setFilterTeacher}>
+              <SelectTrigger className="w-[180px]">
+                <SelectValue placeholder="Enseignant" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="Tous">Tous les enseignants</SelectItem>
+                <SelectItem value="Dr. Jean Martin">Dr. Jean Martin</SelectItem>
+                <SelectItem value="Dr. Sophie Laurent">Dr. Sophie Laurent</SelectItem>
+                <SelectItem value="Dr. Marie Dubois">Dr. Marie Dubois</SelectItem>
+                <SelectItem value="Prof. Pierre Durand">Prof. Pierre Durand</SelectItem>
+              </SelectContent>
+            </Select>
+            <Button onClick={handleExportSchedule}>
               <Download className="h-4 w-4 mr-2" />
               Exporter PDF
             </Button>
