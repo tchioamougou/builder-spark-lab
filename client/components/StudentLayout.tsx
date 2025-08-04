@@ -4,6 +4,8 @@ import { useAuth } from "@/contexts/AuthContext";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { generateBulletinPDF } from "@/lib/pdf-utils";
+import AbsenceRequestDialog from "@/components/AbsenceRequestDialog";
 import {
   Home,
   FileText,
