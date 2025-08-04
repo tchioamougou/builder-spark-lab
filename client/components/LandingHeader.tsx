@@ -31,8 +31,8 @@ const LandingHeader = () => {
       <nav className="container mx-auto px-4 py-4 flex justify-between items-center text-white">
         {/* Logo */}
         <div className="text-xl font-bold heading-font flex items-center">
-          <img src={Logo} alt="Logo ISSTMD" className="h-10 w-auto mr-2" />
-          <span className="hidden md:block">ISSTMD</span>
+          <img src={Logo} alt="Logo EPFPS" className="h-10 w-auto mr-2" />
+          <span className="hidden md:block">EPFPS</span>
         </div>
         {/* Liens de navigation */}
         <div className="hidden lg:flex items-center space-x-6 text-gray-200 font-medium">
