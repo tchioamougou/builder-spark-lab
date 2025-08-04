@@ -141,6 +141,22 @@ function AppRoutes() {
         }
       />
       <Route
+        path="/user-management"
+        element={
+          <ProtectedRoute requiredRole={["admin"]}>
+            <UserManagement />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/student-details/:id"
+        element={
+          <ProtectedRoute requiredRole={["admin", "scolarite", "rh"]}>
+            <StudentDetails />
+          </ProtectedRoute>
+        }
+      />
+      <Route
         path="/programs"
         element={
           <ProtectedRoute requiredRole={["admin", "scolarite"]}>
