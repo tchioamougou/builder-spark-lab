@@ -8,6 +8,9 @@ import MyFie from '@/assets/images/landingpageimage/medium-shot-health-worker-we
 import StudentsStudying from '@/assets/images/landingpageimage/students-studying-together-medium-shot.jpg'
 import ClassroomImage from '@/assets/images/landingpageimage/close-up-students-learning-class.jpg'
 import StudyGroupImage from '@/assets/images/landingpageimage/study-group-african-people.jpg'
+import StudentWoman from '@/assets/images/landingpageimage/african_american_woman_wearing_student_backpack_holding_books_smiling.jpg'
+import StudyGroup2 from '@/assets/images/landingpageimage/study-group-african-people (1).jpg'
+import CollegeStudents from '@/assets/images/landingpageimage/college-students-different-ethnicities-cramming.jpg'
 const LandingPage: React.FC = () => {
   const { t } = useTranslation();
 
