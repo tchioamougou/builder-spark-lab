@@ -30,6 +30,7 @@ import StudentMessages from "./pages/StudentMessages";
 import TeacherDashboard from "./pages/TeacherDashboard";
 import UserManagement from "./pages/UserManagement";
 import StudentDetails from "./pages/StudentDetails";
+import RoleManagement from "./pages/RoleManagement";
 
 const queryClient = new QueryClient();
 
