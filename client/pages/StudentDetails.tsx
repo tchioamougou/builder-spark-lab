@@ -382,76 +382,89 @@ export default function StudentDetailsPage() {
             </div>
           </div>
           <div className="flex space-x-2">
-            <Button variant="outline" onClick={handleSendNotification}>
-              <Bell className="h-4 w-4 mr-2" />
-              Notifier
-            </Button>
+            {/* Visible to all roles */}
             <Button variant="outline" onClick={handleDownloadBulletin}>
               <Download className="h-4 w-4 mr-2" />
               Bulletin
             </Button>
-            <Dialog
-              open={isStatusDialogOpen}
-              onOpenChange={setIsStatusDialogOpen}
-            >
-              <DialogTrigger asChild>
-                <Button variant="outline">
-                  <UserCheck className="h-4 w-4 mr-2" />
-                  Changer statut
-                </Button>
-              </DialogTrigger>
-              <DialogContent>
-                <DialogHeader>
-                  <DialogTitle>Modifier le statut de l'étudiant</DialogTitle>
-                  <DialogDescription>
-                    Changement du statut de {student.prenom} {student.nom}
-                  </DialogDescription>
-                </DialogHeader>
-                <div className="space-y-4">
-                  <div>
-                    <Label htmlFor="status">Nouveau statut</Label>
-                    <Select value={newStatus} onValueChange={setNewStatus}>
-                      <SelectTrigger>
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {Object.entries(statutLabels).map(
-                          ([value, { label }]) => (
-                            <SelectItem key={value} value={value}>
-                              {label}
-                            </SelectItem>
-                          ),
-                        )}
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  <div>
-                    <Label htmlFor="comment">Commentaire (optionnel)</Label>
-                    <Textarea
-                      id="comment"
-                      placeholder="Raison du changement de statut..."
-                      value={statusComment}
-                      onChange={(e) => setStatusComment(e.target.value)}
-                    />
-                  </div>
-                </div>
-                <DialogFooter>
-                  <Button
-                    variant="outline"
-                    onClick={() => setIsStatusDialogOpen(false)}
-                  >
-                    Annuler
+
+            {/* Visible to admin, scolarite, and teachers */}
+            {(user?.role === "admin" || user?.role === "scolarite" || user?.role === "enseignant") && (
+              <Button variant="outline" onClick={handleSendNotification}>
+                <Bell className="h-4 w-4 mr-2" />
+                Notifier
+              </Button>
+            )}
+
+            {/* Only admin and scolarite can change status */}
+            {canManageStatus && (
+              <Dialog
+                open={isStatusDialogOpen}
+                onOpenChange={setIsStatusDialogOpen}
+              >
+                <DialogTrigger asChild>
+                  <Button variant="outline">
+                    <UserCheck className="h-4 w-4 mr-2" />
+                    Changer statut
                   </Button>
-                  <Button onClick={handleStatusChange}>
-                    Modifier le statut
-                  </Button>
-                </DialogFooter>
-              </DialogContent>
-            </Dialog>
-            <Button onClick={() => setIsEditDialogOpen(true)}>
-              <Edit className="h-4 w-4 mr-2" />
-              Modifier
-            </Button>
+                </DialogTrigger>
+                <DialogContent>
+                  <DialogHeader>
+                    <DialogTitle>Modifier le statut de l'étudiant</DialogTitle>
+                    <DialogDescription>
+                      Changement du statut de {student.prenom} {student.nom}
+                    </DialogDescription>
+                  </DialogHeader>
+                  <div className="space-y-4">
+                    <div>
+                      <Label htmlFor="status">Nouveau statut</Label>
+                      <Select value={newStatus} onValueChange={setNewStatus}>
+                        <SelectTrigger>
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {Object.entries(statutLabels).map(
+                            ([value, { label }]) => (
+                              <SelectItem key={value} value={value}>
+                                {label}
+                              </SelectItem>
+                            ),
+                          )}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <div>
+                      <Label htmlFor="comment">Commentaire (optionnel)</Label>
+                      <Textarea
+                        id="comment"
+                        placeholder="Raison du changement de statut..."
+                        value={statusComment}
+                        onChange={(e) => setStatusComment(e.target.value)}
+                      />
+                    </div>
+                  </div>
+                  <DialogFooter>
+                    <Button
+                      variant="outline"
+                      onClick={() => setIsStatusDialogOpen(false)}
+                    >
+                      Annuler
+                    </Button>
+                    <Button onClick={handleStatusChange}>
+                      Modifier le statut
+                    </Button>
+                  </DialogFooter>
+                </DialogContent>
+              </Dialog>
+            )}
+
+            {/* Only admin and the student themselves can edit */}
+            {canEdit && (
+              <Button onClick={() => setIsEditDialogOpen(true)}>
+                <Edit className="h-4 w-4 mr-2" />
+                Modifier
+              </Button>
+            )}
           </div>
         </div>
 
