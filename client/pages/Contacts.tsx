@@ -179,6 +179,7 @@ const Contacts: React.FC = () => {
                         <h4 className="font-bold text-[#3b2c6a] mb-2">Adresse</h4>
                         <p className="text-gray-600">
                           École Privée de Formation des Professionnels de Santé<br />
+                          Quartier Sabongari Gbaboy<br />
                           BP 123, Meiganga<br />
                           Région de l'Adamaoua, Cameroun
                         </p>
