@@ -601,11 +601,13 @@ export default function StudentDetailsPage() {
 
         {/* Detailed Tabs */}
         <Tabs defaultValue="profile" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-6">
+          <TabsList className={`grid w-full ${canViewFinancial ? 'grid-cols-6' : 'grid-cols-5'}`}>
             <TabsTrigger value="profile">Profil</TabsTrigger>
             <TabsTrigger value="notes">Notes</TabsTrigger>
             <TabsTrigger value="documents">Documents</TabsTrigger>
-            <TabsTrigger value="financier">Financier</TabsTrigger>
+            {canViewFinancial && (
+              <TabsTrigger value="financier">Financier</TabsTrigger>
+            )}
             <TabsTrigger value="tuteurs">Tuteurs</TabsTrigger>
             <TabsTrigger value="historique">Historique</TabsTrigger>
           </TabsList>
