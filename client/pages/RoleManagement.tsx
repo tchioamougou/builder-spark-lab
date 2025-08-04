@@ -949,6 +949,39 @@ export default function RoleManagementPage() {
             </DialogFooter>
           </DialogContent>
         </Dialog>
+
+        {/* Delete Confirmation Dialog */}
+        <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Êtes-vous sûr ?</AlertDialogTitle>
+              <AlertDialogDescription>
+                Cette action supprimera définitivement le rôle.
+                Cette action ne peut pas être annulée.
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel onClick={() => {
+                setDeleteDialogOpen(false);
+                setRoleToDelete(null);
+              }}>
+                Annuler
+              </AlertDialogCancel>
+              <AlertDialogAction
+                onClick={() => {
+                  if (roleToDelete) {
+                    handleDeleteRole(roleToDelete);
+                  }
+                  setDeleteDialogOpen(false);
+                  setRoleToDelete(null);
+                }}
+                className="bg-red-600 hover:bg-red-700"
+              >
+                Supprimer
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
       </div>
     </Layout>
   );
