@@ -21,6 +21,9 @@ import StudentsPage from "./pages/Students";
 import FilesPage from "./pages/Files";
 import AdminPage from "./pages/Admin";
 import StudentDashboard from "./pages/StudentDashboard";
+import StudentGrades from "./pages/StudentGrades";
+import StudentDocuments from "./pages/StudentDocuments";
+import StudentProfile from "./pages/StudentProfile";
 import TeacherDashboard from "./pages/TeacherDashboard";
 
 const queryClient = new QueryClient();
@@ -42,96 +45,62 @@ function AppRoutes() {
   return (
     <Routes>
       {/* Redirect based on user role */}
-      <Route
-        path="/"
-        element={
-          user.role === "etudiant" ? (
-            <Navigate to="/student/dashboard" replace />
-          ) : user.role === "enseignant" ? (
-            <Navigate to="/teacher/dashboard" replace />
-          ) : (
-            <Index />
-          )
-        }
-      />
+      <Route path="/" element={
+        user.role === 'etudiant' ? <Navigate to="/student/dashboard" replace /> :
+        user.role === 'enseignant' ? <Navigate to="/teacher/dashboard" replace /> :
+        <Index />
+      } />
 
       {/* Student Routes */}
-      <Route
-        path="/student/dashboard"
-        element={
-          <ProtectedRoute requiredRole={["etudiant"]}>
-            <StudentDashboard />
-          </ProtectedRoute>
-        }
-      />
+      <Route path="/student/dashboard" element={
+        <ProtectedRoute requiredRole={['etudiant']}>
+          <StudentDashboard />
+        </ProtectedRoute>
+      } />
 
       {/* Teacher Routes */}
-      <Route
-        path="/teacher/dashboard"
-        element={
-          <ProtectedRoute requiredRole={["enseignant"]}>
-            <TeacherDashboard />
-          </ProtectedRoute>
-        }
-      />
+      <Route path="/teacher/dashboard" element={
+        <ProtectedRoute requiredRole={['enseignant']}>
+          <TeacherDashboard />
+        </ProtectedRoute>
+      } />
 
       {/* Admin/Staff Routes */}
-      <Route
-        path="/users"
-        element={
-          <ProtectedRoute requiredRole={["admin", "rh"]}>
-            <UsersPage />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/programs"
-        element={
-          <ProtectedRoute requiredRole={["admin", "scolarite"]}>
-            <ProgramsPage />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/academic-years"
-        element={
-          <ProtectedRoute requiredRole={["admin", "scolarite"]}>
-            <AcademicYearsPage />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/teachers"
-        element={
-          <ProtectedRoute requiredRole={["admin", "rh"]}>
-            <TeachersPage />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/students"
-        element={
-          <ProtectedRoute requiredRole={["admin", "scolarite"]}>
-            <StudentsPage />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/files"
-        element={
-          <ProtectedRoute requiredRole={["admin", "scolarite", "rh"]}>
-            <FilesPage />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/admin"
-        element={
-          <ProtectedRoute requiredRole={["admin"]}>
-            <AdminPage />
-          </ProtectedRoute>
-        }
-      />
+      <Route path="/users" element={
+        <ProtectedRoute requiredRole={['admin', 'rh']}>
+          <UsersPage />
+        </ProtectedRoute>
+      } />
+      <Route path="/programs" element={
+        <ProtectedRoute requiredRole={['admin', 'scolarite']}>
+          <ProgramsPage />
+        </ProtectedRoute>
+      } />
+      <Route path="/academic-years" element={
+        <ProtectedRoute requiredRole={['admin', 'scolarite']}>
+          <AcademicYearsPage />
+        </ProtectedRoute>
+      } />
+      <Route path="/teachers" element={
+        <ProtectedRoute requiredRole={['admin', 'rh']}>
+          <TeachersPage />
+        </ProtectedRoute>
+      } />
+      <Route path="/students" element={
+        <ProtectedRoute requiredRole={['admin', 'scolarite']}>
+          <StudentsPage />
+        </ProtectedRoute>
+      } />
+      <Route path="/files" element={
+        <ProtectedRoute requiredRole={['admin', 'scolarite', 'rh']}>
+          <FilesPage />
+        </ProtectedRoute>
+      } />
+      <Route path="/admin" element={
+        <ProtectedRoute requiredRole={['admin']}>
+          <AdminPage />
+        </ProtectedRoute>
+      } />
 
       {/* General Routes */}
       <Route path="/login" element={<Navigate to="/" replace />} />
