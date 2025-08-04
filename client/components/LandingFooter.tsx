@@ -251,9 +251,7 @@ const LandingFooter = () => {
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <div className="text-sm text-gray-300">
               <p>
-                © {new Date().getFullYear()} École Privée de Formation des
-                Professionnels de Santé de Meiganga (EPFPS). Tous droits
-                réservés.
+                © {new Date().getFullYear()} {t("footer.copyright")}
               </p>
             </div>
             <div className="flex space-x-4 text-sm">
@@ -261,21 +259,21 @@ const LandingFooter = () => {
                 href="#"
                 className="text-gray-300 hover:text-[#ff9900] transition-colors"
               >
-                Mentions légales
+                {t("footer.legalNotices")}
               </a>
               <span className="text-gray-500">|</span>
               <a
                 href="#"
                 className="text-gray-300 hover:text-[#ff9900] transition-colors"
               >
-                Politique de confidentialité
+                {t("footer.privacyPolicy")}
               </a>
               <span className="text-gray-500">|</span>
               <a
                 href="#"
                 className="text-gray-300 hover:text-[#ff9900] transition-colors"
               >
-                Plan du site
+                {t("footer.siteMap")}
               </a>
             </div>
           </div>
