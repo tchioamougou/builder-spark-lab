@@ -270,7 +270,11 @@ export default function Index() {
                         {task.module}
                       </p>
                     </div>
-                    <Button size="sm" variant="outline">
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      onClick={() => handlePendingTask(task.title, task.module)}
+                    >
                       Traiter
                     </Button>
                   </div>
