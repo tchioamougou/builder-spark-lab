@@ -273,10 +273,10 @@ const mockFilieres: Filiere[] = [
 ];
 
 const statutLabels = {
-  "actif": { label: "Actif", color: "bg-green-100 text-green-800" },
-  "suspendu": { label: "Suspendu", color: "bg-red-100 text-red-800" },
-  "archive": { label: "Archivé", color: "bg-gray-100 text-gray-800" },
-  "brouillon": { label: "Brouillon", color: "bg-yellow-100 text-yellow-800" },
+  actif: { label: "Actif", color: "bg-green-100 text-green-800" },
+  suspendu: { label: "Suspendu", color: "bg-red-100 text-red-800" },
+  archive: { label: "Archivé", color: "bg-gray-100 text-gray-800" },
+  brouillon: { label: "Brouillon", color: "bg-yellow-100 text-yellow-800" },
 };
 
 export default function ProgramsPage() {
@@ -284,7 +284,9 @@ export default function ProgramsPage() {
   const [filterStatut, setFilterStatut] = useState("all");
   const [filieres, setFilieres] = useState<Filiere[]>(mockFilieres);
   const [selectedFiliere, setSelectedFiliere] = useState<Filiere | null>(null);
-  const [selectedMaquette, setSelectedMaquette] = useState<Maquette | null>(null);
+  const [selectedMaquette, setSelectedMaquette] = useState<Maquette | null>(
+    null,
+  );
   const [selectedModule, setSelectedModule] = useState<Module | null>(null);
   const [isFiliereDialogOpen, setIsFiliereDialogOpen] = useState(false);
   const [isMaquetteDialogOpen, setIsMaquetteDialogOpen] = useState(false);
@@ -293,7 +295,7 @@ export default function ProgramsPage() {
   const [isViewMaquetteOpen, setIsViewMaquetteOpen] = useState(false);
   const [formData, setFormData] = useState<any>({});
   const [expandedItems, setExpandedItems] = useState<Set<string>>(new Set());
-  
+
   const { toast } = useToast();
 
   const toggleExpanded = (id: string) => {
@@ -312,7 +314,7 @@ export default function ProgramsPage() {
       maquettes: [],
       ...formData,
     } as Filiere;
-    
+
     setFilieres([...filieres, newFiliere]);
     toast({
       title: "Filière créée",
@@ -323,7 +325,7 @@ export default function ProgramsPage() {
   };
 
   const handleDeleteFiliere = (filiereId: string) => {
-    setFilieres(filieres => filieres.filter(f => f.id !== filiereId));
+    setFilieres((filieres) => filieres.filter((f) => f.id !== filiereId));
     toast({
       title: "Filière supprimée",
       description: "La filière a été supprimée définitivement.",
@@ -333,10 +335,10 @@ export default function ProgramsPage() {
 
   const handleChangeStatus = (type: string, id: string, newStatus: string) => {
     if (type === "filiere") {
-      setFilieres(filieres => 
-        filieres.map(f => 
-          f.id === id ? { ...f, statut: newStatus as any } : f
-        )
+      setFilieres((filieres) =>
+        filieres.map((f) =>
+          f.id === id ? { ...f, statut: newStatus as any } : f,
+        ),
       );
     }
     toast({
@@ -346,18 +348,27 @@ export default function ProgramsPage() {
   };
 
   const calculateTotalCredits = (maquette: Maquette): number => {
-    return maquette.sequences.reduce((total, sequence) => 
-      total + sequence.domaines.reduce((seqTotal, domaine) =>
-        seqTotal + domaine.ues.reduce((domTotal, ue) => domTotal + ue.credits, 0), 0), 0);
+    return maquette.sequences.reduce(
+      (total, sequence) =>
+        total +
+        sequence.domaines.reduce(
+          (seqTotal, domaine) =>
+            seqTotal +
+            domaine.ues.reduce((domTotal, ue) => domTotal + ue.credits, 0),
+          0,
+        ),
+      0,
+    );
   };
 
   const filteredFilieres = filieres.filter((filiere) => {
-    const matchesSearch = 
+    const matchesSearch =
       filiere.nom.toLowerCase().includes(searchTerm.toLowerCase()) ||
       filiere.description.toLowerCase().includes(searchTerm.toLowerCase());
-    
-    const matchesStatut = filterStatut === "all" || filiere.statut === filterStatut;
-    
+
+    const matchesStatut =
+      filterStatut === "all" || filiere.statut === filterStatut;
+
     return matchesSearch && matchesStatut;
   });
 
@@ -402,7 +413,7 @@ export default function ProgramsPage() {
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">
-                {filieres.filter(f => f.statut === "actif").length}
+                {filieres.filter((f) => f.statut === "actif").length}
               </div>
               <p className="text-xs text-muted-foreground">
                 Programmes proposés
@@ -418,8 +429,12 @@ export default function ProgramsPage() {
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">
-                {filieres.reduce((total, f) => 
-                  total + f.maquettes.filter(m => m.statut === "actif").length, 0)}
+                {filieres.reduce(
+                  (total, f) =>
+                    total +
+                    f.maquettes.filter((m) => m.statut === "actif").length,
+                  0,
+                )}
               </div>
               <p className="text-xs text-muted-foreground">
                 Structures pédagogiques
@@ -435,11 +450,30 @@ export default function ProgramsPage() {
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">
-                {filieres.reduce((total, f) => 
-                  total + f.maquettes.reduce((maqTotal, m) =>
-                    maqTotal + m.sequences.reduce((seqTotal, s) =>
-                      seqTotal + s.domaines.reduce((domTotal, d) =>
-                        domTotal + d.ues.reduce((ueTotal, u) => ueTotal + u.modules.length, 0), 0), 0), 0), 0)}
+                {filieres.reduce(
+                  (total, f) =>
+                    total +
+                    f.maquettes.reduce(
+                      (maqTotal, m) =>
+                        maqTotal +
+                        m.sequences.reduce(
+                          (seqTotal, s) =>
+                            seqTotal +
+                            s.domaines.reduce(
+                              (domTotal, d) =>
+                                domTotal +
+                                d.ues.reduce(
+                                  (ueTotal, u) => ueTotal + u.modules.length,
+                                  0,
+                                ),
+                              0,
+                            ),
+                          0,
+                        ),
+                      0,
+                    ),
+                  0,
+                )}
               </div>
               <p className="text-xs text-muted-foreground">
                 Unités d'enseignement
@@ -457,9 +491,7 @@ export default function ProgramsPage() {
               <div className="text-2xl font-bold">
                 {filieres.reduce((total, f) => total + f.capaciteAccueil, 0)}
               </div>
-              <p className="text-xs text-muted-foreground">
-                Étudiants maximum
-              </p>
+              <p className="text-xs text-muted-foreground">Étudiants maximum</p>
             </CardContent>
           </Card>
         </div>
@@ -470,15 +502,9 @@ export default function ProgramsPage() {
             <TabsTrigger value="filieres">
               Filières ({filieres.length})
             </TabsTrigger>
-            <TabsTrigger value="maquettes">
-              Maquettes pédagogiques
-            </TabsTrigger>
-            <TabsTrigger value="modules">
-              Modules d'enseignement
-            </TabsTrigger>
-            <TabsTrigger value="calendrier">
-              Calendrier académique
-            </TabsTrigger>
+            <TabsTrigger value="maquettes">Maquettes pédagogiques</TabsTrigger>
+            <TabsTrigger value="modules">Modules d'enseignement</TabsTrigger>
+            <TabsTrigger value="calendrier">Calendrier académique</TabsTrigger>
           </TabsList>
 
           {/* Filieres Tab */}
@@ -502,7 +528,10 @@ export default function ProgramsPage() {
                     />
                   </div>
                   <div className="flex space-x-2">
-                    <Select value={filterStatut} onValueChange={setFilterStatut}>
+                    <Select
+                      value={filterStatut}
+                      onValueChange={setFilterStatut}
+                    >
                       <SelectTrigger className="w-48">
                         <SelectValue placeholder="Filtrer par statut" />
                       </SelectTrigger>
@@ -575,11 +604,13 @@ export default function ProgramsPage() {
                             </DropdownMenuTrigger>
                             <DropdownMenuContent align="end">
                               <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                              <DropdownMenuItem onClick={() => {
-                                setSelectedFiliere(filiere);
-                                setFormData(filiere);
-                                setIsFiliereDialogOpen(true);
-                              }}>
+                              <DropdownMenuItem
+                                onClick={() => {
+                                  setSelectedFiliere(filiere);
+                                  setFormData(filiere);
+                                  setIsFiliereDialogOpen(true);
+                                }}
+                              >
                                 <Edit className="mr-2 h-4 w-4" />
                                 Modifier
                               </DropdownMenuItem>
@@ -593,45 +624,75 @@ export default function ProgramsPage() {
                               </DropdownMenuItem>
                               <DropdownMenuSeparator />
                               {filiere.statut === "actif" ? (
-                                <DropdownMenuItem 
+                                <DropdownMenuItem
                                   className="text-red-600"
-                                  onClick={() => handleChangeStatus("filiere", filiere.id, "suspendu")}
+                                  onClick={() =>
+                                    handleChangeStatus(
+                                      "filiere",
+                                      filiere.id,
+                                      "suspendu",
+                                    )
+                                  }
                                 >
                                   <AlertTriangle className="mr-2 h-4 w-4" />
                                   Suspendre
                                 </DropdownMenuItem>
                               ) : (
-                                <DropdownMenuItem 
+                                <DropdownMenuItem
                                   className="text-green-600"
-                                  onClick={() => handleChangeStatus("filiere", filiere.id, "actif")}
+                                  onClick={() =>
+                                    handleChangeStatus(
+                                      "filiere",
+                                      filiere.id,
+                                      "actif",
+                                    )
+                                  }
                                 >
                                   <CheckCircle className="mr-2 h-4 w-4" />
                                   Activer
                                 </DropdownMenuItem>
                               )}
-                              <DropdownMenuItem onClick={() => handleChangeStatus("filiere", filiere.id, "archive")}>
+                              <DropdownMenuItem
+                                onClick={() =>
+                                  handleChangeStatus(
+                                    "filiere",
+                                    filiere.id,
+                                    "archive",
+                                  )
+                                }
+                              >
                                 <Eye className="mr-2 h-4 w-4" />
                                 Archiver
                               </DropdownMenuItem>
                               <AlertDialog>
                                 <AlertDialogTrigger asChild>
-                                  <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
+                                  <DropdownMenuItem
+                                    onSelect={(e) => e.preventDefault()}
+                                  >
                                     <Trash2 className="mr-2 h-4 w-4" />
                                     Supprimer
                                   </DropdownMenuItem>
                                 </AlertDialogTrigger>
                                 <AlertDialogContent>
                                   <AlertDialogHeader>
-                                    <AlertDialogTitle>Êtes-vous sûr ?</AlertDialogTitle>
+                                    <AlertDialogTitle>
+                                      Êtes-vous sûr ?
+                                    </AlertDialogTitle>
                                     <AlertDialogDescription>
-                                      Cette action supprimera définitivement la filière "{filiere.nom}" et toutes ses maquettes. 
-                                      Cette action ne peut pas être annulée.
+                                      Cette action supprimera définitivement la
+                                      filière "{filiere.nom}" et toutes ses
+                                      maquettes. Cette action ne peut pas être
+                                      annulée.
                                     </AlertDialogDescription>
                                   </AlertDialogHeader>
                                   <AlertDialogFooter>
-                                    <AlertDialogCancel>Annuler</AlertDialogCancel>
-                                    <AlertDialogAction 
-                                      onClick={() => handleDeleteFiliere(filiere.id)}
+                                    <AlertDialogCancel>
+                                      Annuler
+                                    </AlertDialogCancel>
+                                    <AlertDialogAction
+                                      onClick={() =>
+                                        handleDeleteFiliere(filiere.id)
+                                      }
                                       className="bg-red-600 hover:bg-red-700"
                                     >
                                       Supprimer
@@ -665,7 +726,9 @@ export default function ProgramsPage() {
                     <div key={filiere.id} className="border rounded-lg p-4">
                       <Collapsible>
                         <CollapsibleTrigger
-                          onClick={() => toggleExpanded(`filiere-${filiere.id}`)}
+                          onClick={() =>
+                            toggleExpanded(`filiere-${filiere.id}`)
+                          }
                           className="flex items-center justify-between w-full text-left"
                         >
                           <div className="flex items-center space-x-2">
@@ -676,7 +739,9 @@ export default function ProgramsPage() {
                             )}
                             <Building className="h-5 w-5 text-blue-600" />
                             <span className="font-semibold">{filiere.nom}</span>
-                            <Badge className={statutLabels[filiere.statut].color}>
+                            <Badge
+                              className={statutLabels[filiere.statut].color}
+                            >
                               {statutLabels[filiere.statut].label}
                             </Badge>
                           </div>
@@ -689,7 +754,11 @@ export default function ProgramsPage() {
                             <div className="text-center py-8 text-muted-foreground">
                               <FileText className="h-12 w-12 mx-auto mb-4 opacity-30" />
                               <p>Aucune maquette définie pour cette filière</p>
-                              <Button variant="outline" size="sm" className="mt-2">
+                              <Button
+                                variant="outline"
+                                size="sm"
+                                className="mt-2"
+                              >
                                 <Plus className="h-4 w-4 mr-2" />
                                 Créer une maquette
                               </Button>
@@ -697,28 +766,46 @@ export default function ProgramsPage() {
                           ) : (
                             <div className="space-y-3">
                               {filiere.maquettes.map((maquette) => (
-                                <div key={maquette.id} className="border rounded-lg p-3 bg-gray-50">
+                                <div
+                                  key={maquette.id}
+                                  className="border rounded-lg p-3 bg-gray-50"
+                                >
                                   <Collapsible>
                                     <CollapsibleTrigger
-                                      onClick={() => toggleExpanded(`maquette-${maquette.id}`)}
+                                      onClick={() =>
+                                        toggleExpanded(
+                                          `maquette-${maquette.id}`,
+                                        )
+                                      }
                                       className="flex items-center justify-between w-full text-left"
                                     >
                                       <div className="flex items-center space-x-2">
-                                        {expandedItems.has(`maquette-${maquette.id}`) ? (
+                                        {expandedItems.has(
+                                          `maquette-${maquette.id}`,
+                                        ) ? (
                                           <ChevronDown className="h-4 w-4" />
                                         ) : (
                                           <ChevronRight className="h-4 w-4" />
                                         )}
                                         <FileText className="h-4 w-4 text-green-600" />
-                                        <span className="font-medium">{maquette.nom}</span>
-                                        <Badge variant="secondary">{maquette.version}</Badge>
-                                        <Badge className={statutLabels[maquette.statut].color}>
+                                        <span className="font-medium">
+                                          {maquette.nom}
+                                        </span>
+                                        <Badge variant="secondary">
+                                          {maquette.version}
+                                        </Badge>
+                                        <Badge
+                                          className={
+                                            statutLabels[maquette.statut].color
+                                          }
+                                        >
                                           {statutLabels[maquette.statut].label}
                                         </Badge>
                                       </div>
                                       <div className="flex items-center space-x-2">
                                         <span className="text-sm text-muted-foreground">
-                                          {calculateTotalCredits(maquette)} crédits
+                                          {calculateTotalCredits(maquette)}{" "}
+                                          crédits
                                         </span>
                                         <Button variant="ghost" size="sm">
                                           <Eye className="h-4 w-4" />
@@ -728,44 +815,78 @@ export default function ProgramsPage() {
                                     <CollapsibleContent className="mt-3 ml-6">
                                       <div className="space-y-2">
                                         {maquette.sequences.map((sequence) => (
-                                          <div key={sequence.id} className="border rounded p-2 bg-white">
+                                          <div
+                                            key={sequence.id}
+                                            className="border rounded p-2 bg-white"
+                                          >
                                             <Collapsible>
                                               <CollapsibleTrigger
-                                                onClick={() => toggleExpanded(`sequence-${sequence.id}`)}
+                                                onClick={() =>
+                                                  toggleExpanded(
+                                                    `sequence-${sequence.id}`,
+                                                  )
+                                                }
                                                 className="flex items-center justify-between w-full text-left"
                                               >
                                                 <div className="flex items-center space-x-2">
-                                                  {expandedItems.has(`sequence-${sequence.id}`) ? (
+                                                  {expandedItems.has(
+                                                    `sequence-${sequence.id}`,
+                                                  ) ? (
                                                     <ChevronDown className="h-4 w-4" />
                                                   ) : (
                                                     <ChevronRight className="h-4 w-4" />
                                                   )}
                                                   <Calendar className="h-4 w-4 text-purple-600" />
-                                                  <span className="font-medium">{sequence.nom}</span>
-                                                  <Badge variant="outline">{sequence.duree} mois</Badge>
+                                                  <span className="font-medium">
+                                                    {sequence.nom}
+                                                  </span>
+                                                  <Badge variant="outline">
+                                                    {sequence.duree} mois
+                                                  </Badge>
                                                 </div>
                                                 <Badge variant="outline">
-                                                  {sequence.domaines.length} domaine(s)
+                                                  {sequence.domaines.length}{" "}
+                                                  domaine(s)
                                                 </Badge>
                                               </CollapsibleTrigger>
                                               <CollapsibleContent className="mt-2 ml-6">
                                                 <div className="space-y-1">
-                                                  {sequence.domaines.map((domaine) => (
-                                                    <div key={domaine.id} className="flex items-center justify-between p-2 bg-gray-50 rounded">
-                                                      <div className="flex items-center space-x-2">
-                                                        <Target className="h-4 w-4 text-orange-600" />
-                                                        <span className="text-sm font-medium">{domaine.nom}</span>
+                                                  {sequence.domaines.map(
+                                                    (domaine) => (
+                                                      <div
+                                                        key={domaine.id}
+                                                        className="flex items-center justify-between p-2 bg-gray-50 rounded"
+                                                      >
+                                                        <div className="flex items-center space-x-2">
+                                                          <Target className="h-4 w-4 text-orange-600" />
+                                                          <span className="text-sm font-medium">
+                                                            {domaine.nom}
+                                                          </span>
+                                                        </div>
+                                                        <div className="flex items-center space-x-2">
+                                                          <Badge
+                                                            variant="outline"
+                                                            className="text-xs"
+                                                          >
+                                                            {domaine.ues.reduce(
+                                                              (total, ue) =>
+                                                                total +
+                                                                ue.credits,
+                                                              0,
+                                                            )}{" "}
+                                                            crédits
+                                                          </Badge>
+                                                          <Badge
+                                                            variant="outline"
+                                                            className="text-xs"
+                                                          >
+                                                            {domaine.ues.length}{" "}
+                                                            UE
+                                                          </Badge>
+                                                        </div>
                                                       </div>
-                                                      <div className="flex items-center space-x-2">
-                                                        <Badge variant="outline" className="text-xs">
-                                                          {domaine.ues.reduce((total, ue) => total + ue.credits, 0)} crédits
-                                                        </Badge>
-                                                        <Badge variant="outline" className="text-xs">
-                                                          {domaine.ues.length} UE
-                                                        </Badge>
-                                                      </div>
-                                                    </div>
-                                                  ))}
+                                                    ),
+                                                  )}
                                                 </div>
                                               </CollapsibleContent>
                                             </Collapsible>
@@ -807,7 +928,9 @@ export default function ProgramsPage() {
                               <div className="flex items-center justify-between mb-3">
                                 <div className="flex items-center space-x-2">
                                   <BookOpen className="h-5 w-5 text-blue-600" />
-                                  <span className="font-semibold">{ue.nom}</span>
+                                  <span className="font-semibold">
+                                    {ue.nom}
+                                  </span>
                                   <Badge variant="outline">{ue.code}</Badge>
                                   <Badge className="bg-blue-100 text-blue-800">
                                     {ue.credits} crédits
@@ -819,12 +942,26 @@ export default function ProgramsPage() {
                               </div>
                               <div className="grid gap-2">
                                 {ue.modules.map((module) => (
-                                  <div key={module.id} className="flex items-center justify-between p-3 bg-gray-50 rounded">
+                                  <div
+                                    key={module.id}
+                                    className="flex items-center justify-between p-3 bg-gray-50 rounded"
+                                  >
                                     <div className="flex-1">
                                       <div className="flex items-center space-x-2 mb-1">
-                                        <span className="font-medium">{module.nom}</span>
-                                        <Badge variant="outline" className="text-xs">{module.code}</Badge>
-                                        <Badge className={statutLabels[module.statut].color}>
+                                        <span className="font-medium">
+                                          {module.nom}
+                                        </span>
+                                        <Badge
+                                          variant="outline"
+                                          className="text-xs"
+                                        >
+                                          {module.code}
+                                        </Badge>
+                                        <Badge
+                                          className={
+                                            statutLabels[module.statut].color
+                                          }
+                                        >
                                           {statutLabels[module.statut].label}
                                         </Badge>
                                       </div>
@@ -838,20 +975,26 @@ export default function ProgramsPage() {
                                         <span>{module.enseignant}</span>
                                         <span>{module.evaluation}</span>
                                       </div>
-                                      {module.prerequis && module.prerequis.length > 0 && (
-                                        <div className="mt-2">
-                                          <span className="text-xs text-red-600">
-                                            Prérequis: {module.prerequis.join(", ")}
-                                          </span>
-                                        </div>
-                                      )}
+                                      {module.prerequis &&
+                                        module.prerequis.length > 0 && (
+                                          <div className="mt-2">
+                                            <span className="text-xs text-red-600">
+                                              Prérequis:{" "}
+                                              {module.prerequis.join(", ")}
+                                            </span>
+                                          </div>
+                                        )}
                                     </div>
                                     <div className="flex items-center space-x-2">
-                                      <Button variant="ghost" size="sm" onClick={() => {
-                                        setSelectedModule(module);
-                                        setFormData(module);
-                                        setIsModuleDialogOpen(true);
-                                      }}>
+                                      <Button
+                                        variant="ghost"
+                                        size="sm"
+                                        onClick={() => {
+                                          setSelectedModule(module);
+                                          setFormData(module);
+                                          setIsModuleDialogOpen(true);
+                                        }}
+                                      >
                                         <Edit className="h-4 w-4" />
                                       </Button>
                                       <Button variant="ghost" size="sm">
@@ -862,10 +1005,10 @@ export default function ProgramsPage() {
                                 ))}
                               </div>
                             </div>
-                          ))
-                        )
-                      )
-                    )
+                          )),
+                        ),
+                      ),
+                    ),
                   )}
                 </div>
               </CardContent>
@@ -884,7 +1027,10 @@ export default function ProgramsPage() {
               <CardContent>
                 <div className="text-center py-8 text-muted-foreground">
                   <Calendar className="h-12 w-12 mx-auto mb-4 opacity-30" />
-                  <p>Fonctionnalité de calendrier académique en cours de développement</p>
+                  <p>
+                    Fonctionnalité de calendrier académique en cours de
+                    développement
+                  </p>
                   <Button variant="outline" size="sm" className="mt-2">
                     <Plus className="h-4 w-4 mr-2" />
                     Configurer le calendrier
@@ -896,7 +1042,10 @@ export default function ProgramsPage() {
         </Tabs>
 
         {/* Create Filiere Dialog */}
-        <Dialog open={isCreateFiliereOpen} onOpenChange={setIsCreateFiliereOpen}>
+        <Dialog
+          open={isCreateFiliereOpen}
+          onOpenChange={setIsCreateFiliereOpen}
+        >
           <DialogContent className="max-w-2xl">
             <DialogHeader>
               <DialogTitle>Créer une nouvelle filière</DialogTitle>
@@ -907,7 +1056,9 @@ export default function ProgramsPage() {
                 <Input
                   id="nom"
                   value={formData.nom || ""}
-                  onChange={(e) => setFormData({...formData, nom: e.target.value})}
+                  onChange={(e) =>
+                    setFormData({ ...formData, nom: e.target.value })
+                  }
                 />
               </div>
               <div className="space-y-2">
@@ -916,7 +1067,9 @@ export default function ProgramsPage() {
                   id="duree"
                   type="number"
                   value={formData.duree || ""}
-                  onChange={(e) => setFormData({...formData, duree: Number(e.target.value)})}
+                  onChange={(e) =>
+                    setFormData({ ...formData, duree: Number(e.target.value) })
+                  }
                 />
               </div>
               <div className="col-span-2 space-y-2">
@@ -924,7 +1077,9 @@ export default function ProgramsPage() {
                 <Textarea
                   id="description"
                   value={formData.description || ""}
-                  onChange={(e) => setFormData({...formData, description: e.target.value})}
+                  onChange={(e) =>
+                    setFormData({ ...formData, description: e.target.value })
+                  }
                 />
               </div>
               <div className="space-y-2">
@@ -933,7 +1088,12 @@ export default function ProgramsPage() {
                   id="capacite"
                   type="number"
                   value={formData.capaciteAccueil || ""}
-                  onChange={(e) => setFormData({...formData, capaciteAccueil: Number(e.target.value)})}
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      capaciteAccueil: Number(e.target.value),
+                    })
+                  }
                 />
               </div>
               <div className="space-y-2">
@@ -942,12 +1102,22 @@ export default function ProgramsPage() {
                   id="frais"
                   type="number"
                   value={formData.fraisInscription || ""}
-                  onChange={(e) => setFormData({...formData, fraisInscription: Number(e.target.value)})}
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      fraisInscription: Number(e.target.value),
+                    })
+                  }
                 />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="statut">Statut</Label>
-                <Select value={formData.statut || "actif"} onValueChange={(value) => setFormData({...formData, statut: value})}>
+                <Select
+                  value={formData.statut || "actif"}
+                  onValueChange={(value) =>
+                    setFormData({ ...formData, statut: value })
+                  }
+                >
                   <SelectTrigger>
                     <SelectValue />
                   </SelectTrigger>
@@ -960,21 +1130,25 @@ export default function ProgramsPage() {
               </div>
             </div>
             <DialogFooter>
-              <Button variant="outline" onClick={() => {
-                setIsCreateFiliereOpen(false);
-                setFormData({});
-              }}>
+              <Button
+                variant="outline"
+                onClick={() => {
+                  setIsCreateFiliereOpen(false);
+                  setFormData({});
+                }}
+              >
                 Annuler
               </Button>
-              <Button onClick={handleCreateFiliere}>
-                Créer la filière
-              </Button>
+              <Button onClick={handleCreateFiliere}>Créer la filière</Button>
             </DialogFooter>
           </DialogContent>
         </Dialog>
 
         {/* Edit Filiere Dialog */}
-        <Dialog open={isFiliereDialogOpen} onOpenChange={setIsFiliereDialogOpen}>
+        <Dialog
+          open={isFiliereDialogOpen}
+          onOpenChange={setIsFiliereDialogOpen}
+        >
           <DialogContent className="max-w-2xl">
             <DialogHeader>
               <DialogTitle>Modifier la filière</DialogTitle>
@@ -985,7 +1159,9 @@ export default function ProgramsPage() {
                 <Input
                   id="edit-nom"
                   value={formData.nom || ""}
-                  onChange={(e) => setFormData({...formData, nom: e.target.value})}
+                  onChange={(e) =>
+                    setFormData({ ...formData, nom: e.target.value })
+                  }
                 />
               </div>
               <div className="space-y-2">
@@ -994,7 +1170,9 @@ export default function ProgramsPage() {
                   id="edit-duree"
                   type="number"
                   value={formData.duree || ""}
-                  onChange={(e) => setFormData({...formData, duree: Number(e.target.value)})}
+                  onChange={(e) =>
+                    setFormData({ ...formData, duree: Number(e.target.value) })
+                  }
                 />
               </div>
               <div className="col-span-2 space-y-2">
@@ -1002,7 +1180,9 @@ export default function ProgramsPage() {
                 <Textarea
                   id="edit-description"
                   value={formData.description || ""}
-                  onChange={(e) => setFormData({...formData, description: e.target.value})}
+                  onChange={(e) =>
+                    setFormData({ ...formData, description: e.target.value })
+                  }
                 />
               </div>
               <div className="space-y-2">
@@ -1011,7 +1191,12 @@ export default function ProgramsPage() {
                   id="edit-capacite"
                   type="number"
                   value={formData.capaciteAccueil || ""}
-                  onChange={(e) => setFormData({...formData, capaciteAccueil: Number(e.target.value)})}
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      capaciteAccueil: Number(e.target.value),
+                    })
+                  }
                 />
               </div>
               <div className="space-y-2">
@@ -1020,32 +1205,45 @@ export default function ProgramsPage() {
                   id="edit-frais"
                   type="number"
                   value={formData.fraisInscription || ""}
-                  onChange={(e) => setFormData({...formData, fraisInscription: Number(e.target.value)})}
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      fraisInscription: Number(e.target.value),
+                    })
+                  }
                 />
               </div>
             </div>
             <DialogFooter>
-              <Button variant="outline" onClick={() => {
-                setIsFiliereDialogOpen(false);
-                setSelectedFiliere(null);
-                setFormData({});
-              }}>
-                Annuler
-              </Button>
-              <Button onClick={() => {
-                if (selectedFiliere) {
-                  setFilieres(filieres => 
-                    filieres.map(f => f.id === selectedFiliere.id ? {...f, ...formData} : f)
-                  );
-                  toast({
-                    title: "Filière modifiée",
-                    description: "Les informations ont été mises à jour avec succès.",
-                  });
+              <Button
+                variant="outline"
+                onClick={() => {
                   setIsFiliereDialogOpen(false);
                   setSelectedFiliere(null);
                   setFormData({});
-                }
-              }}>
+                }}
+              >
+                Annuler
+              </Button>
+              <Button
+                onClick={() => {
+                  if (selectedFiliere) {
+                    setFilieres((filieres) =>
+                      filieres.map((f) =>
+                        f.id === selectedFiliere.id ? { ...f, ...formData } : f,
+                      ),
+                    );
+                    toast({
+                      title: "Filière modifiée",
+                      description:
+                        "Les informations ont été mises à jour avec succès.",
+                    });
+                    setIsFiliereDialogOpen(false);
+                    setSelectedFiliere(null);
+                    setFormData({});
+                  }
+                }}
+              >
                 Modifier
               </Button>
             </DialogFooter>
@@ -1064,7 +1262,9 @@ export default function ProgramsPage() {
                 <Input
                   id="module-nom"
                   value={formData.nom || ""}
-                  onChange={(e) => setFormData({...formData, nom: e.target.value})}
+                  onChange={(e) =>
+                    setFormData({ ...formData, nom: e.target.value })
+                  }
                 />
               </div>
               <div className="space-y-2">
@@ -1072,7 +1272,9 @@ export default function ProgramsPage() {
                 <Input
                   id="module-code"
                   value={formData.code || ""}
-                  onChange={(e) => setFormData({...formData, code: e.target.value})}
+                  onChange={(e) =>
+                    setFormData({ ...formData, code: e.target.value })
+                  }
                 />
               </div>
               <div className="col-span-2 space-y-2">
@@ -1080,7 +1282,9 @@ export default function ProgramsPage() {
                 <Textarea
                   id="module-description"
                   value={formData.description || ""}
-                  onChange={(e) => setFormData({...formData, description: e.target.value})}
+                  onChange={(e) =>
+                    setFormData({ ...formData, description: e.target.value })
+                  }
                 />
               </div>
               <div className="space-y-2">
@@ -1089,7 +1293,12 @@ export default function ProgramsPage() {
                   id="module-credits"
                   type="number"
                   value={formData.credits || ""}
-                  onChange={(e) => setFormData({...formData, credits: Number(e.target.value)})}
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      credits: Number(e.target.value),
+                    })
+                  }
                 />
               </div>
               <div className="space-y-2">
@@ -1098,20 +1307,31 @@ export default function ProgramsPage() {
                   id="module-heures"
                   type="number"
                   value={formData.heures || ""}
-                  onChange={(e) => setFormData({...formData, heures: Number(e.target.value)})}
+                  onChange={(e) =>
+                    setFormData({ ...formData, heures: Number(e.target.value) })
+                  }
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="module-enseignant">Enseignant responsable</Label>
+                <Label htmlFor="module-enseignant">
+                  Enseignant responsable
+                </Label>
                 <Input
                   id="module-enseignant"
                   value={formData.enseignant || ""}
-                  onChange={(e) => setFormData({...formData, enseignant: e.target.value})}
+                  onChange={(e) =>
+                    setFormData({ ...formData, enseignant: e.target.value })
+                  }
                 />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="module-semestre">Semestre</Label>
-                <Select value={formData.semestre?.toString()} onValueChange={(value) => setFormData({...formData, semestre: Number(value)})}>
+                <Select
+                  value={formData.semestre?.toString()}
+                  onValueChange={(value) =>
+                    setFormData({ ...formData, semestre: Number(value) })
+                  }
+                >
                   <SelectTrigger>
                     <SelectValue />
                   </SelectTrigger>
@@ -1126,27 +1346,35 @@ export default function ProgramsPage() {
                 <Input
                   id="module-evaluation"
                   value={formData.evaluation || ""}
-                  onChange={(e) => setFormData({...formData, evaluation: e.target.value})}
+                  onChange={(e) =>
+                    setFormData({ ...formData, evaluation: e.target.value })
+                  }
                 />
               </div>
             </div>
             <DialogFooter>
-              <Button variant="outline" onClick={() => {
-                setIsModuleDialogOpen(false);
-                setSelectedModule(null);
-                setFormData({});
-              }}>
+              <Button
+                variant="outline"
+                onClick={() => {
+                  setIsModuleDialogOpen(false);
+                  setSelectedModule(null);
+                  setFormData({});
+                }}
+              >
                 Annuler
               </Button>
-              <Button onClick={() => {
-                toast({
-                  title: "Module modifié",
-                  description: "Les informations du module ont été mises à jour.",
-                });
-                setIsModuleDialogOpen(false);
-                setSelectedModule(null);
-                setFormData({});
-              }}>
+              <Button
+                onClick={() => {
+                  toast({
+                    title: "Module modifié",
+                    description:
+                      "Les informations du module ont été mises à jour.",
+                  });
+                  setIsModuleDialogOpen(false);
+                  setSelectedModule(null);
+                  setFormData({});
+                }}
+              >
                 Modifier
               </Button>
             </DialogFooter>

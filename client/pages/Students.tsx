@@ -256,18 +256,18 @@ const mockGraduatedStudents: Student[] = [
 ];
 
 const statutLabels = {
-  "actif": { label: "Actif", color: "bg-green-100 text-green-800" },
-  "suspendu": { label: "Suspendu", color: "bg-red-100 text-red-800" },
-  "diplome": { label: "Diplômé", color: "bg-blue-100 text-blue-800" },
-  "abandonne": { label: "Abandon", color: "bg-gray-100 text-gray-800" },
-  "transfere": { label: "Transféré", color: "bg-yellow-100 text-yellow-800" },
+  actif: { label: "Actif", color: "bg-green-100 text-green-800" },
+  suspendu: { label: "Suspendu", color: "bg-red-100 text-red-800" },
+  diplome: { label: "Diplômé", color: "bg-blue-100 text-blue-800" },
+  abandonne: { label: "Abandon", color: "bg-gray-100 text-gray-800" },
+  transfere: { label: "Transféré", color: "bg-yellow-100 text-yellow-800" },
 };
 
 const statutFinancierLabels = {
-  "a_jour": { label: "À jour", color: "bg-green-100 text-green-800" },
-  "en_retard": { label: "En retard", color: "bg-red-100 text-red-800" },
-  "bourseuse": { label: "Boursière", color: "bg-blue-100 text-blue-800" },
-  "exoneree": { label: "Exonérée", color: "bg-purple-100 text-purple-800" },
+  a_jour: { label: "À jour", color: "bg-green-100 text-green-800" },
+  en_retard: { label: "En retard", color: "bg-red-100 text-red-800" },
+  bourseuse: { label: "Boursière", color: "bg-blue-100 text-blue-800" },
+  exoneree: { label: "Exonérée", color: "bg-purple-100 text-purple-800" },
 };
 
 export default function StudentsPage() {
@@ -275,17 +275,21 @@ export default function StudentsPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [filterFiliere, setFilterFiliere] = useState("all");
   const [filterStatut, setFilterStatut] = useState("all");
-  const [enrollmentRequests, setEnrollmentRequests] = useState<EnrollmentRequest[]>(mockEnrollmentRequests);
-  const [currentStudents, setCurrentStudents] = useState<Student[]>(mockCurrentStudents);
+  const [enrollmentRequests, setEnrollmentRequests] = useState<
+    EnrollmentRequest[]
+  >(mockEnrollmentRequests);
+  const [currentStudents, setCurrentStudents] =
+    useState<Student[]>(mockCurrentStudents);
   const [graduatedStudents] = useState<Student[]>(mockGraduatedStudents);
-  const [selectedRequest, setSelectedRequest] = useState<EnrollmentRequest | null>(null);
+  const [selectedRequest, setSelectedRequest] =
+    useState<EnrollmentRequest | null>(null);
   const [selectedStudent, setSelectedStudent] = useState<Student | null>(null);
   const [isRequestDialogOpen, setIsRequestDialogOpen] = useState(false);
   const [isStudentDialogOpen, setIsStudentDialogOpen] = useState(false);
   const [isCreateStudentOpen, setIsCreateStudentOpen] = useState(false);
   const [requestComment, setRequestComment] = useState("");
   const [formData, setFormData] = useState<Partial<Student>>({});
-  
+
   const { toast } = useToast();
 
   const getStatutColor = (statut: string) => {
@@ -319,10 +323,10 @@ export default function StudentsPage() {
   };
 
   const handleApproveRequest = (requestId: string) => {
-    setEnrollmentRequests(requests => 
-      requests.map(req => 
-        req.id === requestId ? { ...req, statut: "approuve" as const } : req
-      )
+    setEnrollmentRequests((requests) =>
+      requests.map((req) =>
+        req.id === requestId ? { ...req, statut: "approuve" as const } : req,
+      ),
     );
     toast({
       title: "Demande approuvée",
@@ -331,10 +335,12 @@ export default function StudentsPage() {
   };
 
   const handleRejectRequest = (requestId: string, comment: string) => {
-    setEnrollmentRequests(requests => 
-      requests.map(req => 
-        req.id === requestId ? { ...req, statut: "rejete" as const, commentaire: comment } : req
-      )
+    setEnrollmentRequests((requests) =>
+      requests.map((req) =>
+        req.id === requestId
+          ? { ...req, statut: "rejete" as const, commentaire: comment }
+          : req,
+      ),
     );
     toast({
       title: "Demande rejetée",
@@ -350,10 +356,12 @@ export default function StudentsPage() {
   };
 
   const handleChangeStudentStatus = (studentId: string, newStatus: string) => {
-    setCurrentStudents(students => 
-      students.map(student => 
-        student.id === studentId ? { ...student, statut: newStatus as any } : student
-      )
+    setCurrentStudents((students) =>
+      students.map((student) =>
+        student.id === studentId
+          ? { ...student, statut: newStatus as any }
+          : student,
+      ),
     );
     toast({
       title: "Statut modifié",
@@ -362,7 +370,9 @@ export default function StudentsPage() {
   };
 
   const handleDeleteStudent = (studentId: string) => {
-    setCurrentStudents(students => students.filter(s => s.id !== studentId));
+    setCurrentStudents((students) =>
+      students.filter((s) => s.id !== studentId),
+    );
     toast({
       title: "Étudiant supprimé",
       description: "L'étudiant a été supprimé définitivement.",
@@ -382,11 +392,11 @@ export default function StudentsPage() {
     const newStudent: Student = {
       id: Date.now().toString(),
       numeroEtudiant: `ETU${new Date().getFullYear()}${String(Date.now()).slice(-3)}`,
-      dateInscription: new Date().toISOString().split('T')[0],
+      dateInscription: new Date().toISOString().split("T")[0],
       statut: "actif",
       ...formData,
     } as Student;
-    
+
     setCurrentStudents([...currentStudents, newStudent]);
     toast({
       title: "Étudiant créé",
@@ -397,15 +407,18 @@ export default function StudentsPage() {
   };
 
   const filteredCurrentStudents = currentStudents.filter((student) => {
-    const matchesSearch = 
+    const matchesSearch =
       student.nom.toLowerCase().includes(searchTerm.toLowerCase()) ||
       student.prenom.toLowerCase().includes(searchTerm.toLowerCase()) ||
       student.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
       student.numeroEtudiant.toLowerCase().includes(searchTerm.toLowerCase());
-    
-    const matchesFiliere = filterFiliere === "all" || student.filiere.toLowerCase() === filterFiliere;
-    const matchesStatut = filterStatut === "all" || student.statut === filterStatut;
-    
+
+    const matchesFiliere =
+      filterFiliere === "all" ||
+      student.filiere.toLowerCase() === filterFiliere;
+    const matchesStatut =
+      filterStatut === "all" || student.statut === filterStatut;
+
     return matchesSearch && matchesFiliere && matchesStatut;
   });
 
@@ -450,7 +463,10 @@ export default function StudentsPage() {
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">
-                {enrollmentRequests.filter(r => r.statut === "en_attente").length}
+                {
+                  enrollmentRequests.filter((r) => r.statut === "en_attente")
+                    .length
+                }
               </div>
               <p className="text-xs text-muted-foreground">
                 Inscriptions à traiter
@@ -466,7 +482,7 @@ export default function StudentsPage() {
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">
-                {currentStudents.filter(s => s.statut === "actif").length}
+                {currentStudents.filter((s) => s.statut === "actif").length}
               </div>
               <p className="text-xs text-muted-foreground">
                 Actuellement inscrits
@@ -479,10 +495,10 @@ export default function StudentsPage() {
               <GraduationCap className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{graduatedStudents.length}</div>
-              <p className="text-xs text-muted-foreground">
-                Cette année
-              </p>
+              <div className="text-2xl font-bold">
+                {graduatedStudents.length}
+              </div>
+              <p className="text-xs text-muted-foreground">Cette année</p>
             </CardContent>
           </Card>
           <Card>
@@ -536,7 +552,10 @@ export default function StudentsPage() {
                     />
                   </div>
                   <div className="flex space-x-2">
-                    <Select value={filterStatut} onValueChange={setFilterStatut}>
+                    <Select
+                      value={filterStatut}
+                      onValueChange={setFilterStatut}
+                    >
                       <SelectTrigger className="w-48">
                         <SelectValue placeholder="Filtrer par statut" />
                       </SelectTrigger>
@@ -598,7 +617,11 @@ export default function StudentsPage() {
                         <TableCell>
                           <div className="space-y-1">
                             {request.documents.map((doc, index) => (
-                              <Badge key={index} variant="outline" className="text-xs">
+                              <Badge
+                                key={index}
+                                variant="outline"
+                                className="text-xs"
+                              >
                                 {doc}
                               </Badge>
                             ))}
@@ -609,8 +632,8 @@ export default function StudentsPage() {
                             {request.statut === "en_attente"
                               ? "En attente"
                               : request.statut === "approuve"
-                              ? "Approuvé"
-                              : "Rejeté"}
+                                ? "Approuvé"
+                                : "Rejeté"}
                           </Badge>
                           {request.commentaire && (
                             <div className="text-xs text-red-600 mt-1">
@@ -638,14 +661,16 @@ export default function StudentsPage() {
                               {request.statut === "en_attente" && (
                                 <>
                                   <DropdownMenuSeparator />
-                                  <DropdownMenuItem 
+                                  <DropdownMenuItem
                                     className="text-green-600"
-                                    onClick={() => handleApproveRequest(request.id)}
+                                    onClick={() =>
+                                      handleApproveRequest(request.id)
+                                    }
                                   >
                                     <CheckCircle className="mr-2 h-4 w-4" />
                                     Approuver
                                   </DropdownMenuItem>
-                                  <DropdownMenuItem 
+                                  <DropdownMenuItem
                                     className="text-red-600"
                                     onClick={() => {
                                       setSelectedRequest(request);
@@ -689,7 +714,10 @@ export default function StudentsPage() {
                     />
                   </div>
                   <div className="flex space-x-2">
-                    <Select value={filterFiliere} onValueChange={setFilterFiliere}>
+                    <Select
+                      value={filterFiliere}
+                      onValueChange={setFilterFiliere}
+                    >
                       <SelectTrigger className="w-48">
                         <SelectValue placeholder="Filtrer par filière" />
                       </SelectTrigger>
@@ -700,7 +728,10 @@ export default function StudentsPage() {
                         <SelectItem value="dentaire">Dentaire</SelectItem>
                       </SelectContent>
                     </Select>
-                    <Select value={filterStatut} onValueChange={setFilterStatut}>
+                    <Select
+                      value={filterStatut}
+                      onValueChange={setFilterStatut}
+                    >
                       <SelectTrigger className="w-48">
                         <SelectValue placeholder="Filtrer par statut" />
                       </SelectTrigger>
@@ -752,7 +783,11 @@ export default function StudentsPage() {
                         <TableCell>
                           {student.moyenne && (
                             <Badge
-                              variant={student.moyenne >= 10 ? "default" : "destructive"}
+                              variant={
+                                student.moyenne >= 10
+                                  ? "default"
+                                  : "destructive"
+                              }
                             >
                               {student.moyenne}/20
                             </Badge>
@@ -776,8 +811,16 @@ export default function StudentsPage() {
                         <TableCell>
                           {student.statutFinancier && (
                             <div className="space-y-1">
-                              <Badge className={statutFinancierLabels[student.statutFinancier].color}>
-                                {statutFinancierLabels[student.statutFinancier].label}
+                              <Badge
+                                className={
+                                  statutFinancierLabels[student.statutFinancier]
+                                    .color
+                                }
+                              >
+                                {
+                                  statutFinancierLabels[student.statutFinancier]
+                                    .label
+                                }
                               </Badge>
                               {student.montantDu && student.montantDu > 0 && (
                                 <div className="text-xs text-red-600">
@@ -796,19 +839,27 @@ export default function StudentsPage() {
                             </DropdownMenuTrigger>
                             <DropdownMenuContent align="end">
                               <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                              <DropdownMenuItem onClick={() => handleViewStudentDetails(student.id)}>
+                              <DropdownMenuItem
+                                onClick={() =>
+                                  handleViewStudentDetails(student.id)
+                                }
+                              >
                                 <Eye className="mr-2 h-4 w-4" />
                                 Voir dossier complet
                               </DropdownMenuItem>
-                              <DropdownMenuItem onClick={() => {
-                                setSelectedStudent(student);
-                                setFormData(student);
-                                setIsStudentDialogOpen(true);
-                              }}>
+                              <DropdownMenuItem
+                                onClick={() => {
+                                  setSelectedStudent(student);
+                                  setFormData(student);
+                                  setIsStudentDialogOpen(true);
+                                }}
+                              >
                                 <Edit className="mr-2 h-4 w-4" />
                                 Modifier
                               </DropdownMenuItem>
-                              <DropdownMenuItem onClick={() => handleDownloadBulletin(student)}>
+                              <DropdownMenuItem
+                                onClick={() => handleDownloadBulletin(student)}
+                              >
                                 <FileText className="mr-2 h-4 w-4" />
                                 Télécharger bulletin
                               </DropdownMenuItem>
@@ -823,17 +874,27 @@ export default function StudentsPage() {
                               </DropdownMenuItem>
                               <DropdownMenuSeparator />
                               {student.statut === "actif" ? (
-                                <DropdownMenuItem 
+                                <DropdownMenuItem
                                   className="text-red-600"
-                                  onClick={() => handleChangeStudentStatus(student.id, "suspendu")}
+                                  onClick={() =>
+                                    handleChangeStudentStatus(
+                                      student.id,
+                                      "suspendu",
+                                    )
+                                  }
                                 >
                                   <Lock className="mr-2 h-4 w-4" />
                                   Suspendre
                                 </DropdownMenuItem>
                               ) : (
-                                <DropdownMenuItem 
+                                <DropdownMenuItem
                                   className="text-green-600"
-                                  onClick={() => handleChangeStudentStatus(student.id, "actif")}
+                                  onClick={() =>
+                                    handleChangeStudentStatus(
+                                      student.id,
+                                      "actif",
+                                    )
+                                  }
                                 >
                                   <Unlock className="mr-2 h-4 w-4" />
                                   Réactiver
@@ -841,23 +902,32 @@ export default function StudentsPage() {
                               )}
                               <AlertDialog>
                                 <AlertDialogTrigger asChild>
-                                  <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
+                                  <DropdownMenuItem
+                                    onSelect={(e) => e.preventDefault()}
+                                  >
                                     <Trash2 className="mr-2 h-4 w-4" />
                                     Supprimer
                                   </DropdownMenuItem>
                                 </AlertDialogTrigger>
                                 <AlertDialogContent>
                                   <AlertDialogHeader>
-                                    <AlertDialogTitle>Êtes-vous sûr ?</AlertDialogTitle>
+                                    <AlertDialogTitle>
+                                      Êtes-vous sûr ?
+                                    </AlertDialogTitle>
                                     <AlertDialogDescription>
-                                      Cette action supprimera définitivement l'étudiant "{student.prenom} {student.nom}". 
-                                      Cette action ne peut pas être annulée.
+                                      Cette action supprimera définitivement
+                                      l'étudiant "{student.prenom} {student.nom}
+                                      ". Cette action ne peut pas être annulée.
                                     </AlertDialogDescription>
                                   </AlertDialogHeader>
                                   <AlertDialogFooter>
-                                    <AlertDialogCancel>Annuler</AlertDialogCancel>
-                                    <AlertDialogAction 
-                                      onClick={() => handleDeleteStudent(student.id)}
+                                    <AlertDialogCancel>
+                                      Annuler
+                                    </AlertDialogCancel>
+                                    <AlertDialogAction
+                                      onClick={() =>
+                                        handleDeleteStudent(student.id)
+                                      }
                                       className="bg-red-600 hover:bg-red-700"
                                     >
                                       Supprimer
@@ -914,14 +984,19 @@ export default function StudentsPage() {
                         <TableCell>{graduate.email}</TableCell>
                         <TableCell>
                           <div>
-                            <div className="font-medium">{graduate.filiere}</div>
+                            <div className="font-medium">
+                              {graduate.filiere}
+                            </div>
                             <div className="text-sm text-muted-foreground">
                               Promotion {graduate.promotion}
                             </div>
                           </div>
                         </TableCell>
                         <TableCell>
-                          {graduate.dateObtention && new Date(graduate.dateObtention).toLocaleDateString()}
+                          {graduate.dateObtention &&
+                            new Date(
+                              graduate.dateObtention,
+                            ).toLocaleDateString()}
                         </TableCell>
                         <TableCell>
                           <Badge variant="default">
@@ -929,7 +1004,9 @@ export default function StudentsPage() {
                           </Badge>
                         </TableCell>
                         <TableCell>
-                          <Badge className={getMentionColor(graduate.mention || "")}>
+                          <Badge
+                            className={getMentionColor(graduate.mention || "")}
+                          >
                             {graduate.mention}
                           </Badge>
                         </TableCell>
@@ -942,7 +1019,11 @@ export default function StudentsPage() {
                             </DropdownMenuTrigger>
                             <DropdownMenuContent align="end">
                               <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                              <DropdownMenuItem onClick={() => handleViewStudentDetails(graduate.id)}>
+                              <DropdownMenuItem
+                                onClick={() =>
+                                  handleViewStudentDetails(graduate.id)
+                                }
+                              >
                                 <Eye className="mr-2 h-4 w-4" />
                                 Voir dossier
                               </DropdownMenuItem>
@@ -950,7 +1031,9 @@ export default function StudentsPage() {
                                 <Download className="mr-2 h-4 w-4" />
                                 Télécharger diplôme
                               </DropdownMenuItem>
-                              <DropdownMenuItem onClick={() => handleDownloadBulletin(graduate)}>
+                              <DropdownMenuItem
+                                onClick={() => handleDownloadBulletin(graduate)}
+                              >
                                 <FileText className="mr-2 h-4 w-4" />
                                 Relevé de notes
                               </DropdownMenuItem>
@@ -972,7 +1055,10 @@ export default function StudentsPage() {
         </Tabs>
 
         {/* Reject Request Dialog */}
-        <Dialog open={isRequestDialogOpen} onOpenChange={setIsRequestDialogOpen}>
+        <Dialog
+          open={isRequestDialogOpen}
+          onOpenChange={setIsRequestDialogOpen}
+        >
           <DialogContent>
             <DialogHeader>
               <DialogTitle>Rejeter la demande d'inscription</DialogTitle>
@@ -992,12 +1078,18 @@ export default function StudentsPage() {
               </div>
             </div>
             <DialogFooter>
-              <Button variant="outline" onClick={() => setIsRequestDialogOpen(false)}>
+              <Button
+                variant="outline"
+                onClick={() => setIsRequestDialogOpen(false)}
+              >
                 Annuler
               </Button>
-              <Button 
-                variant="destructive" 
-                onClick={() => selectedRequest && handleRejectRequest(selectedRequest.id, requestComment)}
+              <Button
+                variant="destructive"
+                onClick={() =>
+                  selectedRequest &&
+                  handleRejectRequest(selectedRequest.id, requestComment)
+                }
               >
                 Rejeter
               </Button>
@@ -1006,7 +1098,10 @@ export default function StudentsPage() {
         </Dialog>
 
         {/* Create Student Dialog */}
-        <Dialog open={isCreateStudentOpen} onOpenChange={setIsCreateStudentOpen}>
+        <Dialog
+          open={isCreateStudentOpen}
+          onOpenChange={setIsCreateStudentOpen}
+        >
           <DialogContent className="max-w-2xl">
             <DialogHeader>
               <DialogTitle>Créer un nouvel étudiant</DialogTitle>
@@ -1017,7 +1112,9 @@ export default function StudentsPage() {
                 <Input
                   id="prenom"
                   value={formData.prenom || ""}
-                  onChange={(e) => setFormData({...formData, prenom: e.target.value})}
+                  onChange={(e) =>
+                    setFormData({ ...formData, prenom: e.target.value })
+                  }
                 />
               </div>
               <div className="space-y-2">
@@ -1025,7 +1122,9 @@ export default function StudentsPage() {
                 <Input
                   id="nom"
                   value={formData.nom || ""}
-                  onChange={(e) => setFormData({...formData, nom: e.target.value})}
+                  onChange={(e) =>
+                    setFormData({ ...formData, nom: e.target.value })
+                  }
                 />
               </div>
               <div className="space-y-2">
@@ -1034,7 +1133,9 @@ export default function StudentsPage() {
                   id="email"
                   type="email"
                   value={formData.email || ""}
-                  onChange={(e) => setFormData({...formData, email: e.target.value})}
+                  onChange={(e) =>
+                    setFormData({ ...formData, email: e.target.value })
+                  }
                 />
               </div>
               <div className="space-y-2">
@@ -1042,12 +1143,19 @@ export default function StudentsPage() {
                 <Input
                   id="telephone"
                   value={formData.telephone || ""}
-                  onChange={(e) => setFormData({...formData, telephone: e.target.value})}
+                  onChange={(e) =>
+                    setFormData({ ...formData, telephone: e.target.value })
+                  }
                 />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="filiere">Filière</Label>
-                <Select value={formData.filiere} onValueChange={(value) => setFormData({...formData, filiere: value})}>
+                <Select
+                  value={formData.filiere}
+                  onValueChange={(value) =>
+                    setFormData({ ...formData, filiere: value })
+                  }
+                >
                   <SelectTrigger>
                     <SelectValue placeholder="Sélectionner une filière" />
                   </SelectTrigger>
@@ -1060,7 +1168,12 @@ export default function StudentsPage() {
               </div>
               <div className="space-y-2">
                 <Label htmlFor="niveau">Niveau</Label>
-                <Select value={formData.niveau} onValueChange={(value) => setFormData({...formData, niveau: value})}>
+                <Select
+                  value={formData.niveau}
+                  onValueChange={(value) =>
+                    setFormData({ ...formData, niveau: value })
+                  }
+                >
                   <SelectTrigger>
                     <SelectValue placeholder="Sélectionner un niveau" />
                   </SelectTrigger>
@@ -1075,21 +1188,25 @@ export default function StudentsPage() {
               </div>
             </div>
             <DialogFooter>
-              <Button variant="outline" onClick={() => {
-                setIsCreateStudentOpen(false);
-                setFormData({});
-              }}>
+              <Button
+                variant="outline"
+                onClick={() => {
+                  setIsCreateStudentOpen(false);
+                  setFormData({});
+                }}
+              >
                 Annuler
               </Button>
-              <Button onClick={handleCreateStudent}>
-                Créer l'étudiant
-              </Button>
+              <Button onClick={handleCreateStudent}>Créer l'étudiant</Button>
             </DialogFooter>
           </DialogContent>
         </Dialog>
 
         {/* Edit Student Dialog */}
-        <Dialog open={isStudentDialogOpen} onOpenChange={setIsStudentDialogOpen}>
+        <Dialog
+          open={isStudentDialogOpen}
+          onOpenChange={setIsStudentDialogOpen}
+        >
           <DialogContent className="max-w-2xl">
             <DialogHeader>
               <DialogTitle>Modifier l'étudiant</DialogTitle>
@@ -1100,7 +1217,9 @@ export default function StudentsPage() {
                 <Input
                   id="edit-prenom"
                   value={formData.prenom || ""}
-                  onChange={(e) => setFormData({...formData, prenom: e.target.value})}
+                  onChange={(e) =>
+                    setFormData({ ...formData, prenom: e.target.value })
+                  }
                 />
               </div>
               <div className="space-y-2">
@@ -1108,7 +1227,9 @@ export default function StudentsPage() {
                 <Input
                   id="edit-nom"
                   value={formData.nom || ""}
-                  onChange={(e) => setFormData({...formData, nom: e.target.value})}
+                  onChange={(e) =>
+                    setFormData({ ...formData, nom: e.target.value })
+                  }
                 />
               </div>
               <div className="space-y-2">
@@ -1117,7 +1238,9 @@ export default function StudentsPage() {
                   id="edit-email"
                   type="email"
                   value={formData.email || ""}
-                  onChange={(e) => setFormData({...formData, email: e.target.value})}
+                  onChange={(e) =>
+                    setFormData({ ...formData, email: e.target.value })
+                  }
                 />
               </div>
               <div className="space-y-2">
@@ -1125,12 +1248,19 @@ export default function StudentsPage() {
                 <Input
                   id="edit-telephone"
                   value={formData.telephone || ""}
-                  onChange={(e) => setFormData({...formData, telephone: e.target.value})}
+                  onChange={(e) =>
+                    setFormData({ ...formData, telephone: e.target.value })
+                  }
                 />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="edit-filiere">Filière</Label>
-                <Select value={formData.filiere} onValueChange={(value) => setFormData({...formData, filiere: value})}>
+                <Select
+                  value={formData.filiere}
+                  onValueChange={(value) =>
+                    setFormData({ ...formData, filiere: value })
+                  }
+                >
                   <SelectTrigger>
                     <SelectValue placeholder="Sélectionner une filière" />
                   </SelectTrigger>
@@ -1143,7 +1273,12 @@ export default function StudentsPage() {
               </div>
               <div className="space-y-2">
                 <Label htmlFor="edit-niveau">Niveau</Label>
-                <Select value={formData.niveau} onValueChange={(value) => setFormData({...formData, niveau: value})}>
+                <Select
+                  value={formData.niveau}
+                  onValueChange={(value) =>
+                    setFormData({ ...formData, niveau: value })
+                  }
+                >
                   <SelectTrigger>
                     <SelectValue placeholder="Sélectionner un niveau" />
                   </SelectTrigger>
@@ -1158,27 +1293,35 @@ export default function StudentsPage() {
               </div>
             </div>
             <DialogFooter>
-              <Button variant="outline" onClick={() => {
-                setIsStudentDialogOpen(false);
-                setSelectedStudent(null);
-                setFormData({});
-              }}>
-                Annuler
-              </Button>
-              <Button onClick={() => {
-                if (selectedStudent) {
-                  setCurrentStudents(students => 
-                    students.map(s => s.id === selectedStudent.id ? {...s, ...formData} : s)
-                  );
-                  toast({
-                    title: "Étudiant modifié",
-                    description: "Les informations ont été mises à jour avec succès.",
-                  });
+              <Button
+                variant="outline"
+                onClick={() => {
                   setIsStudentDialogOpen(false);
                   setSelectedStudent(null);
                   setFormData({});
-                }
-              }}>
+                }}
+              >
+                Annuler
+              </Button>
+              <Button
+                onClick={() => {
+                  if (selectedStudent) {
+                    setCurrentStudents((students) =>
+                      students.map((s) =>
+                        s.id === selectedStudent.id ? { ...s, ...formData } : s,
+                      ),
+                    );
+                    toast({
+                      title: "Étudiant modifié",
+                      description:
+                        "Les informations ont été mises à jour avec succès.",
+                    });
+                    setIsStudentDialogOpen(false);
+                    setSelectedStudent(null);
+                    setFormData({});
+                  }
+                }}
+              >
                 Modifier
               </Button>
             </DialogFooter>
