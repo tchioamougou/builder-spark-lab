@@ -38,12 +38,12 @@ const LandingFooter = () => {
               </div>
               <div>
                 <h4 className="font-bold text-xl heading-font text-white leading-tight">
-                  École Privée de Formation des
+                  {t("footer.schoolName1")}
                 </h4>
                 <h4 className="font-bold text-xl heading-font text-[#ff9900] leading-tight">
-                  Professionnels de Santé
+                  {t("footer.schoolName2")}
                 </h4>
-                <p className="text-sm text-gray-200 mt-1">Meiganga</p>
+                <p className="text-sm text-gray-200 mt-1">{t("footer.location")}</p>
               </div>
             </div>
             <p className="text-gray-200 mb-6 text-sm leading-relaxed">
