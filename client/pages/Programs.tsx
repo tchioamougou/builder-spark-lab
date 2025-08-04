@@ -1040,11 +1040,11 @@ export default function ProgramsPage() {
                   {/* Semestre 5 */}
                   <div className="space-y-4">
                     <Collapsible>
-                      <CollapsibleTrigger
-                        onClick={() => toggleExpanded('semestre-5')}
-                        className="flex items-center justify-between w-full p-3 bg-gray-50 rounded-lg hover:bg-gray-100"
-                      >
-                        <div className="flex items-center space-x-2">
+                      <div className="flex items-center justify-between w-full p-3 bg-gray-50 rounded-lg hover:bg-gray-100">
+                        <CollapsibleTrigger
+                          onClick={() => toggleExpanded('semestre-5')}
+                          className="flex items-center space-x-2 flex-1"
+                        >
                           {expandedItems.has('semestre-5') ? (
                             <ChevronDown className="h-4 w-4" />
                           ) : (
@@ -1052,20 +1052,63 @@ export default function ProgramsPage() {
                           )}
                           <Calendar className="h-4 w-4 text-purple-600" />
                           <span className="font-medium">Semestre 5 (2023-09-01 - 2024-01-31)</span>
-                        </div>
+                        </CollapsibleTrigger>
                         <div className="flex items-center gap-2">
-                          <Button variant="outline" size="sm" className="text-blue-600 border-blue-600">
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            className="text-blue-600 border-blue-600"
+                            onClick={() => {
+                              setSelectedFiliereForActions("1");
+                              setSelectedMaquetteForActions("1");
+                              setSelectedSequenceForActions("semestre-5");
+                              setIsAddDomaineOpen(true);
+                            }}
+                          >
                             <Plus className="h-4 w-4 mr-1" />
                             Ajouter un domaine
                           </Button>
-                          <Button variant="ghost" size="sm">
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => {
+                              setSelectedSequenceForEdit({
+                                id: "semestre-5",
+                                nom: "Semestre 5",
+                                description: "Semestre 5 de la licence 3 informatique",
+                                duree: 6,
+                                domaines: [],
+                                statut: "actif"
+                              });
+                              setFormData({
+                                nom: "Semestre 5",
+                                description: "Semestre 5 de la licence 3 informatique",
+                                duree: 6
+                              });
+                              setIsEditSequenceOpen(true);
+                            }}
+                          >
                             <Edit className="h-4 w-4" />
                           </Button>
-                          <Button variant="ghost" size="sm">
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => {
+                              setSelectedSequenceForEdit({
+                                id: "semestre-5",
+                                nom: "Semestre 5",
+                                description: "Semestre 5 de la licence 3 informatique",
+                                duree: 6,
+                                domaines: [],
+                                statut: "actif"
+                              });
+                              setDeleteSequenceDialogOpen(true);
+                            }}
+                          >
                             <Trash2 className="h-4 w-4" />
                           </Button>
                         </div>
-                      </CollapsibleTrigger>
+                      </div>
                       <CollapsibleContent className="mt-4 ml-6">
                         {/* Programmation Domain */}
                         <div className="space-y-4">
