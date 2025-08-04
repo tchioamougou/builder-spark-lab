@@ -80,6 +80,16 @@ function AppRoutes() {
           <StudentSchedule />
         </ProtectedRoute>
       } />
+      <Route path="/student/requests" element={
+        <ProtectedRoute requiredRole={['etudiant']}>
+          <StudentRequests />
+        </ProtectedRoute>
+      } />
+      <Route path="/student/messages" element={
+        <ProtectedRoute requiredRole={['etudiant']}>
+          <StudentMessages />
+        </ProtectedRoute>
+      } />
 
       {/* Teacher Routes */}
       <Route path="/teacher/dashboard" element={
