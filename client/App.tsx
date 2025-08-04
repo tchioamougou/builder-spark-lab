@@ -146,6 +146,54 @@ function AppRoutes() {
           </ProtectedRoute>
         }
       />
+      <Route
+        path="/teacher/grades"
+        element={
+          <ProtectedRoute requiredRole={["enseignant"]}>
+            <TeacherGrades />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/teacher/schedule"
+        element={
+          <ProtectedRoute requiredRole={["enseignant"]}>
+            <TeacherSchedule />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/teacher/courses"
+        element={
+          <ProtectedRoute requiredRole={["enseignant"]}>
+            <TeacherCourses />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/teacher/documents"
+        element={
+          <ProtectedRoute requiredRole={["enseignant"]}>
+            <TeacherDocuments />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/teacher/messages"
+        element={
+          <ProtectedRoute requiredRole={["enseignant"]}>
+            <TeacherMessages />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/teacher/profile"
+        element={
+          <ProtectedRoute requiredRole={["enseignant"]}>
+            <TeacherProfile />
+          </ProtectedRoute>
+        }
+      />
 
       {/* Admin/Staff Routes */}
       <Route
