@@ -298,6 +298,17 @@ export default function FilesPage() {
     }
   };
 
+  const handleProprietaireRedirect = (proprietaire: string, typeProprietaire: string) => {
+    if (typeProprietaire === "Étudiant") {
+      // For demo, using ID 1 as we don't have the actual student ID
+      navigate('/student-details/1');
+    } else if (typeProprietaire === "Enseignant") {
+      navigate('/teachers');
+    } else {
+      navigate('/user-management');
+    }
+  };
+
   return (
     <Layout>
       <div className="space-y-6">
