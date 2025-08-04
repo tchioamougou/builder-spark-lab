@@ -61,6 +61,13 @@ function AppRoutes() {
     return (
       <Routes>
         <Route path="/" element={<LandingPage />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/formations" element={<Formations />} />
+        <Route path="/admissions" element={<Admissions />} />
+        <Route path="/actualites" element={<Actualites />} />
+        <Route path="/faq" element={<FAQ />} />
+        <Route path="/recrutement" element={<Recrutement />} />
+        <Route path="/contacts" element={<Contacts />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
