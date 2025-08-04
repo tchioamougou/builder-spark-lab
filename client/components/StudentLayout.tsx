@@ -39,6 +39,12 @@ export default function StudentLayout({ children }: StudentLayoutProps) {
   const location = useLocation();
   const { user, logout } = useAuth();
 
+  const handleDownloadBulletin = () => {
+    if (user) {
+      generateBulletinPDF(user);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
