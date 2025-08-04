@@ -5,6 +5,9 @@ import LandingHeader from '../components/LandingHeader';
 import LandingFooter from '../components/LandingFooter';
 import HeroImage from '@/assets/images/landingpageimage/group_five_african_college_students_spending_time_together_campus.jpg'
 import MyFie from '@/assets/images/landingpageimage/medium-shot-health-worker-wearing-mask.jpg'
+import StudentsStudying from '@/assets/images/landingpageimage/students-studying-together-medium-shot.jpg'
+import ClassroomImage from '@/assets/images/landingpageimage/close-up-students-learning-class.jpg'
+import StudyGroupImage from '@/assets/images/landingpageimage/study-group-african-people.jpg'
 const LandingPage: React.FC = () => {
   const { t } = useTranslation();
 
@@ -155,7 +158,7 @@ const LandingPage: React.FC = () => {
               {/* Témoignage 2 */}
               <div className="bg-gray-100 p-6 rounded-2xl shadow-lg">
                 <p className="italic text-gray-600 mb-4">
-                  "J'ai pu développer des compétences concrètes et trouver un emploi dans une entreprise prestigieuse juste après l'obtention de mon diplôme."
+                  "J'ai pu développer des comp��tences concrètes et trouver un emploi dans une entreprise prestigieuse juste après l'obtention de mon diplôme."
                 </p>
                 <div className="flex items-center gap-4">
                   <img src="https://placehold.co/60x60/ff9900/ffffff?text=Visage" alt="Portrait de l'étudiant" className="w-12 h-12 rounded-full object-cover" />
