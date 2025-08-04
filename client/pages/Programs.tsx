@@ -1113,11 +1113,11 @@ export default function ProgramsPage() {
                         {/* Programmation Domain */}
                         <div className="space-y-4">
                           <Collapsible>
-                            <CollapsibleTrigger
-                              onClick={() => toggleExpanded('programmation')}
-                              className="flex items-center justify-between w-full p-3 bg-blue-50 rounded-lg hover:bg-blue-100"
-                            >
-                              <div className="flex items-center space-x-2">
+                            <div className="flex items-center justify-between w-full p-3 bg-blue-50 rounded-lg hover:bg-blue-100">
+                              <CollapsibleTrigger
+                                onClick={() => toggleExpanded('programmation')}
+                                className="flex items-center space-x-2 flex-1"
+                              >
                                 {expandedItems.has('programmation') ? (
                                   <ChevronDown className="h-4 w-4" />
                                 ) : (
@@ -1125,20 +1125,61 @@ export default function ProgramsPage() {
                                 )}
                                 <Target className="h-4 w-4 text-orange-600" />
                                 <span className="font-medium">Programmation</span>
-                              </div>
+                              </CollapsibleTrigger>
                               <div className="flex items-center gap-2">
-                                <Button variant="outline" size="sm" className="text-blue-600 border-blue-600">
+                                <Button
+                                  variant="outline"
+                                  size="sm"
+                                  className="text-blue-600 border-blue-600"
+                                  onClick={() => {
+                                    setSelectedFiliereForActions("1");
+                                    setSelectedMaquetteForActions("1");
+                                    setSelectedSequenceForActions("semestre-5");
+                                    setSelectedDomaineForActions("programmation");
+                                    setIsAddUEOpen(true);
+                                  }}
+                                >
                                   <Plus className="h-4 w-4 mr-1" />
                                   Ajouter un module
                                 </Button>
-                                <Button variant="ghost" size="sm">
+                                <Button
+                                  variant="ghost"
+                                  size="sm"
+                                  onClick={() => {
+                                    setSelectedDomaineForEdit({
+                                      id: "programmation",
+                                      nom: "Programmation",
+                                      description: "Domaine de programmation",
+                                      ues: [],
+                                      statut: "actif"
+                                    });
+                                    setFormData({
+                                      nom: "Programmation",
+                                      description: "Domaine de programmation"
+                                    });
+                                    setIsEditDomaineOpen(true);
+                                  }}
+                                >
                                   <Edit className="h-4 w-4" />
                                 </Button>
-                                <Button variant="ghost" size="sm">
+                                <Button
+                                  variant="ghost"
+                                  size="sm"
+                                  onClick={() => {
+                                    setSelectedDomaineForEdit({
+                                      id: "programmation",
+                                      nom: "Programmation",
+                                      description: "Domaine de programmation",
+                                      ues: [],
+                                      statut: "actif"
+                                    });
+                                    setDeleteDomaineDialogOpen(true);
+                                  }}
+                                >
                                   <Trash2 className="h-4 w-4" />
                                 </Button>
                               </div>
-                            </CollapsibleTrigger>
+                            </div>
                             <CollapsibleContent className="mt-4 ml-6">
                               {/* Programmation Java UE */}
                               <div className="space-y-4">
