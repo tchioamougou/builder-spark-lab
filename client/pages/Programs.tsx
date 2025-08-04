@@ -366,6 +366,234 @@ export default function ProgramsPage() {
     });
   };
 
+  // Handlers for maquettes actions
+  const handleAddMaquette = () => {
+    if (!selectedFiliereForActions) return;
+
+    const newMaquette: Maquette = {
+      id: Date.now().toString(),
+      nom: formData.nom || "",
+      version: formData.version || "1.0",
+      description: formData.description || "",
+      dateCreation: new Date().toISOString().split('T')[0],
+      sequences: [],
+      statut: "brouillon",
+      totalCredits: 0,
+    };
+
+    setFilieres(prev => prev.map(f =>
+      f.id === selectedFiliereForActions
+        ? { ...f, maquettes: [...f.maquettes, newMaquette] }
+        : f
+    ));
+
+    toast({
+      title: "Maquette créée",
+      description: "La nouvelle maquette a été créée avec succès.",
+    });
+
+    setIsAddMaquetteOpen(false);
+    setFormData({});
+    setSelectedFiliereForActions(null);
+  };
+
+  const handleAddSequence = () => {
+    if (!selectedFiliereForActions || !selectedMaquetteForActions) return;
+
+    const newSequence: Sequence = {
+      id: Date.now().toString(),
+      nom: formData.nom || "",
+      description: formData.description || "",
+      duree: formData.duree || 6,
+      domaines: [],
+      statut: "actif",
+    };
+
+    setFilieres(prev => prev.map(f =>
+      f.id === selectedFiliereForActions
+        ? {
+            ...f,
+            maquettes: f.maquettes.map(m =>
+              m.id === selectedMaquetteForActions
+                ? { ...m, sequences: [...m.sequences, newSequence] }
+                : m
+            )
+          }
+        : f
+    ));
+
+    toast({
+      title: "Séquence créée",
+      description: "La nouvelle séquence a été créée avec succès.",
+    });
+
+    setIsAddSequenceOpen(false);
+    setFormData({});
+    setSelectedFiliereForActions(null);
+    setSelectedMaquetteForActions(null);
+  };
+
+  const handleAddDomaine = () => {
+    if (!selectedFiliereForActions || !selectedMaquetteForActions || !selectedSequenceForActions) return;
+
+    const newDomaine: Domaine = {
+      id: Date.now().toString(),
+      nom: formData.nom || "",
+      description: formData.description || "",
+      ues: [],
+      statut: "actif",
+    };
+
+    setFilieres(prev => prev.map(f =>
+      f.id === selectedFiliereForActions
+        ? {
+            ...f,
+            maquettes: f.maquettes.map(m =>
+              m.id === selectedMaquetteForActions
+                ? {
+                    ...m,
+                    sequences: m.sequences.map(s =>
+                      s.id === selectedSequenceForActions
+                        ? { ...s, domaines: [...s.domaines, newDomaine] }
+                        : s
+                    )
+                  }
+                : m
+            )
+          }
+        : f
+    ));
+
+    toast({
+      title: "Domaine créé",
+      description: "Le nouveau domaine a été créé avec succès.",
+    });
+
+    setIsAddDomaineOpen(false);
+    setFormData({});
+    setSelectedFiliereForActions(null);
+    setSelectedMaquetteForActions(null);
+    setSelectedSequenceForActions(null);
+  };
+
+  const handleAddUE = () => {
+    if (!selectedFiliereForActions || !selectedMaquetteForActions || !selectedSequenceForActions || !selectedDomaineForActions) return;
+
+    const newUE: UE = {
+      id: Date.now().toString(),
+      code: formData.code || "",
+      nom: formData.nom || "",
+      description: formData.description || "",
+      credits: formData.credits || 0,
+      modules: [],
+      statut: "actif",
+    };
+
+    setFilieres(prev => prev.map(f =>
+      f.id === selectedFiliereForActions
+        ? {
+            ...f,
+            maquettes: f.maquettes.map(m =>
+              m.id === selectedMaquetteForActions
+                ? {
+                    ...m,
+                    sequences: m.sequences.map(s =>
+                      s.id === selectedSequenceForActions
+                        ? {
+                            ...s,
+                            domaines: s.domaines.map(d =>
+                              d.id === selectedDomaineForActions
+                                ? { ...d, ues: [...d.ues, newUE] }
+                                : d
+                            )
+                          }
+                        : s
+                    )
+                  }
+                : m
+            )
+          }
+        : f
+    ));
+
+    toast({
+      title: "UE créée",
+      description: "La nouvelle UE a été créée avec succès.",
+    });
+
+    setIsAddUEOpen(false);
+    setFormData({});
+    setSelectedFiliereForActions(null);
+    setSelectedMaquetteForActions(null);
+    setSelectedSequenceForActions(null);
+    setSelectedDomaineForActions(null);
+  };
+
+  const handleAddModule = () => {
+    if (!selectedFiliereForActions || !selectedMaquetteForActions || !selectedSequenceForActions || !selectedDomaineForActions || !selectedUEForEdit) return;
+
+    const newModule: Module = {
+      id: Date.now().toString(),
+      code: formData.code || "",
+      nom: formData.nom || "",
+      description: formData.description || "",
+      credits: formData.credits || 0,
+      heures: formData.heures || 0,
+      enseignant: formData.enseignant || "",
+      statut: "actif",
+      semestre: formData.semestre || 1,
+      evaluation: formData.evaluation || "",
+      prerequis: formData.prerequis || [],
+    };
+
+    setFilieres(prev => prev.map(f =>
+      f.id === selectedFiliereForActions
+        ? {
+            ...f,
+            maquettes: f.maquettes.map(m =>
+              m.id === selectedMaquetteForActions
+                ? {
+                    ...m,
+                    sequences: m.sequences.map(s =>
+                      s.id === selectedSequenceForActions
+                        ? {
+                            ...s,
+                            domaines: s.domaines.map(d =>
+                              d.id === selectedDomaineForActions
+                                ? {
+                                    ...d,
+                                    ues: d.ues.map(ue =>
+                                      ue.id === selectedUEForEdit?.id
+                                        ? { ...ue, modules: [...ue.modules, newModule] }
+                                        : ue
+                                    )
+                                  }
+                                : d
+                            )
+                          }
+                        : s
+                    )
+                  }
+                : m
+            )
+          }
+        : f
+    ));
+
+    toast({
+      title: "Module créé",
+      description: "Le nouveau module a été créé avec succès.",
+    });
+
+    setIsAddModuleOpen(false);
+    setFormData({});
+    setSelectedFiliereForActions(null);
+    setSelectedMaquetteForActions(null);
+    setSelectedSequenceForActions(null);
+    setSelectedDomaineForActions(null);
+    setSelectedUEForEdit(null);
+  };
+
   const handleChangeStatus = (type: string, id: string, newStatus: string) => {
     if (type === "filiere") {
       setFilieres((filieres) =>
