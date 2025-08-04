@@ -59,11 +59,22 @@ export default function Layout({ children }: LayoutProps) {
               </Button>
               
               <div className="flex items-center space-x-2">
-                <div className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center">
-                  <span className="text-sm font-medium text-primary">AD</span>
+                <Avatar>
+                  <AvatarImage src={user?.avatar} />
+                  <AvatarFallback>
+                    {user?.nom.split(' ').map(n => n[0]).join('')}
+                  </AvatarFallback>
+                </Avatar>
+                <div className="hidden md:block">
+                  <div className="text-sm font-medium text-gray-700">{user?.nom}</div>
+                  <div className="text-xs text-gray-500 capitalize">{user?.role}</div>
                 </div>
-                <span className="text-sm font-medium text-gray-700">Admin</span>
               </div>
+
+              <Button variant="outline" size="sm" onClick={logout}>
+                <LogOut className="h-4 w-4" />
+                <span className="hidden md:inline ml-2">Déconnexion</span>
+              </Button>
             </div>
           </div>
         </div>
