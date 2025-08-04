@@ -295,36 +295,36 @@ export default function Index() {
           <CardContent>
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
               <Button
-                className="h-20 flex-col space-y-2"
+                className="h-20 flex-col space-y-2 hover:bg-blue-50 hover:border-blue-300 transition-colors"
                 variant="outline"
                 onClick={() => navigate('/user-management')}
               >
-                <Users className="h-6 w-6" />
-                <span>Gérer les utilisateurs</span>
+                <Users className="h-6 w-6 text-blue-600" />
+                <span className="text-sm font-medium">Gérer les utilisateurs</span>
               </Button>
               <Button
-                className="h-20 flex-col space-y-2"
+                className="h-20 flex-col space-y-2 hover:bg-green-50 hover:border-green-300 transition-colors"
                 variant="outline"
                 onClick={() => navigate('/programs')}
               >
-                <BookOpen className="h-6 w-6" />
-                <span>Programmes académiques</span>
+                <BookOpen className="h-6 w-6 text-green-600" />
+                <span className="text-sm font-medium">Programmes académiques</span>
               </Button>
               <Button
-                className="h-20 flex-col space-y-2"
+                className="h-20 flex-col space-y-2 hover:bg-orange-50 hover:border-orange-300 transition-colors"
                 variant="outline"
                 onClick={() => navigate('/files')}
               >
-                <FileText className="h-6 w-6" />
-                <span>Demandes en attente</span>
+                <FileText className="h-6 w-6 text-orange-600" />
+                <span className="text-sm font-medium">Demandes en attente</span>
               </Button>
               <Button
-                className="h-20 flex-col space-y-2"
+                className="h-20 flex-col space-y-2 hover:bg-purple-50 hover:border-purple-300 transition-colors"
                 variant="outline"
                 onClick={() => navigate('/academic-years')}
               >
-                <Calendar className="h-6 w-6" />
-                <span>Calendrier académique</span>
+                <Calendar className="h-6 w-6 text-purple-600" />
+                <span className="text-sm font-medium">Calendrier académique</span>
               </Button>
             </div>
           </CardContent>
