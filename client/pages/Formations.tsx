@@ -70,6 +70,46 @@ const Formations: React.FC = () => {
         "ONG locales",
         "Ministère de la Santé"
       ]
+    },
+    {
+      id: 4,
+      title: "Techniques Biomédicales",
+      duration: "3 ans",
+      level: "Baccalauréat Scientifique",
+      description: "Formation spécialisée en techniques de laboratoire et équipements biomédicaux modernes.",
+      image: ClassroomImage,
+      modules: [
+        "Analyses de laboratoire",
+        "Maintenance équipements médicaux",
+        "Biochimie clinique",
+        "Contrôle qualité"
+      ],
+      debouches: [
+        "Laboratoires médicaux",
+        "Hôpitaux spécialisés",
+        "Centres de recherche",
+        "Industrie pharmaceutique"
+      ]
+    },
+    {
+      id: 5,
+      title: "Gestion des Établissements de Santé",
+      duration: "2 ans",
+      level: "Baccalauréat + Expérience",
+      description: "Formation en management et administration des structures de santé.",
+      image: StudentsStudying,
+      modules: [
+        "Management hospitalier",
+        "Gestion financière",
+        "Ressources humaines",
+        "Qualité et accréditation"
+      ],
+      debouches: [
+        "Directeur d'hôpital",
+        "Administrateur de santé",
+        "Consultant en santé",
+        "Organisations internationales"
+      ]
     }
   ];
 
