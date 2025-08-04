@@ -78,7 +78,8 @@
     "viewAll": "Voir tout",
     "new": "Nouveau",
     "markAsRead": "Marquer comme lu",
-    "settings": "Paramètres"
+    "settings": "Paramètres",
+    "clientArea": "Espace Clients"
   },
   "dates": {
     "today": "Aujourd'hui",

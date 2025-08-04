@@ -58,7 +58,7 @@ export default function Layout({ children }: LayoutProps) {
           {t('common.semester2')} {t('dates.today')}
         </div>
         
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto  px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 md:h-20 justify-between items-center">
             {/* Logo and Brand */}
             <div className="flex items-center">
@@ -76,27 +76,7 @@ export default function Layout({ children }: LayoutProps) {
                   </span>
                 </div>
               </Link>
-              
-              {/* Navigation Pills for Desktop */}
-              <nav className="hidden lg:flex items-center ml-10 space-x-1">
-                {getNavigation(t).map((item) => (
-                  <Link 
-                    key={item.href} 
-                    to={item.href} 
-                    className={cn(
-                      "px-3 py-2 rounded-md text-sm font-medium transition-all duration-200",
-                      location.pathname === item.href 
-                        ? "bg-white/20 text-white shadow-sm" 
-                        : "text-white/70 hover:bg-white/10 hover:text-white"
-                    )}
-                  >
-                    <span className="flex items-center">
-                      <item.icon className="h-4 w-4 mr-1.5 opacity-80" />
-                      <span>{item.name}</span>
-                    </span>
-                  </Link>
-                ))}
-              </nav>
+            
             </div>
 
             {/* Right side actions */}
@@ -222,26 +202,7 @@ export default function Layout({ children }: LayoutProps) {
           </div>
         </div>
         
-        {/* Mobile navigation - shown only on small screens */}
-        <div className="lg:hidden border-t border-white/10 bg-primary/90 overflow-x-auto">
-          <nav className="flex px-4 py-2 space-x-1">
-            {getNavigation(t).map((item) => (
-              <Link 
-                key={item.href} 
-                to={item.href} 
-                className={cn(
-                  "flex-shrink-0 px-3 py-1.5 rounded-md text-xs font-medium transition-all duration-200 flex items-center",
-                  location.pathname === item.href 
-                    ? "bg-white/20 text-white shadow-sm" 
-                    : "text-white/70 hover:bg-white/10 hover:text-white"
-                )}
-              >
-                <item.icon className="h-3.5 w-3.5 mr-1.5 opacity-80" />
-                <span>{item.name}</span>
-              </Link>
-            ))}
-          </nav>
-        </div>
+     
       </header>
 
       <div className="flex">

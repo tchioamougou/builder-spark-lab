@@ -2,6 +2,32 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Landing Page Styles */
+.landing-page {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.landing-page h1, 
+.landing-page h2, 
+.landing-page h3 {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.aspect-w-16 {
+  position: relative;
+  padding-bottom: 56.25%;
+}
+
+.aspect-h-9 {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
 @layer base {
   /**
    * Tailwind CSS theme

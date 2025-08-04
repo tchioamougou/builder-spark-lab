@@ -15,6 +15,7 @@ import ProtectedRoute from "@/components/ProtectedRoute";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import LoginPage from "./pages/Login";
+import LandingPage from "./pages/LandingPage";
 import UsersPage from "./pages/Users";
 import ProgramsPage from "./pages/Programs";
 import AcademicYearsPage from "./pages/AcademicYears";
@@ -48,12 +49,13 @@ const queryClient = new QueryClient();
 function AppRoutes() {
   const { user } = useAuth();
 
-  // If not logged in, show login page
+  // If not logged in, show landing page and login page
   if (!user) {
     return (
       <Routes>
+        <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<LoginPage />} />
-        <Route path="*" element={<Navigate to="/login" replace />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     );
   }
