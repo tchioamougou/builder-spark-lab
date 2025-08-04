@@ -142,7 +142,7 @@ const mockUsers: User[] = [
     dateCreation: "2022-08-15",
     derniereConnexion: "2024-01-20 09:45",
     specialite: "Anatomie",
-    departement: "Sciences M��dicales",
+    departement: "Sciences Médicales",
     permissions: ["view_students", "manage_notes", "view_teaching_schedule"],
   },
   {
@@ -169,11 +169,7 @@ const mockUsers: User[] = [
     dateCreation: "2023-03-15",
     derniereConnexion: "2024-01-20 08:30",
     departement: "Scolarité",
-    permissions: [
-      "manage_students",
-      "manage_enrollments",
-      "manage_academic_programs",
-    ],
+    permissions: ["manage_students", "manage_enrollments", "manage_academic_programs"],
   },
   {
     id: "6",
@@ -202,11 +198,7 @@ const statuts = [
   { value: "actif", label: "Actif", color: "bg-green-100 text-green-800" },
   { value: "inactif", label: "Inactif", color: "bg-gray-100 text-gray-800" },
   { value: "suspendu", label: "Suspendu", color: "bg-red-100 text-red-800" },
-  {
-    value: "archive",
-    label: "Archivé",
-    color: "bg-yellow-100 text-yellow-800",
-  },
+  { value: "archive", label: "Archivé", color: "bg-yellow-100 text-yellow-800" },
 ];
 
 export default function UserManagementPage() {
@@ -219,33 +211,31 @@ export default function UserManagementPage() {
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
   const [formData, setFormData] = useState<Partial<User>>({});
-
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [userToDelete, setUserToDelete] = useState<string | null>(null);
+  
   const { toast } = useToast();
 
   const filteredUsers = users.filter((user) => {
-    const matchesSearch =
+    const matchesSearch = 
       user.nom.toLowerCase().includes(searchTerm.toLowerCase()) ||
       user.prenom.toLowerCase().includes(searchTerm.toLowerCase()) ||
       user.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      (user.numeroEtudiant &&
-        user.numeroEtudiant.toLowerCase().includes(searchTerm.toLowerCase()));
-
+      (user.numeroEtudiant && user.numeroEtudiant.toLowerCase().includes(searchTerm.toLowerCase()));
+    
     const matchesRole = roleFilter === "all" || user.role === roleFilter;
-    const matchesStatut =
-      statutFilter === "all" || user.statut === statutFilter;
-
+    const matchesStatut = statutFilter === "all" || user.statut === statutFilter;
+    
     return matchesSearch && matchesRole && matchesStatut;
   });
 
   const getStatutBadge = (statut: string) => {
-    const statutInfo = statuts.find((s) => s.value === statut);
-    return statutInfo
-      ? statutInfo
-      : { label: statut, color: "bg-gray-100 text-gray-800" };
+    const statutInfo = statuts.find(s => s.value === statut);
+    return statutInfo ? statutInfo : { label: statut, color: "bg-gray-100 text-gray-800" };
   };
 
   const getRoleLabel = (role: string) => {
-    const roleInfo = roles.find((r) => r.value === role);
+    const roleInfo = roles.find(r => r.value === role);
     return roleInfo ? roleInfo.label : role;
   };
 
@@ -272,11 +262,7 @@ export default function UserManagementPage() {
   const handleSaveUser = () => {
     if (selectedUser) {
       // Update existing user
-      setUsers(
-        users.map((u) =>
-          u.id === selectedUser.id ? { ...selectedUser, ...formData } : u,
-        ),
-      );
+      setUsers(users.map(u => u.id === selectedUser.id ? { ...selectedUser, ...formData } : u));
       toast({
         title: "Utilisateur modifié",
         description: "Les informations ont été mises à jour avec succès.",
@@ -285,7 +271,7 @@ export default function UserManagementPage() {
       // Create new user
       const newUser: User = {
         id: Date.now().toString(),
-        dateCreation: new Date().toISOString().split("T")[0],
+        dateCreation: new Date().toISOString().split('T')[0],
         permissions: [],
         ...formData,
       } as User;
@@ -302,11 +288,9 @@ export default function UserManagementPage() {
   };
 
   const handleToggleStatus = (userId: string, newStatus: string) => {
-    setUsers(
-      users.map((u) =>
-        u.id === userId ? { ...u, statut: newStatus as any } : u,
-      ),
-    );
+    setUsers(users.map(u => 
+      u.id === userId ? { ...u, statut: newStatus as any } : u
+    ));
     toast({
       title: "Statut modifié",
       description: `L'utilisateur a été ${newStatus}.`,
@@ -314,7 +298,7 @@ export default function UserManagementPage() {
   };
 
   const handleDeleteUser = (userId: string) => {
-    setUsers(users.filter((u) => u.id !== userId));
+    setUsers(users.filter(u => u.id !== userId));
     toast({
       title: "Utilisateur supprimé",
       description: "L'utilisateur a été supprimé définitivement.",
@@ -355,9 +339,7 @@ export default function UserManagementPage() {
         <div className="grid gap-4 md:grid-cols-4">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">
-                Total Utilisateurs
-              </CardTitle>
+              <CardTitle className="text-sm font-medium">Total Utilisateurs</CardTitle>
               <Users className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
@@ -366,49 +348,38 @@ export default function UserManagementPage() {
           </Card>
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">
-                Utilisateurs Actifs
-              </CardTitle>
+              <CardTitle className="text-sm font-medium">Utilisateurs Actifs</CardTitle>
               <UserCheck className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold text-green-600">
-                {users.filter((u) => u.statut === "actif").length}
+                {users.filter(u => u.statut === "actif").length}
               </div>
             </CardContent>
           </Card>
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">
-                Utilisateurs Suspendus
-              </CardTitle>
+              <CardTitle className="text-sm font-medium">Utilisateurs Suspendus</CardTitle>
               <UserX className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold text-red-600">
-                {users.filter((u) => u.statut === "suspendu").length}
+                {users.filter(u => u.statut === "suspendu").length}
               </div>
             </CardContent>
           </Card>
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">
-                Nouveaux ce mois
-              </CardTitle>
+              <CardTitle className="text-sm font-medium">Nouveaux ce mois</CardTitle>
               <Calendar className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">
-                {
-                  users.filter((u) => {
-                    const date = new Date(u.dateCreation);
-                    const now = new Date();
-                    return (
-                      date.getMonth() === now.getMonth() &&
-                      date.getFullYear() === now.getFullYear()
-                    );
-                  }).length
-                }
+                {users.filter(u => {
+                  const date = new Date(u.dateCreation);
+                  const now = new Date();
+                  return date.getMonth() === now.getMonth() && date.getFullYear() === now.getFullYear();
+                }).length}
               </div>
             </CardContent>
           </Card>
@@ -465,9 +436,7 @@ export default function UserManagementPage() {
         {/* Users Table */}
         <Card>
           <CardHeader>
-            <CardTitle>
-              Liste des Utilisateurs ({filteredUsers.length})
-            </CardTitle>
+            <CardTitle>Liste des Utilisateurs ({filteredUsers.length})</CardTitle>
           </CardHeader>
           <CardContent>
             <Table>
@@ -486,18 +455,12 @@ export default function UserManagementPage() {
                   <TableRow key={user.id}>
                     <TableCell>
                       <div>
-                        <div className="font-medium">
-                          {user.prenom} {user.nom}
-                        </div>
+                        <div className="font-medium">{user.prenom} {user.nom}</div>
                         {user.numeroEtudiant && (
-                          <div className="text-sm text-muted-foreground">
-                            {user.numeroEtudiant}
-                          </div>
+                          <div className="text-sm text-muted-foreground">{user.numeroEtudiant}</div>
                         )}
                         {user.specialite && (
-                          <div className="text-sm text-muted-foreground">
-                            {user.specialite}
-                          </div>
+                          <div className="text-sm text-muted-foreground">{user.specialite}</div>
                         )}
                       </div>
                     </TableCell>
@@ -513,9 +476,7 @@ export default function UserManagementPage() {
                     <TableCell>
                       {user.derniereConnexion ? (
                         <div className="text-sm">
-                          {new Date(user.derniereConnexion).toLocaleString(
-                            "fr-FR",
-                          )}
+                          {new Date(user.derniereConnexion).toLocaleString('fr-FR')}
                         </div>
                       ) : (
                         <span className="text-muted-foreground">Jamais</span>
@@ -530,70 +491,49 @@ export default function UserManagementPage() {
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end">
                           <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                          <DropdownMenuItem
-                            onClick={() => handleViewUser(user)}
-                          >
+                          <DropdownMenuItem onClick={() => handleViewUser(user)}>
                             <Eye className="mr-2 h-4 w-4" />
                             Voir les détails
                           </DropdownMenuItem>
-                          <DropdownMenuItem
-                            onClick={() => handleEditUser(user)}
-                          >
+                          <DropdownMenuItem onClick={() => handleEditUser(user)}>
                             <Edit className="mr-2 h-4 w-4" />
                             Modifier
                           </DropdownMenuItem>
                           <DropdownMenuSeparator />
                           {user.statut === "actif" ? (
-                            <DropdownMenuItem
-                              onClick={() =>
-                                handleToggleStatus(user.id, "suspendu")
-                              }
-                            >
+                            <DropdownMenuItem onClick={() => handleToggleStatus(user.id, "suspendu")}>
                               <Lock className="mr-2 h-4 w-4" />
                               Suspendre
                             </DropdownMenuItem>
                           ) : (
-                            <DropdownMenuItem
-                              onClick={() =>
-                                handleToggleStatus(user.id, "actif")
-                              }
-                            >
+                            <DropdownMenuItem onClick={() => handleToggleStatus(user.id, "actif")}>
                               <Unlock className="mr-2 h-4 w-4" />
                               Activer
                             </DropdownMenuItem>
                           )}
-                          <DropdownMenuItem
-                            onClick={() =>
-                              handleToggleStatus(user.id, "archive")
-                            }
-                          >
+                          <DropdownMenuItem onClick={() => handleToggleStatus(user.id, "archive")}>
                             <UserX className="mr-2 h-4 w-4" />
                             Archiver
                           </DropdownMenuItem>
                           <DropdownMenuSeparator />
                           <AlertDialog>
                             <AlertDialogTrigger asChild>
-                              <DropdownMenuItem
-                                onSelect={(e) => e.preventDefault()}
-                              >
+                              <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
                                 <Trash2 className="mr-2 h-4 w-4" />
                                 Supprimer
                               </DropdownMenuItem>
                             </AlertDialogTrigger>
                             <AlertDialogContent>
                               <AlertDialogHeader>
-                                <AlertDialogTitle>
-                                  Êtes-vous sûr ?
-                                </AlertDialogTitle>
+                                <AlertDialogTitle>Êtes-vous sûr ?</AlertDialogTitle>
                                 <AlertDialogDescription>
-                                  Cette action supprimera définitivement
-                                  l'utilisateur "{user.prenom} {user.nom}".
+                                  Cette action supprimera définitivement l'utilisateur "{user.prenom} {user.nom}". 
                                   Cette action ne peut pas être annulée.
                                 </AlertDialogDescription>
                               </AlertDialogHeader>
                               <AlertDialogFooter>
                                 <AlertDialogCancel>Annuler</AlertDialogCancel>
-                                <AlertDialogAction
+                                <AlertDialogAction 
                                   onClick={() => handleDeleteUser(user.id)}
                                   className="bg-red-600 hover:bg-red-700"
                                 >
@@ -622,119 +562,78 @@ export default function UserManagementPage() {
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-4">
                   <div>
-                    <Label className="text-sm font-medium text-muted-foreground">
-                      Nom complet
-                    </Label>
-                    <p className="text-sm">
-                      {selectedUser.prenom} {selectedUser.nom}
-                    </p>
+                    <Label className="text-sm font-medium text-muted-foreground">Nom complet</Label>
+                    <p className="text-sm">{selectedUser.prenom} {selectedUser.nom}</p>
                   </div>
                   <div>
-                    <Label className="text-sm font-medium text-muted-foreground">
-                      Email
-                    </Label>
+                    <Label className="text-sm font-medium text-muted-foreground">Email</Label>
                     <p className="text-sm">{selectedUser.email}</p>
                   </div>
                   <div>
-                    <Label className="text-sm font-medium text-muted-foreground">
-                      Téléphone
-                    </Label>
-                    <p className="text-sm">
-                      {selectedUser.telephone || "Non renseigné"}
-                    </p>
+                    <Label className="text-sm font-medium text-muted-foreground">Téléphone</Label>
+                    <p className="text-sm">{selectedUser.telephone || "Non renseigné"}</p>
                   </div>
                   <div>
-                    <Label className="text-sm font-medium text-muted-foreground">
-                      Rôle
-                    </Label>
+                    <Label className="text-sm font-medium text-muted-foreground">Rôle</Label>
                     <p className="text-sm">{getRoleLabel(selectedUser.role)}</p>
                   </div>
                   <div>
-                    <Label className="text-sm font-medium text-muted-foreground">
-                      Statut
-                    </Label>
-                    <Badge
-                      className={getStatutBadge(selectedUser.statut).color}
-                    >
+                    <Label className="text-sm font-medium text-muted-foreground">Statut</Label>
+                    <Badge className={getStatutBadge(selectedUser.statut).color}>
                       {getStatutBadge(selectedUser.statut).label}
                     </Badge>
                   </div>
                 </div>
                 <div className="space-y-4">
                   <div>
-                    <Label className="text-sm font-medium text-muted-foreground">
-                      Date de création
-                    </Label>
-                    <p className="text-sm">
-                      {new Date(selectedUser.dateCreation).toLocaleDateString(
-                        "fr-FR",
-                      )}
-                    </p>
+                    <Label className="text-sm font-medium text-muted-foreground">Date de création</Label>
+                    <p className="text-sm">{new Date(selectedUser.dateCreation).toLocaleDateString('fr-FR')}</p>
                   </div>
                   <div>
-                    <Label className="text-sm font-medium text-muted-foreground">
-                      Dernière connexion
-                    </Label>
+                    <Label className="text-sm font-medium text-muted-foreground">Dernière connexion</Label>
                     <p className="text-sm">
-                      {selectedUser.derniereConnexion
-                        ? new Date(
-                            selectedUser.derniereConnexion,
-                          ).toLocaleString("fr-FR")
-                        : "Jamais"}
+                      {selectedUser.derniereConnexion 
+                        ? new Date(selectedUser.derniereConnexion).toLocaleString('fr-FR')
+                        : "Jamais"
+                      }
                     </p>
                   </div>
                   {selectedUser.numeroEtudiant && (
                     <div>
-                      <Label className="text-sm font-medium text-muted-foreground">
-                        Numéro étudiant
-                      </Label>
+                      <Label className="text-sm font-medium text-muted-foreground">Numéro étudiant</Label>
                       <p className="text-sm">{selectedUser.numeroEtudiant}</p>
                     </div>
                   )}
                   {selectedUser.filiere && (
                     <div>
-                      <Label className="text-sm font-medium text-muted-foreground">
-                        Filière
-                      </Label>
+                      <Label className="text-sm font-medium text-muted-foreground">Filière</Label>
                       <p className="text-sm">{selectedUser.filiere}</p>
                     </div>
                   )}
                   {selectedUser.niveau && (
                     <div>
-                      <Label className="text-sm font-medium text-muted-foreground">
-                        Niveau
-                      </Label>
+                      <Label className="text-sm font-medium text-muted-foreground">Niveau</Label>
                       <p className="text-sm">{selectedUser.niveau}</p>
                     </div>
                   )}
                   {selectedUser.specialite && (
                     <div>
-                      <Label className="text-sm font-medium text-muted-foreground">
-                        Spécialité
-                      </Label>
+                      <Label className="text-sm font-medium text-muted-foreground">Spécialité</Label>
                       <p className="text-sm">{selectedUser.specialite}</p>
                     </div>
                   )}
                   {selectedUser.departement && (
                     <div>
-                      <Label className="text-sm font-medium text-muted-foreground">
-                        Département
-                      </Label>
+                      <Label className="text-sm font-medium text-muted-foreground">Département</Label>
                       <p className="text-sm">{selectedUser.departement}</p>
                     </div>
                   )}
                 </div>
                 <div className="col-span-2">
-                  <Label className="text-sm font-medium text-muted-foreground">
-                    Permissions
-                  </Label>
+                  <Label className="text-sm font-medium text-muted-foreground">Permissions</Label>
                   <div className="flex flex-wrap gap-1 mt-1">
                     {selectedUser.permissions.map((permission, index) => (
-                      <Badge
-                        key={index}
-                        variant="secondary"
-                        className="text-xs"
-                      >
+                      <Badge key={index} variant="secondary" className="text-xs">
                         {permission === "*" ? "Toutes permissions" : permission}
                       </Badge>
                     ))}
@@ -746,23 +645,18 @@ export default function UserManagementPage() {
         </Dialog>
 
         {/* Edit/Create User Dialog */}
-        <Dialog
-          open={isEditDialogOpen || isCreateDialogOpen}
-          onOpenChange={(open) => {
-            if (!open) {
-              setIsEditDialogOpen(false);
-              setIsCreateDialogOpen(false);
-              setSelectedUser(null);
-              setFormData({});
-            }
-          }}
-        >
+        <Dialog open={isEditDialogOpen || isCreateDialogOpen} onOpenChange={(open) => {
+          if (!open) {
+            setIsEditDialogOpen(false);
+            setIsCreateDialogOpen(false);
+            setSelectedUser(null);
+            setFormData({});
+          }
+        }}>
           <DialogContent className="max-w-2xl">
             <DialogHeader>
               <DialogTitle>
-                {selectedUser
-                  ? "Modifier l'utilisateur"
-                  : "Créer un utilisateur"}
+                {selectedUser ? "Modifier l'utilisateur" : "Créer un utilisateur"}
               </DialogTitle>
             </DialogHeader>
             <div className="grid grid-cols-2 gap-4">
@@ -771,9 +665,7 @@ export default function UserManagementPage() {
                 <Input
                   id="prenom"
                   value={formData.prenom || ""}
-                  onChange={(e) =>
-                    setFormData({ ...formData, prenom: e.target.value })
-                  }
+                  onChange={(e) => setFormData({...formData, prenom: e.target.value})}
                 />
               </div>
               <div className="space-y-2">
@@ -781,9 +673,7 @@ export default function UserManagementPage() {
                 <Input
                   id="nom"
                   value={formData.nom || ""}
-                  onChange={(e) =>
-                    setFormData({ ...formData, nom: e.target.value })
-                  }
+                  onChange={(e) => setFormData({...formData, nom: e.target.value})}
                 />
               </div>
               <div className="space-y-2">
@@ -792,9 +682,7 @@ export default function UserManagementPage() {
                   id="email"
                   type="email"
                   value={formData.email || ""}
-                  onChange={(e) =>
-                    setFormData({ ...formData, email: e.target.value })
-                  }
+                  onChange={(e) => setFormData({...formData, email: e.target.value})}
                 />
               </div>
               <div className="space-y-2">
@@ -802,19 +690,12 @@ export default function UserManagementPage() {
                 <Input
                   id="telephone"
                   value={formData.telephone || ""}
-                  onChange={(e) =>
-                    setFormData({ ...formData, telephone: e.target.value })
-                  }
+                  onChange={(e) => setFormData({...formData, telephone: e.target.value})}
                 />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="role">Rôle</Label>
-                <Select
-                  value={formData.role}
-                  onValueChange={(value) =>
-                    setFormData({ ...formData, role: value as any })
-                  }
-                >
+                <Select value={formData.role} onValueChange={(value) => setFormData({...formData, role: value as any})}>
                   <SelectTrigger>
                     <SelectValue placeholder="Sélectionner un rôle" />
                   </SelectTrigger>
@@ -829,12 +710,7 @@ export default function UserManagementPage() {
               </div>
               <div className="space-y-2">
                 <Label htmlFor="statut">Statut</Label>
-                <Select
-                  value={formData.statut}
-                  onValueChange={(value) =>
-                    setFormData({ ...formData, statut: value as any })
-                  }
-                >
+                <Select value={formData.statut} onValueChange={(value) => setFormData({...formData, statut: value as any})}>
                   <SelectTrigger>
                     <SelectValue placeholder="Sélectionner un statut" />
                   </SelectTrigger>
@@ -852,22 +728,17 @@ export default function UserManagementPage() {
                 <Textarea
                   id="adresse"
                   value={formData.adresse || ""}
-                  onChange={(e) =>
-                    setFormData({ ...formData, adresse: e.target.value })
-                  }
+                  onChange={(e) => setFormData({...formData, adresse: e.target.value})}
                 />
               </div>
             </div>
             <DialogFooter>
-              <Button
-                variant="outline"
-                onClick={() => {
-                  setIsEditDialogOpen(false);
-                  setIsCreateDialogOpen(false);
-                  setSelectedUser(null);
-                  setFormData({});
-                }}
-              >
+              <Button variant="outline" onClick={() => {
+                setIsEditDialogOpen(false);
+                setIsCreateDialogOpen(false);
+                setSelectedUser(null);
+                setFormData({});
+              }}>
                 Annuler
               </Button>
               <Button onClick={handleSaveUser}>
