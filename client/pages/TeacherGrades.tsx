@@ -137,6 +137,7 @@ const mockGrades: Grade[] = [
 ];
 
 export default function TeacherGrades() {
+  const navigate = useNavigate();
   const [grades, setGrades] = useState<Grade[]>(mockGrades);
   const [selectedCourse, setSelectedCourse] = useState<string>("all");
   const [searchTerm, setSearchTerm] = useState("");
@@ -307,7 +308,7 @@ export default function TeacherGrades() {
                     </Select>
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="subject">Matière</Label>
+                    <Label htmlFor="subject">Mati��re</Label>
                     <Select
                       value={newGrade.subject}
                       onValueChange={(value) => setNewGrade({...newGrade, subject: value})}
