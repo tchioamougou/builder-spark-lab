@@ -1,9 +1,9 @@
-import React from 'react';
-import { useTranslation } from 'react-i18next';
-import LandingHeader from '../components/LandingHeader';
-import LandingFooter from '../components/LandingFooter';
-import HeroImage from '@/assets/images/landingpageimage/group_five_african_college_students_spending_time_together_campus.jpg';
-import StudentsStudying from '@/assets/images/landingpageimage/students-studying-together-medium-shot.jpg';
+import React from "react";
+import { useTranslation } from "react-i18next";
+import LandingHeader from "../components/LandingHeader";
+import LandingFooter from "../components/LandingFooter";
+import HeroImage from "@/assets/images/landingpageimage/group_five_african_college_students_spending_time_together_campus.jpg";
+import StudentsStudying from "@/assets/images/landingpageimage/students-studying-together-medium-shot.jpg";
 
 const Admissions: React.FC = () => {
   const { t } = useTranslation();
@@ -11,12 +11,16 @@ const Admissions: React.FC = () => {
   return (
     <div className="landing-page">
       <LandingHeader />
-      
+
       <main>
         {/* Section Hero */}
-        <section 
+        <section
           className="relative bg-[#3b2c6a] text-white pt-32 pb-20 md:py-48"
-          style={{ backgroundImage: `url(${HeroImage})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
+          style={{
+            backgroundImage: `url(${HeroImage})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
         >
           <div className="absolute inset-0 bg-black/60"></div>
           <div className="container mx-auto px-4 relative z-10 text-center">
@@ -44,16 +48,24 @@ const Admissions: React.FC = () => {
                 <div className="w-16 h-16 bg-[#3b2c6a] rounded-full flex items-center justify-center mx-auto mb-4">
                   <span className="text-2xl font-bold text-white">1</span>
                 </div>
-                <h4 className="font-bold text-[#3b2c6a] mb-2">Dépôt du dossier</h4>
-                <p className="text-sm text-gray-600">Soumettez votre candidature avec tous les documents requis</p>
+                <h4 className="font-bold text-[#3b2c6a] mb-2">
+                  Dépôt du dossier
+                </h4>
+                <p className="text-sm text-gray-600">
+                  Soumettez votre candidature avec tous les documents requis
+                </p>
               </div>
 
               <div className="text-center">
                 <div className="w-16 h-16 bg-[#ff9900] rounded-full flex items-center justify-center mx-auto mb-4">
                   <span className="text-2xl font-bold text-white">2</span>
                 </div>
-                <h4 className="font-bold text-[#3b2c6a] mb-2">Étude du dossier</h4>
-                <p className="text-sm text-gray-600">Examen de votre profil par notre commission d'admission</p>
+                <h4 className="font-bold text-[#3b2c6a] mb-2">
+                  Étude du dossier
+                </h4>
+                <p className="text-sm text-gray-600">
+                  Examen de votre profil par notre commission d'admission
+                </p>
               </div>
 
               <div className="text-center">
@@ -61,7 +73,9 @@ const Admissions: React.FC = () => {
                   <span className="text-2xl font-bold text-white">3</span>
                 </div>
                 <h4 className="font-bold text-[#3b2c6a] mb-2">Entretien</h4>
-                <p className="text-sm text-gray-600">Entretien de motivation avec nos responsables pédagogiques</p>
+                <p className="text-sm text-gray-600">
+                  Entretien de motivation avec nos responsables pédagogiques
+                </p>
               </div>
 
               <div className="text-center">
@@ -69,7 +83,9 @@ const Admissions: React.FC = () => {
                   <span className="text-2xl font-bold text-white">4</span>
                 </div>
                 <h4 className="font-bold text-[#3b2c6a] mb-2">Inscription</h4>
-                <p className="text-sm text-gray-600">Confirmation de votre place et finalisation de l'inscription</p>
+                <p className="text-sm text-gray-600">
+                  Confirmation de votre place et finalisation de l'inscription
+                </p>
               </div>
             </div>
           </div>
@@ -88,10 +104,14 @@ const Admissions: React.FC = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {/* Aide-Soignant */}
               <div className="bg-white rounded-3xl shadow-lg p-8">
-                <h3 className="heading-font text-xl font-bold text-[#3b2c6a] mb-4">Aide-Soignant(e)</h3>
+                <h3 className="heading-font text-xl font-bold text-[#3b2c6a] mb-4">
+                  Aide-Soignant(e)
+                </h3>
                 <div className="space-y-4">
                   <div>
-                    <h4 className="font-semibold text-[#ff9900] mb-2">Diplôme requis :</h4>
+                    <h4 className="font-semibold text-[#ff9900] mb-2">
+                      Diplôme requis :
+                    </h4>
                     <p className="text-sm text-gray-600">BEPC ou équivalent</p>
                   </div>
                   <div>
@@ -99,7 +119,9 @@ const Admissions: React.FC = () => {
                     <p className="text-sm text-gray-600">17 ans minimum</p>
                   </div>
                   <div>
-                    <h4 className="font-semibold text-[ff9900] mb-2">Documents :</h4>
+                    <h4 className="font-semibold text-[ff9900] mb-2">
+                      Documents :
+                    </h4>
                     <ul className="text-sm text-gray-600 space-y-1">
                       <li>• Certificat de naissance</li>
                       <li>• Diplôme du BEPC</li>
@@ -112,18 +134,26 @@ const Admissions: React.FC = () => {
 
               {/* Infirmier */}
               <div className="bg-white rounded-3xl shadow-lg p-8">
-                <h3 className="heading-font text-xl font-bold text-[#3b2c6a] mb-4">Infirmier(ère) D.E.</h3>
+                <h3 className="heading-font text-xl font-bold text-[#3b2c6a] mb-4">
+                  Infirmier(ère) D.E.
+                </h3>
                 <div className="space-y-4">
                   <div>
-                    <h4 className="font-semibold text-[#ff9900] mb-2">Diplôme requis :</h4>
-                    <p className="text-sm text-gray-600">Baccalauréat toutes séries</p>
+                    <h4 className="font-semibold text-[#ff9900] mb-2">
+                      Diplôme requis :
+                    </h4>
+                    <p className="text-sm text-gray-600">
+                      Baccalauréat toutes séries
+                    </p>
                   </div>
                   <div>
                     <h4 className="font-semibold text-[#ff9900] mb-2">Âge :</h4>
                     <p className="text-sm text-gray-600">18 ans minimum</p>
                   </div>
                   <div>
-                    <h4 className="font-semibold text-[#ff9900] mb-2">Documents :</h4>
+                    <h4 className="font-semibold text-[#ff9900] mb-2">
+                      Documents :
+                    </h4>
                     <ul className="text-sm text-gray-600 space-y-1">
                       <li>• Certificat de naissance</li>
                       <li>• Diplôme du Baccalauréat</li>
@@ -137,10 +167,14 @@ const Admissions: React.FC = () => {
 
               {/* Agent de Santé */}
               <div className="bg-white rounded-3xl shadow-lg p-8">
-                <h3 className="heading-font text-xl font-bold text-[#3b2c6a] mb-4">Agent de Santé</h3>
+                <h3 className="heading-font text-xl font-bold text-[#3b2c6a] mb-4">
+                  Agent de Santé
+                </h3>
                 <div className="space-y-4">
                   <div>
-                    <h4 className="font-semibold text-[#ff9900] mb-2">Diplôme requis :</h4>
+                    <h4 className="font-semibold text-[#ff9900] mb-2">
+                      Diplôme requis :
+                    </h4>
                     <p className="text-sm text-gray-600">BEPC minimum</p>
                   </div>
                   <div>
@@ -148,7 +182,9 @@ const Admissions: React.FC = () => {
                     <p className="text-sm text-gray-600">18 ans minimum</p>
                   </div>
                   <div>
-                    <h4 className="font-semibold text-[#ff9900] mb-2">Documents :</h4>
+                    <h4 className="font-semibold text-[#ff9900] mb-2">
+                      Documents :
+                    </h4>
                     <ul className="text-sm text-gray-600 space-y-1">
                       <li>• Certificat de naissance</li>
                       <li>• Diplôme ou attestation</li>
@@ -175,24 +211,44 @@ const Admissions: React.FC = () => {
                 <div className="bg-gray-50 rounded-3xl p-8">
                   <div className="space-y-6">
                     <div className="flex justify-between items-center border-b border-gray-200 pb-4">
-                      <span className="font-semibold text-[#3b2c6a]">Ouverture des candidatures</span>
-                      <span className="text-[#ff9900] font-bold">15 Avril 2024</span>
+                      <span className="font-semibold text-[#3b2c6a]">
+                        Ouverture des candidatures
+                      </span>
+                      <span className="text-[#ff9900] font-bold">
+                        15 Avril 2024
+                      </span>
                     </div>
                     <div className="flex justify-between items-center border-b border-gray-200 pb-4">
-                      <span className="font-semibold text-[#3b2c6a]">Date limite de dépôt</span>
-                      <span className="text-[#ff9900] font-bold">30 Juin 2024</span>
+                      <span className="font-semibold text-[#3b2c6a]">
+                        Date limite de dépôt
+                      </span>
+                      <span className="text-[#ff9900] font-bold">
+                        30 Juin 2024
+                      </span>
                     </div>
                     <div className="flex justify-between items-center border-b border-gray-200 pb-4">
-                      <span className="font-semibold text-[#3b2c6a]">Entretiens</span>
-                      <span className="text-[#ff9900] font-bold">15-30 Juillet</span>
+                      <span className="font-semibold text-[#3b2c6a]">
+                        Entretiens
+                      </span>
+                      <span className="text-[#ff9900] font-bold">
+                        15-30 Juillet
+                      </span>
                     </div>
                     <div className="flex justify-between items-center border-b border-gray-200 pb-4">
-                      <span className="font-semibold text-[#3b2c6a]">Résultats</span>
-                      <span className="text-[#ff9900] font-bold">15 Août 2024</span>
+                      <span className="font-semibold text-[#3b2c6a]">
+                        Résultats
+                      </span>
+                      <span className="text-[#ff9900] font-bold">
+                        15 Août 2024
+                      </span>
                     </div>
                     <div className="flex justify-between items-center">
-                      <span className="font-semibold text-[#3b2c6a]">Rentrée académique</span>
-                      <span className="text-[#ff9900] font-bold">15 Septembre</span>
+                      <span className="font-semibold text-[#3b2c6a]">
+                        Rentrée académique
+                      </span>
+                      <span className="text-[#ff9900] font-bold">
+                        15 Septembre
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -206,44 +262,64 @@ const Admissions: React.FC = () => {
                 <div className="bg-gray-50 rounded-3xl p-8">
                   <div className="space-y-6">
                     <div>
-                      <h4 className="font-bold text-[#3b2c6a] mb-3">Aide-Soignant(e)</h4>
+                      <h4 className="font-bold text-[#3b2c6a] mb-3">
+                        Aide-Soignant(e)
+                      </h4>
                       <div className="flex justify-between">
                         <span>Frais d'inscription :</span>
-                        <span className="font-bold text-[#ff9900]">25 000 FCFA</span>
+                        <span className="font-bold text-[#ff9900]">
+                          25 000 FCFA
+                        </span>
                       </div>
                       <div className="flex justify-between">
                         <span>Scolarité annuelle :</span>
-                        <span className="font-bold text-[#ff9900]">150 000 FCFA</span>
+                        <span className="font-bold text-[#ff9900]">
+                          150 000 FCFA
+                        </span>
                       </div>
                     </div>
 
                     <div className="border-t border-gray-200 pt-4">
-                      <h4 className="font-bold text-[#3b2c6a] mb-3">Infirmier(ère) D.E.</h4>
+                      <h4 className="font-bold text-[#3b2c6a] mb-3">
+                        Infirmier(ère) D.E.
+                      </h4>
                       <div className="flex justify-between">
                         <span>Frais d'inscription :</span>
-                        <span className="font-bold text-[#ff9900]">35 000 FCFA</span>
+                        <span className="font-bold text-[#ff9900]">
+                          35 000 FCFA
+                        </span>
                       </div>
                       <div className="flex justify-between">
                         <span>Scolarité annuelle :</span>
-                        <span className="font-bold text-[#ff9900]">200 000 FCFA</span>
+                        <span className="font-bold text-[#ff9900]">
+                          200 000 FCFA
+                        </span>
                       </div>
                     </div>
 
                     <div className="border-t border-gray-200 pt-4">
-                      <h4 className="font-bold text-[#3b2c6a] mb-3">Agent de Santé</h4>
+                      <h4 className="font-bold text-[#3b2c6a] mb-3">
+                        Agent de Santé
+                      </h4>
                       <div className="flex justify-between">
                         <span>Frais d'inscription :</span>
-                        <span className="font-bold text-[#ff9900]">20 000 FCFA</span>
+                        <span className="font-bold text-[#ff9900]">
+                          20 000 FCFA
+                        </span>
                       </div>
                       <div className="flex justify-between">
                         <span>Scolarité annuelle :</span>
-                        <span className="font-bold text-[#ff9900]">120 000 FCFA</span>
+                        <span className="font-bold text-[#ff9900]">
+                          120 000 FCFA
+                        </span>
                       </div>
                     </div>
 
                     <div className="bg-[#3b2c6a] text-white p-4 rounded-2xl mt-6">
                       <p className="text-sm">
-                        <strong>Note :</strong> Possibilité de paiement échelonné. Bourses disponibles pour les étudiants méritants.
+                        <strong>Note :</strong> Possibilité de paiement
+                        échelonné. Bourses disponibles pour les étudiants
+                        méritants.
                       </p>
                     </div>
                   </div>
@@ -260,17 +336,18 @@ const Admissions: React.FC = () => {
               Prêt à <span className="text-[#ff9900]">candidater</span> ?
             </h2>
             <p className="text-xl text-gray-200 max-w-2xl mx-auto mb-8">
-              Téléchargez le dossier de candidature et commencez votre parcours avec nous
+              Téléchargez le dossier de candidature et commencez votre parcours
+              avec nous
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a 
-                href="#" 
+              <a
+                href="#"
                 className="bg-[#ff9900] hover:bg-[#e68a00] text-white font-bold py-3 px-8 rounded-full transition-colors"
               >
                 Télécharger le dossier
               </a>
-              <a 
-                href="/contacts" 
+              <a
+                href="/contacts"
                 className="bg-transparent border-2 border-white hover:bg-white hover:text-[#3b2c6a] text-white font-bold py-3 px-8 rounded-full transition-colors"
               >
                 Nous contacter
