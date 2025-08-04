@@ -20,6 +20,14 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import {
   Dialog,
   DialogContent,
   DialogDescription,
@@ -38,186 +46,320 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
 import {
+  GraduationCap,
   BookOpen,
-  Plus,
+  Calendar,
+  FileText,
+  Download,
+  Upload,
   Search,
+  Filter,
   MoreHorizontal,
   Edit,
   Trash2,
-  GraduationCap,
-  Calendar,
-  Clock,
+  Plus,
+  Eye,
+  ChevronRight,
+  ChevronDown,
+  Building,
   Users,
-  BookMarked,
-  Layers,
-  FileText,
+  Clock,
+  Target,
+  Award,
+  CheckCircle,
+  AlertTriangle,
 } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
 
-const filieres = [
+interface Module {
+  id: string;
+  code: string;
+  nom: string;
+  description: string;
+  credits: number;
+  heures: number;
+  enseignant: string;
+  prerequis?: string[];
+  statut: "actif" | "suspendu" | "archive";
+  semestre: number;
+  evaluation: string;
+}
+
+interface UE {
+  id: string;
+  code: string;
+  nom: string;
+  description: string;
+  credits: number;
+  modules: Module[];
+  statut: "actif" | "suspendu" | "archive";
+}
+
+interface Domaine {
+  id: string;
+  nom: string;
+  description: string;
+  ues: UE[];
+  statut: "actif" | "suspendu" | "archive";
+}
+
+interface Sequence {
+  id: string;
+  nom: string;
+  description: string;
+  duree: number; // en mois
+  domaines: Domaine[];
+  statut: "actif" | "suspendu" | "archive";
+}
+
+interface Maquette {
+  id: string;
+  nom: string;
+  version: string;
+  description: string;
+  dateCreation: string;
+  sequences: Sequence[];
+  statut: "actif" | "brouillon" | "archive";
+  totalCredits: number;
+}
+
+interface Filiere {
+  id: string;
+  nom: string;
+  description: string;
+  duree: number; // en années
+  maquettes: Maquette[];
+  statut: "actif" | "suspendu" | "archive";
+  capaciteAccueil: number;
+  fraisInscription: number;
+}
+
+const mockFilieres: Filiere[] = [
   {
-    id: 1,
+    id: "1",
     nom: "Pharmacie",
-    codeDiplome: "PHARM2024",
-    diplome: "Diplôme d'État de Docteur en Pharmacie",
-    duree: "6 ans",
-    maquettes: 6,
-    etudiants: 450,
-    statut: "Actif",
+    description: "Formation en sciences pharmaceutiques",
+    duree: 5,
+    statut: "actif",
+    capaciteAccueil: 120,
+    fraisInscription: 3500,
+    maquettes: [
+      {
+        id: "1",
+        nom: "Maquette Pharmacie 2023",
+        version: "2023.1",
+        description: "Maquette officielle pour l'année académique 2023-2024",
+        dateCreation: "2023-06-01",
+        statut: "actif",
+        totalCredits: 300,
+        sequences: [
+          {
+            id: "1",
+            nom: "Séquence 1 - Bases scientifiques",
+            description: "Formation aux sciences fondamentales",
+            duree: 12,
+            statut: "actif",
+            domaines: [
+              {
+                id: "1",
+                nom: "Sciences Chimiques",
+                description: "Chimie générale et organique",
+                statut: "actif",
+                ues: [
+                  {
+                    id: "1",
+                    code: "UE-CHIM-001",
+                    nom: "Chimie Générale",
+                    description: "Fondamentaux de la chimie",
+                    credits: 6,
+                    statut: "actif",
+                    modules: [
+                      {
+                        id: "1",
+                        code: "MOD-CHIM-001",
+                        nom: "Chimie Générale I",
+                        description: "Atomes, liaisons chimiques, équilibres",
+                        credits: 3,
+                        heures: 45,
+                        enseignant: "Dr. Durand",
+                        statut: "actif",
+                        semestre: 1,
+                        evaluation: "Examen écrit + TP",
+                      },
+                      {
+                        id: "2",
+                        code: "MOD-CHIM-002",
+                        nom: "Chimie Générale II",
+                        description: "Thermodynamique, cinétique chimique",
+                        credits: 3,
+                        heures: 45,
+                        enseignant: "Dr. Durand",
+                        statut: "actif",
+                        semestre: 1,
+                        evaluation: "Examen écrit + TP",
+                        prerequis: ["MOD-CHIM-001"],
+                      },
+                    ],
+                  },
+                  {
+                    id: "2",
+                    code: "UE-CHIM-002",
+                    nom: "Chimie Organique",
+                    description: "Chimie du carbone et mécanismes réactionnels",
+                    credits: 8,
+                    statut: "actif",
+                    modules: [
+                      {
+                        id: "3",
+                        code: "MOD-CHIM-003",
+                        nom: "Chimie Organique Fondamentale",
+                        description: "Structures, nomenclature, réactivité",
+                        credits: 4,
+                        heures: 60,
+                        enseignant: "Pr. Martin",
+                        statut: "actif",
+                        semestre: 2,
+                        evaluation: "Examen écrit + TP",
+                      },
+                      {
+                        id: "4",
+                        code: "MOD-CHIM-004",
+                        nom: "Mécanismes Réactionnels",
+                        description: "Étude des mécanismes de réaction",
+                        credits: 4,
+                        heures: 60,
+                        enseignant: "Pr. Martin",
+                        statut: "actif",
+                        semestre: 2,
+                        evaluation: "Examen oral + Projet",
+                        prerequis: ["MOD-CHIM-003"],
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
-    id: 2,
+    id: "2",
     nom: "Médecine",
-    codeDiplome: "MED2024",
-    diplome: "Diplôme d'État de Docteur en Médecine",
-    duree: "6 ans",
-    maquettes: 6,
-    etudiants: 720,
-    statut: "Actif",
-  },
-  {
-    id: 3,
-    nom: "Kinésithérapie",
-    codeDiplome: "KINE2024",
-    diplome: "Diplôme d'État de Masseur-Kinésithérapeute",
-    duree: "4 ans",
-    maquettes: 4,
-    etudiants: 180,
-    statut: "Actif",
+    description: "Formation médicale générale",
+    duree: 6,
+    statut: "actif",
+    capaciteAccueil: 80,
+    fraisInscription: 4000,
+    maquettes: [],
   },
 ];
 
-const maquettes = [
-  {
-    id: 1,
-    filiere: "Pharmacie",
-    niveau: "Année 1",
-    nom: "Pharmacie - Première Année",
-    sequences: 2,
-    modules: 8,
-    ues: 24,
-    coordonnateur: "Dr. Martin",
-    statut: "Validé",
-  },
-  {
-    id: 2,
-    filiere: "Pharmacie",
-    niveau: "Année 2",
-    nom: "Pharmacie - Deuxième Année",
-    sequences: 2,
-    modules: 10,
-    ues: 30,
-    coordonnateur: "Dr. Dubois",
-    statut: "En révision",
-  },
-  {
-    id: 3,
-    filiere: "Médecine",
-    niveau: "Année 1",
-    nom: "Médecine - PACES",
-    sequences: 2,
-    modules: 6,
-    ues: 18,
-    coordonnateur: "Dr. Laurent",
-    statut: "Validé",
-  },
-];
-
-const domaines = [
-  {
-    id: 1,
-    nom: "Sciences de base",
-    description: "Chimie, physique, mathématiques",
-    modules: 12,
-    couleur: "bg-blue-100 text-blue-800",
-  },
-  {
-    id: 2,
-    nom: "Sciences humaines",
-    description: "Psychologie, sociologie, communication",
-    modules: 6,
-    couleur: "bg-green-100 text-green-800",
-  },
-  {
-    id: 3,
-    nom: "Sciences biomédicales",
-    description: "Anatomie, physiologie, pathologie",
-    modules: 15,
-    couleur: "bg-purple-100 text-purple-800",
-  },
-  {
-    id: 4,
-    nom: "Sciences pharmaceutiques",
-    description: "Pharmacologie, galénique, toxicologie",
-    modules: 18,
-    couleur: "bg-orange-100 text-orange-800",
-  },
-];
-
-const programStructure = {
-  Pharmacie: {
-    "Année 1": {
-      "Séquence 1": {
-        "Sciences de base": [
-          {
-            nom: "Chimie générale",
-            ues: ["Chimie organique", "Chimie minérale", "TP Chimie"],
-          },
-          {
-            nom: "Mathématiques",
-            ues: ["Mathématiques appliquées", "Statistiques"],
-          },
-        ],
-        "Sciences biomédicales": [
-          { nom: "Anatomie", ues: ["Anatomie générale", "TP Anatomie"] },
-        ],
-      },
-      "Séquence 2": {
-        "Sciences de base": [
-          { nom: "Physique", ues: ["Physique générale", "TP Physique"] },
-        ],
-        "Sciences biomédicales": [
-          {
-            nom: "Physiologie",
-            ues: ["Physiologie générale", "TP Physiologie"],
-          },
-        ],
-      },
-    },
-  },
+const statutLabels = {
+  "actif": { label: "Actif", color: "bg-green-100 text-green-800" },
+  "suspendu": { label: "Suspendu", color: "bg-red-100 text-red-800" },
+  "archive": { label: "Archivé", color: "bg-gray-100 text-gray-800" },
+  "brouillon": { label: "Brouillon", color: "bg-yellow-100 text-yellow-800" },
 };
 
 export default function ProgramsPage() {
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedTab, setSelectedTab] = useState("filieres");
-  const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
+  const [filterStatut, setFilterStatut] = useState("all");
+  const [filieres, setFilieres] = useState<Filiere[]>(mockFilieres);
+  const [selectedFiliere, setSelectedFiliere] = useState<Filiere | null>(null);
+  const [selectedMaquette, setSelectedMaquette] = useState<Maquette | null>(null);
+  const [selectedModule, setSelectedModule] = useState<Module | null>(null);
+  const [isFiliereDialogOpen, setIsFiliereDialogOpen] = useState(false);
+  const [isMaquetteDialogOpen, setIsMaquetteDialogOpen] = useState(false);
+  const [isModuleDialogOpen, setIsModuleDialogOpen] = useState(false);
+  const [isCreateFiliereOpen, setIsCreateFiliereOpen] = useState(false);
+  const [isViewMaquetteOpen, setIsViewMaquetteOpen] = useState(false);
+  const [formData, setFormData] = useState<any>({});
+  const [expandedItems, setExpandedItems] = useState<Set<string>>(new Set());
+  
+  const { toast } = useToast();
 
-  const getStatutColor = (statut: string) => {
-    switch (statut) {
-      case "Actif":
-      case "Validé":
-        return "bg-green-100 text-green-800";
-      case "En révision":
-        return "bg-yellow-100 text-yellow-800";
-      case "Inactif":
-        return "bg-gray-100 text-gray-800";
-      default:
-        return "bg-gray-100 text-gray-800";
+  const toggleExpanded = (id: string) => {
+    const newExpanded = new Set(expandedItems);
+    if (newExpanded.has(id)) {
+      newExpanded.delete(id);
+    } else {
+      newExpanded.add(id);
     }
+    setExpandedItems(newExpanded);
   };
+
+  const handleCreateFiliere = () => {
+    const newFiliere: Filiere = {
+      id: Date.now().toString(),
+      maquettes: [],
+      ...formData,
+    } as Filiere;
+    
+    setFilieres([...filieres, newFiliere]);
+    toast({
+      title: "Filière créée",
+      description: "La nouvelle filière a été créée avec succès.",
+    });
+    setIsCreateFiliereOpen(false);
+    setFormData({});
+  };
+
+  const handleDeleteFiliere = (filiereId: string) => {
+    setFilieres(filieres => filieres.filter(f => f.id !== filiereId));
+    toast({
+      title: "Filière supprimée",
+      description: "La filière a été supprimée définitivement.",
+      variant: "destructive",
+    });
+  };
+
+  const handleChangeStatus = (type: string, id: string, newStatus: string) => {
+    if (type === "filiere") {
+      setFilieres(filieres => 
+        filieres.map(f => 
+          f.id === id ? { ...f, statut: newStatus as any } : f
+        )
+      );
+    }
+    toast({
+      title: "Statut modifié",
+      description: `Le statut a été changé en "${statutLabels[newStatus as keyof typeof statutLabels].label}".`,
+    });
+  };
+
+  const calculateTotalCredits = (maquette: Maquette): number => {
+    return maquette.sequences.reduce((total, sequence) => 
+      total + sequence.domaines.reduce((seqTotal, domaine) =>
+        seqTotal + domaine.ues.reduce((domTotal, ue) => domTotal + ue.credits, 0), 0), 0);
+  };
+
+  const filteredFilieres = filieres.filter((filiere) => {
+    const matchesSearch = 
+      filiere.nom.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      filiere.description.toLowerCase().includes(searchTerm.toLowerCase());
+    
+    const matchesStatut = filterStatut === "all" || filiere.statut === filterStatut;
+    
+    return matchesSearch && matchesStatut;
+  });
 
   return (
     <Layout>
@@ -226,157 +368,202 @@ export default function ProgramsPage() {
         <div className="flex justify-between items-center">
           <div>
             <h2 className="text-3xl font-bold tracking-tight">
-              Programmes académiques
+              Gestion des Programmes Académiques
             </h2>
             <p className="text-muted-foreground">
-              Gérez la hiérarchie pédagogique : Filières → Maquettes → Séquences
-              → Domaines → Modules → UE
+              Configuration des filières, maquettes et modules d'enseignement
             </p>
           </div>
 
           <div className="flex space-x-2">
-            <Dialog
-              open={isCreateDialogOpen}
-              onOpenChange={setIsCreateDialogOpen}
-            >
-              <DialogTrigger asChild>
-                <Button>
-                  <Plus className="h-4 w-4 mr-2" />
-                  Nouveau programme
-                </Button>
-              </DialogTrigger>
-              <DialogContent className="sm:max-w-[500px]">
-                <DialogHeader>
-                  <DialogTitle>Créer un nouveau programme</DialogTitle>
-                  <DialogDescription>
-                    Créez une nouvelle filière avec ses informations de base.
-                  </DialogDescription>
-                </DialogHeader>
-                <div className="grid gap-4 py-4">
-                  <div className="grid grid-cols-4 items-center gap-4">
-                    <Label htmlFor="nom" className="text-right">
-                      Nom de la filière
-                    </Label>
+            <Button variant="outline">
+              <Download className="h-4 w-4 mr-2" />
+              Exporter structure
+            </Button>
+            <Button variant="outline">
+              <Upload className="h-4 w-4 mr-2" />
+              Importer maquette
+            </Button>
+            <Button onClick={() => setIsCreateFiliereOpen(true)}>
+              <Plus className="h-4 w-4 mr-2" />
+              Nouvelle filière
+            </Button>
+          </div>
+        </div>
+
+        {/* Stats Cards */}
+        <div className="grid gap-4 md:grid-cols-4">
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">
+                Filières actives
+              </CardTitle>
+              <Building className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">
+                {filieres.filter(f => f.statut === "actif").length}
+              </div>
+              <p className="text-xs text-muted-foreground">
+                Programmes proposés
+              </p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">
+                Maquettes validées
+              </CardTitle>
+              <FileText className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">
+                {filieres.reduce((total, f) => 
+                  total + f.maquettes.filter(m => m.statut === "actif").length, 0)}
+              </div>
+              <p className="text-xs text-muted-foreground">
+                Structures pédagogiques
+              </p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">
+                Modules enseignés
+              </CardTitle>
+              <BookOpen className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">
+                {filieres.reduce((total, f) => 
+                  total + f.maquettes.reduce((maqTotal, m) =>
+                    maqTotal + m.sequences.reduce((seqTotal, s) =>
+                      seqTotal + s.domaines.reduce((domTotal, d) =>
+                        domTotal + d.ues.reduce((ueTotal, u) => ueTotal + u.modules.length, 0), 0), 0), 0), 0)}
+              </div>
+              <p className="text-xs text-muted-foreground">
+                Unités d'enseignement
+              </p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">
+                Capacité d'accueil
+              </CardTitle>
+              <Users className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">
+                {filieres.reduce((total, f) => total + f.capaciteAccueil, 0)}
+              </div>
+              <p className="text-xs text-muted-foreground">
+                Étudiants maximum
+              </p>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Main Content */}
+        <Tabs defaultValue="filieres" className="space-y-4">
+          <TabsList className="grid w-full grid-cols-4">
+            <TabsTrigger value="filieres">
+              Filières ({filieres.length})
+            </TabsTrigger>
+            <TabsTrigger value="maquettes">
+              Maquettes pédagogiques
+            </TabsTrigger>
+            <TabsTrigger value="modules">
+              Modules d'enseignement
+            </TabsTrigger>
+            <TabsTrigger value="calendrier">
+              Calendrier académique
+            </TabsTrigger>
+          </TabsList>
+
+          {/* Filieres Tab */}
+          <TabsContent value="filieres" className="space-y-4">
+            <Card>
+              <CardHeader>
+                <CardTitle>Filières d'études</CardTitle>
+                <CardDescription>
+                  Gestion des programmes de formation
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="flex justify-between items-center mb-4">
+                  <div className="relative w-64">
+                    <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
                     <Input
-                      id="nom"
-                      className="col-span-3"
-                      placeholder="ex: Pharmacie"
+                      placeholder="Rechercher une filière..."
+                      value={searchTerm}
+                      onChange={(e) => setSearchTerm(e.target.value)}
+                      className="pl-8"
                     />
                   </div>
-                  <div className="grid grid-cols-4 items-center gap-4">
-                    <Label htmlFor="diplome" className="text-right">
-                      Diplôme
-                    </Label>
-                    <Input
-                      id="diplome"
-                      className="col-span-3"
-                      placeholder="ex: Diplôme d'État..."
-                    />
-                  </div>
-                  <div className="grid grid-cols-4 items-center gap-4">
-                    <Label htmlFor="code" className="text-right">
-                      Code diplôme
-                    </Label>
-                    <Input
-                      id="code"
-                      className="col-span-3"
-                      placeholder="ex: PHARM2024"
-                    />
-                  </div>
-                  <div className="grid grid-cols-4 items-center gap-4">
-                    <Label htmlFor="duree" className="text-right">
-                      Durée
-                    </Label>
-                    <Select>
-                      <SelectTrigger className="col-span-3">
-                        <SelectValue placeholder="Sélectionner la durée" />
+                  <div className="flex space-x-2">
+                    <Select value={filterStatut} onValueChange={setFilterStatut}>
+                      <SelectTrigger className="w-48">
+                        <SelectValue placeholder="Filtrer par statut" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="3">3 ans</SelectItem>
-                        <SelectItem value="4">4 ans</SelectItem>
-                        <SelectItem value="5">5 ans</SelectItem>
-                        <SelectItem value="6">6 ans</SelectItem>
+                        <SelectItem value="all">Tous les statuts</SelectItem>
+                        <SelectItem value="actif">Actif</SelectItem>
+                        <SelectItem value="suspendu">Suspendu</SelectItem>
+                        <SelectItem value="archive">Archivé</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
                 </div>
-                <DialogFooter>
-                  <Button type="submit">Créer la filière</Button>
-                </DialogFooter>
-              </DialogContent>
-            </Dialog>
-          </div>
-        </div>
 
-        {/* Tabs */}
-        <Tabs
-          value={selectedTab}
-          onValueChange={setSelectedTab}
-          className="space-y-6"
-        >
-          <TabsList className="grid w-full grid-cols-5">
-            <TabsTrigger value="filieres">Filières</TabsTrigger>
-            <TabsTrigger value="maquettes">Maquettes</TabsTrigger>
-            <TabsTrigger value="structure">Structure</TabsTrigger>
-            <TabsTrigger value="domaines">Domaines</TabsTrigger>
-            <TabsTrigger value="statistiques">Statistiques</TabsTrigger>
-          </TabsList>
-
-          {/* Filières Tab */}
-          <TabsContent value="filieres" className="space-y-4">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center justify-between">
-                  <span>Filières ({filieres.length})</span>
-                  <div className="flex space-x-2">
-                    <div className="relative">
-                      <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
-                      <Input
-                        placeholder="Rechercher une filière..."
-                        value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
-                        className="pl-8 w-64"
-                      />
-                    </div>
-                  </div>
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
                 <Table>
                   <TableHeader>
                     <TableRow>
                       <TableHead>Filière</TableHead>
-                      <TableHead>Code diplôme</TableHead>
                       <TableHead>Durée</TableHead>
+                      <TableHead>Capacité</TableHead>
+                      <TableHead>Frais</TableHead>
                       <TableHead>Maquettes</TableHead>
-                      <TableHead>Étudiants</TableHead>
                       <TableHead>Statut</TableHead>
                       <TableHead>Actions</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {filieres.map((filiere) => (
+                    {filteredFilieres.map((filiere) => (
                       <TableRow key={filiere.id}>
                         <TableCell>
                           <div>
                             <div className="font-medium">{filiere.nom}</div>
                             <div className="text-sm text-muted-foreground">
-                              {filiere.diplome}
+                              {filiere.description}
                             </div>
                           </div>
                         </TableCell>
-                        <TableCell className="font-mono text-sm">
-                          {filiere.codeDiplome}
-                        </TableCell>
-                        <TableCell>{filiere.duree}</TableCell>
-                        <TableCell>{filiere.maquettes}</TableCell>
-                        <TableCell>{filiere.etudiants}</TableCell>
                         <TableCell>
-                          <Badge
-                            variant="secondary"
-                            className={getStatutColor(filiere.statut)}
-                          >
-                            {filiere.statut}
+                          <div className="flex items-center space-x-1">
+                            <Clock className="h-4 w-4 text-muted-foreground" />
+                            <span>{filiere.duree} ans</span>
+                          </div>
+                        </TableCell>
+                        <TableCell>
+                          <div className="flex items-center space-x-1">
+                            <Users className="h-4 w-4 text-muted-foreground" />
+                            <span>{filiere.capaciteAccueil}</span>
+                          </div>
+                        </TableCell>
+                        <TableCell>
+                          <span className="text-green-600 font-medium">
+                            {filiere.fraisInscription}€
+                          </span>
+                        </TableCell>
+                        <TableCell>
+                          <Badge variant="outline">
+                            {filiere.maquettes.length} maquette(s)
+                          </Badge>
+                        </TableCell>
+                        <TableCell>
+                          <Badge className={statutLabels[filiere.statut].color}>
+                            {statutLabels[filiere.statut].label}
                           </Badge>
                         </TableCell>
                         <TableCell>
@@ -388,19 +575,70 @@ export default function ProgramsPage() {
                             </DropdownMenuTrigger>
                             <DropdownMenuContent align="end">
                               <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                              <DropdownMenuItem>
+                              <DropdownMenuItem onClick={() => {
+                                setSelectedFiliere(filiere);
+                                setFormData(filiere);
+                                setIsFiliereDialogOpen(true);
+                              }}>
                                 <Edit className="mr-2 h-4 w-4" />
                                 Modifier
                               </DropdownMenuItem>
                               <DropdownMenuItem>
-                                <Layers className="mr-2 h-4 w-4" />
-                                Gérer les maquettes
+                                <Plus className="mr-2 h-4 w-4" />
+                                Nouvelle maquette
+                              </DropdownMenuItem>
+                              <DropdownMenuItem>
+                                <FileText className="mr-2 h-4 w-4" />
+                                Voir maquettes
                               </DropdownMenuItem>
                               <DropdownMenuSeparator />
-                              <DropdownMenuItem className="text-red-600">
-                                <Trash2 className="mr-2 h-4 w-4" />
-                                Supprimer
+                              {filiere.statut === "actif" ? (
+                                <DropdownMenuItem 
+                                  className="text-red-600"
+                                  onClick={() => handleChangeStatus("filiere", filiere.id, "suspendu")}
+                                >
+                                  <AlertTriangle className="mr-2 h-4 w-4" />
+                                  Suspendre
+                                </DropdownMenuItem>
+                              ) : (
+                                <DropdownMenuItem 
+                                  className="text-green-600"
+                                  onClick={() => handleChangeStatus("filiere", filiere.id, "actif")}
+                                >
+                                  <CheckCircle className="mr-2 h-4 w-4" />
+                                  Activer
+                                </DropdownMenuItem>
+                              )}
+                              <DropdownMenuItem onClick={() => handleChangeStatus("filiere", filiere.id, "archive")}>
+                                <Eye className="mr-2 h-4 w-4" />
+                                Archiver
                               </DropdownMenuItem>
+                              <AlertDialog>
+                                <AlertDialogTrigger asChild>
+                                  <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
+                                    <Trash2 className="mr-2 h-4 w-4" />
+                                    Supprimer
+                                  </DropdownMenuItem>
+                                </AlertDialogTrigger>
+                                <AlertDialogContent>
+                                  <AlertDialogHeader>
+                                    <AlertDialogTitle>Êtes-vous sûr ?</AlertDialogTitle>
+                                    <AlertDialogDescription>
+                                      Cette action supprimera définitivement la filière "{filiere.nom}" et toutes ses maquettes. 
+                                      Cette action ne peut pas être annulée.
+                                    </AlertDialogDescription>
+                                  </AlertDialogHeader>
+                                  <AlertDialogFooter>
+                                    <AlertDialogCancel>Annuler</AlertDialogCancel>
+                                    <AlertDialogAction 
+                                      onClick={() => handleDeleteFiliere(filiere.id)}
+                                      className="bg-red-600 hover:bg-red-700"
+                                    >
+                                      Supprimer
+                                    </AlertDialogAction>
+                                  </AlertDialogFooter>
+                                </AlertDialogContent>
+                              </AlertDialog>
                             </DropdownMenuContent>
                           </DropdownMenu>
                         </TableCell>
@@ -416,295 +654,504 @@ export default function ProgramsPage() {
           <TabsContent value="maquettes" className="space-y-4">
             <Card>
               <CardHeader>
-                <CardTitle>Maquettes de formation</CardTitle>
+                <CardTitle>Maquettes pédagogiques</CardTitle>
                 <CardDescription>
-                  Gestion des maquettes par filière et niveau d'étude
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>Maquette</TableHead>
-                      <TableHead>Filière</TableHead>
-                      <TableHead>Structure</TableHead>
-                      <TableHead>Coordonnateur</TableHead>
-                      <TableHead>Statut</TableHead>
-                      <TableHead>Actions</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {maquettes.map((maquette) => (
-                      <TableRow key={maquette.id}>
-                        <TableCell>
-                          <div>
-                            <div className="font-medium">{maquette.nom}</div>
-                            <div className="text-sm text-muted-foreground">
-                              {maquette.niveau}
-                            </div>
-                          </div>
-                        </TableCell>
-                        <TableCell>{maquette.filiere}</TableCell>
-                        <TableCell>
-                          <div className="text-sm">
-                            <div>{maquette.sequences} séquences</div>
-                            <div>{maquette.modules} modules</div>
-                            <div>{maquette.ues} UE</div>
-                          </div>
-                        </TableCell>
-                        <TableCell>{maquette.coordonnateur}</TableCell>
-                        <TableCell>
-                          <Badge
-                            variant="secondary"
-                            className={getStatutColor(maquette.statut)}
-                          >
-                            {maquette.statut}
-                          </Badge>
-                        </TableCell>
-                        <TableCell>
-                          <DropdownMenu>
-                            <DropdownMenuTrigger asChild>
-                              <Button variant="ghost" className="h-8 w-8 p-0">
-                                <MoreHorizontal className="h-4 w-4" />
-                              </Button>
-                            </DropdownMenuTrigger>
-                            <DropdownMenuContent align="end">
-                              <DropdownMenuItem>
-                                <Edit className="mr-2 h-4 w-4" />
-                                Modifier
-                              </DropdownMenuItem>
-                              <DropdownMenuItem>
-                                <FileText className="mr-2 h-4 w-4" />
-                                Voir la structure
-                              </DropdownMenuItem>
-                              <DropdownMenuItem>
-                                <Users className="mr-2 h-4 w-4" />
-                                Assigner coordonnateur
-                              </DropdownMenuItem>
-                            </DropdownMenuContent>
-                          </DropdownMenu>
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </CardContent>
-            </Card>
-          </TabsContent>
-
-          {/* Structure Tab */}
-          <TabsContent value="structure" className="space-y-4">
-            <Card>
-              <CardHeader>
-                <CardTitle>Structure hiérarchique</CardTitle>
-                <CardDescription>
-                  Visualisation de la hiérarchie Filière → Maquette → Séquence →
-                  Domaine → Module → UE
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <Accordion type="single" collapsible className="w-full">
-                  {Object.entries(programStructure).map(
-                    ([filiere, niveaux]) => (
-                      <AccordionItem key={filiere} value={filiere}>
-                        <AccordionTrigger className="text-lg font-semibold">
-                          <div className="flex items-center space-x-2">
-                            <GraduationCap className="h-5 w-5" />
-                            <span>{filiere}</span>
-                          </div>
-                        </AccordionTrigger>
-                        <AccordionContent>
-                          <div className="pl-4 space-y-4">
-                            {Object.entries(niveaux).map(
-                              ([niveau, sequences]) => (
-                                <div key={niveau}>
-                                  <h4 className="font-medium text-primary mb-2 flex items-center">
-                                    <BookMarked className="h-4 w-4 mr-2" />
-                                    {niveau}
-                                  </h4>
-                                  <div className="pl-4 space-y-3">
-                                    {Object.entries(sequences).map(
-                                      ([sequence, domaines]) => (
-                                        <div key={sequence}>
-                                          <h5 className="font-medium text-sm mb-2 flex items-center">
-                                            <Calendar className="h-4 w-4 mr-2" />
-                                            {sequence}
-                                          </h5>
-                                          <div className="pl-4 space-y-2">
-                                            {Object.entries(domaines).map(
-                                              ([domaine, modules]) => (
-                                                <div key={domaine}>
-                                                  <h6 className="text-sm font-medium text-muted-foreground mb-1 flex items-center">
-                                                    <Layers className="h-3 w-3 mr-2" />
-                                                    {domaine}
-                                                  </h6>
-                                                  <div className="pl-4 space-y-1">
-                                                    {modules.map(
-                                                      (module, idx) => (
-                                                        <div
-                                                          key={idx}
-                                                          className="text-sm"
-                                                        >
-                                                          <div className="font-medium flex items-center">
-                                                            <BookOpen className="h-3 w-3 mr-2" />
-                                                            {module.nom}
-                                                          </div>
-                                                          <div className="pl-5 text-xs text-muted-foreground">
-                                                            UE:{" "}
-                                                            {module.ues.join(
-                                                              ", ",
-                                                            )}
-                                                          </div>
-                                                        </div>
-                                                      ),
-                                                    )}
-                                                  </div>
-                                                </div>
-                                              ),
-                                            )}
-                                          </div>
-                                        </div>
-                                      ),
-                                    )}
-                                  </div>
-                                </div>
-                              ),
-                            )}
-                          </div>
-                        </AccordionContent>
-                      </AccordionItem>
-                    ),
-                  )}
-                </Accordion>
-              </CardContent>
-            </Card>
-          </TabsContent>
-
-          {/* Domaines Tab */}
-          <TabsContent value="domaines" className="space-y-4">
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-              {domaines.map((domaine) => (
-                <Card key={domaine.id}>
-                  <CardHeader>
-                    <CardTitle className="flex items-center justify-between">
-                      <span>{domaine.nom}</span>
-                      <Badge variant="secondary" className={domaine.couleur}>
-                        {domaine.modules} modules
-                      </Badge>
-                    </CardTitle>
-                    <CardDescription>{domaine.description}</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <Button variant="outline" className="w-full">
-                      <Edit className="h-4 w-4 mr-2" />
-                      Gérer les modules
-                    </Button>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </TabsContent>
-
-          {/* Statistiques Tab */}
-          <TabsContent value="statistiques" className="space-y-4">
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-              <Card>
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">
-                    Total Filières
-                  </CardTitle>
-                  <GraduationCap className="h-4 w-4 text-muted-foreground" />
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">3</div>
-                  <p className="text-xs text-muted-foreground">
-                    Toutes actives
-                  </p>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">
-                    Maquettes
-                  </CardTitle>
-                  <BookMarked className="h-4 w-4 text-muted-foreground" />
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">16</div>
-                  <p className="text-xs text-muted-foreground">
-                    Tous niveaux confondus
-                  </p>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">Modules</CardTitle>
-                  <BookOpen className="h-4 w-4 text-muted-foreground" />
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">51</div>
-                  <p className="text-xs text-muted-foreground">
-                    Toutes filières
-                  </p>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">
-                    Unités d'Enseignement
-                  </CardTitle>
-                  <FileText className="h-4 w-4 text-muted-foreground" />
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">153</div>
-                  <p className="text-xs text-muted-foreground">
-                    Total UE système
-                  </p>
-                </CardContent>
-              </Card>
-            </div>
-
-            <Card>
-              <CardHeader>
-                <CardTitle>Répartition par domaine</CardTitle>
-                <CardDescription>
-                  Nombre de modules par domaine d'enseignement
+                  Structure hiérarchique des programmes
                 </CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
-                  {domaines.map((domaine) => (
-                    <div
-                      key={domaine.id}
-                      className="flex items-center justify-between"
-                    >
-                      <div className="flex items-center space-x-3">
-                        <div className="w-4 h-4 rounded-full bg-primary"></div>
-                        <span className="font-medium">{domaine.nom}</span>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <span className="text-sm text-muted-foreground">
-                          {domaine.modules} modules
-                        </span>
-                        <div className="w-32 bg-gray-200 rounded-full h-2">
-                          <div
-                            className="bg-primary h-2 rounded-full"
-                            style={{
-                              width: `${(domaine.modules / 51) * 100}%`,
-                            }}
-                          ></div>
-                        </div>
-                      </div>
+                  {filieres.map((filiere) => (
+                    <div key={filiere.id} className="border rounded-lg p-4">
+                      <Collapsible>
+                        <CollapsibleTrigger
+                          onClick={() => toggleExpanded(`filiere-${filiere.id}`)}
+                          className="flex items-center justify-between w-full text-left"
+                        >
+                          <div className="flex items-center space-x-2">
+                            {expandedItems.has(`filiere-${filiere.id}`) ? (
+                              <ChevronDown className="h-4 w-4" />
+                            ) : (
+                              <ChevronRight className="h-4 w-4" />
+                            )}
+                            <Building className="h-5 w-5 text-blue-600" />
+                            <span className="font-semibold">{filiere.nom}</span>
+                            <Badge className={statutLabels[filiere.statut].color}>
+                              {statutLabels[filiere.statut].label}
+                            </Badge>
+                          </div>
+                          <Badge variant="outline">
+                            {filiere.maquettes.length} maquette(s)
+                          </Badge>
+                        </CollapsibleTrigger>
+                        <CollapsibleContent className="mt-4 ml-6">
+                          {filiere.maquettes.length === 0 ? (
+                            <div className="text-center py-8 text-muted-foreground">
+                              <FileText className="h-12 w-12 mx-auto mb-4 opacity-30" />
+                              <p>Aucune maquette définie pour cette filière</p>
+                              <Button variant="outline" size="sm" className="mt-2">
+                                <Plus className="h-4 w-4 mr-2" />
+                                Créer une maquette
+                              </Button>
+                            </div>
+                          ) : (
+                            <div className="space-y-3">
+                              {filiere.maquettes.map((maquette) => (
+                                <div key={maquette.id} className="border rounded-lg p-3 bg-gray-50">
+                                  <Collapsible>
+                                    <CollapsibleTrigger
+                                      onClick={() => toggleExpanded(`maquette-${maquette.id}`)}
+                                      className="flex items-center justify-between w-full text-left"
+                                    >
+                                      <div className="flex items-center space-x-2">
+                                        {expandedItems.has(`maquette-${maquette.id}`) ? (
+                                          <ChevronDown className="h-4 w-4" />
+                                        ) : (
+                                          <ChevronRight className="h-4 w-4" />
+                                        )}
+                                        <FileText className="h-4 w-4 text-green-600" />
+                                        <span className="font-medium">{maquette.nom}</span>
+                                        <Badge variant="secondary">{maquette.version}</Badge>
+                                        <Badge className={statutLabels[maquette.statut].color}>
+                                          {statutLabels[maquette.statut].label}
+                                        </Badge>
+                                      </div>
+                                      <div className="flex items-center space-x-2">
+                                        <span className="text-sm text-muted-foreground">
+                                          {calculateTotalCredits(maquette)} crédits
+                                        </span>
+                                        <Button variant="ghost" size="sm">
+                                          <Eye className="h-4 w-4" />
+                                        </Button>
+                                      </div>
+                                    </CollapsibleTrigger>
+                                    <CollapsibleContent className="mt-3 ml-6">
+                                      <div className="space-y-2">
+                                        {maquette.sequences.map((sequence) => (
+                                          <div key={sequence.id} className="border rounded p-2 bg-white">
+                                            <Collapsible>
+                                              <CollapsibleTrigger
+                                                onClick={() => toggleExpanded(`sequence-${sequence.id}`)}
+                                                className="flex items-center justify-between w-full text-left"
+                                              >
+                                                <div className="flex items-center space-x-2">
+                                                  {expandedItems.has(`sequence-${sequence.id}`) ? (
+                                                    <ChevronDown className="h-4 w-4" />
+                                                  ) : (
+                                                    <ChevronRight className="h-4 w-4" />
+                                                  )}
+                                                  <Calendar className="h-4 w-4 text-purple-600" />
+                                                  <span className="font-medium">{sequence.nom}</span>
+                                                  <Badge variant="outline">{sequence.duree} mois</Badge>
+                                                </div>
+                                                <Badge variant="outline">
+                                                  {sequence.domaines.length} domaine(s)
+                                                </Badge>
+                                              </CollapsibleTrigger>
+                                              <CollapsibleContent className="mt-2 ml-6">
+                                                <div className="space-y-1">
+                                                  {sequence.domaines.map((domaine) => (
+                                                    <div key={domaine.id} className="flex items-center justify-between p-2 bg-gray-50 rounded">
+                                                      <div className="flex items-center space-x-2">
+                                                        <Target className="h-4 w-4 text-orange-600" />
+                                                        <span className="text-sm font-medium">{domaine.nom}</span>
+                                                      </div>
+                                                      <div className="flex items-center space-x-2">
+                                                        <Badge variant="outline" className="text-xs">
+                                                          {domaine.ues.reduce((total, ue) => total + ue.credits, 0)} crédits
+                                                        </Badge>
+                                                        <Badge variant="outline" className="text-xs">
+                                                          {domaine.ues.length} UE
+                                                        </Badge>
+                                                      </div>
+                                                    </div>
+                                                  ))}
+                                                </div>
+                                              </CollapsibleContent>
+                                            </Collapsible>
+                                          </div>
+                                        ))}
+                                      </div>
+                                    </CollapsibleContent>
+                                  </Collapsible>
+                                </div>
+                              ))}
+                            </div>
+                          )}
+                        </CollapsibleContent>
+                      </Collapsible>
                     </div>
                   ))}
                 </div>
               </CardContent>
             </Card>
           </TabsContent>
+
+          {/* Modules Tab */}
+          <TabsContent value="modules" className="space-y-4">
+            <Card>
+              <CardHeader>
+                <CardTitle>Modules d'enseignement</CardTitle>
+                <CardDescription>
+                  Détail des unités d'enseignement et modules
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  {filieres.map((filiere) =>
+                    filiere.maquettes.map((maquette) =>
+                      maquette.sequences.map((sequence) =>
+                        sequence.domaines.map((domaine) =>
+                          domaine.ues.map((ue) => (
+                            <div key={ue.id} className="border rounded-lg p-4">
+                              <div className="flex items-center justify-between mb-3">
+                                <div className="flex items-center space-x-2">
+                                  <BookOpen className="h-5 w-5 text-blue-600" />
+                                  <span className="font-semibold">{ue.nom}</span>
+                                  <Badge variant="outline">{ue.code}</Badge>
+                                  <Badge className="bg-blue-100 text-blue-800">
+                                    {ue.credits} crédits
+                                  </Badge>
+                                </div>
+                                <div className="text-sm text-muted-foreground">
+                                  {filiere.nom} → {sequence.nom} → {domaine.nom}
+                                </div>
+                              </div>
+                              <div className="grid gap-2">
+                                {ue.modules.map((module) => (
+                                  <div key={module.id} className="flex items-center justify-between p-3 bg-gray-50 rounded">
+                                    <div className="flex-1">
+                                      <div className="flex items-center space-x-2 mb-1">
+                                        <span className="font-medium">{module.nom}</span>
+                                        <Badge variant="outline" className="text-xs">{module.code}</Badge>
+                                        <Badge className={statutLabels[module.statut].color}>
+                                          {statutLabels[module.statut].label}
+                                        </Badge>
+                                      </div>
+                                      <div className="text-sm text-muted-foreground mb-2">
+                                        {module.description}
+                                      </div>
+                                      <div className="flex items-center space-x-4 text-xs text-muted-foreground">
+                                        <span>{module.credits} crédits</span>
+                                        <span>{module.heures}h</span>
+                                        <span>S{module.semestre}</span>
+                                        <span>{module.enseignant}</span>
+                                        <span>{module.evaluation}</span>
+                                      </div>
+                                      {module.prerequis && module.prerequis.length > 0 && (
+                                        <div className="mt-2">
+                                          <span className="text-xs text-red-600">
+                                            Prérequis: {module.prerequis.join(", ")}
+                                          </span>
+                                        </div>
+                                      )}
+                                    </div>
+                                    <div className="flex items-center space-x-2">
+                                      <Button variant="ghost" size="sm" onClick={() => {
+                                        setSelectedModule(module);
+                                        setFormData(module);
+                                        setIsModuleDialogOpen(true);
+                                      }}>
+                                        <Edit className="h-4 w-4" />
+                                      </Button>
+                                      <Button variant="ghost" size="sm">
+                                        <Eye className="h-4 w-4" />
+                                      </Button>
+                                    </div>
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+                          ))
+                        )
+                      )
+                    )
+                  )}
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          {/* Calendrier Tab */}
+          <TabsContent value="calendrier" className="space-y-4">
+            <Card>
+              <CardHeader>
+                <CardTitle>Calendrier académique</CardTitle>
+                <CardDescription>
+                  Planning des périodes d'enseignement et d'évaluation
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="text-center py-8 text-muted-foreground">
+                  <Calendar className="h-12 w-12 mx-auto mb-4 opacity-30" />
+                  <p>Fonctionnalité de calendrier académique en cours de développement</p>
+                  <Button variant="outline" size="sm" className="mt-2">
+                    <Plus className="h-4 w-4 mr-2" />
+                    Configurer le calendrier
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
         </Tabs>
+
+        {/* Create Filiere Dialog */}
+        <Dialog open={isCreateFiliereOpen} onOpenChange={setIsCreateFiliereOpen}>
+          <DialogContent className="max-w-2xl">
+            <DialogHeader>
+              <DialogTitle>Créer une nouvelle filière</DialogTitle>
+            </DialogHeader>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="nom">Nom de la filière</Label>
+                <Input
+                  id="nom"
+                  value={formData.nom || ""}
+                  onChange={(e) => setFormData({...formData, nom: e.target.value})}
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="duree">Durée (années)</Label>
+                <Input
+                  id="duree"
+                  type="number"
+                  value={formData.duree || ""}
+                  onChange={(e) => setFormData({...formData, duree: Number(e.target.value)})}
+                />
+              </div>
+              <div className="col-span-2 space-y-2">
+                <Label htmlFor="description">Description</Label>
+                <Textarea
+                  id="description"
+                  value={formData.description || ""}
+                  onChange={(e) => setFormData({...formData, description: e.target.value})}
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="capacite">Capacité d'accueil</Label>
+                <Input
+                  id="capacite"
+                  type="number"
+                  value={formData.capaciteAccueil || ""}
+                  onChange={(e) => setFormData({...formData, capaciteAccueil: Number(e.target.value)})}
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="frais">Frais d'inscription (€)</Label>
+                <Input
+                  id="frais"
+                  type="number"
+                  value={formData.fraisInscription || ""}
+                  onChange={(e) => setFormData({...formData, fraisInscription: Number(e.target.value)})}
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="statut">Statut</Label>
+                <Select value={formData.statut || "actif"} onValueChange={(value) => setFormData({...formData, statut: value})}>
+                  <SelectTrigger>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="actif">Actif</SelectItem>
+                    <SelectItem value="suspendu">Suspendu</SelectItem>
+                    <SelectItem value="archive">Archivé</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+            <DialogFooter>
+              <Button variant="outline" onClick={() => {
+                setIsCreateFiliereOpen(false);
+                setFormData({});
+              }}>
+                Annuler
+              </Button>
+              <Button onClick={handleCreateFiliere}>
+                Créer la filière
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+
+        {/* Edit Filiere Dialog */}
+        <Dialog open={isFiliereDialogOpen} onOpenChange={setIsFiliereDialogOpen}>
+          <DialogContent className="max-w-2xl">
+            <DialogHeader>
+              <DialogTitle>Modifier la filière</DialogTitle>
+            </DialogHeader>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="edit-nom">Nom de la filière</Label>
+                <Input
+                  id="edit-nom"
+                  value={formData.nom || ""}
+                  onChange={(e) => setFormData({...formData, nom: e.target.value})}
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="edit-duree">Durée (années)</Label>
+                <Input
+                  id="edit-duree"
+                  type="number"
+                  value={formData.duree || ""}
+                  onChange={(e) => setFormData({...formData, duree: Number(e.target.value)})}
+                />
+              </div>
+              <div className="col-span-2 space-y-2">
+                <Label htmlFor="edit-description">Description</Label>
+                <Textarea
+                  id="edit-description"
+                  value={formData.description || ""}
+                  onChange={(e) => setFormData({...formData, description: e.target.value})}
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="edit-capacite">Capacité d'accueil</Label>
+                <Input
+                  id="edit-capacite"
+                  type="number"
+                  value={formData.capaciteAccueil || ""}
+                  onChange={(e) => setFormData({...formData, capaciteAccueil: Number(e.target.value)})}
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="edit-frais">Frais d'inscription (€)</Label>
+                <Input
+                  id="edit-frais"
+                  type="number"
+                  value={formData.fraisInscription || ""}
+                  onChange={(e) => setFormData({...formData, fraisInscription: Number(e.target.value)})}
+                />
+              </div>
+            </div>
+            <DialogFooter>
+              <Button variant="outline" onClick={() => {
+                setIsFiliereDialogOpen(false);
+                setSelectedFiliere(null);
+                setFormData({});
+              }}>
+                Annuler
+              </Button>
+              <Button onClick={() => {
+                if (selectedFiliere) {
+                  setFilieres(filieres => 
+                    filieres.map(f => f.id === selectedFiliere.id ? {...f, ...formData} : f)
+                  );
+                  toast({
+                    title: "Filière modifiée",
+                    description: "Les informations ont été mises à jour avec succès.",
+                  });
+                  setIsFiliereDialogOpen(false);
+                  setSelectedFiliere(null);
+                  setFormData({});
+                }
+              }}>
+                Modifier
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+
+        {/* Edit Module Dialog */}
+        <Dialog open={isModuleDialogOpen} onOpenChange={setIsModuleDialogOpen}>
+          <DialogContent className="max-w-2xl">
+            <DialogHeader>
+              <DialogTitle>Modifier le module</DialogTitle>
+            </DialogHeader>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="module-nom">Nom du module</Label>
+                <Input
+                  id="module-nom"
+                  value={formData.nom || ""}
+                  onChange={(e) => setFormData({...formData, nom: e.target.value})}
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="module-code">Code du module</Label>
+                <Input
+                  id="module-code"
+                  value={formData.code || ""}
+                  onChange={(e) => setFormData({...formData, code: e.target.value})}
+                />
+              </div>
+              <div className="col-span-2 space-y-2">
+                <Label htmlFor="module-description">Description</Label>
+                <Textarea
+                  id="module-description"
+                  value={formData.description || ""}
+                  onChange={(e) => setFormData({...formData, description: e.target.value})}
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="module-credits">Crédits</Label>
+                <Input
+                  id="module-credits"
+                  type="number"
+                  value={formData.credits || ""}
+                  onChange={(e) => setFormData({...formData, credits: Number(e.target.value)})}
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="module-heures">Heures d'enseignement</Label>
+                <Input
+                  id="module-heures"
+                  type="number"
+                  value={formData.heures || ""}
+                  onChange={(e) => setFormData({...formData, heures: Number(e.target.value)})}
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="module-enseignant">Enseignant responsable</Label>
+                <Input
+                  id="module-enseignant"
+                  value={formData.enseignant || ""}
+                  onChange={(e) => setFormData({...formData, enseignant: e.target.value})}
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="module-semestre">Semestre</Label>
+                <Select value={formData.semestre?.toString()} onValueChange={(value) => setFormData({...formData, semestre: Number(value)})}>
+                  <SelectTrigger>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="1">Semestre 1</SelectItem>
+                    <SelectItem value="2">Semestre 2</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="col-span-2 space-y-2">
+                <Label htmlFor="module-evaluation">Mode d'évaluation</Label>
+                <Input
+                  id="module-evaluation"
+                  value={formData.evaluation || ""}
+                  onChange={(e) => setFormData({...formData, evaluation: e.target.value})}
+                />
+              </div>
+            </div>
+            <DialogFooter>
+              <Button variant="outline" onClick={() => {
+                setIsModuleDialogOpen(false);
+                setSelectedModule(null);
+                setFormData({});
+              }}>
+                Annuler
+              </Button>
+              <Button onClick={() => {
+                toast({
+                  title: "Module modifié",
+                  description: "Les informations du module ont été mises à jour.",
+                });
+                setIsModuleDialogOpen(false);
+                setSelectedModule(null);
+                setFormData({});
+              }}>
+                Modifier
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
       </div>
     </Layout>
   );
