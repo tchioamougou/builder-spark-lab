@@ -28,6 +28,7 @@ import {
   Search,
   Plus,
   Edit,
+  Eye,
   FileText,
   BarChart3,
   Target,
