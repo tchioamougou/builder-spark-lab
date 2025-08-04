@@ -1,0 +1,272 @@
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+import LandingHeader from '../components/LandingHeader';
+import LandingFooter from '../components/LandingFooter';
+import HeroImage from '@/assets/images/landingpageimage/group_five_african_college_students_spending_time_together_campus.jpg';
+import ClassroomImage from '@/assets/images/landingpageimage/close-up-students-learning-class.jpg';
+import MyFie from '@/assets/images/landingpageimage/medium-shot-health-worker-wearing-mask.jpg';
+
+const About: React.FC = () => {
+  const { t } = useTranslation();
+
+  return (
+    <div className="landing-page">
+      <LandingHeader />
+      
+      <main>
+        {/* Section Hero */}
+        <section 
+          className="relative bg-[#3b2c6a] text-white pt-32 pb-20 md:py-48"
+          style={{ backgroundImage: `url(${HeroImage})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
+        >
+          <div className="absolute inset-0 bg-black/60"></div>
+          <div className="container mx-auto px-4 relative z-10 text-center">
+            <h1 className="heading-font text-4xl md:text-6xl font-bold mb-6">
+              À propos de l'<span className="text-[#ff9900]">EPFPS</span>
+            </h1>
+            <p className="text-xl md:text-2xl text-gray-200 max-w-3xl mx-auto leading-relaxed">
+              École Privée de Formation des Professionnels de Santé de Meiganga
+            </p>
+          </div>
+        </section>
+
+        {/* Section Histoire */}
+        <section className="py-20 md:py-32 bg-white">
+          <div className="container mx-auto px-4">
+            <div className="max-w-4xl mx-auto">
+              <div className="text-center mb-16">
+                <h2 className="heading-font text-3xl md:text-4xl text-[#3b2c6a] font-bold mb-4">
+                  Notre <span className="text-[#ff9900]">Histoire</span>
+                </h2>
+                <div className="w-20 h-1 bg-[#ff9900] mx-auto mb-6"></div>
+              </div>
+
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16">
+                <div>
+                  <img 
+                    src={ClassroomImage} 
+                    alt="Histoire de l'école" 
+                    className="w-full h-96 object-cover rounded-3xl shadow-lg"
+                  />
+                </div>
+                <div>
+                  <h3 className="heading-font text-2xl font-bold text-[#3b2c6a] mb-6">
+                    Fondée pour l'excellence en santé
+                  </h3>
+                  <p className="text-gray-600 leading-relaxed mb-4">
+                    L'École Privée de Formation des Professionnels de Santé de Meiganga (EPFPS) a été créée 
+                    en réponse au besoin croissant de professionnels de santé qualifiés dans la région de l'Adamaoua 
+                    et au Cameroun en général.
+                  </p>
+                  <p className="text-gray-600 leading-relaxed mb-4">
+                    Depuis sa création, notre établissement s'est imposé comme une référence dans la formation 
+                    des professionnels de santé, alliant rigueur académique, excellence pratique et valeurs humaines.
+                  </p>
+                  <p className="text-gray-600 leading-relaxed">
+                    Reconnue par le Ministère de la Santé Publique du Cameroun, l'EPFPS forme chaque année 
+                    des centaines d'étudiants qui contribuent à améliorer le système de santé national.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Section Mission, Vision, Valeurs */}
+        <section className="py-20 md:py-32 bg-gray-50">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-16">
+              <h2 className="heading-font text-3xl md:text-4xl text-[#3b2c6a] font-bold mb-4">
+                Nos <span className="text-[#ff9900]">Fondements</span>
+              </h2>
+              <div className="w-20 h-1 bg-[#ff9900] mx-auto mb-6"></div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+              {/* Mission */}
+              <div className="bg-white rounded-3xl shadow-lg p-8 text-center">
+                <div className="w-20 h-20 bg-[#3b2c6a] rounded-full flex items-center justify-center mx-auto mb-6">
+                  <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                  </svg>
+                </div>
+                <h3 className="heading-font text-2xl font-bold text-[#3b2c6a] mb-4">Mission</h3>
+                <p className="text-gray-600 leading-relaxed">
+                  Former des professionnels de santé compétents, éthiques et dévoués, capables de répondre 
+                  aux défis sanitaires du Cameroun et de l'Afrique, en privilégiant l'excellence académique 
+                  et l'approche humaine des soins.
+                </p>
+              </div>
+
+              {/* Vision */}
+              <div className="bg-white rounded-3xl shadow-lg p-8 text-center">
+                <div className="w-20 h-20 bg-[#ff9900] rounded-full flex items-center justify-center mx-auto mb-6">
+                  <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                  </svg>
+                </div>
+                <h3 className="heading-font text-2xl font-bold text-[#3b2c6a] mb-4">Vision</h3>
+                <p className="text-gray-600 leading-relaxed">
+                  Être l'école de référence en Afrique centrale pour la formation des professionnels de santé, 
+                  reconnue pour l'innovation pédagogique, la recherche appliquée et l'impact social 
+                  de ses diplômés.
+                </p>
+              </div>
+
+              {/* Valeurs */}
+              <div className="bg-white rounded-3xl shadow-lg p-8 text-center">
+                <div className="w-20 h-20 bg-[#3b2c6a] rounded-full flex items-center justify-center mx-auto mb-6">
+                  <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                  </svg>
+                </div>
+                <h3 className="heading-font text-2xl font-bold text-[#3b2c6a] mb-4">Valeurs</h3>
+                <p className="text-gray-600 leading-relaxed">
+                  Excellence, Intégrité, Compassion, Innovation, Respect de la diversité, 
+                  Engagement communautaire et Développement durable. Ces valeurs guident 
+                  chacune de nos actions et décisions.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Section Équipe dirigeante */}
+        <section className="py-20 md:py-32 bg-white">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-16">
+              <h2 className="heading-font text-3xl md:text-4xl text-[#3b2c6a] font-bold mb-4">
+                Notre <span className="text-[#ff9900]">Direction</span>
+              </h2>
+              <div className="w-20 h-1 bg-[#ff9900] mx-auto mb-6"></div>
+              <p className="text-gray-600 max-w-2xl mx-auto">
+                Une équipe expérimentée et dévouée à l'excellence de la formation en santé
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {/* Directeur */}
+              <div className="text-center">
+                <div className="relative mb-6">
+                  <img 
+                    src={MyFie} 
+                    alt="Directeur de l'école" 
+                    className="w-48 h-48 object-cover rounded-full mx-auto shadow-lg"
+                  />
+                  <div className="absolute bottom-0 right-1/2 transform translate-x-1/2 translate-y-4 bg-[#3b2c6a] text-white px-4 py-2 rounded-full">
+                    <span className="text-sm font-semibold">Directeur</span>
+                  </div>
+                </div>
+                <h3 className="heading-font text-xl font-bold text-[#3b2c6a] mb-2">Dr. Jean MBARGA</h3>
+                <p className="text-[#ff9900] font-semibold mb-3">Directeur Général</p>
+                <p className="text-gray-600 text-sm leading-relaxed">
+                  Docteur en Médecine, spécialiste en Santé Publique avec plus de 20 ans d'expérience 
+                  dans la formation médicale et la gestion d'établissements de santé.
+                </p>
+              </div>
+
+              {/* Directrice Pédagogique */}
+              <div className="text-center">
+                <div className="relative mb-6">
+                  <img 
+                    src={MyFie} 
+                    alt="Directrice Pédagogique" 
+                    className="w-48 h-48 object-cover rounded-full mx-auto shadow-lg"
+                  />
+                  <div className="absolute bottom-0 right-1/2 transform translate-x-1/2 translate-y-4 bg-[#ff9900] text-white px-4 py-2 rounded-full">
+                    <span className="text-sm font-semibold">Direction</span>
+                  </div>
+                </div>
+                <h3 className="heading-font text-xl font-bold text-[#3b2c6a] mb-2">Dr. Marie FOUDA</h3>
+                <p className="text-[#ff9900] font-semibold mb-3">Directrice Pédagogique</p>
+                <p className="text-gray-600 text-sm leading-relaxed">
+                  Infirmière diplômée d'État, Master en Sciences de l'Éducation. 
+                  Experte en développement curriculaire et pédagogie active.
+                </p>
+              </div>
+
+              {/* Coordonnateur Académique */}
+              <div className="text-center">
+                <div className="relative mb-6">
+                  <img 
+                    src={MyFie} 
+                    alt="Coordonnateur Académique" 
+                    className="w-48 h-48 object-cover rounded-full mx-auto shadow-lg"
+                  />
+                  <div className="absolute bottom-0 right-1/2 transform translate-x-1/2 translate-y-4 bg-[#3b2c6a] text-white px-4 py-2 rounded-full">
+                    <span className="text-sm font-semibold">Académique</span>
+                  </div>
+                </div>
+                <h3 className="heading-font text-xl font-bold text-[#3b2c6a] mb-2">M. Paul NGOA</h3>
+                <p className="text-[#ff9900] font-semibold mb-3">Coordonnateur Académique</p>
+                <p className="text-gray-600 text-sm leading-relaxed">
+                  Kinésithérapeute, Master en Management des Établissements de Santé. 
+                  Responsable de la coordination des programmes et des stages.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Section Reconnaissance et Certifications */}
+        <section className="py-20 md:py-32 bg-[#3b2c6a] text-white">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-16">
+              <h2 className="heading-font text-3xl md:text-4xl font-bold mb-4">
+                Reconnaissances et <span className="text-[#ff9900]">Certifications</span>
+              </h2>
+              <div className="w-20 h-1 bg-[#ff9900] mx-auto mb-6"></div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+              <div className="text-center">
+                <div className="w-16 h-16 bg-[#ff9900] rounded-full flex items-center justify-center mx-auto mb-4">
+                  <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+                <h4 className="font-bold mb-2">Agréée MINSANTE</h4>
+                <p className="text-sm text-gray-200">Ministère de la Santé Publique du Cameroun</p>
+              </div>
+
+              <div className="text-center">
+                <div className="w-16 h-16 bg-[#ff9900] rounded-full flex items-center justify-center mx-auto mb-4">
+                  <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                  </svg>
+                </div>
+                <h4 className="font-bold mb-2">Diplômes Reconnus</h4>
+                <p className="text-sm text-gray-200">Diplômes d'État officiellement reconnus</p>
+              </div>
+
+              <div className="text-center">
+                <div className="w-16 h-16 bg-[#ff9900] rounded-full flex items-center justify-center mx-auto mb-4">
+                  <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                  </svg>
+                </div>
+                <h4 className="font-bold mb-2">Partenariats</h4>
+                <p className="text-sm text-gray-200">Hôpitaux et centres de santé partenaires</p>
+              </div>
+
+              <div className="text-center">
+                <div className="w-16 h-16 bg-[#ff9900] rounded-full flex items-center justify-center mx-auto mb-4">
+                  <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                  </svg>
+                </div>
+                <h4 className="font-bold mb-2">Excellence</h4>
+                <p className="text-sm text-gray-200">Taux de réussite de 95% aux examens d'État</p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <LandingFooter />
+    </div>
+  );
+};
+
+export default About;
