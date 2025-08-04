@@ -380,5 +380,27 @@
     "landmarksText": "L'école se trouve près de l'hôpital régional de Meiganga, en face de la station-service Total.",
     "parkingAvailable": "Parking disponible",
     "parkingText": "Stationnement gratuit disponible sur le campus pour les visiteurs et étudiants."
+  },
+  "footer": {
+    "schoolName1": "École Privée de Formation des",
+    "schoolName2": "Professionnels de Santé",
+    "location": "Meiganga",
+    "description": "Former les professionnels de santé de demain avec excellence, rigueur et humanité. Votre avenir dans le secteur de la santé commence ici.",
+    "coordinates": "Coordonnées",
+    "navigation": "Navigation",
+    "more": "Plus",
+    "address": "Adresse",
+    "phone": "Téléphone",
+    "email": "Email",
+    "openingHours": "Horaires d'ouverture",
+    "mondayFriday": "Lundi - Vendredi :",
+    "saturday": "Samedi :",
+    "sunday": "Dimanche :",
+    "closed": "Fermé",
+    "copyright": "École Privée de Formation des Professionnels de Santé de Meiganga (EPFPS). Tous droits réservés.",
+    "legalNotices": "Mentions légales",
+    "privacyPolicy": "Politique de confidentialité",
+    "siteMap": "Plan du site",
+    "recognition": "Établissement reconnu par le Ministère de la Santé Publique du Cameroun"
   }
 }
