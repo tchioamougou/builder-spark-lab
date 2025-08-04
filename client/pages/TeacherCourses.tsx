@@ -252,17 +252,11 @@ export default function TeacherCourses() {
     <TeacherLayout>
       <div className="space-y-6">
         {/* Header */}
-        <div className="flex justify-between items-center">
-          <div>
-            <h2 className="text-3xl font-bold tracking-tight">Mes Cours</h2>
-            <p className="text-muted-foreground">
-              Gestion et suivi de vos enseignements
-            </p>
-          </div>
-          <Button>
-            <Plus className="h-4 w-4 mr-2" />
-            Nouveau cours
-          </Button>
+        <div>
+          <h2 className="text-3xl font-bold tracking-tight">Mes Cours</h2>
+          <p className="text-muted-foreground">
+            Gestion et suivi de vos enseignements assignés par l'administration
+          </p>
         </div>
 
         {/* Stats Cards */}
