@@ -812,7 +812,8 @@ export default function StudentDetailsPage() {
             </Card>
           </TabsContent>
 
-          <TabsContent value="financier" className="space-y-4">
+          {canViewFinancial && (
+            <TabsContent value="financier" className="space-y-4">
             <div className="grid gap-4 md:grid-cols-2">
               <Card>
                 <CardHeader>
@@ -938,7 +939,8 @@ export default function StudentDetailsPage() {
                 </Table>
               </CardContent>
             </Card>
-          </TabsContent>
+            </TabsContent>
+          )}
 
           <TabsContent value="tuteurs" className="space-y-4">
             <div className="grid gap-4 md:grid-cols-2">
