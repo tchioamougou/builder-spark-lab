@@ -3,7 +3,13 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import {
   Dialog,
   DialogContent,
@@ -22,10 +28,10 @@ interface AbsenceRequestDialogProps {
   onOpenChange?: (open: boolean) => void;
 }
 
-export default function AbsenceRequestDialog({ 
-  trigger, 
-  open, 
-  onOpenChange 
+export default function AbsenceRequestDialog({
+  trigger,
+  open,
+  onOpenChange,
 }: AbsenceRequestDialogProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [formData, setFormData] = useState({
@@ -33,7 +39,7 @@ export default function AbsenceRequestDialog({
     dateDebut: "",
     dateFin: "",
     motif: "",
-    justificatif: null as File | null
+    justificatif: null as File | null,
   });
 
   const handleOpenChange = (newOpen: boolean) => {
@@ -46,11 +52,16 @@ export default function AbsenceRequestDialog({
 
   const handleSubmit = () => {
     // Validate form
-    if (!formData.type || !formData.dateDebut || !formData.dateFin || !formData.motif) {
+    if (
+      !formData.type ||
+      !formData.dateDebut ||
+      !formData.dateFin ||
+      !formData.motif
+    ) {
       toast({
         title: "Erreur",
         description: "Veuillez remplir tous les champs obligatoires",
-        variant: "destructive"
+        variant: "destructive",
       });
       return;
     }
@@ -58,7 +69,8 @@ export default function AbsenceRequestDialog({
     // Submit form (simulate API call)
     toast({
       title: "Demande envoyée",
-      description: "Votre demande d'absence a été envoyée et sera traitée sous 24h",
+      description:
+        "Votre demande d'absence a été envoyée et sera traitée sous 24h",
     });
 
     // Reset form and close dialog
@@ -67,7 +79,7 @@ export default function AbsenceRequestDialog({
       dateDebut: "",
       dateFin: "",
       motif: "",
-      justificatif: null
+      justificatif: null,
     });
     handleOpenChange(false);
   };
@@ -76,11 +88,7 @@ export default function AbsenceRequestDialog({
 
   return (
     <Dialog open={dialogOpen} onOpenChange={handleOpenChange}>
-      {trigger && (
-        <DialogTrigger asChild>
-          {trigger}
-        </DialogTrigger>
-      )}
+      {trigger && <DialogTrigger asChild>{trigger}</DialogTrigger>}
       <DialogContent className="sm:max-w-[500px]">
         <DialogHeader>
           <DialogTitle className="flex items-center space-x-2">
@@ -96,9 +104,11 @@ export default function AbsenceRequestDialog({
             <Label htmlFor="typeAbsence" className="text-right">
               Type d'absence *
             </Label>
-            <Select 
-              value={formData.type} 
-              onValueChange={(value) => setFormData({...formData, type: value})}
+            <Select
+              value={formData.type}
+              onValueChange={(value) =>
+                setFormData({ ...formData, type: value })
+              }
             >
               <SelectTrigger className="col-span-3">
                 <SelectValue placeholder="Sélectionner le type" />
@@ -106,63 +116,76 @@ export default function AbsenceRequestDialog({
               <SelectContent>
                 <SelectItem value="maladie">Maladie</SelectItem>
                 <SelectItem value="familiale">Raisons familiales</SelectItem>
-                <SelectItem value="convocation">Convocation officielle</SelectItem>
+                <SelectItem value="convocation">
+                  Convocation officielle
+                </SelectItem>
                 <SelectItem value="stage">Stage</SelectItem>
                 <SelectItem value="autre">Autre</SelectItem>
               </SelectContent>
             </Select>
           </div>
-          
+
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="dateDebut" className="text-right">
               Date début *
             </Label>
-            <Input 
-              id="dateDebut" 
-              type="date" 
+            <Input
+              id="dateDebut"
+              type="date"
               className="col-span-3"
               value={formData.dateDebut}
-              onChange={(e) => setFormData({...formData, dateDebut: e.target.value})}
+              onChange={(e) =>
+                setFormData({ ...formData, dateDebut: e.target.value })
+              }
             />
           </div>
-          
+
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="dateFin" className="text-right">
               Date fin *
             </Label>
-            <Input 
-              id="dateFin" 
-              type="date" 
+            <Input
+              id="dateFin"
+              type="date"
               className="col-span-3"
               value={formData.dateFin}
-              onChange={(e) => setFormData({...formData, dateFin: e.target.value})}
+              onChange={(e) =>
+                setFormData({ ...formData, dateFin: e.target.value })
+              }
             />
           </div>
-          
+
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="motifAbsence" className="text-right">
               Motif *
             </Label>
-            <Textarea 
-              id="motifAbsence" 
-              className="col-span-3" 
-              rows={3} 
+            <Textarea
+              id="motifAbsence"
+              className="col-span-3"
+              rows={3}
               placeholder="Expliquez le motif de votre absence..."
               value={formData.motif}
-              onChange={(e) => setFormData({...formData, motif: e.target.value})}
+              onChange={(e) =>
+                setFormData({ ...formData, motif: e.target.value })
+              }
             />
           </div>
-          
+
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="justificatifAbsence" className="text-right">
               Justificatif
             </Label>
-            <Input 
-              id="justificatifAbsence" 
-              type="file" 
+            <Input
+              id="justificatifAbsence"
+              type="file"
               className="col-span-3"
               accept=".pdf,.jpg,.jpeg,.png"
-              onChange={(e) => setFormData({...formData, justificatif: e.target.files?.[0] || null})}
+              onChange={(e) =>
+                setFormData({
+                  ...formData,
+                  justificatif: e.target.files?.[0] || null,
+                })
+              }
             />
           </div>
         </div>

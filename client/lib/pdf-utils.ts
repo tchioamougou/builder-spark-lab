@@ -21,10 +21,10 @@ export const generateBulletinPDF = (studentData: any) => {
     
     Crédits obtenus: 16/30 ECTS
   `;
-  
-  const blob = new Blob([pdfContent], { type: 'text/plain' });
+
+  const blob = new Blob([pdfContent], { type: "text/plain" });
   const url = URL.createObjectURL(blob);
-  const link = document.createElement('a');
+  const link = document.createElement("a");
   link.href = url;
   link.download = `bulletin_${studentData.numeroEtudiant}_S1.txt`;
   document.body.appendChild(link);
@@ -34,10 +34,13 @@ export const generateBulletinPDF = (studentData: any) => {
 };
 
 export const generateSchedulePDF = (scheduleData: any[], studentData: any) => {
-  const scheduleText = scheduleData.map(item => 
-    `${item.day} ${item.time}: ${item.subject} (${item.room}) - ${item.teacher}`
-  ).join('\n');
-  
+  const scheduleText = scheduleData
+    .map(
+      (item) =>
+        `${item.day} ${item.time}: ${item.subject} (${item.room}) - ${item.teacher}`,
+    )
+    .join("\n");
+
   const pdfContent = `
     EMPLOI DU TEMPS
     ===============
@@ -48,10 +51,10 @@ export const generateSchedulePDF = (scheduleData: any[], studentData: any) => {
     
     ${scheduleText}
   `;
-  
-  const blob = new Blob([pdfContent], { type: 'text/plain' });
+
+  const blob = new Blob([pdfContent], { type: "text/plain" });
   const url = URL.createObjectURL(blob);
-  const link = document.createElement('a');
+  const link = document.createElement("a");
   link.href = url;
   link.download = `emploi_du_temps_${studentData.numeroEtudiant}.txt`;
   document.body.appendChild(link);
@@ -61,10 +64,13 @@ export const generateSchedulePDF = (scheduleData: any[], studentData: any) => {
 };
 
 export const generateGradesPDF = (gradesData: any[], studentData: any) => {
-  const gradesText = gradesData.map(grade => 
-    `${grade.ue}: ${grade.noteFinale || 'En cours'}/20 (Coef. ${grade.coefficient})`
-  ).join('\n');
-  
+  const gradesText = gradesData
+    .map(
+      (grade) =>
+        `${grade.ue}: ${grade.noteFinale || "En cours"}/20 (Coef. ${grade.coefficient})`,
+    )
+    .join("\n");
+
   const pdfContent = `
     RELEVÉ DE NOTES DÉTAILLÉ
     =======================
@@ -79,10 +85,10 @@ export const generateGradesPDF = (gradesData: any[], studentData: any) => {
     Moyenne générale: 15.2/20
     Crédits validés: 16/30 ECTS
   `;
-  
-  const blob = new Blob([pdfContent], { type: 'text/plain' });
+
+  const blob = new Blob([pdfContent], { type: "text/plain" });
   const url = URL.createObjectURL(blob);
-  const link = document.createElement('a');
+  const link = document.createElement("a");
   link.href = url;
   link.download = `releve_notes_${studentData.numeroEtudiant}.txt`;
   document.body.appendChild(link);
@@ -91,11 +97,17 @@ export const generateGradesPDF = (gradesData: any[], studentData: any) => {
   URL.revokeObjectURL(url);
 };
 
-export const generateDocumentsList = (documentsData: any[], studentData: any) => {
-  const docsText = documentsData.map(doc => 
-    `- ${doc.nom} (${doc.type}) - ${doc.statut} - ${doc.dateCreation}`
-  ).join('\n');
-  
+export const generateDocumentsList = (
+  documentsData: any[],
+  studentData: any,
+) => {
+  const docsText = documentsData
+    .map(
+      (doc) =>
+        `- ${doc.nom} (${doc.type}) - ${doc.statut} - ${doc.dateCreation}`,
+    )
+    .join("\n");
+
   const pdfContent = `
     LISTE DES DOCUMENTS
     ==================
@@ -106,10 +118,10 @@ export const generateDocumentsList = (documentsData: any[], studentData: any) =>
     DOCUMENTS:
     ${docsText}
   `;
-  
-  const blob = new Blob([pdfContent], { type: 'text/plain' });
+
+  const blob = new Blob([pdfContent], { type: "text/plain" });
   const url = URL.createObjectURL(blob);
-  const link = document.createElement('a');
+  const link = document.createElement("a");
   link.href = url;
   link.download = `liste_documents_${studentData.numeroEtudiant}.txt`;
   document.body.appendChild(link);

@@ -1,15 +1,21 @@
 import StudentLayout from "@/components/StudentLayout";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { 
-  Table, 
-  TableBody, 
-  TableCell, 
-  TableHead, 
-  TableHeader, 
-  TableRow 
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
 } from "@/components/ui/table";
 import { useAuth } from "@/contexts/AuthContext";
 import { generateGradesPDF, generateBulletinPDF } from "@/lib/pdf-utils";
@@ -19,7 +25,7 @@ import {
   Download,
   BarChart3,
   Award,
-  Calendar
+  Calendar,
 } from "lucide-react";
 
 const gradesData = [
@@ -33,19 +39,19 @@ const gradesData = [
     noteFinale: 15.6,
     coefficient: 3,
     credits: 6,
-    statut: "Validé"
+    statut: "Validé",
   },
   {
     id: 2,
     ue: "Chimie organique",
     module: "Sciences de base",
-    sequence: "Séquence 1", 
+    sequence: "Séquence 1",
     noteCC: 12.8,
     noteExamen: 13.5,
     noteFinale: 13.2,
     coefficient: 2,
     credits: 4,
-    statut: "Validé"
+    statut: "Validé",
   },
   {
     id: 3,
@@ -57,7 +63,7 @@ const gradesData = [
     noteFinale: 16.8,
     coefficient: 3,
     credits: 6,
-    statut: "Validé"
+    statut: "Validé",
   },
   {
     id: 4,
@@ -69,8 +75,8 @@ const gradesData = [
     noteFinale: null,
     coefficient: 2,
     credits: 3,
-    statut: "En cours"
-  }
+    statut: "En cours",
+  },
 ];
 
 const sequenceStats = [
@@ -81,17 +87,17 @@ const sequenceStats = [
     creditsObtenus: 16,
     rang: 8,
     effectif: 45,
-    statut: "Validé"
+    statut: "Validé",
   },
   {
-    sequence: "Séquence 2", 
+    sequence: "Séquence 2",
     moyenne: null,
     credits: 14,
     creditsObtenus: 0,
     rang: null,
     effectif: 45,
-    statut: "En cours"
-  }
+    statut: "En cours",
+  },
 ];
 
 export default function StudentGrades() {
@@ -120,10 +126,14 @@ export default function StudentGrades() {
 
   const getStatusColor = (statut: string) => {
     switch (statut) {
-      case "Validé": return "bg-green-100 text-green-800";
-      case "En cours": return "bg-blue-100 text-blue-800";
-      case "Non validé": return "bg-red-100 text-red-800";
-      default: return "bg-gray-100 text-gray-800";
+      case "Validé":
+        return "bg-green-100 text-green-800";
+      case "En cours":
+        return "bg-blue-100 text-blue-800";
+      case "Non validé":
+        return "bg-red-100 text-red-800";
+      default:
+        return "bg-gray-100 text-gray-800";
     }
   };
 
@@ -135,10 +145,11 @@ export default function StudentGrades() {
           <div>
             <h2 className="text-3xl font-bold tracking-tight">Mes notes</h2>
             <p className="text-muted-foreground">
-              Consultez vos résultats académiques - {user?.filiere} {user?.niveau}
+              Consultez vos résultats académiques - {user?.filiere}{" "}
+              {user?.niveau}
             </p>
           </div>
-          
+
           <div className="flex space-x-2">
             <Button variant="outline" onClick={handleExportGrades}>
               <Download className="h-4 w-4 mr-2" />
@@ -155,20 +166,22 @@ export default function StudentGrades() {
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Moyenne générale</CardTitle>
+              <CardTitle className="text-sm font-medium">
+                Moyenne générale
+              </CardTitle>
               <TrendingUp className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">15.2/20</div>
-              <p className="text-xs text-muted-foreground">
-                Mention Bien
-              </p>
+              <p className="text-xs text-muted-foreground">Mention Bien</p>
             </CardContent>
           </Card>
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Crédits validés</CardTitle>
+              <CardTitle className="text-sm font-medium">
+                Crédits validés
+              </CardTitle>
               <Award className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
@@ -181,7 +194,9 @@ export default function StudentGrades() {
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Rang promotion</CardTitle>
+              <CardTitle className="text-sm font-medium">
+                Rang promotion
+              </CardTitle>
               <BarChart3 className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
@@ -240,21 +255,34 @@ export default function StudentGrades() {
                   <TableBody>
                     {gradesData.map((grade) => (
                       <TableRow key={grade.id}>
-                        <TableCell className="font-medium">{grade.ue}</TableCell>
-                        <TableCell className="text-sm text-muted-foreground">{grade.module}</TableCell>
-                        <TableCell className={`font-medium ${getGradeColor(grade.noteCC)}`}>
+                        <TableCell className="font-medium">
+                          {grade.ue}
+                        </TableCell>
+                        <TableCell className="text-sm text-muted-foreground">
+                          {grade.module}
+                        </TableCell>
+                        <TableCell
+                          className={`font-medium ${getGradeColor(grade.noteCC)}`}
+                        >
                           {grade.noteCC ? `${grade.noteCC}/20` : "-"}
                         </TableCell>
-                        <TableCell className={`font-medium ${getGradeColor(grade.noteExamen)}`}>
+                        <TableCell
+                          className={`font-medium ${getGradeColor(grade.noteExamen)}`}
+                        >
                           {grade.noteExamen ? `${grade.noteExamen}/20` : "-"}
                         </TableCell>
-                        <TableCell className={`font-bold ${getGradeColor(grade.noteFinale)}`}>
+                        <TableCell
+                          className={`font-bold ${getGradeColor(grade.noteFinale)}`}
+                        >
                           {grade.noteFinale ? `${grade.noteFinale}/20` : "-"}
                         </TableCell>
                         <TableCell>{grade.coefficient}</TableCell>
                         <TableCell>{grade.credits}</TableCell>
                         <TableCell>
-                          <Badge variant="secondary" className={getStatusColor(grade.statut)}>
+                          <Badge
+                            variant="secondary"
+                            className={getStatusColor(grade.statut)}
+                          >
                             {grade.statut}
                           </Badge>
                         </TableCell>
@@ -274,7 +302,10 @@ export default function StudentGrades() {
                   <CardHeader>
                     <CardTitle className="flex items-center justify-between">
                       <span>{seq.sequence}</span>
-                      <Badge variant="secondary" className={getStatusColor(seq.statut)}>
+                      <Badge
+                        variant="secondary"
+                        className={getStatusColor(seq.statut)}
+                      >
                         {seq.statut}
                       </Badge>
                     </CardTitle>
@@ -282,20 +313,28 @@ export default function StudentGrades() {
                   <CardContent>
                     <div className="space-y-4">
                       <div className="flex justify-between items-center">
-                        <span className="text-sm text-muted-foreground">Moyenne:</span>
-                        <span className={`font-bold text-lg ${getGradeColor(seq.moyenne)}`}>
+                        <span className="text-sm text-muted-foreground">
+                          Moyenne:
+                        </span>
+                        <span
+                          className={`font-bold text-lg ${getGradeColor(seq.moyenne)}`}
+                        >
                           {seq.moyenne ? `${seq.moyenne}/20` : "En attente"}
                         </span>
                       </div>
                       <div className="flex justify-between items-center">
-                        <span className="text-sm text-muted-foreground">Crédits:</span>
+                        <span className="text-sm text-muted-foreground">
+                          Crédits:
+                        </span>
                         <span className="font-medium">
                           {seq.creditsObtenus}/{seq.credits} ECTS
                         </span>
                       </div>
                       {seq.rang && (
                         <div className="flex justify-between items-center">
-                          <span className="text-sm text-muted-foreground">Rang:</span>
+                          <span className="text-sm text-muted-foreground">
+                            Rang:
+                          </span>
                           <span className="font-medium">
                             {seq.rang}/{seq.effectif}
                           </span>
@@ -303,12 +342,17 @@ export default function StudentGrades() {
                       )}
                       {seq.moyenne && (
                         <div className="w-full bg-gray-200 rounded-full h-2">
-                          <div 
+                          <div
                             className={`h-2 rounded-full ${
-                              seq.moyenne >= 16 ? 'bg-green-500' :
-                              seq.moyenne >= 14 ? 'bg-blue-500' :
-                              seq.moyenne >= 12 ? 'bg-orange-500' :
-                              seq.moyenne >= 10 ? 'bg-yellow-500' : 'bg-red-500'
+                              seq.moyenne >= 16
+                                ? "bg-green-500"
+                                : seq.moyenne >= 14
+                                  ? "bg-blue-500"
+                                  : seq.moyenne >= 12
+                                    ? "bg-orange-500"
+                                    : seq.moyenne >= 10
+                                      ? "bg-yellow-500"
+                                      : "bg-red-500"
                             }`}
                             style={{ width: `${(seq.moyenne / 20) * 100}%` }}
                           ></div>
