@@ -158,7 +158,7 @@ const LandingPage: React.FC = () => {
               {/* Témoignage 2 */}
               <div className="bg-gray-100 p-6 rounded-2xl shadow-lg">
                 <p className="italic text-gray-600 mb-4">
-                  "J'ai pu développer des comp��tences concrètes et trouver un emploi dans une entreprise prestigieuse juste après l'obtention de mon diplôme."
+                  "J'ai pu développer des compétences concrètes et trouver un emploi dans une entreprise prestigieuse juste après l'obtention de mon diplôme."
                 </p>
                 <div className="flex items-center gap-4">
                   <img src="https://placehold.co/60x60/ff9900/ffffff?text=Visage" alt="Portrait de l'étudiant" className="w-12 h-12 rounded-full object-cover" />
@@ -211,51 +211,143 @@ const LandingPage: React.FC = () => {
 
         {/* Section La vie au campus */}
         <section id="campus" className="py-20 md:py-32 bg-gray-50">
-          <div className="container mx-auto px-4 text-center">
-            <h2 className="heading-font text-3xl md:text-4xl text-[#3b2c6a] font-bold mb-2">
-              La vie au campus
-            </h2>
-            <div className="w-20 h-1 bg-[#ff9900] mx-auto mb-12"></div>
-            <p className="text-gray-600 max-w-2xl mx-auto mb-12">
-              Découvrez une communauté inspirante et dynamique. Nos étudiants évoluent dans un environnement riche en activités sociales, culturelles et sportives.
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {/* Carte 1 */}
-              <div className="relative overflow-hidden rounded-3xl shadow-lg group">
-                <div 
-                  className="h-96 w-full bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
-                  style={{ backgroundImage: 'url("https://placehold.co/600x400/4f3987/ffffff?text=Bibliothèque")' }}
-                ></div>
-                <div className="absolute inset-0 bg-black/60 flex items-center justify-center p-4 transition-opacity duration-300">
-                  <div className="text-white">
-                    <h3 className="heading-font text-xl md:text-2xl font-bold mb-2">Bibliothèque universitaire</h3>
-                    <p className="text-sm">Explorez un environnement propice à l'étude et à la recherche.</p>
+          <div className="container mx-auto px-4">
+            {/* En-tête de section */}
+            <div className="text-center mb-16">
+              <h2 className="heading-font text-3xl md:text-4xl text-[#3b2c6a] font-bold mb-2">
+                La vie au <span className="text-[#ff9900]">campus</span>
+              </h2>
+              <div className="w-20 h-1 bg-[#ff9900] mx-auto mb-6"></div>
+              <p className="text-gray-600 max-w-3xl mx-auto text-lg leading-relaxed">
+                Découvrez une communauté inspirante et dynamique où nos étudiants évoluent dans un environnement
+                riche en activités académiques, sociales et culturelles, favorisant leur épanouissement personnel et professionnel.
+              </p>
+            </div>
+
+            {/* Grille principale des espaces */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
+              {/* Carte principale - Salles de cours */}
+              <div className="relative overflow-hidden rounded-3xl shadow-xl group bg-white">
+                <div className="relative h-80">
+                  <img
+                    src={ClassroomImage}
+                    alt="Étudiants en salle de cours"
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
+                  <div className="absolute bottom-6 left-6 right-6">
+                    <div className="flex items-center gap-2 mb-3">
+                      <div className="w-8 h-8 bg-[#ff9900] rounded-full flex items-center justify-center">
+                        <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                        </svg>
+                      </div>
+                      <span className="text-[#ff9900] text-sm font-semibold">Espaces d'apprentissage</span>
+                    </div>
+                    <h3 className="heading-font text-2xl font-bold text-white mb-2">Salles de cours modernes</h3>
+                    <p className="text-gray-200 text-sm leading-relaxed">
+                      Des salles équipées des dernières technologies pour un apprentissage interactif et collaboratif.
+                    </p>
                   </div>
                 </div>
               </div>
-              {/* Carte 2 */}
-              <div className="relative overflow-hidden rounded-3xl shadow-lg group">
-                <div 
-                  className="h-96 w-full bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
-                  style={{ backgroundImage: 'url("https://placehold.co/600x400/4f3987/ffffff?text=Espaces+de+vie")' }}
-                ></div>
-                <div className="absolute inset-0 bg-black/60 flex items-center justify-center p-4 transition-opacity duration-300">
-                  <div className="text-white">
-                    <h3 className="heading-font text-xl md:text-2xl font-bold mb-2">Espaces de vie</h3>
-                    <p className="text-sm">Des espaces modernes conçus pour la collaboration et la détente.</p>
+
+              {/* Carte secondaire - Espaces d'étude */}
+              <div className="relative overflow-hidden rounded-3xl shadow-xl group bg-white">
+                <div className="relative h-80">
+                  <img
+                    src={StudentsStudying}
+                    alt="Étudiants en étude de groupe"
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
+                  <div className="absolute bottom-6 left-6 right-6">
+                    <div className="flex items-center gap-2 mb-3">
+                      <div className="w-8 h-8 bg-[#ff9900] rounded-full flex items-center justify-center">
+                        <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                        </svg>
+                      </div>
+                      <span className="text-[#ff9900] text-sm font-semibold">Travail collaboratif</span>
+                    </div>
+                    <h3 className="heading-font text-2xl font-bold text-white mb-2">Espaces d'étude collaboratif</h3>
+                    <p className="text-gray-200 text-sm leading-relaxed">
+                      Des zones dédiées au travail en groupe et aux projets collaboratifs entre étudiants.
+                    </p>
                   </div>
                 </div>
               </div>
-              {/* Carte 3 */}
-              <div className="relative overflow-hidden rounded-3xl shadow-lg group">
-                <div 
-                  className="h-96 w-full bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
-                  style={{ backgroundImage: 'url("https://placehold.co/600x400/4f3987/ffffff?text=Salle+de+conférence")' }}
-                ></div>
-                <div className="absolute inset-0 bg-black/60 flex items-center justify-center p-4 transition-opacity duration-300">
-                  <div className="text-white">
-                    <h3 className="heading-font text-xl md:text-2xl font-bold mb-2">Salle de conférence</h3>
-                    <p className="text-sm">Organisez des événements et des présentations dans des salles équipées.</p>
+            </div>
+
+            {/* Grille secondaire - Autres espaces */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+              {/* Bibliothèque */}
+              <div className="bg-white rounded-2xl shadow-lg p-6 hover:shadow-xl transition-shadow duration-300">
+                <div className="w-16 h-16 bg-[#3b2c6a] rounded-2xl flex items-center justify-center mb-4 mx-auto">
+                  <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                  </svg>
+                </div>
+                <h4 className="heading-font text-lg font-bold text-[#3b2c6a] mb-3 text-center">Bibliothèque</h4>
+                <p className="text-gray-600 text-sm text-center leading-relaxed">
+                  Accès à une riche collection d'ouvrages médicaux et scientifiques, espaces de lecture silencieux.
+                </p>
+              </div>
+
+              {/* Laboratoires */}
+              <div className="bg-white rounded-2xl shadow-lg p-6 hover:shadow-xl transition-shadow duration-300">
+                <div className="w-16 h-16 bg-[#ff9900] rounded-2xl flex items-center justify-center mb-4 mx-auto">
+                  <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+                  </svg>
+                </div>
+                <h4 className="heading-font text-lg font-bold text-[#3b2c6a] mb-3 text-center">Laboratoires</h4>
+                <p className="text-gray-600 text-sm text-center leading-relaxed">
+                  Laboratoires modernes équipés pour les travaux pratiques en sciences médicales et biologiques.
+                </p>
+              </div>
+
+              {/* Espaces de détente */}
+              <div className="bg-white rounded-2xl shadow-lg p-6 hover:shadow-xl transition-shadow duration-300">
+                <div className="w-16 h-16 bg-[#3b2c6a] rounded-2xl flex items-center justify-center mb-4 mx-auto">
+                  <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1.5a2.5 2.5 0 015 0H17m-8 5a5 5 0 1110 0H9z" />
+                  </svg>
+                </div>
+                <h4 className="heading-font text-lg font-bold text-[#3b2c6a] mb-3 text-center">Espaces de détente</h4>
+                <p className="text-gray-600 text-sm text-center leading-relaxed">
+                  Zones de repos et de socialisation pour favoriser les échanges entre étudiants.
+                </p>
+              </div>
+            </div>
+
+            {/* Section témoignage étudiant */}
+            <div className="bg-white rounded-3xl shadow-xl p-8 md:p-12">
+              <div className="flex flex-col md:flex-row items-center gap-8">
+                <div className="md:w-1/3">
+                  <img
+                    src={StudyGroupImage}
+                    alt="Témoignage étudiant"
+                    className="w-full h-64 md:h-80 object-cover rounded-2xl shadow-lg"
+                  />
+                </div>
+                <div className="md:w-2/3">
+                  <div className="flex items-center gap-2 mb-4">
+                    <div className="w-2 h-2 bg-[#ff9900] rounded-full"></div>
+                    <span className="text-[#ff9900] font-semibold text-sm">TÉMOIGNAGE ÉTUDIANT</span>
+                  </div>
+                  <blockquote className="text-gray-700 text-lg md:text-xl leading-relaxed mb-6 italic">
+                    "L'ambiance au campus est exceptionnelle. Les espaces sont modernes, les professeurs sont disponibles
+                    et l'esprit de collaboration entre étudiants nous pousse à donner le meilleur de nous-mêmes chaque jour."
+                  </blockquote>
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 bg-[#3b2c6a] rounded-full flex items-center justify-center">
+                      <span className="text-white font-bold">AM</span>
+                    </div>
+                    <div>
+                      <p className="font-bold text-[#3b2c6a]">Amina Moussa</p>
+                      <p className="text-gray-500 text-sm">Étudiante en 2ème année - Aide-soignante</p>
+                    </div>
                   </div>
                 </div>
               </div>
