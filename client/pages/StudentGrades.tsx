@@ -97,6 +97,18 @@ const sequenceStats = [
 export default function StudentGrades() {
   const { user } = useAuth();
 
+  const handleExportGrades = () => {
+    if (user) {
+      generateGradesPDF(gradesData, user);
+    }
+  };
+
+  const handleDownloadBulletin = () => {
+    if (user) {
+      generateBulletinPDF(user);
+    }
+  };
+
   const getGradeColor = (note: number | null) => {
     if (note === null) return "text-gray-400";
     if (note >= 16) return "text-green-600";
@@ -139,7 +151,7 @@ export default function StudentGrades() {
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Moyenne générale</CardTitle>
+              <CardTitle className="text-sm font-medium">Moyenne gén��rale</CardTitle>
               <TrendingUp className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
