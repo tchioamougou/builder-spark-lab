@@ -221,7 +221,7 @@ const LandingFooter = () => {
           </div>
           {/* Colonne 4: Liens de navigation 2 */}
           <div className="lg:col-span-1">
-            <h4 className="font-semibold text-lg mb-4 text-[#ff9900]">Plus</h4>
+            <h4 className="font-semibold text-lg mb-4 text-[#ff9900]">{t("footer.more")}</h4>
             <ul className="space-y-2 text-sm">
               <li>
                 <Link to="/actualites" className="hover:underline">
