@@ -19,16 +19,22 @@ const LanguageSwitcher: React.FC = () => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="icon">
+        <Button variant="ghost" size="icon" className="text-gray-200 hover:text-[#ff9900] hover:bg-white/10 transition-colors duration-300">
           <Globe className="h-5 w-5" />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
-        <DropdownMenuItem onClick={() => changeLanguage('fr')}>
-          Français
+      <DropdownMenuContent align="end" className="bg-white border border-gray-200 shadow-lg">
+        <DropdownMenuItem
+          onClick={() => changeLanguage('fr')}
+          className="hover:bg-[#ff9900] hover:text-white transition-colors cursor-pointer"
+        >
+          🇫🇷 Français
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => changeLanguage('en')}>
-          English
+        <DropdownMenuItem
+          onClick={() => changeLanguage('en')}
+          className="hover:bg-[#ff9900] hover:text-white transition-colors cursor-pointer"
+        >
+          🇬🇧 English
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
