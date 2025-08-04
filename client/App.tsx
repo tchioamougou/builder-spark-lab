@@ -225,7 +225,15 @@ function AppRoutes() {
       <Route
         path="/student-details/:id"
         element={
-          <ProtectedRoute requiredRole={["admin", "scolarite", "rh", "enseignant", "etudiant"]}>
+          <ProtectedRoute
+            requiredRole={[
+              "admin",
+              "scolarite",
+              "rh",
+              "enseignant",
+              "etudiant",
+            ]}
+          >
             <StudentDetails />
           </ProtectedRoute>
         }

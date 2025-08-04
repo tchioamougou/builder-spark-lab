@@ -321,8 +321,12 @@ export default function StudentDetailsPage() {
   const { toast } = useToast();
 
   // Permission logic
-  const canEdit = user?.role === "admin" || (user?.role === "etudiant" && user?.id === id);
-  const canViewFinancial = user?.role === "admin" || user?.role === "scolarite" || (user?.role === "etudiant" && user?.id === id);
+  const canEdit =
+    user?.role === "admin" || (user?.role === "etudiant" && user?.id === id);
+  const canViewFinancial =
+    user?.role === "admin" ||
+    user?.role === "scolarite" ||
+    (user?.role === "etudiant" && user?.id === id);
   const canManageStatus = user?.role === "admin" || user?.role === "scolarite";
 
   const calculateMoyenne = () => {
@@ -389,7 +393,9 @@ export default function StudentDetailsPage() {
             </Button>
 
             {/* Visible to admin, scolarite, and teachers */}
-            {(user?.role === "admin" || user?.role === "scolarite" || user?.role === "enseignant") && (
+            {(user?.role === "admin" ||
+              user?.role === "scolarite" ||
+              user?.role === "enseignant") && (
               <Button variant="outline" onClick={handleSendNotification}>
                 <Bell className="h-4 w-4 mr-2" />
                 Notifier
@@ -605,7 +611,9 @@ export default function StudentDetailsPage() {
 
         {/* Detailed Tabs */}
         <Tabs defaultValue="profile" className="space-y-6">
-          <TabsList className={`grid w-full ${canViewFinancial ? 'grid-cols-6' : 'grid-cols-5'}`}>
+          <TabsList
+            className={`grid w-full ${canViewFinancial ? "grid-cols-6" : "grid-cols-5"}`}
+          >
             <TabsTrigger value="profile">Profil</TabsTrigger>
             <TabsTrigger value="notes">Notes</TabsTrigger>
             <TabsTrigger value="documents">Documents</TabsTrigger>
@@ -818,131 +826,131 @@ export default function StudentDetailsPage() {
 
           {canViewFinancial && (
             <TabsContent value="financier" className="space-y-4">
-            <div className="grid gap-4 md:grid-cols-2">
-              <Card>
-                <CardHeader>
-                  <CardTitle>Résumé financier</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="flex justify-between">
-                    <span>Frais d'inscription:</span>
-                    <span className="font-medium">
-                      {student.fraisInscription}€
-                    </span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>Frais de scolarité:</span>
-                    <span className="font-medium">
-                      {student.fraisScolarite}€
-                    </span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>Total dû:</span>
-                    <span className="font-medium">
-                      {student.fraisInscription + student.fraisScolarite}€
-                    </span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>Montant payé:</span>
-                    <span className="font-medium text-green-600">
-                      {student.montantPaye}€
-                    </span>
-                  </div>
-                  <div className="flex justify-between border-t pt-2">
-                    <span className="font-medium">Solde:</span>
-                    <span
-                      className={`font-bold ${student.montantDu > 0 ? "text-red-600" : "text-green-600"}`}
+              <div className="grid gap-4 md:grid-cols-2">
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Résumé financier</CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div className="flex justify-between">
+                      <span>Frais d'inscription:</span>
+                      <span className="font-medium">
+                        {student.fraisInscription}€
+                      </span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span>Frais de scolarité:</span>
+                      <span className="font-medium">
+                        {student.fraisScolarite}€
+                      </span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span>Total dû:</span>
+                      <span className="font-medium">
+                        {student.fraisInscription + student.fraisScolarite}€
+                      </span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span>Montant payé:</span>
+                      <span className="font-medium text-green-600">
+                        {student.montantPaye}€
+                      </span>
+                    </div>
+                    <div className="flex justify-between border-t pt-2">
+                      <span className="font-medium">Solde:</span>
+                      <span
+                        className={`font-bold ${student.montantDu > 0 ? "text-red-600" : "text-green-600"}`}
+                      >
+                        {student.montantDu > 0 ? "-" : "+"}
+                        {Math.abs(student.montantDu)}€
+                      </span>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Statut financier</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <Badge
+                      className={
+                        statutFinancierLabels[student.statutFinancier].color
+                      }
                     >
-                      {student.montantDu > 0 ? "-" : "+"}
-                      {Math.abs(student.montantDu)}€
-                    </span>
-                  </div>
-                </CardContent>
-              </Card>
+                      {statutFinancierLabels[student.statutFinancier].label}
+                    </Badge>
+                    {student.statutFinancier === "en_retard" && (
+                      <div className="mt-4 p-3 bg-red-50 rounded-lg">
+                        <div className="flex items-center space-x-2">
+                          <AlertTriangle className="h-4 w-4 text-red-600" />
+                          <span className="text-sm text-red-800">
+                            Paiement en retard
+                          </span>
+                        </div>
+                        <p className="text-sm text-red-600 mt-1">
+                          Un montant de {student.montantDu}€ est en attente de
+                          paiement.
+                        </p>
+                      </div>
+                    )}
+                  </CardContent>
+                </Card>
+              </div>
 
               <Card>
                 <CardHeader>
-                  <CardTitle>Statut financier</CardTitle>
+                  <CardTitle>Historique des paiements</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <Badge
-                    className={
-                      statutFinancierLabels[student.statutFinancier].color
-                    }
-                  >
-                    {statutFinancierLabels[student.statutFinancier].label}
-                  </Badge>
-                  {student.statutFinancier === "en_retard" && (
-                    <div className="mt-4 p-3 bg-red-50 rounded-lg">
-                      <div className="flex items-center space-x-2">
-                        <AlertTriangle className="h-4 w-4 text-red-600" />
-                        <span className="text-sm text-red-800">
-                          Paiement en retard
-                        </span>
-                      </div>
-                      <p className="text-sm text-red-600 mt-1">
-                        Un montant de {student.montantDu}€ est en attente de
-                        paiement.
-                      </p>
-                    </div>
-                  )}
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead>Date</TableHead>
+                        <TableHead>Montant</TableHead>
+                        <TableHead>Méthode</TableHead>
+                        <TableHead>Référence</TableHead>
+                        <TableHead>Type</TableHead>
+                        <TableHead>Statut</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {paiements.map((paiement) => (
+                        <TableRow key={paiement.id}>
+                          <TableCell>
+                            {new Date(paiement.datePaiement).toLocaleDateString(
+                              "fr-FR",
+                            )}
+                          </TableCell>
+                          <TableCell className="font-medium">
+                            {paiement.montant}€
+                          </TableCell>
+                          <TableCell>{paiement.methode}</TableCell>
+                          <TableCell className="font-mono text-sm">
+                            {paiement.reference}
+                          </TableCell>
+                          <TableCell className="capitalize">
+                            {paiement.type}
+                          </TableCell>
+                          <TableCell>
+                            <Badge
+                              className={
+                                paiement.statut === "valide"
+                                  ? "bg-green-100 text-green-800"
+                                  : paiement.statut === "en_attente"
+                                    ? "bg-yellow-100 text-yellow-800"
+                                    : "bg-red-100 text-red-800"
+                              }
+                            >
+                              {paiement.statut}
+                            </Badge>
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
                 </CardContent>
               </Card>
-            </div>
-
-            <Card>
-              <CardHeader>
-                <CardTitle>Historique des paiements</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>Date</TableHead>
-                      <TableHead>Montant</TableHead>
-                      <TableHead>Méthode</TableHead>
-                      <TableHead>Référence</TableHead>
-                      <TableHead>Type</TableHead>
-                      <TableHead>Statut</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {paiements.map((paiement) => (
-                      <TableRow key={paiement.id}>
-                        <TableCell>
-                          {new Date(paiement.datePaiement).toLocaleDateString(
-                            "fr-FR",
-                          )}
-                        </TableCell>
-                        <TableCell className="font-medium">
-                          {paiement.montant}€
-                        </TableCell>
-                        <TableCell>{paiement.methode}</TableCell>
-                        <TableCell className="font-mono text-sm">
-                          {paiement.reference}
-                        </TableCell>
-                        <TableCell className="capitalize">
-                          {paiement.type}
-                        </TableCell>
-                        <TableCell>
-                          <Badge
-                            className={
-                              paiement.statut === "valide"
-                                ? "bg-green-100 text-green-800"
-                                : paiement.statut === "en_attente"
-                                  ? "bg-yellow-100 text-yellow-800"
-                                  : "bg-red-100 text-red-800"
-                            }
-                          >
-                            {paiement.statut}
-                          </Badge>
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </CardContent>
-            </Card>
             </TabsContent>
           )}
 
