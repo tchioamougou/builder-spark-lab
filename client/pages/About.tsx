@@ -38,7 +38,9 @@ const About: React.FC = () => {
             <div className="max-w-4xl mx-auto">
               <div className="text-center mb-16">
                 <h2 className="heading-font text-3xl md:text-4xl text-[#3b2c6a] font-bold mb-4">
-                  Notre <span className="text-[#ff9900]">Histoire</span>
+                  {t('about.history').split(' ').map((word, index) =>
+                    word === 'Histoire' ? <span key={index} className="text-[#ff9900]">{word}</span> : word + ' '
+                  )}
                 </h2>
                 <div className="w-20 h-1 bg-[#ff9900] mx-auto mb-6"></div>
               </div>
