@@ -232,6 +232,7 @@ const archives = [
 ];
 
 export default function FilesPage() {
+  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedType, setSelectedType] = useState("Tous");
   const [selectedStatut, setSelectedStatut] = useState("Tous");
