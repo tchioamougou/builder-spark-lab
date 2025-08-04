@@ -976,14 +976,61 @@ export default function ProgramsPage() {
                     </div>
                     <div className="flex items-center gap-2">
                       <Badge className="bg-green-100 text-green-800">Active</Badge>
-                      <Button variant="outline" size="sm" className="text-blue-600 border-blue-600">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="text-blue-600 border-blue-600"
+                        onClick={() => {
+                          setSelectedFiliereForActions("1");
+                          setSelectedMaquetteForActions("1");
+                          setIsAddSequenceOpen(true);
+                        }}
+                      >
                         <Plus className="h-4 w-4 mr-1" />
                         Ajouter une séquence
                       </Button>
-                      <Button variant="ghost" size="sm">
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => {
+                          // Set edit data for maquette
+                          setSelectedMaquetteForEdit({
+                            id: "1",
+                            nom: "Licence 3 Informatique (INFO-L3)",
+                            version: "2023.1",
+                            description: "Maquette pour la licence 3 informatique",
+                            dateCreation: "2023-06-01",
+                            sequences: [],
+                            statut: "actif",
+                            totalCredits: 180
+                          });
+                          setFormData({
+                            nom: "Licence 3 Informatique (INFO-L3)",
+                            version: "2023.1",
+                            description: "Maquette pour la licence 3 informatique"
+                          });
+                          setIsEditMaquetteOpen(true);
+                        }}
+                      >
                         <Edit className="h-4 w-4" />
                       </Button>
-                      <Button variant="ghost" size="sm">
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => {
+                          setSelectedMaquetteForEdit({
+                            id: "1",
+                            nom: "Licence 3 Informatique (INFO-L3)",
+                            version: "2023.1",
+                            description: "Maquette pour la licence 3 informatique",
+                            dateCreation: "2023-06-01",
+                            sequences: [],
+                            statut: "actif",
+                            totalCredits: 180
+                          });
+                          setDeleteMaquetteDialogOpen(true);
+                        }}
+                      >
                         <Trash2 className="h-4 w-4" />
                       </Button>
                     </div>
