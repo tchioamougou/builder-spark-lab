@@ -194,7 +194,7 @@ const LandingFooter = () => {
           {/* Colonne 3: Liens de navigation 1 */}
           <div className="lg:col-span-1">
             <h4 className="font-semibold text-lg mb-4 text-[#ff9900]">
-              Navigation
+              {t("footer.navigation")}
             </h4>
             <ul className="space-y-2 text-sm">
               <li>
