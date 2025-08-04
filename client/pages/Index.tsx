@@ -125,16 +125,22 @@ export default function Index() {
 
   const handlePendingTask = (taskTitle: string, module: string) => {
     // Navigate based on task type and module
-    if (taskTitle.includes("demandes d'inscription") || module === "Scolarité") {
-      navigate('/students');
-    } else if (taskTitle.includes("candidatures enseignants") || module === "RH") {
-      navigate('/teachers');
+    if (
+      taskTitle.includes("demandes d'inscription") ||
+      module === "Scolarité"
+    ) {
+      navigate("/students");
+    } else if (
+      taskTitle.includes("candidatures enseignants") ||
+      module === "RH"
+    ) {
+      navigate("/teachers");
     } else if (taskTitle.includes("calendrier")) {
-      navigate('/academic-years');
+      navigate("/academic-years");
     } else if (taskTitle.includes("justificatifs")) {
-      navigate('/files');
+      navigate("/files");
     } else {
-      navigate('/admin');
+      navigate("/admin");
     }
   };
 
@@ -297,34 +303,42 @@ export default function Index() {
               <Button
                 className="h-20 flex-col space-y-2 hover:bg-blue-50 hover:border-blue-300 hover:text-blue-700 transition-colors group"
                 variant="outline"
-                onClick={() => navigate('/user-management')}
+                onClick={() => navigate("/user-management")}
               >
                 <Users className="h-6 w-6 text-blue-600 group-hover:text-blue-700" />
-                <span className="text-sm font-medium group-hover:text-blue-700">Gérer les utilisateurs</span>
+                <span className="text-sm font-medium group-hover:text-blue-700">
+                  Gérer les utilisateurs
+                </span>
               </Button>
               <Button
                 className="h-20 flex-col space-y-2 hover:bg-green-50 hover:border-green-300 hover:text-green-700 transition-colors group"
                 variant="outline"
-                onClick={() => navigate('/programs')}
+                onClick={() => navigate("/programs")}
               >
                 <BookOpen className="h-6 w-6 text-green-600 group-hover:text-green-700" />
-                <span className="text-sm font-medium group-hover:text-green-700">Programmes académiques</span>
+                <span className="text-sm font-medium group-hover:text-green-700">
+                  Programmes académiques
+                </span>
               </Button>
               <Button
                 className="h-20 flex-col space-y-2 hover:bg-orange-50 hover:border-orange-300 hover:text-orange-700 transition-colors group"
                 variant="outline"
-                onClick={() => navigate('/files')}
+                onClick={() => navigate("/files")}
               >
                 <FileText className="h-6 w-6 text-orange-600 group-hover:text-orange-700" />
-                <span className="text-sm font-medium group-hover:text-orange-700">Demandes en attente</span>
+                <span className="text-sm font-medium group-hover:text-orange-700">
+                  Demandes en attente
+                </span>
               </Button>
               <Button
                 className="h-20 flex-col space-y-2 hover:bg-purple-50 hover:border-purple-300 hover:text-purple-700 transition-colors group"
                 variant="outline"
-                onClick={() => navigate('/academic-years')}
+                onClick={() => navigate("/academic-years")}
               >
                 <Calendar className="h-6 w-6 text-purple-600 group-hover:text-purple-700" />
-                <span className="text-sm font-medium group-hover:text-purple-700">Calendrier académique</span>
+                <span className="text-sm font-medium group-hover:text-purple-700">
+                  Calendrier académique
+                </span>
               </Button>
             </div>
           </CardContent>
