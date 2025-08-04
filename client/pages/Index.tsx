@@ -1,18 +1,24 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { 
-  Users, 
-  BookOpen, 
-  Calendar, 
-  GraduationCap, 
+import {
+  Users,
+  BookOpen,
+  Calendar,
+  GraduationCap,
   TrendingUp,
   AlertCircle,
   CheckCircle,
   Clock,
   FileText,
   UserCheck,
-  School
+  School,
 } from "lucide-react";
 import Layout from "@/components/Layout";
 
@@ -141,13 +147,15 @@ export default function Index() {
                 <div className="text-2xl font-bold">{stat.value}</div>
                 <div className="flex items-center space-x-2 text-xs text-muted-foreground">
                   <TrendingUp className="h-3 w-3" />
-                  <span className={
-                    stat.changeType === 'positive' 
-                      ? 'text-green-600' 
-                      : stat.changeType === 'negative' 
-                      ? 'text-red-600' 
-                      : 'text-gray-600'
-                  }>
+                  <span
+                    className={
+                      stat.changeType === "positive"
+                        ? "text-green-600"
+                        : stat.changeType === "negative"
+                          ? "text-red-600"
+                          : "text-gray-600"
+                    }
+                  >
                     {stat.change}
                   </span>
                 </div>
@@ -172,13 +180,15 @@ export default function Index() {
               <div className="space-y-4">
                 {recentActivities.map((activity) => (
                   <div key={activity.id} className="flex items-start space-x-3">
-                    <div className={`p-2 rounded-full ${
-                      activity.status === 'success' 
-                        ? 'bg-green-100 text-green-600' 
-                        : activity.status === 'pending'
-                        ? 'bg-yellow-100 text-yellow-600'
-                        : 'bg-blue-100 text-blue-600'
-                    }`}>
+                    <div
+                      className={`p-2 rounded-full ${
+                        activity.status === "success"
+                          ? "bg-green-100 text-green-600"
+                          : activity.status === "pending"
+                            ? "bg-yellow-100 text-yellow-600"
+                            : "bg-blue-100 text-blue-600"
+                      }`}
+                    >
                       <activity.icon className="h-4 w-4" />
                     </div>
                     <div className="flex-1 min-w-0">
@@ -212,7 +222,10 @@ export default function Index() {
             <CardContent>
               <div className="space-y-4">
                 {pendingTasks.map((task) => (
-                  <div key={task.id} className="flex items-center justify-between p-3 border rounded-lg">
+                  <div
+                    key={task.id}
+                    className="flex items-center justify-between p-3 border rounded-lg"
+                  >
                     <div className="flex-1">
                       <div className="flex items-center space-x-2">
                         <p className="text-sm font-medium text-gray-900">
@@ -220,16 +233,19 @@ export default function Index() {
                         </p>
                         <Badge
                           variant={
-                            task.priority === 'high'
-                              ? 'destructive'
-                              : task.priority === 'medium'
-                              ? 'default'
-                              : 'secondary'
+                            task.priority === "high"
+                              ? "destructive"
+                              : task.priority === "medium"
+                                ? "default"
+                                : "secondary"
                           }
                           className="text-xs"
                         >
-                          {task.priority === 'high' ? 'Urgent' : 
-                           task.priority === 'medium' ? 'Moyen' : 'Faible'}
+                          {task.priority === "high"
+                            ? "Urgent"
+                            : task.priority === "medium"
+                              ? "Moyen"
+                              : "Faible"}
                         </Badge>
                       </div>
                       <p className="text-xs text-gray-500 mt-1">

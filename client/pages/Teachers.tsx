@@ -1,20 +1,26 @@
 import { useState } from "react";
 import Layout from "@/components/Layout";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { 
-  Table, 
-  TableBody, 
-  TableCell, 
-  TableHead, 
-  TableHeader, 
-  TableRow 
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
 } from "@/components/ui/table";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { 
+import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
@@ -33,12 +39,18 @@ import {
 } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { 
-  GraduationCap, 
-  Plus, 
-  Search, 
-  MoreHorizontal, 
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  GraduationCap,
+  Plus,
+  Search,
+  MoreHorizontal,
   Edit,
   Trash2,
   UserCheck,
@@ -55,7 +67,7 @@ import {
   Eye,
   Download,
   Upload,
-  Filter
+  Filter,
 } from "lucide-react";
 
 const enseignants = [
@@ -72,7 +84,7 @@ const enseignants = [
     maquettes: ["Pharmacie", "Médecine"],
     avatar: "/placeholder.svg",
     experience: "15 ans",
-    diplomes: ["Doctorat en Médecine", "HDR Anatomie"]
+    diplomes: ["Doctorat en Médecine", "HDR Anatomie"],
   },
   {
     id: 2,
@@ -87,7 +99,7 @@ const enseignants = [
     maquettes: ["Pharmacie"],
     avatar: "/placeholder.svg",
     experience: "8 ans",
-    diplomes: ["Doctorat en Pharmacie", "Master Pharmacologie"]
+    diplomes: ["Doctorat en Pharmacie", "Master Pharmacologie"],
   },
   {
     id: 3,
@@ -102,8 +114,8 @@ const enseignants = [
     maquettes: ["Kinésithérapie", "Médecine"],
     avatar: "/placeholder.svg",
     experience: "12 ans",
-    diplomes: ["Doctorat en Sciences", "Agrégation"]
-  }
+    diplomes: ["Doctorat en Sciences", "Agrégation"],
+  },
 ];
 
 const candidatures = [
@@ -118,7 +130,7 @@ const candidatures = [
     experience: "5 ans",
     specialite: "Chimie organique",
     cv: "cv_durand.pdf",
-    lettreMotivation: "lm_durand.pdf"
+    lettreMotivation: "lm_durand.pdf",
   },
   {
     id: 2,
@@ -131,7 +143,7 @@ const candidatures = [
     experience: "10 ans",
     specialite: "Anatomie pathologique",
     cv: "cv_wilson.pdf",
-    lettreMotivation: "lm_wilson.pdf"
+    lettreMotivation: "lm_wilson.pdf",
   },
   {
     id: 3,
@@ -145,8 +157,8 @@ const candidatures = [
     specialite: "Pharmacocinétique",
     cv: "cv_bernard.pdf",
     lettreMotivation: "lm_bernard.pdf",
-    motifRejet: "Expérience insuffisante"
-  }
+    motifRejet: "Expérience insuffisante",
+  },
 ];
 
 const offresEmploi = [
@@ -159,7 +171,7 @@ const offresEmploi = [
     dateLimite: "2024-02-01",
     statut: "Ouverte",
     candidatures: 12,
-    description: "Enseigner l'anatomie générale et spécialisée"
+    description: "Enseigner l'anatomie générale et spécialisée",
   },
   {
     id: 2,
@@ -170,7 +182,7 @@ const offresEmploi = [
     dateLimite: "2024-01-15",
     statut: "Fermée",
     candidatures: 8,
-    description: "Cours magistraux et travaux pratiques"
+    description: "Cours magistraux et travaux pratiques",
   },
   {
     id: 3,
@@ -181,8 +193,8 @@ const offresEmploi = [
     dateLimite: "2024-02-15",
     statut: "Ouverte",
     candidatures: 5,
-    description: "Coordination pédagogique et administrative"
-  }
+    description: "Coordination pédagogique et administrative",
+  },
 ];
 
 export default function TeachersPage() {
@@ -190,32 +202,52 @@ export default function TeachersPage() {
   const [selectedType, setSelectedType] = useState("Tous");
   const [selectedStatut, setSelectedStatut] = useState("Tous");
   const [isCreateOfferDialogOpen, setIsCreateOfferDialogOpen] = useState(false);
-  const [isCreateTeacherDialogOpen, setIsCreateTeacherDialogOpen] = useState(false);
+  const [isCreateTeacherDialogOpen, setIsCreateTeacherDialogOpen] =
+    useState(false);
 
-  const filteredEnseignants = enseignants.filter(enseignant => {
-    const matchesSearch = enseignant.nom.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         enseignant.specialite.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesType = selectedType === "Tous" || enseignant.type === selectedType;
-    const matchesStatut = selectedStatut === "Tous" || enseignant.statut === selectedStatut;
+  const filteredEnseignants = enseignants.filter((enseignant) => {
+    const matchesSearch =
+      enseignant.nom.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      enseignant.specialite.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesType =
+      selectedType === "Tous" || enseignant.type === selectedType;
+    const matchesStatut =
+      selectedStatut === "Tous" || enseignant.statut === selectedStatut;
     return matchesSearch && matchesType && matchesStatut;
   });
 
   const getStatutColor = (statut: string) => {
     switch (statut) {
-      case "Actif": case "Ouverte": case "Approuvé RH": return "bg-green-100 text-green-800";
-      case "En congé": case "En attente RH": return "bg-yellow-100 text-yellow-800";
-      case "Inactif": case "Fermée": case "Rejeté": return "bg-red-100 text-red-800";
-      default: return "bg-gray-100 text-gray-800";
+      case "Actif":
+      case "Ouverte":
+      case "Approuvé RH":
+        return "bg-green-100 text-green-800";
+      case "En congé":
+      case "En attente RH":
+        return "bg-yellow-100 text-yellow-800";
+      case "Inactif":
+      case "Fermée":
+      case "Rejeté":
+        return "bg-red-100 text-red-800";
+      default:
+        return "bg-gray-100 text-gray-800";
     }
   };
 
   const getTypeColor = (type: string) => {
     switch (type) {
-      case "Permanent": case "CDI": return "bg-blue-100 text-blue-800";
-      case "Vacataire": case "Vacation": return "bg-purple-100 text-purple-800";
-      case "Nouveau": return "bg-green-100 text-green-800";
-      case "Ancien": return "bg-orange-100 text-orange-800";
-      default: return "bg-gray-100 text-gray-800";
+      case "Permanent":
+      case "CDI":
+        return "bg-blue-100 text-blue-800";
+      case "Vacataire":
+      case "Vacation":
+        return "bg-purple-100 text-purple-800";
+      case "Nouveau":
+        return "bg-green-100 text-green-800";
+      case "Ancien":
+        return "bg-orange-100 text-orange-800";
+      default:
+        return "bg-gray-100 text-gray-800";
     }
   };
 
@@ -225,18 +257,23 @@ export default function TeachersPage() {
         {/* Header */}
         <div className="flex justify-between items-center">
           <div>
-            <h2 className="text-3xl font-bold tracking-tight">Gestion des enseignants</h2>
+            <h2 className="text-3xl font-bold tracking-tight">
+              Gestion des enseignants
+            </h2>
             <p className="text-muted-foreground">
               Gérez les candidatures, profils et assignations des enseignants
             </p>
           </div>
-          
+
           <div className="flex space-x-2">
             <Button variant="outline">
               <Upload className="h-4 w-4 mr-2" />
               Importer
             </Button>
-            <Dialog open={isCreateOfferDialogOpen} onOpenChange={setIsCreateOfferDialogOpen}>
+            <Dialog
+              open={isCreateOfferDialogOpen}
+              onOpenChange={setIsCreateOfferDialogOpen}
+            >
               <DialogTrigger asChild>
                 <Button variant="outline">
                   <Plus className="h-4 w-4 mr-2" />
@@ -247,30 +284,47 @@ export default function TeachersPage() {
                 <DialogHeader>
                   <DialogTitle>Publier une offre d'emploi</DialogTitle>
                   <DialogDescription>
-                    Créez une nouvelle offre d'emploi pour recruter des enseignants.
+                    Créez une nouvelle offre d'emploi pour recruter des
+                    enseignants.
                   </DialogDescription>
                 </DialogHeader>
                 <div className="grid gap-4 py-4">
                   <div className="grid grid-cols-4 items-center gap-4">
-                    <Label htmlFor="titre" className="text-right">Titre du poste</Label>
-                    <Input id="titre" className="col-span-3" placeholder="ex: Enseignant en Anatomie" />
+                    <Label htmlFor="titre" className="text-right">
+                      Titre du poste
+                    </Label>
+                    <Input
+                      id="titre"
+                      className="col-span-3"
+                      placeholder="ex: Enseignant en Anatomie"
+                    />
                   </div>
                   <div className="grid grid-cols-4 items-center gap-4">
-                    <Label htmlFor="dept" className="text-right">Département</Label>
+                    <Label htmlFor="dept" className="text-right">
+                      Département
+                    </Label>
                     <Select>
                       <SelectTrigger className="col-span-3">
                         <SelectValue placeholder="Sélectionner le département" />
                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="base">Sciences de base</SelectItem>
-                        <SelectItem value="bio">Sciences biomédicales</SelectItem>
-                        <SelectItem value="pharma">Sciences pharmaceutiques</SelectItem>
-                        <SelectItem value="humaines">Sciences humaines</SelectItem>
+                        <SelectItem value="bio">
+                          Sciences biomédicales
+                        </SelectItem>
+                        <SelectItem value="pharma">
+                          Sciences pharmaceutiques
+                        </SelectItem>
+                        <SelectItem value="humaines">
+                          Sciences humaines
+                        </SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
                   <div className="grid grid-cols-4 items-center gap-4">
-                    <Label htmlFor="typeContrat" className="text-right">Type de contrat</Label>
+                    <Label htmlFor="typeContrat" className="text-right">
+                      Type de contrat
+                    </Label>
                     <Select>
                       <SelectTrigger className="col-span-3">
                         <SelectValue placeholder="Sélectionner le type" />
@@ -283,12 +337,20 @@ export default function TeachersPage() {
                     </Select>
                   </div>
                   <div className="grid grid-cols-4 items-center gap-4">
-                    <Label htmlFor="dateLimite" className="text-right">Date limite</Label>
+                    <Label htmlFor="dateLimite" className="text-right">
+                      Date limite
+                    </Label>
                     <Input id="dateLimite" type="date" className="col-span-3" />
                   </div>
                   <div className="grid grid-cols-4 items-center gap-4">
-                    <Label htmlFor="description" className="text-right">Description</Label>
-                    <Textarea id="description" className="col-span-3" rows={3} />
+                    <Label htmlFor="description" className="text-right">
+                      Description
+                    </Label>
+                    <Textarea
+                      id="description"
+                      className="col-span-3"
+                      rows={3}
+                    />
                   </div>
                 </div>
                 <DialogFooter>
@@ -296,7 +358,10 @@ export default function TeachersPage() {
                 </DialogFooter>
               </DialogContent>
             </Dialog>
-            <Dialog open={isCreateTeacherDialogOpen} onOpenChange={setIsCreateTeacherDialogOpen}>
+            <Dialog
+              open={isCreateTeacherDialogOpen}
+              onOpenChange={setIsCreateTeacherDialogOpen}
+            >
               <DialogTrigger asChild>
                 <Button>
                   <Plus className="h-4 w-4 mr-2" />
@@ -312,23 +377,33 @@ export default function TeachersPage() {
                 </DialogHeader>
                 <div className="grid gap-4 py-4">
                   <div className="grid grid-cols-4 items-center gap-4">
-                    <Label htmlFor="nomEns" className="text-right">Nom complet</Label>
+                    <Label htmlFor="nomEns" className="text-right">
+                      Nom complet
+                    </Label>
                     <Input id="nomEns" className="col-span-3" />
                   </div>
                   <div className="grid grid-cols-4 items-center gap-4">
-                    <Label htmlFor="emailEns" className="text-right">Email</Label>
+                    <Label htmlFor="emailEns" className="text-right">
+                      Email
+                    </Label>
                     <Input id="emailEns" type="email" className="col-span-3" />
                   </div>
                   <div className="grid grid-cols-4 items-center gap-4">
-                    <Label htmlFor="telEns" className="text-right">Téléphone</Label>
+                    <Label htmlFor="telEns" className="text-right">
+                      Téléphone
+                    </Label>
                     <Input id="telEns" className="col-span-3" />
                   </div>
                   <div className="grid grid-cols-4 items-center gap-4">
-                    <Label htmlFor="specialiteEns" className="text-right">Spécialité</Label>
+                    <Label htmlFor="specialiteEns" className="text-right">
+                      Spécialité
+                    </Label>
                     <Input id="specialiteEns" className="col-span-3" />
                   </div>
                   <div className="grid grid-cols-4 items-center gap-4">
-                    <Label htmlFor="typeEns" className="text-right">Type</Label>
+                    <Label htmlFor="typeEns" className="text-right">
+                      Type
+                    </Label>
                     <Select>
                       <SelectTrigger className="col-span-3">
                         <SelectValue placeholder="Sélectionner le type" />
@@ -340,8 +415,14 @@ export default function TeachersPage() {
                     </Select>
                   </div>
                   <div className="grid grid-cols-4 items-center gap-4">
-                    <Label htmlFor="experienceEns" className="text-right">Expérience</Label>
-                    <Input id="experienceEns" className="col-span-3" placeholder="ex: 10 ans" />
+                    <Label htmlFor="experienceEns" className="text-right">
+                      Expérience
+                    </Label>
+                    <Input
+                      id="experienceEns"
+                      className="col-span-3"
+                      placeholder="ex: 10 ans"
+                    />
                   </div>
                 </div>
                 <DialogFooter>
@@ -391,7 +472,10 @@ export default function TeachersPage() {
                       <SelectItem value="Vacataire">Vacataires</SelectItem>
                     </SelectContent>
                   </Select>
-                  <Select value={selectedStatut} onValueChange={setSelectedStatut}>
+                  <Select
+                    value={selectedStatut}
+                    onValueChange={setSelectedStatut}
+                  >
                     <SelectTrigger className="w-[180px]">
                       <SelectValue />
                     </SelectTrigger>
@@ -409,7 +493,9 @@ export default function TeachersPage() {
             {/* Teachers Table */}
             <Card>
               <CardHeader>
-                <CardTitle>Enseignants ({filteredEnseignants.length})</CardTitle>
+                <CardTitle>
+                  Enseignants ({filteredEnseignants.length})
+                </CardTitle>
                 <CardDescription>
                   Liste de tous les enseignants de l'établissement
                 </CardDescription>
@@ -434,11 +520,16 @@ export default function TeachersPage() {
                             <Avatar>
                               <AvatarImage src={enseignant.avatar} />
                               <AvatarFallback>
-                                {enseignant.nom.split(' ').map(n => n[0]).join('')}
+                                {enseignant.nom
+                                  .split(" ")
+                                  .map((n) => n[0])
+                                  .join("")}
                               </AvatarFallback>
                             </Avatar>
                             <div>
-                              <div className="font-medium">{enseignant.nom}</div>
+                              <div className="font-medium">
+                                {enseignant.nom}
+                              </div>
                               <div className="text-sm text-muted-foreground flex items-center">
                                 <Mail className="h-3 w-3 mr-1" />
                                 {enseignant.email}
@@ -452,31 +543,46 @@ export default function TeachersPage() {
                         </TableCell>
                         <TableCell>
                           <div>
-                            <div className="font-medium">{enseignant.specialite}</div>
-                            <div className="text-sm text-muted-foreground">{enseignant.experience}</div>
+                            <div className="font-medium">
+                              {enseignant.specialite}
+                            </div>
+                            <div className="text-sm text-muted-foreground">
+                              {enseignant.experience}
+                            </div>
                           </div>
                         </TableCell>
                         <TableCell>
-                          <Badge variant="secondary" className={getTypeColor(enseignant.type)}>
+                          <Badge
+                            variant="secondary"
+                            className={getTypeColor(enseignant.type)}
+                          >
                             {enseignant.type}
                           </Badge>
                         </TableCell>
                         <TableCell>
                           <div className="space-y-1">
                             {enseignant.maquettes.map((maquette, idx) => (
-                              <Badge key={idx} variant="outline" className="text-xs">
+                              <Badge
+                                key={idx}
+                                variant="outline"
+                                className="text-xs"
+                              >
                                 {maquette}
                               </Badge>
                             ))}
                             {enseignant.coordonnateur.length > 0 && (
                               <div className="text-xs text-primary font-medium">
-                                Coordonnateur: {enseignant.coordonnateur.join(", ")}
+                                Coordonnateur:{" "}
+                                {enseignant.coordonnateur.join(", ")}
                               </div>
                             )}
                           </div>
                         </TableCell>
                         <TableCell>
-                          <Badge variant="secondary" className={getStatutColor(enseignant.statut)}>
+                          <Badge
+                            variant="secondary"
+                            className={getStatutColor(enseignant.statut)}
+                          >
                             {enseignant.statut}
                           </Badge>
                         </TableCell>
@@ -553,29 +659,49 @@ export default function TeachersPage() {
                         <TableCell>
                           <div>
                             <div className="font-medium">{candidature.nom}</div>
-                            <div className="text-sm text-muted-foreground">{candidature.email}</div>
-                            <div className="text-sm text-muted-foreground">{candidature.specialite}</div>
+                            <div className="text-sm text-muted-foreground">
+                              {candidature.email}
+                            </div>
+                            <div className="text-sm text-muted-foreground">
+                              {candidature.specialite}
+                            </div>
                           </div>
                         </TableCell>
                         <TableCell>
                           <div>
-                            <div className="font-medium">{candidature.poste}</div>
-                            <div className="text-sm text-muted-foreground">{candidature.experience}</div>
+                            <div className="font-medium">
+                              {candidature.poste}
+                            </div>
+                            <div className="text-sm text-muted-foreground">
+                              {candidature.experience}
+                            </div>
                           </div>
                         </TableCell>
                         <TableCell>
-                          <Badge variant="secondary" className={getTypeColor(candidature.type)}>
+                          <Badge
+                            variant="secondary"
+                            className={getTypeColor(candidature.type)}
+                          >
                             {candidature.type}
                           </Badge>
                         </TableCell>
-                        <TableCell>{new Date(candidature.dateDepot).toLocaleDateString('fr-FR')}</TableCell>
+                        <TableCell>
+                          {new Date(candidature.dateDepot).toLocaleDateString(
+                            "fr-FR",
+                          )}
+                        </TableCell>
                         <TableCell>
                           <div className="space-y-1">
-                            <Badge variant="secondary" className={getStatutColor(candidature.statut)}>
+                            <Badge
+                              variant="secondary"
+                              className={getStatutColor(candidature.statut)}
+                            >
                               {candidature.statut}
                             </Badge>
                             {candidature.motifRejet && (
-                              <div className="text-xs text-red-600">{candidature.motifRejet}</div>
+                              <div className="text-xs text-red-600">
+                                {candidature.motifRejet}
+                              </div>
                             )}
                           </div>
                         </TableCell>
@@ -654,19 +780,33 @@ export default function TeachersPage() {
                         <TableCell>
                           <div>
                             <div className="font-medium">{offre.titre}</div>
-                            <div className="text-sm text-muted-foreground">{offre.description}</div>
+                            <div className="text-sm text-muted-foreground">
+                              {offre.description}
+                            </div>
                           </div>
                         </TableCell>
                         <TableCell>{offre.departement}</TableCell>
                         <TableCell>
-                          <Badge variant="secondary" className={getTypeColor(offre.type)}>
+                          <Badge
+                            variant="secondary"
+                            className={getTypeColor(offre.type)}
+                          >
                             {offre.type}
                           </Badge>
                         </TableCell>
-                        <TableCell className="text-center">{offre.candidatures}</TableCell>
-                        <TableCell>{new Date(offre.dateLimite).toLocaleDateString('fr-FR')}</TableCell>
+                        <TableCell className="text-center">
+                          {offre.candidatures}
+                        </TableCell>
                         <TableCell>
-                          <Badge variant="secondary" className={getStatutColor(offre.statut)}>
+                          {new Date(offre.dateLimite).toLocaleDateString(
+                            "fr-FR",
+                          )}
+                        </TableCell>
+                        <TableCell>
+                          <Badge
+                            variant="secondary"
+                            className={getStatutColor(offre.statut)}
+                          >
                             {offre.statut}
                           </Badge>
                         </TableCell>
@@ -688,7 +828,9 @@ export default function TeachersPage() {
                               </DropdownMenuItem>
                               <DropdownMenuSeparator />
                               <DropdownMenuItem>
-                                {offre.statut === "Ouverte" ? "Fermer l'offre" : "Rouvrir l'offre"}
+                                {offre.statut === "Ouverte"
+                                  ? "Fermer l'offre"
+                                  : "Rouvrir l'offre"}
                               </DropdownMenuItem>
                             </DropdownMenuContent>
                           </DropdownMenu>
@@ -706,7 +848,9 @@ export default function TeachersPage() {
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
               <Card>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">Total Enseignants</CardTitle>
+                  <CardTitle className="text-sm font-medium">
+                    Total Enseignants
+                  </CardTitle>
                   <GraduationCap className="h-4 w-4 text-muted-foreground" />
                 </CardHeader>
                 <CardContent>
@@ -716,10 +860,12 @@ export default function TeachersPage() {
                   </p>
                 </CardContent>
               </Card>
-              
+
               <Card>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">Candidatures</CardTitle>
+                  <CardTitle className="text-sm font-medium">
+                    Candidatures
+                  </CardTitle>
                   <Briefcase className="h-4 w-4 text-muted-foreground" />
                 </CardHeader>
                 <CardContent>
@@ -729,10 +875,12 @@ export default function TeachersPage() {
                   </p>
                 </CardContent>
               </Card>
-              
+
               <Card>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">Offres actives</CardTitle>
+                  <CardTitle className="text-sm font-medium">
+                    Offres actives
+                  </CardTitle>
                   <Calendar className="h-4 w-4 text-muted-foreground" />
                 </CardHeader>
                 <CardContent>
@@ -742,10 +890,12 @@ export default function TeachersPage() {
                   </p>
                 </CardContent>
               </Card>
-              
+
               <Card>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">Coordonnateurs</CardTitle>
+                  <CardTitle className="text-sm font-medium">
+                    Coordonnateurs
+                  </CardTitle>
                   <Award className="h-4 w-4 text-muted-foreground" />
                 </CardHeader>
                 <CardContent>

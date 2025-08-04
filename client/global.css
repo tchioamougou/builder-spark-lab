@@ -38,13 +38,13 @@
     --ring: 214 100% 40%;
 
     --radius: 0.5rem;
-    
+
     --success: 142 71% 45%;
     --success-foreground: 0 0% 98%;
-    
+
     --warning: 38 92% 50%;
     --warning-foreground: 0 0% 98%;
-    
+
     --info: 199 89% 48%;
     --info-foreground: 0 0% 98%;
 
@@ -93,16 +93,16 @@
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
     --ring: 214 100% 50%;
-    
+
     --success: 142 71% 45%;
     --success-foreground: 0 0% 98%;
-    
+
     --warning: 38 92% 50%;
     --warning-foreground: 0 0% 98%;
-    
+
     --info: 199 89% 48%;
     --info-foreground: 0 0% 98%;
-    
+
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;

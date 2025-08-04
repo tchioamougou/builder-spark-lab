@@ -1,17 +1,23 @@
 import { useState } from "react";
 import Layout from "@/components/Layout";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { 
-  Table, 
-  TableBody, 
-  TableCell, 
-  TableHead, 
-  TableHeader, 
-  TableRow 
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
 } from "@/components/ui/table";
 import {
   Dialog,
@@ -23,8 +29,14 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { 
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
@@ -32,18 +44,18 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { 
-  Calendar, 
-  Plus, 
-  Search, 
-  MoreHorizontal, 
+import {
+  Calendar,
+  Plus,
+  Search,
+  MoreHorizontal,
   Edit,
   Trash2,
   Clock,
   CheckCircle,
   AlertCircle,
   CalendarDays,
-  Settings
+  Settings,
 } from "lucide-react";
 
 const academicYears = [
@@ -54,7 +66,7 @@ const academicYears = [
     dateFin: "2024-06-30",
     statut: "En cours",
     sequences: 6,
-    programmes: 3
+    programmes: 3,
   },
   {
     id: 2,
@@ -63,7 +75,7 @@ const academicYears = [
     dateFin: "2023-06-30",
     statut: "Terminé",
     sequences: 6,
-    programmes: 3
+    programmes: 3,
   },
   {
     id: 3,
@@ -72,8 +84,8 @@ const academicYears = [
     dateFin: "2025-06-30",
     statut: "Planifié",
     sequences: 0,
-    programmes: 0
-  }
+    programmes: 0,
+  },
 ];
 
 const sequences = [
@@ -86,7 +98,7 @@ const sequences = [
     dateDebut: "2023-09-01",
     dateFin: "2024-01-15",
     statut: "Terminé",
-    notesSaisies: true
+    notesSaisies: true,
   },
   {
     id: 2,
@@ -97,7 +109,7 @@ const sequences = [
     dateDebut: "2024-01-16",
     dateFin: "2024-06-30",
     statut: "En cours",
-    notesSaisies: false
+    notesSaisies: false,
   },
   {
     id: 3,
@@ -108,7 +120,7 @@ const sequences = [
     dateDebut: "2023-09-01",
     dateFin: "2024-01-15",
     statut: "Terminé",
-    notesSaisies: true
+    notesSaisies: true,
   },
   {
     id: 4,
@@ -119,8 +131,8 @@ const sequences = [
     dateDebut: "2024-01-16",
     dateFin: "2024-06-30",
     statut: "En cours",
-    notesSaisies: false
-  }
+    notesSaisies: false,
+  },
 ];
 
 const calendrierEvents = [
@@ -129,51 +141,60 @@ const calendrierEvents = [
     titre: "Début année académique 2023-2024",
     date: "2023-09-01",
     type: "Année académique",
-    filiere: "Toutes"
+    filiere: "Toutes",
   },
   {
     id: 2,
     titre: "Fin Séquence 1 - Pharmacie",
     date: "2024-01-15",
     type: "Séquence",
-    filiere: "Pharmacie"
+    filiere: "Pharmacie",
   },
   {
     id: 3,
     titre: "Début Séquence 2 - Toutes filières",
     date: "2024-01-16",
     type: "Séquence",
-    filiere: "Toutes"
+    filiere: "Toutes",
   },
   {
     id: 4,
     titre: "Examens de fin d'année",
     date: "2024-06-15",
     type: "Examens",
-    filiere: "Toutes"
-  }
+    filiere: "Toutes",
+  },
 ];
 
 export default function AcademicYearsPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [isCreateYearDialogOpen, setIsCreateYearDialogOpen] = useState(false);
-  const [isCreateSequenceDialogOpen, setIsCreateSequenceDialogOpen] = useState(false);
+  const [isCreateSequenceDialogOpen, setIsCreateSequenceDialogOpen] =
+    useState(false);
 
   const getStatutColor = (statut: string) => {
     switch (statut) {
-      case "En cours": return "bg-green-100 text-green-800";
-      case "Terminé": return "bg-gray-100 text-gray-800";
-      case "Planifié": return "bg-blue-100 text-blue-800";
-      default: return "bg-gray-100 text-gray-800";
+      case "En cours":
+        return "bg-green-100 text-green-800";
+      case "Terminé":
+        return "bg-gray-100 text-gray-800";
+      case "Planifié":
+        return "bg-blue-100 text-blue-800";
+      default:
+        return "bg-gray-100 text-gray-800";
     }
   };
 
   const getTypeColor = (type: string) => {
     switch (type) {
-      case "Année académique": return "bg-purple-100 text-purple-800";
-      case "Séquence": return "bg-blue-100 text-blue-800";
-      case "Examens": return "bg-red-100 text-red-800";
-      default: return "bg-gray-100 text-gray-800";
+      case "Année académique":
+        return "bg-purple-100 text-purple-800";
+      case "Séquence":
+        return "bg-blue-100 text-blue-800";
+      case "Examens":
+        return "bg-red-100 text-red-800";
+      default:
+        return "bg-gray-100 text-gray-800";
     }
   };
 
@@ -183,14 +204,19 @@ export default function AcademicYearsPage() {
         {/* Header */}
         <div className="flex justify-between items-center">
           <div>
-            <h2 className="text-3xl font-bold tracking-tight">Années académiques</h2>
+            <h2 className="text-3xl font-bold tracking-tight">
+              Années académiques
+            </h2>
             <p className="text-muted-foreground">
               Gérez les années académiques et calendriers de séquences
             </p>
           </div>
-          
+
           <div className="flex space-x-2">
-            <Dialog open={isCreateYearDialogOpen} onOpenChange={setIsCreateYearDialogOpen}>
+            <Dialog
+              open={isCreateYearDialogOpen}
+              onOpenChange={setIsCreateYearDialogOpen}
+            >
               <DialogTrigger asChild>
                 <Button variant="outline">
                   <Plus className="h-4 w-4 mr-2" />
@@ -206,15 +232,25 @@ export default function AcademicYearsPage() {
                 </DialogHeader>
                 <div className="grid gap-4 py-4">
                   <div className="grid grid-cols-4 items-center gap-4">
-                    <Label htmlFor="annee" className="text-right">Année</Label>
-                    <Input id="annee" className="col-span-3" placeholder="2024-2025" />
+                    <Label htmlFor="annee" className="text-right">
+                      Année
+                    </Label>
+                    <Input
+                      id="annee"
+                      className="col-span-3"
+                      placeholder="2024-2025"
+                    />
                   </div>
                   <div className="grid grid-cols-4 items-center gap-4">
-                    <Label htmlFor="debut" className="text-right">Date début</Label>
+                    <Label htmlFor="debut" className="text-right">
+                      Date début
+                    </Label>
                     <Input id="debut" type="date" className="col-span-3" />
                   </div>
                   <div className="grid grid-cols-4 items-center gap-4">
-                    <Label htmlFor="fin" className="text-right">Date fin</Label>
+                    <Label htmlFor="fin" className="text-right">
+                      Date fin
+                    </Label>
                     <Input id="fin" type="date" className="col-span-3" />
                   </div>
                 </div>
@@ -224,7 +260,10 @@ export default function AcademicYearsPage() {
               </DialogContent>
             </Dialog>
 
-            <Dialog open={isCreateSequenceDialogOpen} onOpenChange={setIsCreateSequenceDialogOpen}>
+            <Dialog
+              open={isCreateSequenceDialogOpen}
+              onOpenChange={setIsCreateSequenceDialogOpen}
+            >
               <DialogTrigger asChild>
                 <Button>
                   <Plus className="h-4 w-4 mr-2" />
@@ -235,12 +274,15 @@ export default function AcademicYearsPage() {
                 <DialogHeader>
                   <DialogTitle>Créer un calendrier de séquence</DialogTitle>
                   <DialogDescription>
-                    Définissez les dates de début et fin pour une séquence spécifique.
+                    Définissez les dates de début et fin pour une séquence
+                    spécifique.
                   </DialogDescription>
                 </DialogHeader>
                 <div className="grid gap-4 py-4">
                   <div className="grid grid-cols-4 items-center gap-4">
-                    <Label htmlFor="anneeSeq" className="text-right">Année académique</Label>
+                    <Label htmlFor="anneeSeq" className="text-right">
+                      Année académique
+                    </Label>
                     <Select>
                       <SelectTrigger className="col-span-3">
                         <SelectValue placeholder="Sélectionner l'année" />
@@ -252,7 +294,9 @@ export default function AcademicYearsPage() {
                     </Select>
                   </div>
                   <div className="grid grid-cols-4 items-center gap-4">
-                    <Label htmlFor="filiereSeq" className="text-right">Filière</Label>
+                    <Label htmlFor="filiereSeq" className="text-right">
+                      Filière
+                    </Label>
                     <Select>
                       <SelectTrigger className="col-span-3">
                         <SelectValue placeholder="Sélectionner la filière" />
@@ -265,7 +309,9 @@ export default function AcademicYearsPage() {
                     </Select>
                   </div>
                   <div className="grid grid-cols-4 items-center gap-4">
-                    <Label htmlFor="niveauSeq" className="text-right">Niveau</Label>
+                    <Label htmlFor="niveauSeq" className="text-right">
+                      Niveau
+                    </Label>
                     <Select>
                       <SelectTrigger className="col-span-3">
                         <SelectValue placeholder="Sélectionner le niveau" />
@@ -278,7 +324,9 @@ export default function AcademicYearsPage() {
                     </Select>
                   </div>
                   <div className="grid grid-cols-4 items-center gap-4">
-                    <Label htmlFor="sequenceNum" className="text-right">Séquence</Label>
+                    <Label htmlFor="sequenceNum" className="text-right">
+                      Séquence
+                    </Label>
                     <Select>
                       <SelectTrigger className="col-span-3">
                         <SelectValue placeholder="Sélectionner la séquence" />
@@ -290,11 +338,15 @@ export default function AcademicYearsPage() {
                     </Select>
                   </div>
                   <div className="grid grid-cols-4 items-center gap-4">
-                    <Label htmlFor="debutSeq" className="text-right">Date début</Label>
+                    <Label htmlFor="debutSeq" className="text-right">
+                      Date début
+                    </Label>
                     <Input id="debutSeq" type="date" className="col-span-3" />
                   </div>
                   <div className="grid grid-cols-4 items-center gap-4">
-                    <Label htmlFor="finSeq" className="text-right">Date fin</Label>
+                    <Label htmlFor="finSeq" className="text-right">
+                      Date fin
+                    </Label>
                     <Input id="finSeq" type="date" className="col-span-3" />
                   </div>
                 </div>
@@ -318,7 +370,9 @@ export default function AcademicYearsPage() {
           <TabsContent value="years" className="space-y-4">
             <Card>
               <CardHeader>
-                <CardTitle>Années académiques ({academicYears.length})</CardTitle>
+                <CardTitle>
+                  Années académiques ({academicYears.length})
+                </CardTitle>
                 <CardDescription>
                   Gestion des périodes académiques globales
                 </CardDescription>
@@ -338,17 +392,32 @@ export default function AcademicYearsPage() {
                   <TableBody>
                     {academicYears.map((year) => (
                       <TableRow key={year.id}>
-                        <TableCell className="font-medium">{year.annee}</TableCell>
+                        <TableCell className="font-medium">
+                          {year.annee}
+                        </TableCell>
                         <TableCell>
                           <div className="text-sm">
-                            <div>Du {new Date(year.dateDebut).toLocaleDateString('fr-FR')}</div>
-                            <div>Au {new Date(year.dateFin).toLocaleDateString('fr-FR')}</div>
+                            <div>
+                              Du{" "}
+                              {new Date(year.dateDebut).toLocaleDateString(
+                                "fr-FR",
+                              )}
+                            </div>
+                            <div>
+                              Au{" "}
+                              {new Date(year.dateFin).toLocaleDateString(
+                                "fr-FR",
+                              )}
+                            </div>
                           </div>
                         </TableCell>
                         <TableCell>{year.sequences} séquences</TableCell>
                         <TableCell>{year.programmes} programmes</TableCell>
                         <TableCell>
-                          <Badge variant="secondary" className={getStatutColor(year.statut)}>
+                          <Badge
+                            variant="secondary"
+                            className={getStatutColor(year.statut)}
+                          >
                             {year.statut}
                           </Badge>
                         </TableCell>
@@ -425,23 +494,40 @@ export default function AcademicYearsPage() {
                         <TableCell>
                           <div>
                             <div className="font-medium">{seq.sequence}</div>
-                            <div className="text-sm text-muted-foreground">{seq.annee}</div>
+                            <div className="text-sm text-muted-foreground">
+                              {seq.annee}
+                            </div>
                           </div>
                         </TableCell>
                         <TableCell>
                           <div>
                             <div className="font-medium">{seq.filiere}</div>
-                            <div className="text-sm text-muted-foreground">{seq.niveau}</div>
+                            <div className="text-sm text-muted-foreground">
+                              {seq.niveau}
+                            </div>
                           </div>
                         </TableCell>
                         <TableCell>
                           <div className="text-sm">
-                            <div>Du {new Date(seq.dateDebut).toLocaleDateString('fr-FR')}</div>
-                            <div>Au {new Date(seq.dateFin).toLocaleDateString('fr-FR')}</div>
+                            <div>
+                              Du{" "}
+                              {new Date(seq.dateDebut).toLocaleDateString(
+                                "fr-FR",
+                              )}
+                            </div>
+                            <div>
+                              Au{" "}
+                              {new Date(seq.dateFin).toLocaleDateString(
+                                "fr-FR",
+                              )}
+                            </div>
                           </div>
                         </TableCell>
                         <TableCell>
-                          <Badge variant="secondary" className={getStatutColor(seq.statut)}>
+                          <Badge
+                            variant="secondary"
+                            className={getStatutColor(seq.statut)}
+                          >
                             {seq.statut}
                           </Badge>
                         </TableCell>
@@ -450,12 +536,16 @@ export default function AcademicYearsPage() {
                             {seq.notesSaisies ? (
                               <>
                                 <CheckCircle className="h-4 w-4 text-green-600" />
-                                <span className="text-sm text-green-600">Saisies</span>
+                                <span className="text-sm text-green-600">
+                                  Saisies
+                                </span>
                               </>
                             ) : (
                               <>
                                 <AlertCircle className="h-4 w-4 text-yellow-600" />
-                                <span className="text-sm text-yellow-600">En attente</span>
+                                <span className="text-sm text-yellow-600">
+                                  En attente
+                                </span>
                               </>
                             )}
                           </div>
@@ -499,7 +589,10 @@ export default function AcademicYearsPage() {
               <CardContent>
                 <div className="space-y-4">
                   {calendrierEvents.map((event) => (
-                    <div key={event.id} className="flex items-center justify-between p-4 border rounded-lg">
+                    <div
+                      key={event.id}
+                      className="flex items-center justify-between p-4 border rounded-lg"
+                    >
                       <div className="flex items-center space-x-4">
                         <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
                           <Calendar className="h-6 w-6 text-primary" />
@@ -507,22 +600,23 @@ export default function AcademicYearsPage() {
                         <div>
                           <div className="font-medium">{event.titre}</div>
                           <div className="text-sm text-muted-foreground">
-                            {new Date(event.date).toLocaleDateString('fr-FR', {
-                              weekday: 'long',
-                              year: 'numeric',
-                              month: 'long',
-                              day: 'numeric'
+                            {new Date(event.date).toLocaleDateString("fr-FR", {
+                              weekday: "long",
+                              year: "numeric",
+                              month: "long",
+                              day: "numeric",
                             })}
                           </div>
                         </div>
                       </div>
                       <div className="flex items-center space-x-2">
-                        <Badge variant="secondary" className={getTypeColor(event.type)}>
+                        <Badge
+                          variant="secondary"
+                          className={getTypeColor(event.type)}
+                        >
                           {event.type}
                         </Badge>
-                        <Badge variant="outline">
-                          {event.filiere}
-                        </Badge>
+                        <Badge variant="outline">{event.filiere}</Badge>
                       </div>
                     </div>
                   ))}
@@ -534,7 +628,9 @@ export default function AcademicYearsPage() {
             <div className="grid gap-4 md:grid-cols-3">
               <Card>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">Séquences en cours</CardTitle>
+                  <CardTitle className="text-sm font-medium">
+                    Séquences en cours
+                  </CardTitle>
                   <Clock className="h-4 w-4 text-muted-foreground" />
                 </CardHeader>
                 <CardContent>
@@ -547,7 +643,9 @@ export default function AcademicYearsPage() {
 
               <Card>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">Séquences terminées</CardTitle>
+                  <CardTitle className="text-sm font-medium">
+                    Séquences terminées
+                  </CardTitle>
                   <CheckCircle className="h-4 w-4 text-muted-foreground" />
                 </CardHeader>
                 <CardContent>
@@ -560,7 +658,9 @@ export default function AcademicYearsPage() {
 
               <Card>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">Événements à venir</CardTitle>
+                  <CardTitle className="text-sm font-medium">
+                    Événements à venir
+                  </CardTitle>
                   <AlertCircle className="h-4 w-4 text-muted-foreground" />
                 </CardHeader>
                 <CardContent>

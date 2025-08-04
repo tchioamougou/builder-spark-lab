@@ -1,20 +1,26 @@
 import { useState } from "react";
 import Layout from "@/components/Layout";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { 
-  Table, 
-  TableBody, 
-  TableCell, 
-  TableHead, 
-  TableHeader, 
-  TableRow 
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
 } from "@/components/ui/table";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { 
+import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
@@ -33,12 +39,18 @@ import {
 } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { 
-  UserCog, 
-  Plus, 
-  Search, 
-  MoreHorizontal, 
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  UserCog,
+  Plus,
+  Search,
+  MoreHorizontal,
   Edit,
   Trash2,
   UserCheck,
@@ -59,7 +71,7 @@ import {
   CreditCard,
   Bell,
   BookOpen,
-  AlertCircle
+  AlertCircle,
 } from "lucide-react";
 
 const etudiants = [
@@ -77,7 +89,7 @@ const etudiants = [
     statutFinancier: "À jour",
     moyenne: 14.5,
     avatar: "/placeholder.svg",
-    adresse: "123 Rue de la Paix, 75001 Paris"
+    adresse: "123 Rue de la Paix, 75001 Paris",
   },
   {
     id: 2,
@@ -93,7 +105,7 @@ const etudiants = [
     statutFinancier: "Retard",
     moyenne: 16.2,
     avatar: "/placeholder.svg",
-    adresse: "456 Avenue des Champs, 75008 Paris"
+    adresse: "456 Avenue des Champs, 75008 Paris",
   },
   {
     id: 3,
@@ -109,8 +121,8 @@ const etudiants = [
     statutFinancier: "À jour",
     moyenne: 11.8,
     avatar: "/placeholder.svg",
-    adresse: "789 Boulevard Saint-Michel, 75005 Paris"
-  }
+    adresse: "789 Boulevard Saint-Michel, 75005 Paris",
+  },
 ];
 
 const demandesInscription = [
@@ -125,7 +137,7 @@ const demandesInscription = [
     dateDepot: "2024-01-15",
     statut: "En attente scolarité",
     documentsManquants: ["Diplôme bac", "Certificat médical"],
-    moyenneBac: 16.5
+    moyenneBac: 16.5,
   },
   {
     id: 2,
@@ -138,7 +150,7 @@ const demandesInscription = [
     dateDepot: "2024-01-12",
     statut: "Approuvé",
     documentsManquants: [],
-    moyenneBac: 18.2
+    moyenneBac: 18.2,
   },
   {
     id: 3,
@@ -152,8 +164,8 @@ const demandesInscription = [
     statut: "Rejeté",
     documentsManquants: [],
     moyenneBac: 14.0,
-    motifRejet: "Dossier incomplet"
-  }
+    motifRejet: "Dossier incomplet",
+  },
 ];
 
 const demandesAbsence = [
@@ -167,7 +179,7 @@ const demandesAbsence = [
     dateFin: "2024-01-22",
     statut: "En attente",
     justificatif: "certificat_medical.pdf",
-    motif: "Grippe avec fièvre"
+    motif: "Grippe avec fièvre",
   },
   {
     id: 2,
@@ -179,7 +191,7 @@ const demandesAbsence = [
     dateFin: "2024-01-25",
     statut: "Approuvé",
     justificatif: "convocation_tribunal.pdf",
-    motif: "Convocation au tribunal"
+    motif: "Convocation au tribunal",
   },
   {
     id: 3,
@@ -192,8 +204,8 @@ const demandesAbsence = [
     statut: "Rejeté",
     justificatif: null,
     motif: "Mariage cousin",
-    motifRejet: "Motif non valable"
-  }
+    motifRejet: "Motif non valable",
+  },
 ];
 
 const activitesPortail = [
@@ -202,55 +214,75 @@ const activitesPortail = [
     etudiant: "Marie Dupont",
     action: "Téléchargement bulletin",
     date: "2024-01-20 14:30",
-    details: "Bulletin Séquence 1"
+    details: "Bulletin Séquence 1",
   },
   {
     id: 2,
     etudiant: "Jean Martin",
     action: "Soumission rapport stage",
     date: "2024-01-20 10:15",
-    details: "Rapport stage hôpital"
+    details: "Rapport stage hôpital",
   },
   {
     id: 3,
     etudiant: "Sophie Laurent",
     action: "Demande absence",
     date: "2024-01-19 16:45",
-    details: "Absence pour raisons familiales"
-  }
+    details: "Absence pour raisons familiales",
+  },
 ];
 
 export default function StudentsPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedFiliere, setSelectedFiliere] = useState("Toutes");
   const [selectedStatut, setSelectedStatut] = useState("Tous");
-  const [isCreateStudentDialogOpen, setIsCreateStudentDialogOpen] = useState(false);
+  const [isCreateStudentDialogOpen, setIsCreateStudentDialogOpen] =
+    useState(false);
 
-  const filteredEtudiants = etudiants.filter(etudiant => {
-    const matchesSearch = etudiant.nom.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         etudiant.numeroEtudiant.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesFiliere = selectedFiliere === "Toutes" || etudiant.filiere === selectedFiliere;
-    const matchesStatut = selectedStatut === "Tous" || etudiant.statut === selectedStatut;
+  const filteredEtudiants = etudiants.filter((etudiant) => {
+    const matchesSearch =
+      etudiant.nom.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      etudiant.numeroEtudiant.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesFiliere =
+      selectedFiliere === "Toutes" || etudiant.filiere === selectedFiliere;
+    const matchesStatut =
+      selectedStatut === "Tous" || etudiant.statut === selectedStatut;
     return matchesSearch && matchesFiliere && matchesStatut;
   });
 
   const getStatutColor = (statut: string) => {
     switch (statut) {
-      case "Actif": case "Approuvé": case "À jour": return "bg-green-100 text-green-800";
-      case "Suspendu": case "En attente": case "En attente scolarité": return "bg-yellow-100 text-yellow-800";
-      case "Inactif": case "Rejeté": case "Retard": return "bg-red-100 text-red-800";
-      default: return "bg-gray-100 text-gray-800";
+      case "Actif":
+      case "Approuvé":
+      case "À jour":
+        return "bg-green-100 text-green-800";
+      case "Suspendu":
+      case "En attente":
+      case "En attente scolarité":
+        return "bg-yellow-100 text-yellow-800";
+      case "Inactif":
+      case "Rejeté":
+      case "Retard":
+        return "bg-red-100 text-red-800";
+      default:
+        return "bg-gray-100 text-gray-800";
     }
   };
 
   const getTypeColor = (type: string) => {
     switch (type) {
-      case "Nouveau": return "bg-green-100 text-green-800";
-      case "Ancien": return "bg-blue-100 text-blue-800";
-      case "Maladie": return "bg-red-100 text-red-800";
-      case "Convocation officielle": return "bg-purple-100 text-purple-800";
-      case "Familiale": return "bg-orange-100 text-orange-800";
-      default: return "bg-gray-100 text-gray-800";
+      case "Nouveau":
+        return "bg-green-100 text-green-800";
+      case "Ancien":
+        return "bg-blue-100 text-blue-800";
+      case "Maladie":
+        return "bg-red-100 text-red-800";
+      case "Convocation officielle":
+        return "bg-purple-100 text-purple-800";
+      case "Familiale":
+        return "bg-orange-100 text-orange-800";
+      default:
+        return "bg-gray-100 text-gray-800";
     }
   };
 
@@ -260,12 +292,14 @@ export default function StudentsPage() {
         {/* Header */}
         <div className="flex justify-between items-center">
           <div>
-            <h2 className="text-3xl font-bold tracking-tight">Gestion des étudiants</h2>
+            <h2 className="text-3xl font-bold tracking-tight">
+              Gestion des étudiants
+            </h2>
             <p className="text-muted-foreground">
               Gérez les dossiers centralisés et le portail étudiant
             </p>
           </div>
-          
+
           <div className="flex space-x-2">
             <Button variant="outline">
               <Upload className="h-4 w-4 mr-2" />
@@ -275,7 +309,10 @@ export default function StudentsPage() {
               <Download className="h-4 w-4 mr-2" />
               Template import
             </Button>
-            <Dialog open={isCreateStudentDialogOpen} onOpenChange={setIsCreateStudentDialogOpen}>
+            <Dialog
+              open={isCreateStudentDialogOpen}
+              onOpenChange={setIsCreateStudentDialogOpen}
+            >
               <DialogTrigger asChild>
                 <Button>
                   <Plus className="h-4 w-4 mr-2" />
@@ -291,23 +328,37 @@ export default function StudentsPage() {
                 </DialogHeader>
                 <div className="grid gap-4 py-4">
                   <div className="grid grid-cols-4 items-center gap-4">
-                    <Label htmlFor="nomEtud" className="text-right">Nom complet</Label>
+                    <Label htmlFor="nomEtud" className="text-right">
+                      Nom complet
+                    </Label>
                     <Input id="nomEtud" className="col-span-3" />
                   </div>
                   <div className="grid grid-cols-4 items-center gap-4">
-                    <Label htmlFor="emailEtud" className="text-right">Email</Label>
+                    <Label htmlFor="emailEtud" className="text-right">
+                      Email
+                    </Label>
                     <Input id="emailEtud" type="email" className="col-span-3" />
                   </div>
                   <div className="grid grid-cols-4 items-center gap-4">
-                    <Label htmlFor="telEtud" className="text-right">Téléphone</Label>
+                    <Label htmlFor="telEtud" className="text-right">
+                      Téléphone
+                    </Label>
                     <Input id="telEtud" className="col-span-3" />
                   </div>
                   <div className="grid grid-cols-4 items-center gap-4">
-                    <Label htmlFor="naissanceEtud" className="text-right">Date naissance</Label>
-                    <Input id="naissanceEtud" type="date" className="col-span-3" />
+                    <Label htmlFor="naissanceEtud" className="text-right">
+                      Date naissance
+                    </Label>
+                    <Input
+                      id="naissanceEtud"
+                      type="date"
+                      className="col-span-3"
+                    />
                   </div>
                   <div className="grid grid-cols-4 items-center gap-4">
-                    <Label htmlFor="filiereEtud" className="text-right">Filière</Label>
+                    <Label htmlFor="filiereEtud" className="text-right">
+                      Filière
+                    </Label>
                     <Select>
                       <SelectTrigger className="col-span-3">
                         <SelectValue placeholder="Sélectionner la filière" />
@@ -320,7 +371,9 @@ export default function StudentsPage() {
                     </Select>
                   </div>
                   <div className="grid grid-cols-4 items-center gap-4">
-                    <Label htmlFor="niveauEtud" className="text-right">Niveau</Label>
+                    <Label htmlFor="niveauEtud" className="text-right">
+                      Niveau
+                    </Label>
                     <Select>
                       <SelectTrigger className="col-span-3">
                         <SelectValue placeholder="Sélectionner le niveau" />
@@ -371,7 +424,10 @@ export default function StudentsPage() {
                       />
                     </div>
                   </div>
-                  <Select value={selectedFiliere} onValueChange={setSelectedFiliere}>
+                  <Select
+                    value={selectedFiliere}
+                    onValueChange={setSelectedFiliere}
+                  >
                     <SelectTrigger className="w-[180px]">
                       <SelectValue />
                     </SelectTrigger>
@@ -379,10 +435,15 @@ export default function StudentsPage() {
                       <SelectItem value="Toutes">Toutes filières</SelectItem>
                       <SelectItem value="Pharmacie">Pharmacie</SelectItem>
                       <SelectItem value="Médecine">Médecine</SelectItem>
-                      <SelectItem value="Kinésithérapie">Kinésithérapie</SelectItem>
+                      <SelectItem value="Kinésithérapie">
+                        Kinésithérapie
+                      </SelectItem>
                     </SelectContent>
                   </Select>
-                  <Select value={selectedStatut} onValueChange={setSelectedStatut}>
+                  <Select
+                    value={selectedStatut}
+                    onValueChange={setSelectedStatut}
+                  >
                     <SelectTrigger className="w-[180px]">
                       <SelectValue />
                     </SelectTrigger>
@@ -425,12 +486,17 @@ export default function StudentsPage() {
                             <Avatar>
                               <AvatarImage src={etudiant.avatar} />
                               <AvatarFallback>
-                                {etudiant.nom.split(' ').map(n => n[0]).join('')}
+                                {etudiant.nom
+                                  .split(" ")
+                                  .map((n) => n[0])
+                                  .join("")}
                               </AvatarFallback>
                             </Avatar>
                             <div>
                               <div className="font-medium">{etudiant.nom}</div>
-                              <div className="text-sm text-muted-foreground">{etudiant.numeroEtudiant}</div>
+                              <div className="text-sm text-muted-foreground">
+                                {etudiant.numeroEtudiant}
+                              </div>
                               <div className="text-sm text-muted-foreground flex items-center">
                                 <Mail className="h-3 w-3 mr-1" />
                                 {etudiant.email}
@@ -440,28 +506,44 @@ export default function StudentsPage() {
                         </TableCell>
                         <TableCell>
                           <div>
-                            <div className="font-medium">{etudiant.filiere}</div>
-                            <div className="text-sm text-muted-foreground">{etudiant.niveau}</div>
+                            <div className="font-medium">
+                              {etudiant.filiere}
+                            </div>
+                            <div className="text-sm text-muted-foreground">
+                              {etudiant.niveau}
+                            </div>
                             <div className="text-xs text-muted-foreground">
-                              Inscrit: {new Date(etudiant.dateInscription).getFullYear()}
+                              Inscrit:{" "}
+                              {new Date(etudiant.dateInscription).getFullYear()}
                             </div>
                           </div>
                         </TableCell>
                         <TableCell>
                           <div>
-                            <div className="font-medium">Moyenne: {etudiant.moyenne}/20</div>
+                            <div className="font-medium">
+                              Moyenne: {etudiant.moyenne}/20
+                            </div>
                             <div className="text-sm text-muted-foreground">
-                              Né le: {new Date(etudiant.dateNaissance).toLocaleDateString('fr-FR')}
+                              Né le:{" "}
+                              {new Date(
+                                etudiant.dateNaissance,
+                              ).toLocaleDateString("fr-FR")}
                             </div>
                           </div>
                         </TableCell>
                         <TableCell>
-                          <Badge variant="secondary" className={getStatutColor(etudiant.statutFinancier)}>
+                          <Badge
+                            variant="secondary"
+                            className={getStatutColor(etudiant.statutFinancier)}
+                          >
                             {etudiant.statutFinancier}
                           </Badge>
                         </TableCell>
                         <TableCell>
-                          <Badge variant="secondary" className={getStatutColor(etudiant.statut)}>
+                          <Badge
+                            variant="secondary"
+                            className={getStatutColor(etudiant.statut)}
+                          >
                             {etudiant.statut}
                           </Badge>
                         </TableCell>
@@ -542,21 +624,32 @@ export default function StudentsPage() {
                         <TableCell>
                           <div>
                             <div className="font-medium">{demande.nom}</div>
-                            <div className="text-sm text-muted-foreground">{demande.email}</div>
-                            <div className="text-sm text-muted-foreground">{demande.telephone}</div>
+                            <div className="text-sm text-muted-foreground">
+                              {demande.email}
+                            </div>
+                            <div className="text-sm text-muted-foreground">
+                              {demande.telephone}
+                            </div>
                             {demande.moyenneBac && (
-                              <div className="text-xs text-blue-600">Bac: {demande.moyenneBac}/20</div>
+                              <div className="text-xs text-blue-600">
+                                Bac: {demande.moyenneBac}/20
+                              </div>
                             )}
                           </div>
                         </TableCell>
                         <TableCell>
                           <div>
                             <div className="font-medium">{demande.filiere}</div>
-                            <div className="text-sm text-muted-foreground">{demande.niveau}</div>
+                            <div className="text-sm text-muted-foreground">
+                              {demande.niveau}
+                            </div>
                           </div>
                         </TableCell>
                         <TableCell>
-                          <Badge variant="secondary" className={getTypeColor(demande.typeCandidat)}>
+                          <Badge
+                            variant="secondary"
+                            className={getTypeColor(demande.typeCandidat)}
+                          >
                             {demande.typeCandidat}
                           </Badge>
                         </TableCell>
@@ -574,7 +667,12 @@ export default function StudentsPage() {
                                   <span className="text-sm">Manquants:</span>
                                 </div>
                                 {demande.documentsManquants.map((doc, idx) => (
-                                  <div key={idx} className="text-xs text-red-600 ml-5">• {doc}</div>
+                                  <div
+                                    key={idx}
+                                    className="text-xs text-red-600 ml-5"
+                                  >
+                                    • {doc}
+                                  </div>
                                 ))}
                               </div>
                             )}
@@ -582,11 +680,16 @@ export default function StudentsPage() {
                         </TableCell>
                         <TableCell>
                           <div className="space-y-1">
-                            <Badge variant="secondary" className={getStatutColor(demande.statut)}>
+                            <Badge
+                              variant="secondary"
+                              className={getStatutColor(demande.statut)}
+                            >
                               {demande.statut}
                             </Badge>
                             {demande.motifRejet && (
-                              <div className="text-xs text-red-600">{demande.motifRejet}</div>
+                              <div className="text-xs text-red-600">
+                                {demande.motifRejet}
+                              </div>
                             )}
                           </div>
                         </TableCell>
@@ -662,23 +765,44 @@ export default function StudentsPage() {
                       <TableRow key={absence.id}>
                         <TableCell>
                           <div>
-                            <div className="font-medium">{absence.etudiant}</div>
-                            <div className="text-sm text-muted-foreground">{absence.numeroEtudiant}</div>
-                            <div className="text-sm text-muted-foreground">{absence.filiere}</div>
+                            <div className="font-medium">
+                              {absence.etudiant}
+                            </div>
+                            <div className="text-sm text-muted-foreground">
+                              {absence.numeroEtudiant}
+                            </div>
+                            <div className="text-sm text-muted-foreground">
+                              {absence.filiere}
+                            </div>
                           </div>
                         </TableCell>
                         <TableCell>
                           <div>
-                            <Badge variant="secondary" className={getTypeColor(absence.typeAbsence)}>
+                            <Badge
+                              variant="secondary"
+                              className={getTypeColor(absence.typeAbsence)}
+                            >
                               {absence.typeAbsence}
                             </Badge>
-                            <div className="text-sm text-muted-foreground mt-1">{absence.motif}</div>
+                            <div className="text-sm text-muted-foreground mt-1">
+                              {absence.motif}
+                            </div>
                           </div>
                         </TableCell>
                         <TableCell>
                           <div className="text-sm">
-                            <div>Du {new Date(absence.dateDebut).toLocaleDateString('fr-FR')}</div>
-                            <div>Au {new Date(absence.dateFin).toLocaleDateString('fr-FR')}</div>
+                            <div>
+                              Du{" "}
+                              {new Date(absence.dateDebut).toLocaleDateString(
+                                "fr-FR",
+                              )}
+                            </div>
+                            <div>
+                              Au{" "}
+                              {new Date(absence.dateFin).toLocaleDateString(
+                                "fr-FR",
+                              )}
+                            </div>
                           </div>
                         </TableCell>
                         <TableCell>
@@ -696,11 +820,16 @@ export default function StudentsPage() {
                         </TableCell>
                         <TableCell>
                           <div className="space-y-1">
-                            <Badge variant="secondary" className={getStatutColor(absence.statut)}>
+                            <Badge
+                              variant="secondary"
+                              className={getStatutColor(absence.statut)}
+                            >
                               {absence.statut}
                             </Badge>
                             {absence.motifRejet && (
-                              <div className="text-xs text-red-600">{absence.motifRejet}</div>
+                              <div className="text-xs text-red-600">
+                                {absence.motifRejet}
+                              </div>
                             )}
                           </div>
                         </TableCell>
@@ -758,15 +887,22 @@ export default function StudentsPage() {
               <CardContent>
                 <div className="space-y-4">
                   {activitesPortail.map((activite) => (
-                    <div key={activite.id} className="flex items-center justify-between p-4 border rounded-lg">
+                    <div
+                      key={activite.id}
+                      className="flex items-center justify-between p-4 border rounded-lg"
+                    >
                       <div className="flex items-center space-x-4">
                         <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
                           <UserCog className="h-5 w-5 text-primary" />
                         </div>
                         <div>
                           <div className="font-medium">{activite.etudiant}</div>
-                          <div className="text-sm text-muted-foreground">{activite.action}</div>
-                          <div className="text-xs text-muted-foreground">{activite.details}</div>
+                          <div className="text-sm text-muted-foreground">
+                            {activite.action}
+                          </div>
+                          <div className="text-xs text-muted-foreground">
+                            {activite.details}
+                          </div>
                         </div>
                       </div>
                       <div className="text-sm text-muted-foreground">
@@ -784,7 +920,9 @@ export default function StudentsPage() {
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
               <Card>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">Total Étudiants</CardTitle>
+                  <CardTitle className="text-sm font-medium">
+                    Total Étudiants
+                  </CardTitle>
                   <UserCog className="h-4 w-4 text-muted-foreground" />
                 </CardHeader>
                 <CardContent>
@@ -794,10 +932,12 @@ export default function StudentsPage() {
                   </p>
                 </CardContent>
               </Card>
-              
+
               <Card>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">Demandes inscription</CardTitle>
+                  <CardTitle className="text-sm font-medium">
+                    Demandes inscription
+                  </CardTitle>
                   <FileText className="h-4 w-4 text-muted-foreground" />
                 </CardHeader>
                 <CardContent>
@@ -807,10 +947,12 @@ export default function StudentsPage() {
                   </p>
                 </CardContent>
               </Card>
-              
+
               <Card>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">Demandes absence</CardTitle>
+                  <CardTitle className="text-sm font-medium">
+                    Demandes absence
+                  </CardTitle>
                   <Clock className="h-4 w-4 text-muted-foreground" />
                 </CardHeader>
                 <CardContent>
@@ -820,17 +962,17 @@ export default function StudentsPage() {
                   </p>
                 </CardContent>
               </Card>
-              
+
               <Card>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">Retards financiers</CardTitle>
+                  <CardTitle className="text-sm font-medium">
+                    Retards financiers
+                  </CardTitle>
                   <CreditCard className="h-4 w-4 text-muted-foreground" />
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold">28</div>
-                  <p className="text-xs text-muted-foreground">
-                    À relancer
-                  </p>
+                  <p className="text-xs text-muted-foreground">À relancer</p>
                 </CardContent>
               </Card>
             </div>
@@ -851,9 +993,14 @@ export default function StudentsPage() {
                       <span className="font-medium">Pharmacie</span>
                     </div>
                     <div className="flex items-center space-x-2">
-                      <span className="text-sm text-muted-foreground">1,247 étudiants</span>
+                      <span className="text-sm text-muted-foreground">
+                        1,247 étudiants
+                      </span>
                       <div className="w-32 bg-gray-200 rounded-full h-2">
-                        <div className="bg-blue-500 h-2 rounded-full" style={{ width: "44%" }}></div>
+                        <div
+                          className="bg-blue-500 h-2 rounded-full"
+                          style={{ width: "44%" }}
+                        ></div>
                       </div>
                     </div>
                   </div>
@@ -863,9 +1010,14 @@ export default function StudentsPage() {
                       <span className="font-medium">Médecine</span>
                     </div>
                     <div className="flex items-center space-x-2">
-                      <span className="text-sm text-muted-foreground">1,128 étudiants</span>
+                      <span className="text-sm text-muted-foreground">
+                        1,128 étudiants
+                      </span>
                       <div className="w-32 bg-gray-200 rounded-full h-2">
-                        <div className="bg-green-500 h-2 rounded-full" style={{ width: "40%" }}></div>
+                        <div
+                          className="bg-green-500 h-2 rounded-full"
+                          style={{ width: "40%" }}
+                        ></div>
                       </div>
                     </div>
                   </div>
@@ -875,9 +1027,14 @@ export default function StudentsPage() {
                       <span className="font-medium">Kinésithérapie</span>
                     </div>
                     <div className="flex items-center space-x-2">
-                      <span className="text-sm text-muted-foreground">472 étudiants</span>
+                      <span className="text-sm text-muted-foreground">
+                        472 étudiants
+                      </span>
                       <div className="w-32 bg-gray-200 rounded-full h-2">
-                        <div className="bg-purple-500 h-2 rounded-full" style={{ width: "16%" }}></div>
+                        <div
+                          className="bg-purple-500 h-2 rounded-full"
+                          style={{ width: "16%" }}
+                        ></div>
                       </div>
                     </div>
                   </div>

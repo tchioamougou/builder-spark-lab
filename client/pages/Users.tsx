@@ -1,20 +1,26 @@
 import { useState } from "react";
 import Layout from "@/components/Layout";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { 
-  Table, 
-  TableBody, 
-  TableCell, 
-  TableHead, 
-  TableHeader, 
-  TableRow 
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
 } from "@/components/ui/table";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { 
+import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
@@ -32,12 +38,18 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { 
-  Users, 
-  UserPlus, 
-  Search, 
-  MoreHorizontal, 
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  Users,
+  UserPlus,
+  Search,
+  MoreHorizontal,
   Edit,
   Trash2,
   Shield,
@@ -45,7 +57,7 @@ import {
   UserX,
   Filter,
   Download,
-  Upload
+  Upload,
 } from "lucide-react";
 
 const users = [
@@ -57,7 +69,7 @@ const users = [
     status: "Actif",
     lastLogin: "2024-01-15",
     profile: "Pharmacie Année 1",
-    avatar: "/placeholder.svg"
+    avatar: "/placeholder.svg",
   },
   {
     id: 2,
@@ -67,7 +79,7 @@ const users = [
     status: "Actif",
     lastLogin: "2024-01-14",
     profile: "Anatomie - Médecine",
-    avatar: "/placeholder.svg"
+    avatar: "/placeholder.svg",
   },
   {
     id: 3,
@@ -77,7 +89,7 @@ const users = [
     status: "Actif",
     lastLogin: "2024-01-13",
     profile: "Service RH",
-    avatar: "/placeholder.svg"
+    avatar: "/placeholder.svg",
   },
   {
     id: 4,
@@ -87,7 +99,7 @@ const users = [
     status: "Inactif",
     lastLogin: "2024-01-10",
     profile: "Service Scolarité",
-    avatar: "/placeholder.svg"
+    avatar: "/placeholder.svg",
   },
   {
     id: 5,
@@ -97,8 +109,8 @@ const users = [
     status: "En attente",
     lastLogin: "Jamais",
     profile: "Médecine Année 2",
-    avatar: "/placeholder.svg"
-  }
+    avatar: "/placeholder.svg",
+  },
 ];
 
 const roles = [
@@ -106,32 +118,40 @@ const roles = [
     name: "Administrateur",
     description: "Accès complet au système",
     users: 2,
-    permissions: ["Gestion des utilisateurs", "Configuration système", "Rapports avancés"]
+    permissions: [
+      "Gestion des utilisateurs",
+      "Configuration système",
+      "Rapports avancés",
+    ],
   },
   {
     name: "Scolarité",
     description: "Gestion des étudiants et programmes",
     users: 5,
-    permissions: ["Gestion étudiants", "Validation demandes", "Gestion maquettes"]
+    permissions: [
+      "Gestion étudiants",
+      "Validation demandes",
+      "Gestion maquettes",
+    ],
   },
   {
     name: "RH",
     description: "Gestion des ressources humaines",
     users: 3,
-    permissions: ["Gestion enseignants", "Candidatures", "Profils personnel"]
+    permissions: ["Gestion enseignants", "Candidatures", "Profils personnel"],
   },
   {
     name: "Enseignant",
     description: "Accès pédagogique",
     users: 24,
-    permissions: ["Saisie notes", "Emploi du temps", "Documents pédagogiques"]
+    permissions: ["Saisie notes", "Emploi du temps", "Documents pédagogiques"],
   },
   {
     name: "Étudiant",
     description: "Portail étudiant",
     users: 2847,
-    permissions: ["Consultation dossier", "Demandes", "Documents personnels"]
-  }
+    permissions: ["Consultation dossier", "Demandes", "Documents personnels"],
+  },
 ];
 
 export default function UsersPage() {
@@ -139,30 +159,42 @@ export default function UsersPage() {
   const [selectedRole, setSelectedRole] = useState("Tous");
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
 
-  const filteredUsers = users.filter(user => {
-    const matchesSearch = user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         user.email.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesRole = selectedRole === "Tous" || user.roles.includes(selectedRole);
+  const filteredUsers = users.filter((user) => {
+    const matchesSearch =
+      user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      user.email.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesRole =
+      selectedRole === "Tous" || user.roles.includes(selectedRole);
     return matchesSearch && matchesRole;
   });
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case "Actif": return "bg-green-100 text-green-800";
-      case "Inactif": return "bg-gray-100 text-gray-800";
-      case "En attente": return "bg-yellow-100 text-yellow-800";
-      default: return "bg-gray-100 text-gray-800";
+      case "Actif":
+        return "bg-green-100 text-green-800";
+      case "Inactif":
+        return "bg-gray-100 text-gray-800";
+      case "En attente":
+        return "bg-yellow-100 text-yellow-800";
+      default:
+        return "bg-gray-100 text-gray-800";
     }
   };
 
   const getRoleColor = (role: string) => {
     switch (role) {
-      case "Administrateur": return "bg-red-100 text-red-800";
-      case "Enseignant": return "bg-blue-100 text-blue-800";
-      case "Étudiant": return "bg-green-100 text-green-800";
-      case "RH": return "bg-purple-100 text-purple-800";
-      case "Scolarité": return "bg-orange-100 text-orange-800";
-      default: return "bg-gray-100 text-gray-800";
+      case "Administrateur":
+        return "bg-red-100 text-red-800";
+      case "Enseignant":
+        return "bg-blue-100 text-blue-800";
+      case "Étudiant":
+        return "bg-green-100 text-green-800";
+      case "RH":
+        return "bg-purple-100 text-purple-800";
+      case "Scolarité":
+        return "bg-orange-100 text-orange-800";
+      default:
+        return "bg-gray-100 text-gray-800";
     }
   };
 
@@ -172,12 +204,14 @@ export default function UsersPage() {
         {/* Header */}
         <div className="flex justify-between items-center">
           <div>
-            <h2 className="text-3xl font-bold tracking-tight">Gestion des utilisateurs</h2>
+            <h2 className="text-3xl font-bold tracking-tight">
+              Gestion des utilisateurs
+            </h2>
             <p className="text-muted-foreground">
               Gérez les utilisateurs, rôles et permissions du système
             </p>
           </div>
-          
+
           <div className="flex space-x-2">
             <Button variant="outline">
               <Upload className="h-4 w-4 mr-2" />
@@ -187,7 +221,10 @@ export default function UsersPage() {
               <Download className="h-4 w-4 mr-2" />
               Exporter
             </Button>
-            <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
+            <Dialog
+              open={isCreateDialogOpen}
+              onOpenChange={setIsCreateDialogOpen}
+            >
               <DialogTrigger asChild>
                 <Button>
                   <UserPlus className="h-4 w-4 mr-2" />
@@ -198,7 +235,8 @@ export default function UsersPage() {
                 <DialogHeader>
                   <DialogTitle>Créer un nouvel utilisateur</DialogTitle>
                   <DialogDescription>
-                    Ajoutez un nouvel utilisateur au système avec ses rôles appropriés.
+                    Ajoutez un nouvel utilisateur au système avec ses rôles
+                    appropriés.
                   </DialogDescription>
                 </DialogHeader>
                 <div className="grid gap-4 py-4">
@@ -277,7 +315,9 @@ export default function UsersPage() {
                       <SelectItem value="Enseignant">Enseignants</SelectItem>
                       <SelectItem value="RH">RH</SelectItem>
                       <SelectItem value="Scolarité">Scolarité</SelectItem>
-                      <SelectItem value="Administrateur">Administrateurs</SelectItem>
+                      <SelectItem value="Administrateur">
+                        Administrateurs
+                      </SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -311,27 +351,41 @@ export default function UsersPage() {
                             <Avatar>
                               <AvatarImage src={user.avatar} />
                               <AvatarFallback>
-                                {user.name.split(' ').map(n => n[0]).join('')}
+                                {user.name
+                                  .split(" ")
+                                  .map((n) => n[0])
+                                  .join("")}
                               </AvatarFallback>
                             </Avatar>
                             <div>
                               <div className="font-medium">{user.name}</div>
-                              <div className="text-sm text-muted-foreground">{user.email}</div>
-                              <div className="text-xs text-muted-foreground">{user.profile}</div>
+                              <div className="text-sm text-muted-foreground">
+                                {user.email}
+                              </div>
+                              <div className="text-xs text-muted-foreground">
+                                {user.profile}
+                              </div>
                             </div>
                           </div>
                         </TableCell>
                         <TableCell>
                           <div className="flex flex-wrap gap-1">
                             {user.roles.map((role) => (
-                              <Badge key={role} variant="secondary" className={getRoleColor(role)}>
+                              <Badge
+                                key={role}
+                                variant="secondary"
+                                className={getRoleColor(role)}
+                              >
                                 {role}
                               </Badge>
                             ))}
                           </div>
                         </TableCell>
                         <TableCell>
-                          <Badge variant="secondary" className={getStatusColor(user.status)}>
+                          <Badge
+                            variant="secondary"
+                            className={getStatusColor(user.status)}
+                          >
                             {user.status}
                           </Badge>
                         </TableCell>
@@ -392,7 +446,9 @@ export default function UsersPage() {
                   <CardHeader>
                     <CardTitle className="flex items-center justify-between">
                       <span>{role.name}</span>
-                      <Badge variant="secondary">{role.users} utilisateurs</Badge>
+                      <Badge variant="secondary">
+                        {role.users} utilisateurs
+                      </Badge>
                     </CardTitle>
                     <CardDescription>{role.description}</CardDescription>
                   </CardHeader>

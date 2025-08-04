@@ -1,19 +1,25 @@
 import { useState } from "react";
 import Layout from "@/components/Layout";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { 
-  Table, 
-  TableBody, 
-  TableCell, 
-  TableHead, 
-  TableHeader, 
-  TableRow 
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
 } from "@/components/ui/table";
-import { 
+import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
@@ -32,7 +38,13 @@ import {
 } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import {
   FileText,
   Plus,
@@ -54,7 +66,7 @@ import {
   Calendar,
   Folder,
   Archive,
-  Filter
+  Filter,
 } from "lucide-react";
 
 const documents = [
@@ -69,7 +81,7 @@ const documents = [
     taille: "245 KB",
     format: "PDF",
     statut: "Validé",
-    telechargements: 3
+    telechargements: 3,
   },
   {
     id: 2,
@@ -82,7 +94,7 @@ const documents = [
     taille: "1.2 MB",
     format: "PDF",
     statut: "Approuvé",
-    telechargements: 8
+    telechargements: 8,
   },
   {
     id: 3,
@@ -95,7 +107,7 @@ const documents = [
     taille: "3.4 MB",
     format: "PDF",
     statut: "En révision",
-    telechargements: 1
+    telechargements: 1,
   },
   {
     id: 4,
@@ -108,8 +120,8 @@ const documents = [
     taille: "156 KB",
     format: "JPG",
     statut: "En attente",
-    telechargements: 0
-  }
+    telechargements: 0,
+  },
 ];
 
 const demandes = [
@@ -122,7 +134,7 @@ const demandes = [
     statut: "En cours",
     motif: "Candidature master",
     documentsDemandes: ["Relevé S1", "Relevé S2"],
-    delaiTraitement: "3-5 jours"
+    delaiTraitement: "3-5 jours",
   },
   {
     id: 2,
@@ -133,7 +145,7 @@ const demandes = [
     statut: "Prêt",
     motif: "Dossier bancaire",
     documentsDemandes: ["Attestation CDI"],
-    delaiTraitement: "1-2 jours"
+    delaiTraitement: "1-2 jours",
   },
   {
     id: 3,
@@ -145,8 +157,8 @@ const demandes = [
     motif: "Perte diplôme",
     documentsDemandes: ["Diplôme original"],
     delaiTraitement: "5-10 jours",
-    motifRejet: "Déclaration de perte manquante"
-  }
+    motifRejet: "Déclaration de perte manquante",
+  },
 ];
 
 const modeles = [
@@ -157,7 +169,7 @@ const modeles = [
     type: "Bulletin",
     dateCreation: "2023-09-01",
     version: "v2.1",
-    utilisations: 1247
+    utilisations: 1247,
   },
   {
     id: 2,
@@ -166,7 +178,7 @@ const modeles = [
     type: "Attestation",
     dateCreation: "2023-09-01",
     version: "v1.3",
-    utilisations: 856
+    utilisations: 856,
   },
   {
     id: 3,
@@ -175,7 +187,7 @@ const modeles = [
     type: "Évaluation",
     dateCreation: "2023-10-15",
     version: "v1.0",
-    utilisations: 124
+    utilisations: 124,
   },
   {
     id: 4,
@@ -184,8 +196,8 @@ const modeles = [
     type: "Rapport",
     dateCreation: "2023-11-01",
     version: "v3.2",
-    utilisations: 432
-  }
+    utilisations: 432,
+  },
 ];
 
 const archives = [
@@ -196,7 +208,7 @@ const archives = [
     dateArchivage: "2023-07-15",
     taille: "124 MB",
     documents: 2847,
-    type: "Bulletins"
+    type: "Bulletins",
   },
   {
     id: 2,
@@ -205,7 +217,7 @@ const archives = [
     dateArchivage: "2023-12-31",
     taille: "67 MB",
     documents: 156,
-    type: "Candidatures"
+    type: "Candidatures",
   },
   {
     id: 3,
@@ -214,8 +226,8 @@ const archives = [
     dateArchivage: "2023-08-30",
     taille: "298 MB",
     documents: 432,
-    type: "Rapports"
-  }
+    type: "Rapports",
+  },
 ];
 
 export default function FilesPage() {
@@ -224,40 +236,63 @@ export default function FilesPage() {
   const [selectedStatut, setSelectedStatut] = useState("Tous");
   const [isUploadDialogOpen, setIsUploadDialogOpen] = useState(false);
 
-  const filteredDocuments = documents.filter(doc => {
-    const matchesSearch = doc.nom.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         doc.proprietaire.toLowerCase().includes(searchTerm.toLowerCase());
+  const filteredDocuments = documents.filter((doc) => {
+    const matchesSearch =
+      doc.nom.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      doc.proprietaire.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesType = selectedType === "Tous" || doc.type === selectedType;
-    const matchesStatut = selectedStatut === "Tous" || doc.statut === selectedStatut;
+    const matchesStatut =
+      selectedStatut === "Tous" || doc.statut === selectedStatut;
     return matchesSearch && matchesType && matchesStatut;
   });
 
   const getStatutColor = (statut: string) => {
     switch (statut) {
-      case "Validé": case "Approuvé": case "Prêt": return "bg-green-100 text-green-800";
-      case "En révision": case "En cours": case "En attente": return "bg-yellow-100 text-yellow-800";
-      case "Rejeté": return "bg-red-100 text-red-800";
-      default: return "bg-gray-100 text-gray-800";
+      case "Validé":
+      case "Approuvé":
+      case "Prêt":
+        return "bg-green-100 text-green-800";
+      case "En révision":
+      case "En cours":
+      case "En attente":
+        return "bg-yellow-100 text-yellow-800";
+      case "Rejeté":
+        return "bg-red-100 text-red-800";
+      default:
+        return "bg-gray-100 text-gray-800";
     }
   };
 
   const getTypeColor = (type: string) => {
     switch (type) {
-      case "Bulletin": return "bg-blue-100 text-blue-800";
-      case "CV Enseignant": return "bg-purple-100 text-purple-800";
-      case "Rapport": return "bg-green-100 text-green-800";
-      case "Justificatif": return "bg-orange-100 text-orange-800";
-      case "Attestation": return "bg-teal-100 text-teal-800";
-      default: return "bg-gray-100 text-gray-800";
+      case "Bulletin":
+        return "bg-blue-100 text-blue-800";
+      case "CV Enseignant":
+        return "bg-purple-100 text-purple-800";
+      case "Rapport":
+        return "bg-green-100 text-green-800";
+      case "Justificatif":
+        return "bg-orange-100 text-orange-800";
+      case "Attestation":
+        return "bg-teal-100 text-teal-800";
+      default:
+        return "bg-gray-100 text-gray-800";
     }
   };
 
   const getFileIcon = (format: string) => {
     switch (format.toLowerCase()) {
-      case "pdf": return <FileText className="h-4 w-4 text-red-600" />;
-      case "jpg": case "png": case "jpeg": return <FileImage className="h-4 w-4 text-blue-600" />;
-      case "xlsx": case "xls": return <FileSpreadsheet className="h-4 w-4 text-green-600" />;
-      default: return <File className="h-4 w-4 text-gray-600" />;
+      case "pdf":
+        return <FileText className="h-4 w-4 text-red-600" />;
+      case "jpg":
+      case "png":
+      case "jpeg":
+        return <FileImage className="h-4 w-4 text-blue-600" />;
+      case "xlsx":
+      case "xls":
+        return <FileSpreadsheet className="h-4 w-4 text-green-600" />;
+      default:
+        return <File className="h-4 w-4 text-gray-600" />;
     }
   };
 
@@ -267,18 +302,23 @@ export default function FilesPage() {
         {/* Header */}
         <div className="flex justify-between items-center">
           <div>
-            <h2 className="text-3xl font-bold tracking-tight">Gestion des dossiers</h2>
+            <h2 className="text-3xl font-bold tracking-tight">
+              Gestion des dossiers
+            </h2>
             <p className="text-muted-foreground">
               Gérez les documents, demandes et justificatifs
             </p>
           </div>
-          
+
           <div className="flex space-x-2">
             <Button variant="outline">
               <Archive className="h-4 w-4 mr-2" />
               Archiver
             </Button>
-            <Dialog open={isUploadDialogOpen} onOpenChange={setIsUploadDialogOpen}>
+            <Dialog
+              open={isUploadDialogOpen}
+              onOpenChange={setIsUploadDialogOpen}
+            >
               <DialogTrigger asChild>
                 <Button>
                   <Upload className="h-4 w-4 mr-2" />
@@ -294,7 +334,9 @@ export default function FilesPage() {
                 </DialogHeader>
                 <div className="grid gap-4 py-4">
                   <div className="grid grid-cols-4 items-center gap-4">
-                    <Label htmlFor="typeDoc" className="text-right">Type document</Label>
+                    <Label htmlFor="typeDoc" className="text-right">
+                      Type document
+                    </Label>
                     <Select>
                       <SelectTrigger className="col-span-3">
                         <SelectValue placeholder="Sélectionner le type" />
@@ -302,18 +344,28 @@ export default function FilesPage() {
                       <SelectContent>
                         <SelectItem value="bulletin">Bulletin</SelectItem>
                         <SelectItem value="rapport">Rapport</SelectItem>
-                        <SelectItem value="justificatif">Justificatif</SelectItem>
+                        <SelectItem value="justificatif">
+                          Justificatif
+                        </SelectItem>
                         <SelectItem value="attestation">Attestation</SelectItem>
                         <SelectItem value="cv">CV</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
                   <div className="grid grid-cols-4 items-center gap-4">
-                    <Label htmlFor="proprioDoc" className="text-right">Propriétaire</Label>
-                    <Input id="proprioDoc" className="col-span-3" placeholder="Nom du propriétaire" />
+                    <Label htmlFor="proprioDoc" className="text-right">
+                      Propriétaire
+                    </Label>
+                    <Input
+                      id="proprioDoc"
+                      className="col-span-3"
+                      placeholder="Nom du propriétaire"
+                    />
                   </div>
                   <div className="grid grid-cols-4 items-center gap-4">
-                    <Label htmlFor="filiereDoc" className="text-right">Filière/Service</Label>
+                    <Label htmlFor="filiereDoc" className="text-right">
+                      Filière/Service
+                    </Label>
                     <Select>
                       <SelectTrigger className="col-span-3">
                         <SelectValue placeholder="Sélectionner" />
@@ -328,12 +380,20 @@ export default function FilesPage() {
                     </Select>
                   </div>
                   <div className="grid grid-cols-4 items-center gap-4">
-                    <Label htmlFor="fichier" className="text-right">Fichier</Label>
+                    <Label htmlFor="fichier" className="text-right">
+                      Fichier
+                    </Label>
                     <Input id="fichier" type="file" className="col-span-3" />
                   </div>
                   <div className="grid grid-cols-4 items-center gap-4">
-                    <Label htmlFor="description" className="text-right">Description</Label>
-                    <Textarea id="description" className="col-span-3" rows={2} />
+                    <Label htmlFor="description" className="text-right">
+                      Description
+                    </Label>
+                    <Textarea
+                      id="description"
+                      className="col-span-3"
+                      rows={2}
+                    />
                   </div>
                 </div>
                 <DialogFooter>
@@ -382,11 +442,18 @@ export default function FilesPage() {
                       <SelectItem value="Tous">Tous les types</SelectItem>
                       <SelectItem value="Bulletin">Bulletins</SelectItem>
                       <SelectItem value="Rapport">Rapports</SelectItem>
-                      <SelectItem value="CV Enseignant">CV Enseignants</SelectItem>
-                      <SelectItem value="Justificatif">Justificatifs</SelectItem>
+                      <SelectItem value="CV Enseignant">
+                        CV Enseignants
+                      </SelectItem>
+                      <SelectItem value="Justificatif">
+                        Justificatifs
+                      </SelectItem>
                     </SelectContent>
                   </Select>
-                  <Select value={selectedStatut} onValueChange={setSelectedStatut}>
+                  <Select
+                    value={selectedStatut}
+                    onValueChange={setSelectedStatut}
+                  >
                     <SelectTrigger className="w-[180px]">
                       <SelectValue />
                     </SelectTrigger>
@@ -437,24 +504,41 @@ export default function FilesPage() {
                         </TableCell>
                         <TableCell>
                           <div>
-                            <div className="font-medium">{doc.proprietaire}</div>
-                            <div className="text-sm text-muted-foreground">{doc.typeProprietaire}</div>
-                            <div className="text-sm text-muted-foreground">{doc.filiere}</div>
+                            <div className="font-medium">
+                              {doc.proprietaire}
+                            </div>
+                            <div className="text-sm text-muted-foreground">
+                              {doc.typeProprietaire}
+                            </div>
+                            <div className="text-sm text-muted-foreground">
+                              {doc.filiere}
+                            </div>
                           </div>
                         </TableCell>
                         <TableCell>
-                          <Badge variant="secondary" className={getTypeColor(doc.type)}>
+                          <Badge
+                            variant="secondary"
+                            className={getTypeColor(doc.type)}
+                          >
                             {doc.type}
                           </Badge>
                         </TableCell>
                         <TableCell>
                           <div className="text-sm">
-                            <div>Créé: {new Date(doc.dateCreation).toLocaleDateString('fr-FR')}</div>
+                            <div>
+                              Créé:{" "}
+                              {new Date(doc.dateCreation).toLocaleDateString(
+                                "fr-FR",
+                              )}
+                            </div>
                             <div>{doc.telechargements} téléchargement(s)</div>
                           </div>
                         </TableCell>
                         <TableCell>
-                          <Badge variant="secondary" className={getStatutColor(doc.statut)}>
+                          <Badge
+                            variant="secondary"
+                            className={getStatutColor(doc.statut)}
+                          >
                             {doc.statut}
                           </Badge>
                         </TableCell>
@@ -534,36 +618,58 @@ export default function FilesPage() {
                       <TableRow key={demande.id}>
                         <TableCell>
                           <div>
-                            <div className="font-medium">{demande.demandeur}</div>
-                            <div className="text-sm text-muted-foreground">{demande.filiere}</div>
-                            <div className="text-sm text-muted-foreground">{demande.motif}</div>
+                            <div className="font-medium">
+                              {demande.demandeur}
+                            </div>
+                            <div className="text-sm text-muted-foreground">
+                              {demande.filiere}
+                            </div>
+                            <div className="text-sm text-muted-foreground">
+                              {demande.motif}
+                            </div>
                           </div>
                         </TableCell>
                         <TableCell>
-                          <Badge variant="secondary" className={getTypeColor(demande.type)}>
+                          <Badge
+                            variant="secondary"
+                            className={getTypeColor(demande.type)}
+                          >
                             {demande.type}
                           </Badge>
                         </TableCell>
                         <TableCell>
                           <div className="space-y-1">
                             {demande.documentsDemandes.map((doc, idx) => (
-                              <div key={idx} className="text-sm">• {doc}</div>
+                              <div key={idx} className="text-sm">
+                                • {doc}
+                              </div>
                             ))}
                           </div>
                         </TableCell>
                         <TableCell>
                           <div className="text-sm">
-                            <div>{new Date(demande.datedemande).toLocaleDateString('fr-FR')}</div>
-                            <div className="text-muted-foreground">Délai: {demande.delaiTraitement}</div>
+                            <div>
+                              {new Date(demande.datedemande).toLocaleDateString(
+                                "fr-FR",
+                              )}
+                            </div>
+                            <div className="text-muted-foreground">
+                              Délai: {demande.delaiTraitement}
+                            </div>
                           </div>
                         </TableCell>
                         <TableCell>
                           <div className="space-y-1">
-                            <Badge variant="secondary" className={getStatutColor(demande.statut)}>
+                            <Badge
+                              variant="secondary"
+                              className={getStatutColor(demande.statut)}
+                            >
                               {demande.statut}
                             </Badge>
                             {demande.motifRejet && (
-                              <div className="text-xs text-red-600">{demande.motifRejet}</div>
+                              <div className="text-xs text-red-600">
+                                {demande.motifRejet}
+                              </div>
                             )}
                           </div>
                         </TableCell>
@@ -616,7 +722,10 @@ export default function FilesPage() {
                   <CardHeader>
                     <CardTitle className="flex items-center justify-between">
                       <span>{modele.nom}</span>
-                      <Badge variant="secondary" className={getTypeColor(modele.type)}>
+                      <Badge
+                        variant="secondary"
+                        className={getTypeColor(modele.type)}
+                      >
                         {modele.type}
                       </Badge>
                     </CardTitle>
@@ -625,7 +734,12 @@ export default function FilesPage() {
                   <CardContent>
                     <div className="space-y-2 text-sm text-muted-foreground">
                       <div>Version: {modele.version}</div>
-                      <div>Créé: {new Date(modele.dateCreation).toLocaleDateString('fr-FR')}</div>
+                      <div>
+                        Créé:{" "}
+                        {new Date(modele.dateCreation).toLocaleDateString(
+                          "fr-FR",
+                        )}
+                      </div>
                       <div>{modele.utilisations} utilisations</div>
                     </div>
                     <div className="flex space-x-2 mt-4">
@@ -672,18 +786,29 @@ export default function FilesPage() {
                             <Folder className="h-5 w-5 text-orange-600" />
                             <div>
                               <div className="font-medium">{archive.nom}</div>
-                              <div className="text-sm text-muted-foreground">{archive.description}</div>
+                              <div className="text-sm text-muted-foreground">
+                                {archive.description}
+                              </div>
                             </div>
                           </div>
                         </TableCell>
                         <TableCell>
-                          <Badge variant="secondary" className={getTypeColor(archive.type)}>
+                          <Badge
+                            variant="secondary"
+                            className={getTypeColor(archive.type)}
+                          >
                             {archive.type}
                           </Badge>
                         </TableCell>
-                        <TableCell className="text-center">{archive.documents.toLocaleString()}</TableCell>
+                        <TableCell className="text-center">
+                          {archive.documents.toLocaleString()}
+                        </TableCell>
                         <TableCell>{archive.taille}</TableCell>
-                        <TableCell>{new Date(archive.dateArchivage).toLocaleDateString('fr-FR')}</TableCell>
+                        <TableCell>
+                          {new Date(archive.dateArchivage).toLocaleDateString(
+                            "fr-FR",
+                          )}
+                        </TableCell>
                         <TableCell>
                           <DropdownMenu>
                             <DropdownMenuTrigger asChild>
@@ -721,33 +846,35 @@ export default function FilesPage() {
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
               <Card>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">Total Documents</CardTitle>
+                  <CardTitle className="text-sm font-medium">
+                    Total Documents
+                  </CardTitle>
                   <FileText className="h-4 w-4 text-muted-foreground" />
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold">12,847</div>
-                  <p className="text-xs text-muted-foreground">
-                    +247 ce mois
-                  </p>
+                  <p className="text-xs text-muted-foreground">+247 ce mois</p>
                 </CardContent>
               </Card>
-              
+
               <Card>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">En attente validation</CardTitle>
+                  <CardTitle className="text-sm font-medium">
+                    En attente validation
+                  </CardTitle>
                   <Clock className="h-4 w-4 text-muted-foreground" />
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold">23</div>
-                  <p className="text-xs text-muted-foreground">
-                    À traiter
-                  </p>
+                  <p className="text-xs text-muted-foreground">À traiter</p>
                 </CardContent>
               </Card>
-              
+
               <Card>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">Demandes actives</CardTitle>
+                  <CardTitle className="text-sm font-medium">
+                    Demandes actives
+                  </CardTitle>
                   <AlertCircle className="h-4 w-4 text-muted-foreground" />
                 </CardHeader>
                 <CardContent>
@@ -757,10 +884,12 @@ export default function FilesPage() {
                   </p>
                 </CardContent>
               </Card>
-              
+
               <Card>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">Espace utilisé</CardTitle>
+                  <CardTitle className="text-sm font-medium">
+                    Espace utilisé
+                  </CardTitle>
                   <Archive className="h-4 w-4 text-muted-foreground" />
                 </CardHeader>
                 <CardContent>
@@ -788,9 +917,14 @@ export default function FilesPage() {
                       <span className="font-medium">Bulletins</span>
                     </div>
                     <div className="flex items-center space-x-2">
-                      <span className="text-sm text-muted-foreground">4,247 documents</span>
+                      <span className="text-sm text-muted-foreground">
+                        4,247 documents
+                      </span>
                       <div className="w-32 bg-gray-200 rounded-full h-2">
-                        <div className="bg-blue-500 h-2 rounded-full" style={{ width: "33%" }}></div>
+                        <div
+                          className="bg-blue-500 h-2 rounded-full"
+                          style={{ width: "33%" }}
+                        ></div>
                       </div>
                     </div>
                   </div>
@@ -800,9 +934,14 @@ export default function FilesPage() {
                       <span className="font-medium">Rapports</span>
                     </div>
                     <div className="flex items-center space-x-2">
-                      <span className="text-sm text-muted-foreground">3,128 documents</span>
+                      <span className="text-sm text-muted-foreground">
+                        3,128 documents
+                      </span>
                       <div className="w-32 bg-gray-200 rounded-full h-2">
-                        <div className="bg-green-500 h-2 rounded-full" style={{ width: "24%" }}></div>
+                        <div
+                          className="bg-green-500 h-2 rounded-full"
+                          style={{ width: "24%" }}
+                        ></div>
                       </div>
                     </div>
                   </div>
@@ -812,9 +951,14 @@ export default function FilesPage() {
                       <span className="font-medium">Justificatifs</span>
                     </div>
                     <div className="flex items-center space-x-2">
-                      <span className="text-sm text-muted-foreground">2,847 documents</span>
+                      <span className="text-sm text-muted-foreground">
+                        2,847 documents
+                      </span>
                       <div className="w-32 bg-gray-200 rounded-full h-2">
-                        <div className="bg-purple-500 h-2 rounded-full" style={{ width: "22%" }}></div>
+                        <div
+                          className="bg-purple-500 h-2 rounded-full"
+                          style={{ width: "22%" }}
+                        ></div>
                       </div>
                     </div>
                   </div>
@@ -824,9 +968,14 @@ export default function FilesPage() {
                       <span className="font-medium">Attestations</span>
                     </div>
                     <div className="flex items-center space-x-2">
-                      <span className="text-sm text-muted-foreground">1,956 documents</span>
+                      <span className="text-sm text-muted-foreground">
+                        1,956 documents
+                      </span>
                       <div className="w-32 bg-gray-200 rounded-full h-2">
-                        <div className="bg-orange-500 h-2 rounded-full" style={{ width: "15%" }}></div>
+                        <div
+                          className="bg-orange-500 h-2 rounded-full"
+                          style={{ width: "15%" }}
+                        ></div>
                       </div>
                     </div>
                   </div>
@@ -836,9 +985,14 @@ export default function FilesPage() {
                       <span className="font-medium">CVs</span>
                     </div>
                     <div className="flex items-center space-x-2">
-                      <span className="text-sm text-muted-foreground">669 documents</span>
+                      <span className="text-sm text-muted-foreground">
+                        669 documents
+                      </span>
                       <div className="w-32 bg-gray-200 rounded-full h-2">
-                        <div className="bg-red-500 h-2 rounded-full" style={{ width: "5%" }}></div>
+                        <div
+                          className="bg-red-500 h-2 rounded-full"
+                          style={{ width: "5%" }}
+                        ></div>
                       </div>
                     </div>
                   </div>

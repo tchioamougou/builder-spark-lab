@@ -1,17 +1,23 @@
 import { useState } from "react";
 import Layout from "@/components/Layout";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { 
-  Table, 
-  TableBody, 
-  TableCell, 
-  TableHead, 
-  TableHeader, 
-  TableRow 
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
 } from "@/components/ui/table";
 import {
   Dialog,
@@ -24,8 +30,14 @@ import {
 } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { 
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
@@ -39,11 +51,11 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { 
-  BookOpen, 
-  Plus, 
-  Search, 
-  MoreHorizontal, 
+import {
+  BookOpen,
+  Plus,
+  Search,
+  MoreHorizontal,
   Edit,
   Trash2,
   GraduationCap,
@@ -52,7 +64,7 @@ import {
   Users,
   BookMarked,
   Layers,
-  FileText
+  FileText,
 } from "lucide-react";
 
 const filieres = [
@@ -64,7 +76,7 @@ const filieres = [
     duree: "6 ans",
     maquettes: 6,
     etudiants: 450,
-    statut: "Actif"
+    statut: "Actif",
   },
   {
     id: 2,
@@ -74,7 +86,7 @@ const filieres = [
     duree: "6 ans",
     maquettes: 6,
     etudiants: 720,
-    statut: "Actif"
+    statut: "Actif",
   },
   {
     id: 3,
@@ -84,8 +96,8 @@ const filieres = [
     duree: "4 ans",
     maquettes: 4,
     etudiants: 180,
-    statut: "Actif"
-  }
+    statut: "Actif",
+  },
 ];
 
 const maquettes = [
@@ -98,7 +110,7 @@ const maquettes = [
     modules: 8,
     ues: 24,
     coordonnateur: "Dr. Martin",
-    statut: "Validé"
+    statut: "Validé",
   },
   {
     id: 2,
@@ -109,7 +121,7 @@ const maquettes = [
     modules: 10,
     ues: 30,
     coordonnateur: "Dr. Dubois",
-    statut: "En révision"
+    statut: "En révision",
   },
   {
     id: 3,
@@ -120,8 +132,8 @@ const maquettes = [
     modules: 6,
     ues: 18,
     coordonnateur: "Dr. Laurent",
-    statut: "Validé"
-  }
+    statut: "Validé",
+  },
 ];
 
 const domaines = [
@@ -130,53 +142,62 @@ const domaines = [
     nom: "Sciences de base",
     description: "Chimie, physique, mathématiques",
     modules: 12,
-    couleur: "bg-blue-100 text-blue-800"
+    couleur: "bg-blue-100 text-blue-800",
   },
   {
     id: 2,
     nom: "Sciences humaines",
     description: "Psychologie, sociologie, communication",
     modules: 6,
-    couleur: "bg-green-100 text-green-800"
+    couleur: "bg-green-100 text-green-800",
   },
   {
     id: 3,
     nom: "Sciences biomédicales",
     description: "Anatomie, physiologie, pathologie",
     modules: 15,
-    couleur: "bg-purple-100 text-purple-800"
+    couleur: "bg-purple-100 text-purple-800",
   },
   {
     id: 4,
     nom: "Sciences pharmaceutiques",
     description: "Pharmacologie, galénique, toxicologie",
     modules: 18,
-    couleur: "bg-orange-100 text-orange-800"
-  }
+    couleur: "bg-orange-100 text-orange-800",
+  },
 ];
 
 const programStructure = {
-  "Pharmacie": {
+  Pharmacie: {
     "Année 1": {
       "Séquence 1": {
         "Sciences de base": [
-          { nom: "Chimie générale", ues: ["Chimie organique", "Chimie minérale", "TP Chimie"] },
-          { nom: "Mathématiques", ues: ["Mathématiques appliquées", "Statistiques"] }
+          {
+            nom: "Chimie générale",
+            ues: ["Chimie organique", "Chimie minérale", "TP Chimie"],
+          },
+          {
+            nom: "Mathématiques",
+            ues: ["Mathématiques appliquées", "Statistiques"],
+          },
         ],
         "Sciences biomédicales": [
-          { nom: "Anatomie", ues: ["Anatomie générale", "TP Anatomie"] }
-        ]
+          { nom: "Anatomie", ues: ["Anatomie générale", "TP Anatomie"] },
+        ],
       },
       "Séquence 2": {
         "Sciences de base": [
-          { nom: "Physique", ues: ["Physique générale", "TP Physique"] }
+          { nom: "Physique", ues: ["Physique générale", "TP Physique"] },
         ],
         "Sciences biomédicales": [
-          { nom: "Physiologie", ues: ["Physiologie générale", "TP Physiologie"] }
-        ]
-      }
-    }
-  }
+          {
+            nom: "Physiologie",
+            ues: ["Physiologie générale", "TP Physiologie"],
+          },
+        ],
+      },
+    },
+  },
 };
 
 export default function ProgramsPage() {
@@ -186,10 +207,15 @@ export default function ProgramsPage() {
 
   const getStatutColor = (statut: string) => {
     switch (statut) {
-      case "Actif": case "Validé": return "bg-green-100 text-green-800";
-      case "En révision": return "bg-yellow-100 text-yellow-800";
-      case "Inactif": return "bg-gray-100 text-gray-800";
-      default: return "bg-gray-100 text-gray-800";
+      case "Actif":
+      case "Validé":
+        return "bg-green-100 text-green-800";
+      case "En révision":
+        return "bg-yellow-100 text-yellow-800";
+      case "Inactif":
+        return "bg-gray-100 text-gray-800";
+      default:
+        return "bg-gray-100 text-gray-800";
     }
   };
 
@@ -199,14 +225,20 @@ export default function ProgramsPage() {
         {/* Header */}
         <div className="flex justify-between items-center">
           <div>
-            <h2 className="text-3xl font-bold tracking-tight">Programmes académiques</h2>
+            <h2 className="text-3xl font-bold tracking-tight">
+              Programmes académiques
+            </h2>
             <p className="text-muted-foreground">
-              Gérez la hiérarchie pédagogique : Filières → Maquettes → Séquences → Domaines → Modules → UE
+              Gérez la hiérarchie pédagogique : Filières → Maquettes → Séquences
+              → Domaines → Modules → UE
             </p>
           </div>
-          
+
           <div className="flex space-x-2">
-            <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
+            <Dialog
+              open={isCreateDialogOpen}
+              onOpenChange={setIsCreateDialogOpen}
+            >
               <DialogTrigger asChild>
                 <Button>
                   <Plus className="h-4 w-4 mr-2" />
@@ -222,19 +254,39 @@ export default function ProgramsPage() {
                 </DialogHeader>
                 <div className="grid gap-4 py-4">
                   <div className="grid grid-cols-4 items-center gap-4">
-                    <Label htmlFor="nom" className="text-right">Nom de la filière</Label>
-                    <Input id="nom" className="col-span-3" placeholder="ex: Pharmacie" />
+                    <Label htmlFor="nom" className="text-right">
+                      Nom de la filière
+                    </Label>
+                    <Input
+                      id="nom"
+                      className="col-span-3"
+                      placeholder="ex: Pharmacie"
+                    />
                   </div>
                   <div className="grid grid-cols-4 items-center gap-4">
-                    <Label htmlFor="diplome" className="text-right">Diplôme</Label>
-                    <Input id="diplome" className="col-span-3" placeholder="ex: Diplôme d'État..." />
+                    <Label htmlFor="diplome" className="text-right">
+                      Diplôme
+                    </Label>
+                    <Input
+                      id="diplome"
+                      className="col-span-3"
+                      placeholder="ex: Diplôme d'État..."
+                    />
                   </div>
                   <div className="grid grid-cols-4 items-center gap-4">
-                    <Label htmlFor="code" className="text-right">Code diplôme</Label>
-                    <Input id="code" className="col-span-3" placeholder="ex: PHARM2024" />
+                    <Label htmlFor="code" className="text-right">
+                      Code diplôme
+                    </Label>
+                    <Input
+                      id="code"
+                      className="col-span-3"
+                      placeholder="ex: PHARM2024"
+                    />
                   </div>
                   <div className="grid grid-cols-4 items-center gap-4">
-                    <Label htmlFor="duree" className="text-right">Durée</Label>
+                    <Label htmlFor="duree" className="text-right">
+                      Durée
+                    </Label>
                     <Select>
                       <SelectTrigger className="col-span-3">
                         <SelectValue placeholder="Sélectionner la durée" />
@@ -257,7 +309,11 @@ export default function ProgramsPage() {
         </div>
 
         {/* Tabs */}
-        <Tabs value={selectedTab} onValueChange={setSelectedTab} className="space-y-6">
+        <Tabs
+          value={selectedTab}
+          onValueChange={setSelectedTab}
+          className="space-y-6"
+        >
           <TabsList className="grid w-full grid-cols-5">
             <TabsTrigger value="filieres">Filières</TabsTrigger>
             <TabsTrigger value="maquettes">Maquettes</TabsTrigger>
@@ -304,15 +360,22 @@ export default function ProgramsPage() {
                         <TableCell>
                           <div>
                             <div className="font-medium">{filiere.nom}</div>
-                            <div className="text-sm text-muted-foreground">{filiere.diplome}</div>
+                            <div className="text-sm text-muted-foreground">
+                              {filiere.diplome}
+                            </div>
                           </div>
                         </TableCell>
-                        <TableCell className="font-mono text-sm">{filiere.codeDiplome}</TableCell>
+                        <TableCell className="font-mono text-sm">
+                          {filiere.codeDiplome}
+                        </TableCell>
                         <TableCell>{filiere.duree}</TableCell>
                         <TableCell>{filiere.maquettes}</TableCell>
                         <TableCell>{filiere.etudiants}</TableCell>
                         <TableCell>
-                          <Badge variant="secondary" className={getStatutColor(filiere.statut)}>
+                          <Badge
+                            variant="secondary"
+                            className={getStatutColor(filiere.statut)}
+                          >
                             {filiere.statut}
                           </Badge>
                         </TableCell>
@@ -376,7 +439,9 @@ export default function ProgramsPage() {
                         <TableCell>
                           <div>
                             <div className="font-medium">{maquette.nom}</div>
-                            <div className="text-sm text-muted-foreground">{maquette.niveau}</div>
+                            <div className="text-sm text-muted-foreground">
+                              {maquette.niveau}
+                            </div>
                           </div>
                         </TableCell>
                         <TableCell>{maquette.filiere}</TableCell>
@@ -389,7 +454,10 @@ export default function ProgramsPage() {
                         </TableCell>
                         <TableCell>{maquette.coordonnateur}</TableCell>
                         <TableCell>
-                          <Badge variant="secondary" className={getStatutColor(maquette.statut)}>
+                          <Badge
+                            variant="secondary"
+                            className={getStatutColor(maquette.statut)}
+                          >
                             {maquette.statut}
                           </Badge>
                         </TableCell>
@@ -430,66 +498,83 @@ export default function ProgramsPage() {
               <CardHeader>
                 <CardTitle>Structure hiérarchique</CardTitle>
                 <CardDescription>
-                  Visualisation de la hiérarchie Filière → Maquette → Séquence → Domaine → Module → UE
+                  Visualisation de la hiérarchie Filière → Maquette → Séquence →
+                  Domaine → Module → UE
                 </CardDescription>
               </CardHeader>
               <CardContent>
                 <Accordion type="single" collapsible className="w-full">
-                  {Object.entries(programStructure).map(([filiere, niveaux]) => (
-                    <AccordionItem key={filiere} value={filiere}>
-                      <AccordionTrigger className="text-lg font-semibold">
-                        <div className="flex items-center space-x-2">
-                          <GraduationCap className="h-5 w-5" />
-                          <span>{filiere}</span>
-                        </div>
-                      </AccordionTrigger>
-                      <AccordionContent>
-                        <div className="pl-4 space-y-4">
-                          {Object.entries(niveaux).map(([niveau, sequences]) => (
-                            <div key={niveau}>
-                              <h4 className="font-medium text-primary mb-2 flex items-center">
-                                <BookMarked className="h-4 w-4 mr-2" />
-                                {niveau}
-                              </h4>
-                              <div className="pl-4 space-y-3">
-                                {Object.entries(sequences).map(([sequence, domaines]) => (
-                                  <div key={sequence}>
-                                    <h5 className="font-medium text-sm mb-2 flex items-center">
-                                      <Calendar className="h-4 w-4 mr-2" />
-                                      {sequence}
-                                    </h5>
-                                    <div className="pl-4 space-y-2">
-                                      {Object.entries(domaines).map(([domaine, modules]) => (
-                                        <div key={domaine}>
-                                          <h6 className="text-sm font-medium text-muted-foreground mb-1 flex items-center">
-                                            <Layers className="h-3 w-3 mr-2" />
-                                            {domaine}
-                                          </h6>
-                                          <div className="pl-4 space-y-1">
-                                            {modules.map((module, idx) => (
-                                              <div key={idx} className="text-sm">
-                                                <div className="font-medium flex items-center">
-                                                  <BookOpen className="h-3 w-3 mr-2" />
-                                                  {module.nom}
+                  {Object.entries(programStructure).map(
+                    ([filiere, niveaux]) => (
+                      <AccordionItem key={filiere} value={filiere}>
+                        <AccordionTrigger className="text-lg font-semibold">
+                          <div className="flex items-center space-x-2">
+                            <GraduationCap className="h-5 w-5" />
+                            <span>{filiere}</span>
+                          </div>
+                        </AccordionTrigger>
+                        <AccordionContent>
+                          <div className="pl-4 space-y-4">
+                            {Object.entries(niveaux).map(
+                              ([niveau, sequences]) => (
+                                <div key={niveau}>
+                                  <h4 className="font-medium text-primary mb-2 flex items-center">
+                                    <BookMarked className="h-4 w-4 mr-2" />
+                                    {niveau}
+                                  </h4>
+                                  <div className="pl-4 space-y-3">
+                                    {Object.entries(sequences).map(
+                                      ([sequence, domaines]) => (
+                                        <div key={sequence}>
+                                          <h5 className="font-medium text-sm mb-2 flex items-center">
+                                            <Calendar className="h-4 w-4 mr-2" />
+                                            {sequence}
+                                          </h5>
+                                          <div className="pl-4 space-y-2">
+                                            {Object.entries(domaines).map(
+                                              ([domaine, modules]) => (
+                                                <div key={domaine}>
+                                                  <h6 className="text-sm font-medium text-muted-foreground mb-1 flex items-center">
+                                                    <Layers className="h-3 w-3 mr-2" />
+                                                    {domaine}
+                                                  </h6>
+                                                  <div className="pl-4 space-y-1">
+                                                    {modules.map(
+                                                      (module, idx) => (
+                                                        <div
+                                                          key={idx}
+                                                          className="text-sm"
+                                                        >
+                                                          <div className="font-medium flex items-center">
+                                                            <BookOpen className="h-3 w-3 mr-2" />
+                                                            {module.nom}
+                                                          </div>
+                                                          <div className="pl-5 text-xs text-muted-foreground">
+                                                            UE:{" "}
+                                                            {module.ues.join(
+                                                              ", ",
+                                                            )}
+                                                          </div>
+                                                        </div>
+                                                      ),
+                                                    )}
+                                                  </div>
                                                 </div>
-                                                <div className="pl-5 text-xs text-muted-foreground">
-                                                  UE: {module.ues.join(", ")}
-                                                </div>
-                                              </div>
-                                            ))}
+                                              ),
+                                            )}
                                           </div>
                                         </div>
-                                      ))}
-                                    </div>
+                                      ),
+                                    )}
                                   </div>
-                                ))}
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                      </AccordionContent>
-                    </AccordionItem>
-                  ))}
+                                </div>
+                              ),
+                            )}
+                          </div>
+                        </AccordionContent>
+                      </AccordionItem>
+                    ),
+                  )}
                 </Accordion>
               </CardContent>
             </Card>
@@ -525,26 +610,34 @@ export default function ProgramsPage() {
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
               <Card>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">Total Filières</CardTitle>
+                  <CardTitle className="text-sm font-medium">
+                    Total Filières
+                  </CardTitle>
                   <GraduationCap className="h-4 w-4 text-muted-foreground" />
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold">3</div>
-                  <p className="text-xs text-muted-foreground">Toutes actives</p>
+                  <p className="text-xs text-muted-foreground">
+                    Toutes actives
+                  </p>
                 </CardContent>
               </Card>
-              
+
               <Card>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">Maquettes</CardTitle>
+                  <CardTitle className="text-sm font-medium">
+                    Maquettes
+                  </CardTitle>
                   <BookMarked className="h-4 w-4 text-muted-foreground" />
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold">16</div>
-                  <p className="text-xs text-muted-foreground">Tous niveaux confondus</p>
+                  <p className="text-xs text-muted-foreground">
+                    Tous niveaux confondus
+                  </p>
                 </CardContent>
               </Card>
-              
+
               <Card>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                   <CardTitle className="text-sm font-medium">Modules</CardTitle>
@@ -552,18 +645,24 @@ export default function ProgramsPage() {
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold">51</div>
-                  <p className="text-xs text-muted-foreground">Toutes filières</p>
+                  <p className="text-xs text-muted-foreground">
+                    Toutes filières
+                  </p>
                 </CardContent>
               </Card>
-              
+
               <Card>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">Unités d'Enseignement</CardTitle>
+                  <CardTitle className="text-sm font-medium">
+                    Unités d'Enseignement
+                  </CardTitle>
                   <FileText className="h-4 w-4 text-muted-foreground" />
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold">153</div>
-                  <p className="text-xs text-muted-foreground">Total UE système</p>
+                  <p className="text-xs text-muted-foreground">
+                    Total UE système
+                  </p>
                 </CardContent>
               </Card>
             </div>
@@ -578,17 +677,24 @@ export default function ProgramsPage() {
               <CardContent>
                 <div className="space-y-4">
                   {domaines.map((domaine) => (
-                    <div key={domaine.id} className="flex items-center justify-between">
+                    <div
+                      key={domaine.id}
+                      className="flex items-center justify-between"
+                    >
                       <div className="flex items-center space-x-3">
                         <div className="w-4 h-4 rounded-full bg-primary"></div>
                         <span className="font-medium">{domaine.nom}</span>
                       </div>
                       <div className="flex items-center space-x-2">
-                        <span className="text-sm text-muted-foreground">{domaine.modules} modules</span>
+                        <span className="text-sm text-muted-foreground">
+                          {domaine.modules} modules
+                        </span>
                         <div className="w-32 bg-gray-200 rounded-full h-2">
-                          <div 
-                            className="bg-primary h-2 rounded-full" 
-                            style={{ width: `${(domaine.modules / 51) * 100}%` }}
+                          <div
+                            className="bg-primary h-2 rounded-full"
+                            style={{
+                              width: `${(domaine.modules / 51) * 100}%`,
+                            }}
                           ></div>
                         </div>
                       </div>

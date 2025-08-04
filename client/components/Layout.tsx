@@ -2,17 +2,17 @@ import { ReactNode } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { 
-  Users, 
-  BookOpen, 
-  Calendar, 
-  GraduationCap, 
+import {
+  Users,
+  BookOpen,
+  Calendar,
+  GraduationCap,
   Settings,
   Home,
   FileText,
   UserCog,
   Building2,
-  Bell
+  Bell,
 } from "lucide-react";
 
 interface LayoutProps {
@@ -47,13 +47,13 @@ export default function Layout({ children }: LayoutProps) {
                 </h1>
               </div>
             </div>
-            
+
             <div className="flex items-center space-x-4">
               <Button variant="outline" size="sm" className="relative">
                 <Bell className="h-4 w-4" />
                 <span className="absolute -top-1 -right-1 h-3 w-3 bg-red-500 rounded-full"></span>
               </Button>
-              
+
               <div className="flex items-center space-x-2">
                 <div className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center">
                   <span className="text-sm font-medium text-primary">AD</span>
@@ -80,7 +80,7 @@ export default function Layout({ children }: LayoutProps) {
                         "flex items-center space-x-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors",
                         isActive
                           ? "bg-primary text-primary-foreground"
-                          : "text-gray-700 hover:bg-gray-100"
+                          : "text-gray-700 hover:bg-gray-100",
                       )}
                     >
                       <item.icon className="h-5 w-5" />
@@ -94,9 +94,7 @@ export default function Layout({ children }: LayoutProps) {
         </nav>
 
         {/* Main content */}
-        <main className="flex-1 p-6">
-          {children}
-        </main>
+        <main className="flex-1 p-6">{children}</main>
       </div>
     </div>
   );
