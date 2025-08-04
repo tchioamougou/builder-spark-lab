@@ -1,11 +1,17 @@
 import StudentLayout from "@/components/StudentLayout";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useAuth } from "@/contexts/AuthContext";
-import { 
-  Calendar, 
+import {
+  Calendar,
   Clock,
   MapPin,
   User,
@@ -13,13 +19,23 @@ import {
   Download,
   ChevronLeft,
   ChevronRight,
-  Filter
+  Filter,
 } from "lucide-react";
 import { useState } from "react";
 
 const weekdays = ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi"];
 const timeSlots = [
-  "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00"
+  "08:00",
+  "09:00",
+  "10:00",
+  "11:00",
+  "12:00",
+  "13:00",
+  "14:00",
+  "15:00",
+  "16:00",
+  "17:00",
+  "18:00",
 ];
 
 const scheduleData = [
@@ -31,17 +47,17 @@ const scheduleData = [
     type: "Cours magistral",
     teacher: "Dr. Jean Martin",
     room: "Amphi A",
-    color: "bg-blue-100 border-blue-300 text-blue-800"
+    color: "bg-blue-100 border-blue-300 text-blue-800",
   },
   {
     id: 2,
-    day: "Lundi", 
+    day: "Lundi",
     time: "14:00-15:30",
     subject: "TP Chimie organique",
     type: "Travaux pratiques",
     teacher: "Dr. Sophie Laurent",
     room: "Labo 2",
-    color: "bg-green-100 border-green-300 text-green-800"
+    color: "bg-green-100 border-green-300 text-green-800",
   },
   {
     id: 3,
@@ -51,7 +67,7 @@ const scheduleData = [
     type: "Cours magistral",
     teacher: "Dr. Marie Dubois",
     room: "Amphi B",
-    color: "bg-blue-100 border-blue-300 text-blue-800"
+    color: "bg-blue-100 border-blue-300 text-blue-800",
   },
   {
     id: 4,
@@ -61,7 +77,7 @@ const scheduleData = [
     type: "TD",
     teacher: "Prof. Pierre Durand",
     room: "Salle 201",
-    color: "bg-purple-100 border-purple-300 text-purple-800"
+    color: "bg-purple-100 border-purple-300 text-purple-800",
   },
   {
     id: 5,
@@ -71,7 +87,7 @@ const scheduleData = [
     type: "Cours magistral",
     teacher: "Dr. Emma Wilson",
     room: "Amphi A",
-    color: "bg-blue-100 border-blue-300 text-blue-800"
+    color: "bg-blue-100 border-blue-300 text-blue-800",
   },
   {
     id: 6,
@@ -81,7 +97,7 @@ const scheduleData = [
     type: "Travaux pratiques",
     teacher: "Dr. Jean Martin",
     room: "Labo Anatomie",
-    color: "bg-green-100 border-green-300 text-green-800"
+    color: "bg-green-100 border-green-300 text-green-800",
   },
   {
     id: 7,
@@ -91,8 +107,8 @@ const scheduleData = [
     type: "Cours magistral",
     teacher: "Dr. Thomas Bernard",
     room: "Amphi C",
-    color: "bg-blue-100 border-blue-300 text-blue-800"
-  }
+    color: "bg-blue-100 border-blue-300 text-blue-800",
+  },
 ];
 
 const upcomingExams = [
@@ -103,16 +119,16 @@ const upcomingExams = [
     time: "09:00-11:00",
     room: "Amphi A",
     type: "Examen final",
-    duration: "2h"
+    duration: "2h",
   },
   {
     id: 2,
     subject: "Chimie organique",
     date: "2024-01-27",
     time: "14:00-15:30",
-    room: "Amphi B", 
+    room: "Amphi B",
     type: "Contrôle continu",
-    duration: "1h30"
+    duration: "1h30",
   },
   {
     id: 3,
@@ -121,8 +137,8 @@ const upcomingExams = [
     time: "10:00-12:00",
     room: "Amphi C",
     type: "Examen final",
-    duration: "2h"
-  }
+    duration: "2h",
+  },
 ];
 
 const todayClasses = [
@@ -133,45 +149,57 @@ const todayClasses = [
     type: "Cours magistral",
     teacher: "Dr. Jean Martin",
     room: "Amphi A",
-    status: "À venir"
+    status: "À venir",
   },
   {
     id: 2,
-    time: "14:00-15:30", 
+    time: "14:00-15:30",
     subject: "TP Chimie organique",
     type: "Travaux pratiques",
     teacher: "Dr. Sophie Laurent",
     room: "Labo 2",
-    status: "À venir"
-  }
+    status: "À venir",
+  },
 ];
 
 export default function StudentSchedule() {
   const { user } = useAuth();
-  const [currentWeek, setCurrentWeek] = useState("Semaine du 22-26 Janvier 2024");
+  const [currentWeek, setCurrentWeek] = useState(
+    "Semaine du 22-26 Janvier 2024",
+  );
 
   const getTypeColor = (type: string) => {
     switch (type) {
-      case "Cours magistral": return "bg-blue-100 text-blue-800";
-      case "Travaux pratiques": return "bg-green-100 text-green-800";
-      case "TD": return "bg-purple-100 text-purple-800";
-      case "Examen final": return "bg-red-100 text-red-800";
-      case "Contrôle continu": return "bg-orange-100 text-orange-800";
-      default: return "bg-gray-100 text-gray-800";
+      case "Cours magistral":
+        return "bg-blue-100 text-blue-800";
+      case "Travaux pratiques":
+        return "bg-green-100 text-green-800";
+      case "TD":
+        return "bg-purple-100 text-purple-800";
+      case "Examen final":
+        return "bg-red-100 text-red-800";
+      case "Contrôle continu":
+        return "bg-orange-100 text-orange-800";
+      default:
+        return "bg-gray-100 text-gray-800";
     }
   };
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case "Terminé": return "bg-gray-100 text-gray-800";
-      case "En cours": return "bg-green-100 text-green-800";
-      case "À venir": return "bg-blue-100 text-blue-800";
-      default: return "bg-gray-100 text-gray-800";
+      case "Terminé":
+        return "bg-gray-100 text-gray-800";
+      case "En cours":
+        return "bg-green-100 text-green-800";
+      case "À venir":
+        return "bg-blue-100 text-blue-800";
+      default:
+        return "bg-gray-100 text-gray-800";
     }
   };
 
   const getClassesForDay = (day: string) => {
-    return scheduleData.filter(item => item.day === day);
+    return scheduleData.filter((item) => item.day === day);
   };
 
   return (
@@ -180,12 +208,15 @@ export default function StudentSchedule() {
         {/* Header */}
         <div className="flex justify-between items-center">
           <div>
-            <h2 className="text-3xl font-bold tracking-tight">Emploi du temps</h2>
+            <h2 className="text-3xl font-bold tracking-tight">
+              Emploi du temps
+            </h2>
             <p className="text-muted-foreground">
-              Votre planning de cours et examens - {user?.filiere} {user?.niveau}
+              Votre planning de cours et examens - {user?.filiere}{" "}
+              {user?.niveau}
             </p>
           </div>
-          
+
           <div className="flex space-x-2">
             <Button variant="outline">
               <Filter className="h-4 w-4 mr-2" />
@@ -205,12 +236,14 @@ export default function StudentSchedule() {
               <Button variant="outline" size="sm">
                 <ChevronLeft className="h-4 w-4" />
               </Button>
-              
+
               <div className="text-center">
                 <h3 className="text-lg font-semibold">{currentWeek}</h3>
-                <p className="text-sm text-muted-foreground">Année académique 2023-2024</p>
+                <p className="text-sm text-muted-foreground">
+                  Année académique 2023-2024
+                </p>
               </div>
-              
+
               <Button variant="outline" size="sm">
                 <ChevronRight className="h-4 w-4" />
               </Button>
@@ -225,35 +258,48 @@ export default function StudentSchedule() {
               <Clock className="h-5 w-5" />
               <span>Cours d'aujourd'hui</span>
             </CardTitle>
-            <CardDescription>
-              Lundi 22 Janvier 2024
-            </CardDescription>
+            <CardDescription>Lundi 22 Janvier 2024</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="space-y-3">
               {todayClasses.map((classe) => (
-                <div key={classe.id} className="flex items-center justify-between p-4 border rounded-lg">
+                <div
+                  key={classe.id}
+                  className="flex items-center justify-between p-4 border rounded-lg"
+                >
                   <div className="flex items-center space-x-4">
                     <div className="text-center">
-                      <div className="text-sm font-medium">{classe.time.split('-')[0]}</div>
-                      <div className="text-xs text-muted-foreground">{classe.time.split('-')[1]}</div>
+                      <div className="text-sm font-medium">
+                        {classe.time.split("-")[0]}
+                      </div>
+                      <div className="text-xs text-muted-foreground">
+                        {classe.time.split("-")[1]}
+                      </div>
                     </div>
                     <div className="h-8 w-1 bg-primary rounded"></div>
                     <div>
                       <div className="font-medium">{classe.subject}</div>
-                      <div className="text-sm text-muted-foreground">{classe.teacher}</div>
+                      <div className="text-sm text-muted-foreground">
+                        {classe.teacher}
+                      </div>
                       <div className="flex items-center space-x-4 text-sm text-muted-foreground">
                         <span className="flex items-center">
                           <MapPin className="h-3 w-3 mr-1" />
                           {classe.room}
                         </span>
-                        <Badge variant="secondary" className={getTypeColor(classe.type)}>
+                        <Badge
+                          variant="secondary"
+                          className={getTypeColor(classe.type)}
+                        >
                           {classe.type}
                         </Badge>
                       </div>
                     </div>
                   </div>
-                  <Badge variant="secondary" className={getStatusColor(classe.status)}>
+                  <Badge
+                    variant="secondary"
+                    className={getStatusColor(classe.status)}
+                  >
                     {classe.status}
                   </Badge>
                 </div>
@@ -287,7 +333,10 @@ export default function StudentSchedule() {
                       Heure
                     </div>
                     {timeSlots.map((time) => (
-                      <div key={time} className="h-16 flex items-center justify-center text-xs text-muted-foreground border-t">
+                      <div
+                        key={time}
+                        className="h-16 flex items-center justify-center text-xs text-muted-foreground border-t"
+                      >
                         {time}
                       </div>
                     ))}
@@ -306,7 +355,9 @@ export default function StudentSchedule() {
                             className={`p-2 rounded border-l-4 text-xs ${classe.color}`}
                           >
                             <div className="font-medium">{classe.time}</div>
-                            <div className="font-semibold">{classe.subject}</div>
+                            <div className="font-semibold">
+                              {classe.subject}
+                            </div>
                             <div>{classe.teacher}</div>
                             <div className="flex items-center text-xs mt-1">
                               <MapPin className="h-3 w-3 mr-1" />
@@ -343,14 +394,19 @@ export default function StudentSchedule() {
                           <div className="flex items-center space-x-3">
                             <Calendar className="h-5 w-5 text-red-600" />
                             <div>
-                              <div className="font-semibold">{exam.subject}</div>
+                              <div className="font-semibold">
+                                {exam.subject}
+                              </div>
                               <div className="text-sm text-muted-foreground">
-                                {new Date(exam.date).toLocaleDateString('fr-FR', {
-                                  weekday: 'long',
-                                  year: 'numeric',
-                                  month: 'long',
-                                  day: 'numeric'
-                                })}
+                                {new Date(exam.date).toLocaleDateString(
+                                  "fr-FR",
+                                  {
+                                    weekday: "long",
+                                    year: "numeric",
+                                    month: "long",
+                                    day: "numeric",
+                                  },
+                                )}
                               </div>
                             </div>
                           </div>
@@ -365,7 +421,10 @@ export default function StudentSchedule() {
                             </span>
                           </div>
                         </div>
-                        <Badge variant="secondary" className={getTypeColor(exam.type)}>
+                        <Badge
+                          variant="secondary"
+                          className={getTypeColor(exam.type)}
+                        >
                           {exam.type}
                         </Badge>
                       </div>
@@ -381,22 +440,28 @@ export default function StudentSchedule() {
             <Card>
               <CardHeader>
                 <CardTitle>Vue mensuelle</CardTitle>
-                <CardDescription>
-                  Aperçu du mois en cours
-                </CardDescription>
+                <CardDescription>Aperçu du mois en cours</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-7 gap-2 mb-4">
-                  {['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'].map((day) => (
-                    <div key={day} className="p-2 text-center font-medium text-sm bg-gray-50 rounded">
-                      {day}
-                    </div>
-                  ))}
+                  {["Lun", "Mar", "Mer", "Jeu", "Ven", "Sam", "Dim"].map(
+                    (day) => (
+                      <div
+                        key={day}
+                        className="p-2 text-center font-medium text-sm bg-gray-50 rounded"
+                      >
+                        {day}
+                      </div>
+                    ),
+                  )}
                 </div>
-                
+
                 <div className="grid grid-cols-7 gap-2">
                   {Array.from({ length: 31 }, (_, i) => i + 1).map((day) => (
-                    <div key={day} className="aspect-square border rounded p-1 text-sm">
+                    <div
+                      key={day}
+                      className="aspect-square border rounded p-1 text-sm"
+                    >
                       <div className="font-medium">{day}</div>
                       {/* Sample events for some days */}
                       {day === 22 && (
@@ -428,7 +493,9 @@ export default function StudentSchedule() {
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Heures cette semaine</CardTitle>
+              <CardTitle className="text-sm font-medium">
+                Heures cette semaine
+              </CardTitle>
               <Clock className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
@@ -441,7 +508,9 @@ export default function StudentSchedule() {
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Cours magistraux</CardTitle>
+              <CardTitle className="text-sm font-medium">
+                Cours magistraux
+              </CardTitle>
               <BookOpen className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
@@ -454,7 +523,9 @@ export default function StudentSchedule() {
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Travaux pratiques</CardTitle>
+              <CardTitle className="text-sm font-medium">
+                Travaux pratiques
+              </CardTitle>
               <User className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
@@ -467,7 +538,9 @@ export default function StudentSchedule() {
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Prochains examens</CardTitle>
+              <CardTitle className="text-sm font-medium">
+                Prochains examens
+              </CardTitle>
               <Calendar className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
