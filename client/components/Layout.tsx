@@ -13,6 +13,7 @@ import {
   Home,
   FileText,
   UserCog,
+  UserCheck,
   Building2,
   Bell,
   LogOut,
