@@ -295,6 +295,8 @@ export default function ProgramsPage() {
   const [isViewMaquetteOpen, setIsViewMaquetteOpen] = useState(false);
   const [formData, setFormData] = useState<any>({});
   const [expandedItems, setExpandedItems] = useState<Set<string>>(new Set());
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [filiereToDelete, setFiliereToDelete] = useState<string | null>(null);
 
   const { toast } = useToast();
 
