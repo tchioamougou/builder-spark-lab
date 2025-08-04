@@ -33,11 +33,11 @@ import {
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { 
-  FileText, 
-  Plus, 
-  Search, 
-  MoreHorizontal, 
+import {
+  FileText,
+  Plus,
+  Search,
+  MoreHorizontal,
   Edit,
   Trash2,
   Download,
@@ -50,7 +50,6 @@ import {
   File,
   FileImage,
   FileSpreadsheet,
-  FilePdf,
   User,
   Calendar,
   Folder,
