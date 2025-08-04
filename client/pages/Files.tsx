@@ -313,9 +313,26 @@ export default function FilesPage() {
           </div>
 
           <div className="flex space-x-2">
-            <Button variant="outline">
+            <Button
+              variant="outline"
+              onClick={() => navigate('/students')}
+            >
+              <User className="h-4 w-4 mr-2" />
+              Gestion Étudiants
+            </Button>
+            <Button
+              variant="outline"
+              onClick={() => navigate('/teachers')}
+            >
+              <User className="h-4 w-4 mr-2" />
+              Gestion Enseignants
+            </Button>
+            <Button
+              variant="outline"
+              onClick={() => navigate('/programs')}
+            >
               <Archive className="h-4 w-4 mr-2" />
-              Archiver
+              Programmes
             </Button>
             <Dialog
               open={isUploadDialogOpen}
