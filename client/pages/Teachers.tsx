@@ -527,7 +527,7 @@ export default function TeachersPage() {
                   <TableHeader>
                     <TableRow>
                       <TableHead>Enseignant</TableHead>
-                      <TableHead>Sp��cialité</TableHead>
+                      <TableHead>Spécialité</TableHead>
                       <TableHead>Contrat</TableHead>
                       <TableHead>Évaluation</TableHead>
                       <TableHead>Heures</TableHead>
@@ -1204,6 +1204,39 @@ export default function TeachersPage() {
             )}
           </DialogContent>
         </Dialog>
+
+        {/* Delete Confirmation Dialog */}
+        <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Êtes-vous sûr ?</AlertDialogTitle>
+              <AlertDialogDescription>
+                Cette action supprimera définitivement l'enseignant.
+                Cette action ne peut pas être annulée.
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel onClick={() => {
+                setDeleteDialogOpen(false);
+                setTeacherToDelete(null);
+              }}>
+                Annuler
+              </AlertDialogCancel>
+              <AlertDialogAction
+                onClick={() => {
+                  if (teacherToDelete) {
+                    handleDeleteTeacher(teacherToDelete);
+                  }
+                  setDeleteDialogOpen(false);
+                  setTeacherToDelete(null);
+                }}
+                className="bg-red-600 hover:bg-red-700"
+              >
+                Supprimer
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
       </div>
     </Layout>
   );
