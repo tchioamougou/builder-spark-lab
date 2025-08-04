@@ -205,6 +205,14 @@ function AppRoutes() {
           </ProtectedRoute>
         }
       />
+      <Route
+        path="/role-management"
+        element={
+          <ProtectedRoute requiredRole={["admin"]}>
+            <RoleManagement />
+          </ProtectedRoute>
+        }
+      />
 
       {/* General Routes */}
       <Route path="/login" element={<Navigate to="/" replace />} />
