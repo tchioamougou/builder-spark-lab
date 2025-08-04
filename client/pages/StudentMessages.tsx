@@ -1,12 +1,24 @@
 import StudentLayout from "@/components/StudentLayout";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import {
   Dialog,
   DialogContent,
@@ -17,8 +29,8 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { useAuth } from "@/contexts/AuthContext";
-import { 
-  MessageSquare, 
+import {
+  MessageSquare,
   Plus,
   Search,
   Send,
@@ -31,7 +43,7 @@ import {
   MoreHorizontal,
   Clock,
   User,
-  Bell
+  Bell,
 } from "lucide-react";
 import { useState } from "react";
 
@@ -49,18 +61,20 @@ const conversations = [
       {
         id: 1,
         expediteur: "Marie Dupont",
-        contenu: "Bonjour professeur, j'aurais une question concernant le chapitre 3 du cours d'anatomie. Pourriez-vous m'expliquer la différence entre...",
+        contenu:
+          "Bonjour professeur, j'aurais une question concernant le chapitre 3 du cours d'anatomie. Pourriez-vous m'expliquer la différence entre...",
         date: "2024-01-20 10:15",
-        type: "envoyé"
+        type: "envoyé",
       },
       {
         id: 2,
-        expediteur: "Dr. Jean Martin", 
-        contenu: "Bonjour Marie, excellente question ! La différence principale réside dans... Je vous conseille également de consulter le manuel pages 45-48.",
+        expediteur: "Dr. Jean Martin",
+        contenu:
+          "Bonjour Marie, excellente question ! La différence principale réside dans... Je vous conseille également de consulter le manuel pages 45-48.",
         date: "2024-01-20 14:30",
-        type: "reçu"
-      }
-    ]
+        type: "reçu",
+      },
+    ],
   },
   {
     id: 2,
@@ -75,11 +89,12 @@ const conversations = [
       {
         id: 1,
         expediteur: "Secrétariat Scolarité",
-        contenu: "Votre dossier de stage en pharmacie hospitalière a été validé. Vous pouvez commencer votre stage le 1er février 2024.",
+        contenu:
+          "Votre dossier de stage en pharmacie hospitalière a été validé. Vous pouvez commencer votre stage le 1er février 2024.",
         date: "2024-01-19 16:45",
-        type: "reçu"
-      }
-    ]
+        type: "reçu",
+      },
+    ],
   },
   {
     id: 3,
@@ -94,24 +109,26 @@ const conversations = [
       {
         id: 1,
         expediteur: "Marie Dupont",
-        contenu: "Madame, suite à mon hospitalisation, pourriez-vous reporter mon examen de pharmacologie ?",
+        contenu:
+          "Madame, suite à mon hospitalisation, pourriez-vous reporter mon examen de pharmacologie ?",
         date: "2024-01-17 09:30",
-        type: "envoyé"
+        type: "envoyé",
       },
       {
         id: 2,
         expediteur: "Dr. Sophie Laurent",
-        contenu: "Bien sûr Marie, j'espère que vous allez mieux. L'examen est reporté au 15 février. Bon rétablissement !",
+        contenu:
+          "Bien sûr Marie, j'espère que vous allez mieux. L'examen est reporté au 15 février. Bon rétablissement !",
         date: "2024-01-18 11:20",
-        type: "reçu"
-      }
-    ]
+        type: "reçu",
+      },
+    ],
   },
   {
     id: 4,
     participant: "Service Social",
     role: "Service d'aide",
-    sujet: "Demande d'aide financière", 
+    sujet: "Demande d'aide financière",
     dernierMessage: "Dossier en cours d'étude",
     dateMessage: "2024-01-15 14:15",
     nonLu: false,
@@ -120,19 +137,21 @@ const conversations = [
       {
         id: 1,
         expediteur: "Marie Dupont",
-        contenu: "Bonjour, je souhaiterais faire une demande d'aide financière exceptionnelle suite aux difficultés familiales...",
+        contenu:
+          "Bonjour, je souhaiterais faire une demande d'aide financière exceptionnelle suite aux difficultés familiales...",
         date: "2024-01-15 10:00",
-        type: "envoyé"
+        type: "envoyé",
       },
       {
         id: 2,
         expediteur: "Service Social",
-        contenu: "Bonjour Marie, nous avons bien reçu votre demande. Votre dossier est actuellement en cours d'étude. Nous vous recontacterons sous 5 jours ouvrés.",
+        contenu:
+          "Bonjour Marie, nous avons bien reçu votre demande. Votre dossier est actuellement en cours d'étude. Nous vous recontacterons sous 5 jours ouvrés.",
         date: "2024-01-15 14:15",
-        type: "reçu"
-      }
-    ]
-  }
+        type: "reçu",
+      },
+    ],
+  },
 ];
 
 const notifications = [
@@ -141,52 +160,65 @@ const notifications = [
     titre: "Nouveau message de Dr. Jean Martin",
     description: "Réponse à votre question sur l'anatomie",
     date: "2024-01-20 14:30",
-    lu: false
+    lu: false,
   },
   {
     id: 2,
     titre: "Message du secrétariat",
     description: "Validation de votre dossier de stage",
     date: "2024-01-19 16:45",
-    lu: false
+    lu: false,
   },
   {
     id: 3,
     titre: "Rappel: Répondre à Dr. Sophie Laurent",
     description: "Message en attente de réponse depuis 2 jours",
     date: "2024-01-18 11:20",
-    lu: true
-  }
+    lu: true,
+  },
 ];
 
 export default function StudentMessages() {
   const { user } = useAuth();
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedConversation, setSelectedConversation] = useState(conversations[0]);
+  const [selectedConversation, setSelectedConversation] = useState(
+    conversations[0],
+  );
   const [isNewMessageDialogOpen, setIsNewMessageDialogOpen] = useState(false);
   const [newMessage, setNewMessage] = useState("");
 
-  const filteredConversations = conversations.filter(conv => 
-    conv.participant.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    conv.sujet.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredConversations = conversations.filter(
+    (conv) =>
+      conv.participant.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      conv.sujet.toLowerCase().includes(searchTerm.toLowerCase()),
   );
 
-  const unreadCount = conversations.filter(conv => conv.nonLu).length;
+  const unreadCount = conversations.filter((conv) => conv.nonLu).length;
 
   const formatTime = (dateString: string) => {
     const date = new Date(dateString);
     const now = new Date();
     const diffTime = Math.abs(now.getTime() - date.getTime());
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    
+
     if (diffDays === 1) {
-      return "Aujourd'hui " + date.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+      return (
+        "Aujourd'hui " +
+        date.toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" })
+      );
     } else if (diffDays === 2) {
-      return "Hier " + date.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+      return (
+        "Hier " +
+        date.toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" })
+      );
     } else if (diffDays <= 7) {
-      return date.toLocaleDateString('fr-FR', { weekday: 'short' }) + " " + date.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+      return (
+        date.toLocaleDateString("fr-FR", { weekday: "short" }) +
+        " " +
+        date.toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" })
+      );
     } else {
-      return date.toLocaleDateString('fr-FR');
+      return date.toLocaleDateString("fr-FR");
     }
   };
 
@@ -201,9 +233,12 @@ export default function StudentMessages() {
               Communiquez avec vos enseignants et l'administration
             </p>
           </div>
-          
+
           <div className="flex space-x-2">
-            <Dialog open={isNewMessageDialogOpen} onOpenChange={setIsNewMessageDialogOpen}>
+            <Dialog
+              open={isNewMessageDialogOpen}
+              onOpenChange={setIsNewMessageDialogOpen}
+            >
               <DialogTrigger asChild>
                 <Button>
                   <Plus className="h-4 w-4 mr-2" />
@@ -219,31 +254,60 @@ export default function StudentMessages() {
                 </DialogHeader>
                 <div className="grid gap-4 py-4">
                   <div className="grid grid-cols-4 items-center gap-4">
-                    <Label htmlFor="destinataire" className="text-right">Destinataire</Label>
+                    <Label htmlFor="destinataire" className="text-right">
+                      Destinataire
+                    </Label>
                     <Select>
                       <SelectTrigger className="col-span-3">
                         <SelectValue placeholder="Sélectionner le destinataire" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="martin">Dr. Jean Martin - Anatomie</SelectItem>
-                        <SelectItem value="laurent">Dr. Sophie Laurent - Pharmacologie</SelectItem>
-                        <SelectItem value="scolarite">Secrétariat Scolarité</SelectItem>
+                        <SelectItem value="martin">
+                          Dr. Jean Martin - Anatomie
+                        </SelectItem>
+                        <SelectItem value="laurent">
+                          Dr. Sophie Laurent - Pharmacologie
+                        </SelectItem>
+                        <SelectItem value="scolarite">
+                          Secrétariat Scolarité
+                        </SelectItem>
                         <SelectItem value="social">Service Social</SelectItem>
-                        <SelectItem value="bibliotheque">Bibliothèque</SelectItem>
+                        <SelectItem value="bibliotheque">
+                          Bibliothèque
+                        </SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
                   <div className="grid grid-cols-4 items-center gap-4">
-                    <Label htmlFor="sujetMessage" className="text-right">Sujet</Label>
-                    <Input id="sujetMessage" className="col-span-3" placeholder="Objet de votre message" />
+                    <Label htmlFor="sujetMessage" className="text-right">
+                      Sujet
+                    </Label>
+                    <Input
+                      id="sujetMessage"
+                      className="col-span-3"
+                      placeholder="Objet de votre message"
+                    />
                   </div>
                   <div className="grid grid-cols-4 items-center gap-4">
-                    <Label htmlFor="contenuMessage" className="text-right">Message</Label>
-                    <Textarea id="contenuMessage" className="col-span-3" rows={6} placeholder="Rédigez votre message..." />
+                    <Label htmlFor="contenuMessage" className="text-right">
+                      Message
+                    </Label>
+                    <Textarea
+                      id="contenuMessage"
+                      className="col-span-3"
+                      rows={6}
+                      placeholder="Rédigez votre message..."
+                    />
                   </div>
                   <div className="grid grid-cols-4 items-center gap-4">
-                    <Label htmlFor="pieceJointe" className="text-right">Pièce jointe</Label>
-                    <Input id="pieceJointe" type="file" className="col-span-3" />
+                    <Label htmlFor="pieceJointe" className="text-right">
+                      Pièce jointe
+                    </Label>
+                    <Input
+                      id="pieceJointe"
+                      type="file"
+                      className="col-span-3"
+                    />
                   </div>
                 </div>
                 <DialogFooter>
@@ -261,7 +325,9 @@ export default function StudentMessages() {
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Total conversations</CardTitle>
+              <CardTitle className="text-sm font-medium">
+                Total conversations
+              </CardTitle>
               <MessageSquare className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
@@ -274,7 +340,9 @@ export default function StudentMessages() {
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Messages non lus</CardTitle>
+              <CardTitle className="text-sm font-medium">
+                Messages non lus
+              </CardTitle>
               <Bell className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
@@ -287,12 +355,18 @@ export default function StudentMessages() {
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Enseignants contactés</CardTitle>
+              <CardTitle className="text-sm font-medium">
+                Enseignants contactés
+              </CardTitle>
               <User className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">
-                {conversations.filter(conv => conv.role.includes("Enseignant")).length}
+                {
+                  conversations.filter((conv) =>
+                    conv.role.includes("Enseignant"),
+                  ).length
+                }
               </div>
               <p className="text-xs text-muted-foreground">
                 Professeurs différents
@@ -302,14 +376,14 @@ export default function StudentMessages() {
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Cette semaine</CardTitle>
+              <CardTitle className="text-sm font-medium">
+                Cette semaine
+              </CardTitle>
               <Clock className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">7</div>
-              <p className="text-xs text-muted-foreground">
-                Nouveaux messages
-              </p>
+              <p className="text-xs text-muted-foreground">Nouveaux messages</p>
             </CardContent>
           </Card>
         </div>
@@ -342,26 +416,39 @@ export default function StudentMessages() {
                     key={conversation.id}
                     onClick={() => setSelectedConversation(conversation)}
                     className={`p-4 cursor-pointer border-b hover:bg-gray-50 ${
-                      selectedConversation.id === conversation.id ? 'bg-blue-50 border-l-4 border-l-blue-500' : ''
+                      selectedConversation.id === conversation.id
+                        ? "bg-blue-50 border-l-4 border-l-blue-500"
+                        : ""
                     }`}
                   >
                     <div className="flex items-start space-x-3">
                       <Avatar className="h-10 w-10">
                         <AvatarImage src={conversation.avatar} />
                         <AvatarFallback>
-                          {conversation.participant.split(' ').map(n => n[0]).join('')}
+                          {conversation.participant
+                            .split(" ")
+                            .map((n) => n[0])
+                            .join("")}
                         </AvatarFallback>
                       </Avatar>
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center justify-between">
-                          <div className="font-medium truncate">{conversation.participant}</div>
+                          <div className="font-medium truncate">
+                            {conversation.participant}
+                          </div>
                           {conversation.nonLu && (
                             <div className="w-3 h-3 bg-blue-600 rounded-full"></div>
                           )}
                         </div>
-                        <div className="text-xs text-muted-foreground">{conversation.role}</div>
-                        <div className="text-sm font-medium truncate mt-1">{conversation.sujet}</div>
-                        <div className="text-sm text-muted-foreground truncate">{conversation.dernierMessage}</div>
+                        <div className="text-xs text-muted-foreground">
+                          {conversation.role}
+                        </div>
+                        <div className="text-sm font-medium truncate mt-1">
+                          {conversation.sujet}
+                        </div>
+                        <div className="text-sm text-muted-foreground truncate">
+                          {conversation.dernierMessage}
+                        </div>
                         <div className="text-xs text-muted-foreground mt-1">
                           {formatTime(conversation.dateMessage)}
                         </div>
@@ -381,12 +468,19 @@ export default function StudentMessages() {
                   <Avatar className="h-10 w-10">
                     <AvatarImage src={selectedConversation.avatar} />
                     <AvatarFallback>
-                      {selectedConversation.participant.split(' ').map(n => n[0]).join('')}
+                      {selectedConversation.participant
+                        .split(" ")
+                        .map((n) => n[0])
+                        .join("")}
                     </AvatarFallback>
                   </Avatar>
                   <div>
-                    <div className="font-medium">{selectedConversation.participant}</div>
-                    <div className="text-sm text-muted-foreground">{selectedConversation.role}</div>
+                    <div className="font-medium">
+                      {selectedConversation.participant}
+                    </div>
+                    <div className="text-sm text-muted-foreground">
+                      {selectedConversation.role}
+                    </div>
                   </div>
                 </div>
                 <div className="flex space-x-2">
@@ -401,7 +495,9 @@ export default function StudentMessages() {
                   </Button>
                 </div>
               </div>
-              <div className="text-lg font-semibold">{selectedConversation.sujet}</div>
+              <div className="text-lg font-semibold">
+                {selectedConversation.sujet}
+              </div>
             </CardHeader>
             <CardContent>
               {/* Messages */}
@@ -409,19 +505,21 @@ export default function StudentMessages() {
                 {selectedConversation.messages.map((message) => (
                   <div
                     key={message.id}
-                    className={`flex ${message.type === 'envoyé' ? 'justify-end' : 'justify-start'}`}
+                    className={`flex ${message.type === "envoyé" ? "justify-end" : "justify-start"}`}
                   >
                     <div
                       className={`max-w-xs lg:max-w-md px-4 py-2 rounded-lg ${
-                        message.type === 'envoyé'
-                          ? 'bg-blue-600 text-white'
-                          : 'bg-gray-100 text-gray-900'
+                        message.type === "envoyé"
+                          ? "bg-blue-600 text-white"
+                          : "bg-gray-100 text-gray-900"
                       }`}
                     >
                       <div className="text-sm">{message.contenu}</div>
                       <div
                         className={`text-xs mt-1 ${
-                          message.type === 'envoyé' ? 'text-blue-100' : 'text-gray-500'
+                          message.type === "envoyé"
+                            ? "text-blue-100"
+                            : "text-gray-500"
                         }`}
                       >
                         {formatTime(message.date)}
@@ -479,12 +577,16 @@ export default function StudentMessages() {
                 <div
                   key={notification.id}
                   className={`p-3 rounded-lg border ${
-                    !notification.lu ? 'bg-blue-50 border-blue-200' : 'bg-gray-50'
+                    !notification.lu
+                      ? "bg-blue-50 border-blue-200"
+                      : "bg-gray-50"
                   }`}
                 >
                   <div className="flex items-center justify-between">
                     <div className="flex-1">
-                      <div className={`font-medium ${!notification.lu ? 'text-blue-900' : 'text-gray-900'}`}>
+                      <div
+                        className={`font-medium ${!notification.lu ? "text-blue-900" : "text-gray-900"}`}
+                      >
                         {notification.titre}
                       </div>
                       <div className="text-sm text-muted-foreground">

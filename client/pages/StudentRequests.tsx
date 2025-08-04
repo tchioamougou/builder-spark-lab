@@ -1,12 +1,24 @@
 import StudentLayout from "@/components/StudentLayout";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import {
   Dialog,
   DialogContent,
@@ -16,17 +28,17 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { 
-  Table, 
-  TableBody, 
-  TableCell, 
-  TableHead, 
-  TableHeader, 
-  TableRow 
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
 } from "@/components/ui/table";
 import { useAuth } from "@/contexts/AuthContext";
-import { 
-  Upload, 
+import {
+  Upload,
   Plus,
   Clock,
   CheckCircle,
@@ -36,7 +48,7 @@ import {
   Calendar,
   User,
   Search,
-  Filter
+  Filter,
 } from "lucide-react";
 import { useState } from "react";
 
@@ -50,7 +62,7 @@ const absenceRequests = [
     statut: "En attente",
     datedemande: "2024-01-20",
     justificatif: "certificat_medical.pdf",
-    cours: ["Anatomie générale", "TP Chimie"]
+    cours: ["Anatomie générale", "TP Chimie"],
   },
   {
     id: 2,
@@ -61,7 +73,7 @@ const absenceRequests = [
     statut: "Approuvé",
     datedemande: "2024-01-18",
     justificatif: "convocation_tribunal.pdf",
-    cours: ["Physiologie"]
+    cours: ["Physiologie"],
   },
   {
     id: 3,
@@ -73,8 +85,8 @@ const absenceRequests = [
     datedemande: "2024-01-12",
     justificatif: null,
     cours: ["Mathématiques", "Chimie analytique"],
-    motifRejet: "Motif non valable selon règlement"
-  }
+    motifRejet: "Motif non valable selon règlement",
+  },
 ];
 
 const documentRequests = [
@@ -85,7 +97,7 @@ const documentRequests = [
     datedemande: "2024-01-19",
     statut: "Prêt",
     delaiEstime: "1-2 jours",
-    urgence: "Normal"
+    urgence: "Normal",
   },
   {
     id: 2,
@@ -94,7 +106,7 @@ const documentRequests = [
     datedemande: "2024-01-17",
     statut: "En cours",
     delaiEstime: "3-5 jours",
-    urgence: "Urgent"
+    urgence: "Urgent",
   },
   {
     id: 3,
@@ -103,8 +115,8 @@ const documentRequests = [
     datedemande: "2024-01-15",
     statut: "En attente",
     delaiEstime: "5-7 jours",
-    urgence: "Normal"
-  }
+    urgence: "Normal",
+  },
 ];
 
 const otherRequests = [
@@ -114,7 +126,7 @@ const otherRequests = [
     objet: "Conflit d'horaire avec emploi",
     datedemande: "2024-01-18",
     statut: "En cours",
-    service: "Scolarité"
+    service: "Scolarité",
   },
   {
     id: 2,
@@ -122,7 +134,7 @@ const otherRequests = [
     objet: "Hospitalisation programmée",
     datedemande: "2024-01-16",
     statut: "Approuvé",
-    service: "Direction pédagogique"
+    service: "Direction pédagogique",
   },
   {
     id: 3,
@@ -130,8 +142,8 @@ const otherRequests = [
     objet: "Difficultés financières familiales",
     datedemande: "2024-01-10",
     statut: "En attente",
-    service: "Service social"
-  }
+    service: "Service social",
+  },
 ];
 
 export default function StudentRequests() {
@@ -143,28 +155,44 @@ export default function StudentRequests() {
 
   const getStatusColor = (statut: string) => {
     switch (statut) {
-      case "Approuvé": case "Prêt": return "bg-green-100 text-green-800";
-      case "En cours": case "En attente": return "bg-yellow-100 text-yellow-800";
-      case "Rejeté": return "bg-red-100 text-red-800";
-      default: return "bg-gray-100 text-gray-800";
+      case "Approuvé":
+      case "Prêt":
+        return "bg-green-100 text-green-800";
+      case "En cours":
+      case "En attente":
+        return "bg-yellow-100 text-yellow-800";
+      case "Rejeté":
+        return "bg-red-100 text-red-800";
+      default:
+        return "bg-gray-100 text-gray-800";
     }
   };
 
   const getStatusIcon = (statut: string) => {
     switch (statut) {
-      case "Approuvé": case "Prêt": return <CheckCircle className="h-4 w-4" />;
-      case "En cours": case "En attente": return <Clock className="h-4 w-4" />;
-      case "Rejeté": return <XCircle className="h-4 w-4" />;
-      default: return <Clock className="h-4 w-4" />;
+      case "Approuvé":
+      case "Prêt":
+        return <CheckCircle className="h-4 w-4" />;
+      case "En cours":
+      case "En attente":
+        return <Clock className="h-4 w-4" />;
+      case "Rejeté":
+        return <XCircle className="h-4 w-4" />;
+      default:
+        return <Clock className="h-4 w-4" />;
     }
   };
 
   const getUrgenceColor = (urgence: string) => {
     switch (urgence) {
-      case "Express": return "bg-red-100 text-red-800";
-      case "Urgent": return "bg-orange-100 text-orange-800";
-      case "Normal": return "bg-blue-100 text-blue-800";
-      default: return "bg-gray-100 text-gray-800";
+      case "Express":
+        return "bg-red-100 text-red-800";
+      case "Urgent":
+        return "bg-orange-100 text-orange-800";
+      case "Normal":
+        return "bg-blue-100 text-blue-800";
+      default:
+        return "bg-gray-100 text-gray-800";
     }
   };
 
@@ -179,9 +207,12 @@ export default function StudentRequests() {
               Gérez vos demandes d'absence, documents et autres requêtes
             </p>
           </div>
-          
+
           <div className="flex space-x-2">
-            <Dialog open={isAbsenceDialogOpen} onOpenChange={setIsAbsenceDialogOpen}>
+            <Dialog
+              open={isAbsenceDialogOpen}
+              onOpenChange={setIsAbsenceDialogOpen}
+            >
               <DialogTrigger asChild>
                 <Button variant="outline">
                   <Calendar className="h-4 w-4 mr-2" />
@@ -192,40 +223,64 @@ export default function StudentRequests() {
                 <DialogHeader>
                   <DialogTitle>Signaler une absence</DialogTitle>
                   <DialogDescription>
-                    Informez l'administration de votre absence avec justification.
+                    Informez l'administration de votre absence avec
+                    justification.
                   </DialogDescription>
                 </DialogHeader>
                 <div className="grid gap-4 py-4">
                   <div className="grid grid-cols-4 items-center gap-4">
-                    <Label htmlFor="typeAbsence" className="text-right">Type d'absence</Label>
+                    <Label htmlFor="typeAbsence" className="text-right">
+                      Type d'absence
+                    </Label>
                     <Select>
                       <SelectTrigger className="col-span-3">
                         <SelectValue placeholder="Sélectionner le type" />
                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="maladie">Maladie</SelectItem>
-                        <SelectItem value="familiale">Raisons familiales</SelectItem>
-                        <SelectItem value="convocation">Convocation officielle</SelectItem>
+                        <SelectItem value="familiale">
+                          Raisons familiales
+                        </SelectItem>
+                        <SelectItem value="convocation">
+                          Convocation officielle
+                        </SelectItem>
                         <SelectItem value="stage">Stage</SelectItem>
                         <SelectItem value="autre">Autre</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
                   <div className="grid grid-cols-4 items-center gap-4">
-                    <Label htmlFor="dateDebut" className="text-right">Date début</Label>
+                    <Label htmlFor="dateDebut" className="text-right">
+                      Date début
+                    </Label>
                     <Input id="dateDebut" type="date" className="col-span-3" />
                   </div>
                   <div className="grid grid-cols-4 items-center gap-4">
-                    <Label htmlFor="dateFin" className="text-right">Date fin</Label>
+                    <Label htmlFor="dateFin" className="text-right">
+                      Date fin
+                    </Label>
                     <Input id="dateFin" type="date" className="col-span-3" />
                   </div>
                   <div className="grid grid-cols-4 items-center gap-4">
-                    <Label htmlFor="motifAbsence" className="text-right">Motif</Label>
-                    <Textarea id="motifAbsence" className="col-span-3" rows={3} placeholder="Expliquez le motif de votre absence..." />
+                    <Label htmlFor="motifAbsence" className="text-right">
+                      Motif
+                    </Label>
+                    <Textarea
+                      id="motifAbsence"
+                      className="col-span-3"
+                      rows={3}
+                      placeholder="Expliquez le motif de votre absence..."
+                    />
                   </div>
                   <div className="grid grid-cols-4 items-center gap-4">
-                    <Label htmlFor="justificatifAbsence" className="text-right">Justificatif</Label>
-                    <Input id="justificatifAbsence" type="file" className="col-span-3" />
+                    <Label htmlFor="justificatifAbsence" className="text-right">
+                      Justificatif
+                    </Label>
+                    <Input
+                      id="justificatifAbsence"
+                      type="file"
+                      className="col-span-3"
+                    />
                   </div>
                 </div>
                 <DialogFooter>
@@ -234,7 +289,10 @@ export default function StudentRequests() {
               </DialogContent>
             </Dialog>
 
-            <Dialog open={isDocumentDialogOpen} onOpenChange={setIsDocumentDialogOpen}>
+            <Dialog
+              open={isDocumentDialogOpen}
+              onOpenChange={setIsDocumentDialogOpen}
+            >
               <DialogTrigger asChild>
                 <Button variant="outline">
                   <FileText className="h-4 w-4 mr-2" />
@@ -250,32 +308,53 @@ export default function StudentRequests() {
                 </DialogHeader>
                 <div className="grid gap-4 py-4">
                   <div className="grid grid-cols-4 items-center gap-4">
-                    <Label htmlFor="typeDoc" className="text-right">Type de document</Label>
+                    <Label htmlFor="typeDoc" className="text-right">
+                      Type de document
+                    </Label>
                     <Select>
                       <SelectTrigger className="col-span-3">
                         <SelectValue placeholder="Sélectionner" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="attestation">Attestation de scolarité</SelectItem>
+                        <SelectItem value="attestation">
+                          Attestation de scolarité
+                        </SelectItem>
                         <SelectItem value="releve">Relevé de notes</SelectItem>
-                        <SelectItem value="certificat">Certificat de stage</SelectItem>
-                        <SelectItem value="duplicata">Duplicata diplôme</SelectItem>
+                        <SelectItem value="certificat">
+                          Certificat de stage
+                        </SelectItem>
+                        <SelectItem value="duplicata">
+                          Duplicata diplôme
+                        </SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
                   <div className="grid grid-cols-4 items-center gap-4">
-                    <Label htmlFor="motifDoc" className="text-right">Motif</Label>
-                    <Textarea id="motifDoc" className="col-span-3" rows={3} placeholder="Expliquez pourquoi vous avez besoin de ce document..." />
+                    <Label htmlFor="motifDoc" className="text-right">
+                      Motif
+                    </Label>
+                    <Textarea
+                      id="motifDoc"
+                      className="col-span-3"
+                      rows={3}
+                      placeholder="Expliquez pourquoi vous avez besoin de ce document..."
+                    />
                   </div>
                   <div className="grid grid-cols-4 items-center gap-4">
-                    <Label htmlFor="urgenceDoc" className="text-right">Urgence</Label>
+                    <Label htmlFor="urgenceDoc" className="text-right">
+                      Urgence
+                    </Label>
                     <Select>
                       <SelectTrigger className="col-span-3">
                         <SelectValue placeholder="Délai souhaité" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="normal">Normal (5-7 jours)</SelectItem>
-                        <SelectItem value="urgent">Urgent (2-3 jours)</SelectItem>
+                        <SelectItem value="normal">
+                          Normal (5-7 jours)
+                        </SelectItem>
+                        <SelectItem value="urgent">
+                          Urgent (2-3 jours)
+                        </SelectItem>
                         <SelectItem value="express">Express (24h)</SelectItem>
                       </SelectContent>
                     </Select>
@@ -287,7 +366,10 @@ export default function StudentRequests() {
               </DialogContent>
             </Dialog>
 
-            <Dialog open={isOtherDialogOpen} onOpenChange={setIsOtherDialogOpen}>
+            <Dialog
+              open={isOtherDialogOpen}
+              onOpenChange={setIsOtherDialogOpen}
+            >
               <DialogTrigger asChild>
                 <Button>
                   <Plus className="h-4 w-4 mr-2" />
@@ -303,40 +385,67 @@ export default function StudentRequests() {
                 </DialogHeader>
                 <div className="grid gap-4 py-4">
                   <div className="grid grid-cols-4 items-center gap-4">
-                    <Label htmlFor="typeAutre" className="text-right">Type de demande</Label>
+                    <Label htmlFor="typeAutre" className="text-right">
+                      Type de demande
+                    </Label>
                     <Select>
                       <SelectTrigger className="col-span-3">
                         <SelectValue placeholder="Sélectionner" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="changement">Changement de groupe</SelectItem>
+                        <SelectItem value="changement">
+                          Changement de groupe
+                        </SelectItem>
                         <SelectItem value="report">Report d'examen</SelectItem>
-                        <SelectItem value="bourse">Demande de bourse</SelectItem>
-                        <SelectItem value="logement">Aide au logement</SelectItem>
+                        <SelectItem value="bourse">
+                          Demande de bourse
+                        </SelectItem>
+                        <SelectItem value="logement">
+                          Aide au logement
+                        </SelectItem>
                         <SelectItem value="autre">Autre</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
                   <div className="grid grid-cols-4 items-center gap-4">
-                    <Label htmlFor="objetAutre" className="text-right">Objet</Label>
-                    <Input id="objetAutre" className="col-span-3" placeholder="Résumé en quelques mots" />
+                    <Label htmlFor="objetAutre" className="text-right">
+                      Objet
+                    </Label>
+                    <Input
+                      id="objetAutre"
+                      className="col-span-3"
+                      placeholder="Résumé en quelques mots"
+                    />
                   </div>
                   <div className="grid grid-cols-4 items-center gap-4">
-                    <Label htmlFor="descriptionAutre" className="text-right">Description</Label>
-                    <Textarea id="descriptionAutre" className="col-span-3" rows={4} placeholder="Détaillez votre demande..." />
+                    <Label htmlFor="descriptionAutre" className="text-right">
+                      Description
+                    </Label>
+                    <Textarea
+                      id="descriptionAutre"
+                      className="col-span-3"
+                      rows={4}
+                      placeholder="Détaillez votre demande..."
+                    />
                   </div>
                   <div className="grid grid-cols-4 items-center gap-4">
-                    <Label htmlFor="serviceAutre" className="text-right">Service destinataire</Label>
+                    <Label htmlFor="serviceAutre" className="text-right">
+                      Service destinataire
+                    </Label>
                     <Select>
                       <SelectTrigger className="col-span-3">
                         <SelectValue placeholder="Sélectionner le service" />
                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="scolarite">Scolarité</SelectItem>
-                        <SelectItem value="direction">Direction pédagogique</SelectItem>
+                        <SelectItem value="direction">
+                          Direction pédagogique
+                        </SelectItem>
                         <SelectItem value="social">Service social</SelectItem>
                         <SelectItem value="rh">Ressources humaines</SelectItem>
-                        <SelectItem value="informatique">Service informatique</SelectItem>
+                        <SelectItem value="informatique">
+                          Service informatique
+                        </SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
@@ -353,7 +462,9 @@ export default function StudentRequests() {
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Total demandes</CardTitle>
+              <CardTitle className="text-sm font-medium">
+                Total demandes
+              </CardTitle>
               <Upload className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
@@ -384,9 +495,7 @@ export default function StudentRequests() {
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">4</div>
-              <p className="text-xs text-muted-foreground">
-                Demandes validées
-              </p>
+              <p className="text-xs text-muted-foreground">Demandes validées</p>
             </CardContent>
           </Card>
 
@@ -440,11 +549,23 @@ export default function StudentRequests() {
                   <TableBody>
                     {absenceRequests.map((request) => (
                       <TableRow key={request.id}>
-                        <TableCell className="font-medium">{request.type}</TableCell>
+                        <TableCell className="font-medium">
+                          {request.type}
+                        </TableCell>
                         <TableCell>
                           <div className="text-sm">
-                            <div>Du {new Date(request.dateDebut).toLocaleDateString('fr-FR')}</div>
-                            <div>Au {new Date(request.dateFin).toLocaleDateString('fr-FR')}</div>
+                            <div>
+                              Du{" "}
+                              {new Date(request.dateDebut).toLocaleDateString(
+                                "fr-FR",
+                              )}
+                            </div>
+                            <div>
+                              Au{" "}
+                              {new Date(request.dateFin).toLocaleDateString(
+                                "fr-FR",
+                              )}
+                            </div>
                           </div>
                         </TableCell>
                         <TableCell className="max-w-xs">
@@ -455,7 +576,10 @@ export default function StudentRequests() {
                         <TableCell>
                           <div className="space-y-1">
                             {request.cours.map((cours, idx) => (
-                              <div key={idx} className="text-xs bg-gray-100 px-2 py-1 rounded">
+                              <div
+                                key={idx}
+                                className="text-xs bg-gray-100 px-2 py-1 rounded"
+                              >
                                 {cours}
                               </div>
                             ))}
@@ -465,12 +589,17 @@ export default function StudentRequests() {
                           <div className="space-y-1">
                             <div className="flex items-center space-x-2">
                               {getStatusIcon(request.statut)}
-                              <Badge variant="secondary" className={getStatusColor(request.statut)}>
+                              <Badge
+                                variant="secondary"
+                                className={getStatusColor(request.statut)}
+                              >
                                 {request.statut}
                               </Badge>
                             </div>
                             {request.motifRejet && (
-                              <div className="text-xs text-red-600">{request.motifRejet}</div>
+                              <div className="text-xs text-red-600">
+                                {request.motifRejet}
+                              </div>
                             )}
                           </div>
                         </TableCell>
@@ -515,11 +644,22 @@ export default function StudentRequests() {
                   <TableBody>
                     {documentRequests.map((request) => (
                       <TableRow key={request.id}>
-                        <TableCell className="font-medium">{request.type}</TableCell>
-                        <TableCell className="text-sm text-muted-foreground">{request.motif}</TableCell>
-                        <TableCell>{new Date(request.datedemande).toLocaleDateString('fr-FR')}</TableCell>
+                        <TableCell className="font-medium">
+                          {request.type}
+                        </TableCell>
+                        <TableCell className="text-sm text-muted-foreground">
+                          {request.motif}
+                        </TableCell>
                         <TableCell>
-                          <Badge variant="secondary" className={getUrgenceColor(request.urgence)}>
+                          {new Date(request.datedemande).toLocaleDateString(
+                            "fr-FR",
+                          )}
+                        </TableCell>
+                        <TableCell>
+                          <Badge
+                            variant="secondary"
+                            className={getUrgenceColor(request.urgence)}
+                          >
                             {request.urgence}
                           </Badge>
                         </TableCell>
@@ -527,16 +667,17 @@ export default function StudentRequests() {
                         <TableCell>
                           <div className="flex items-center space-x-2">
                             {getStatusIcon(request.statut)}
-                            <Badge variant="secondary" className={getStatusColor(request.statut)}>
+                            <Badge
+                              variant="secondary"
+                              className={getStatusColor(request.statut)}
+                            >
                               {request.statut}
                             </Badge>
                           </div>
                         </TableCell>
                         <TableCell>
                           {request.statut === "Prêt" ? (
-                            <Button size="sm">
-                              Télécharger
-                            </Button>
+                            <Button size="sm">Télécharger</Button>
                           ) : (
                             <Button variant="outline" size="sm">
                               Voir détails
@@ -578,14 +719,25 @@ export default function StudentRequests() {
                   <TableBody>
                     {otherRequests.map((request) => (
                       <TableRow key={request.id}>
-                        <TableCell className="font-medium">{request.type}</TableCell>
-                        <TableCell className="text-sm text-muted-foreground">{request.objet}</TableCell>
+                        <TableCell className="font-medium">
+                          {request.type}
+                        </TableCell>
+                        <TableCell className="text-sm text-muted-foreground">
+                          {request.objet}
+                        </TableCell>
                         <TableCell>{request.service}</TableCell>
-                        <TableCell>{new Date(request.datedemande).toLocaleDateString('fr-FR')}</TableCell>
+                        <TableCell>
+                          {new Date(request.datedemande).toLocaleDateString(
+                            "fr-FR",
+                          )}
+                        </TableCell>
                         <TableCell>
                           <div className="flex items-center space-x-2">
                             {getStatusIcon(request.statut)}
-                            <Badge variant="secondary" className={getStatusColor(request.statut)}>
+                            <Badge
+                              variant="secondary"
+                              className={getStatusColor(request.statut)}
+                            >
                               {request.statut}
                             </Badge>
                           </div>
@@ -623,11 +775,14 @@ export default function StudentRequests() {
                       className="pl-8"
                     />
                   </div>
-                  
+
                   <div className="text-center text-muted-foreground py-8">
                     <AlertCircle className="h-12 w-12 mx-auto mb-4 opacity-50" />
                     <p>Historique complet disponible prochainement</p>
-                    <p className="text-sm">Utilisez les onglets ci-dessus pour voir vos demandes par catégorie</p>
+                    <p className="text-sm">
+                      Utilisez les onglets ci-dessus pour voir vos demandes par
+                      catégorie
+                    </p>
                   </div>
                 </div>
               </CardContent>
