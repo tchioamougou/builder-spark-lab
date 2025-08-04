@@ -114,6 +114,12 @@ export default function StudentDocuments() {
   const [isRequestDialogOpen, setIsRequestDialogOpen] = useState(false);
   const [isUploadDialogOpen, setIsUploadDialogOpen] = useState(false);
 
+  const handleExportDocuments = () => {
+    if (user) {
+      generateDocumentsList(myDocuments, user);
+    }
+  };
+
   const getStatusColor = (statut: string) => {
     switch (statut) {
       case "Disponible": case "Validé": case "Prêt": return "bg-green-100 text-green-800";
