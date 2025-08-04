@@ -279,6 +279,14 @@ function AppRoutes() {
         }
       />
       <Route
+        path="/course-assignment"
+        element={
+          <ProtectedRoute requiredRole={["admin", "scolarite"]}>
+            <CourseAssignment />
+          </ProtectedRoute>
+        }
+      />
+      <Route
         path="/role-management"
         element={
           <ProtectedRoute requiredRole={["admin"]}>
