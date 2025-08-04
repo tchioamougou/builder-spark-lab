@@ -1317,11 +1317,11 @@ export default function ProgramsPage() {
 
                                 {/* Développement Web UE */}
                                 <Collapsible>
-                                  <CollapsibleTrigger
-                                    onClick={() => toggleExpanded('prog-web')}
-                                    className="flex items-center justify-between w-full p-2 border rounded-lg hover:bg-gray-50"
-                                  >
-                                    <div className="flex items-center space-x-2">
+                                  <div className="flex items-center justify-between w-full p-2 border rounded-lg hover:bg-gray-50">
+                                    <CollapsibleTrigger
+                                      onClick={() => toggleExpanded('prog-web')}
+                                      className="flex items-center space-x-2 flex-1"
+                                    >
                                       {expandedItems.has('prog-web') ? (
                                         <ChevronDown className="h-4 w-4" />
                                       ) : (
@@ -1329,20 +1329,76 @@ export default function ProgramsPage() {
                                       )}
                                       <BookOpen className="h-4 w-4 text-blue-600" />
                                       <span className="font-medium">Développement Web (PROG-WEB) - Coefficient: 2</span>
-                                    </div>
+                                    </CollapsibleTrigger>
                                     <div className="flex items-center gap-2">
-                                      <Button variant="outline" size="sm" className="text-blue-600 border-blue-600">
+                                      <Button
+                                        variant="outline"
+                                        size="sm"
+                                        className="text-blue-600 border-blue-600"
+                                        onClick={() => {
+                                          setSelectedFiliereForActions("1");
+                                          setSelectedMaquetteForActions("1");
+                                          setSelectedSequenceForActions("semestre-5");
+                                          setSelectedDomaineForActions("programmation");
+                                          setSelectedUEForEdit({
+                                            id: "prog-web",
+                                            code: "PROG-WEB",
+                                            nom: "Développement Web",
+                                            description: "Développement d'applications web",
+                                            credits: 2,
+                                            modules: [],
+                                            statut: "actif"
+                                          });
+                                          setIsAddModuleOpen(true);
+                                        }}
+                                      >
                                         <Plus className="h-4 w-4 mr-1" />
                                         Ajouter une UE
                                       </Button>
-                                      <Button variant="ghost" size="sm">
+                                      <Button
+                                        variant="ghost"
+                                        size="sm"
+                                        onClick={() => {
+                                          setSelectedUEForEdit({
+                                            id: "prog-web",
+                                            code: "PROG-WEB",
+                                            nom: "Développement Web",
+                                            description: "Développement d'applications web",
+                                            credits: 2,
+                                            modules: [],
+                                            statut: "actif"
+                                          });
+                                          setFormData({
+                                            code: "PROG-WEB",
+                                            nom: "Développement Web",
+                                            description: "Développement d'applications web",
+                                            credits: 2
+                                          });
+                                          setIsEditUEOpen(true);
+                                        }}
+                                      >
                                         <Edit className="h-4 w-4" />
                                       </Button>
-                                      <Button variant="ghost" size="sm">
+                                      <Button
+                                        variant="ghost"
+                                        size="sm"
+                                        onClick={() => {
+                                          setSelectedUEForEdit({
+                                            id: "prog-web",
+                                            code: "PROG-WEB",
+                                            nom: "Développement Web",
+                                            description: "Développement d'applications web",
+                                            credits: 2,
+                                            modules: [],
+                                            statut: "actif"
+                                          });
+                                          setDeleteUEDialogOpen(true);
+                                        }}
+                                      >
                                         <Trash2 className="h-4 w-4" />
                                       </Button>
                                     </div>
-                                  </CollapsibleTrigger>
+                                  </div>
                                   <CollapsibleContent className="mt-4">
                                     <Table>
                                       <TableHeader>
@@ -1916,7 +1972,7 @@ export default function ProgramsPage() {
         <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
           <AlertDialogContent>
             <AlertDialogHeader>
-              <AlertDialogTitle>Êtes-vous sûr ?</AlertDialogTitle>
+              <AlertDialogTitle>Êtes-vous s��r ?</AlertDialogTitle>
               <AlertDialogDescription>
                 Cette action supprimera définitivement la filière et toutes ses
                 maquettes. Cette action ne peut pas être annulée.
@@ -2701,7 +2757,7 @@ export default function ProgramsPage() {
               <AlertDialogAction
                 onClick={() => {
                   toast({
-                    title: "UE supprimée",
+                    title: "UE supprim��e",
                     description: "L'UE a été supprimée avec succès.",
                     variant: "destructive",
                   });
