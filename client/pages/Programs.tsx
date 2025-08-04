@@ -312,22 +312,35 @@ export default function ProgramsPage() {
   const [isEditUEOpen, setIsEditUEOpen] = useState(false);
 
   // Delete confirmation states
-  const [deleteMaquetteDialogOpen, setDeleteMaquetteDialogOpen] = useState(false);
-  const [deleteSequenceDialogOpen, setDeleteSequenceDialogOpen] = useState(false);
+  const [deleteMaquetteDialogOpen, setDeleteMaquetteDialogOpen] =
+    useState(false);
+  const [deleteSequenceDialogOpen, setDeleteSequenceDialogOpen] =
+    useState(false);
   const [deleteDomaineDialogOpen, setDeleteDomaineDialogOpen] = useState(false);
   const [deleteUEDialogOpen, setDeleteUEDialogOpen] = useState(false);
 
   // Selected items for editing/deleting
-  const [selectedMaquetteForEdit, setSelectedMaquetteForEdit] = useState<Maquette | null>(null);
-  const [selectedSequenceForEdit, setSelectedSequenceForEdit] = useState<Sequence | null>(null);
-  const [selectedDomaineForEdit, setSelectedDomaineForEdit] = useState<Domaine | null>(null);
+  const [selectedMaquetteForEdit, setSelectedMaquetteForEdit] =
+    useState<Maquette | null>(null);
+  const [selectedSequenceForEdit, setSelectedSequenceForEdit] =
+    useState<Sequence | null>(null);
+  const [selectedDomaineForEdit, setSelectedDomaineForEdit] =
+    useState<Domaine | null>(null);
   const [selectedUEForEdit, setSelectedUEForEdit] = useState<UE | null>(null);
 
   // Context for add actions
-  const [selectedFiliereForActions, setSelectedFiliereForActions] = useState<string | null>(null);
-  const [selectedMaquetteForActions, setSelectedMaquetteForActions] = useState<string | null>(null);
-  const [selectedSequenceForActions, setSelectedSequenceForActions] = useState<string | null>(null);
-  const [selectedDomaineForActions, setSelectedDomaineForActions] = useState<string | null>(null);
+  const [selectedFiliereForActions, setSelectedFiliereForActions] = useState<
+    string | null
+  >(null);
+  const [selectedMaquetteForActions, setSelectedMaquetteForActions] = useState<
+    string | null
+  >(null);
+  const [selectedSequenceForActions, setSelectedSequenceForActions] = useState<
+    string | null
+  >(null);
+  const [selectedDomaineForActions, setSelectedDomaineForActions] = useState<
+    string | null
+  >(null);
 
   const { toast } = useToast();
 
@@ -375,17 +388,19 @@ export default function ProgramsPage() {
       nom: formData.nom || "",
       version: formData.version || "1.0",
       description: formData.description || "",
-      dateCreation: new Date().toISOString().split('T')[0],
+      dateCreation: new Date().toISOString().split("T")[0],
       sequences: [],
       statut: "brouillon",
       totalCredits: 0,
     };
 
-    setFilieres(prev => prev.map(f =>
-      f.id === selectedFiliereForActions
-        ? { ...f, maquettes: [...f.maquettes, newMaquette] }
-        : f
-    ));
+    setFilieres((prev) =>
+      prev.map((f) =>
+        f.id === selectedFiliereForActions
+          ? { ...f, maquettes: [...f.maquettes, newMaquette] }
+          : f,
+      ),
+    );
 
     toast({
       title: "Maquette créée",
@@ -409,18 +424,20 @@ export default function ProgramsPage() {
       statut: "actif",
     };
 
-    setFilieres(prev => prev.map(f =>
-      f.id === selectedFiliereForActions
-        ? {
-            ...f,
-            maquettes: f.maquettes.map(m =>
-              m.id === selectedMaquetteForActions
-                ? { ...m, sequences: [...m.sequences, newSequence] }
-                : m
-            )
-          }
-        : f
-    ));
+    setFilieres((prev) =>
+      prev.map((f) =>
+        f.id === selectedFiliereForActions
+          ? {
+              ...f,
+              maquettes: f.maquettes.map((m) =>
+                m.id === selectedMaquetteForActions
+                  ? { ...m, sequences: [...m.sequences, newSequence] }
+                  : m,
+              ),
+            }
+          : f,
+      ),
+    );
 
     toast({
       title: "Séquence créée",
@@ -434,7 +451,12 @@ export default function ProgramsPage() {
   };
 
   const handleAddDomaine = () => {
-    if (!selectedFiliereForActions || !selectedMaquetteForActions || !selectedSequenceForActions) return;
+    if (
+      !selectedFiliereForActions ||
+      !selectedMaquetteForActions ||
+      !selectedSequenceForActions
+    )
+      return;
 
     const newDomaine: Domaine = {
       id: Date.now().toString(),
@@ -444,25 +466,27 @@ export default function ProgramsPage() {
       statut: "actif",
     };
 
-    setFilieres(prev => prev.map(f =>
-      f.id === selectedFiliereForActions
-        ? {
-            ...f,
-            maquettes: f.maquettes.map(m =>
-              m.id === selectedMaquetteForActions
-                ? {
-                    ...m,
-                    sequences: m.sequences.map(s =>
-                      s.id === selectedSequenceForActions
-                        ? { ...s, domaines: [...s.domaines, newDomaine] }
-                        : s
-                    )
-                  }
-                : m
-            )
-          }
-        : f
-    ));
+    setFilieres((prev) =>
+      prev.map((f) =>
+        f.id === selectedFiliereForActions
+          ? {
+              ...f,
+              maquettes: f.maquettes.map((m) =>
+                m.id === selectedMaquetteForActions
+                  ? {
+                      ...m,
+                      sequences: m.sequences.map((s) =>
+                        s.id === selectedSequenceForActions
+                          ? { ...s, domaines: [...s.domaines, newDomaine] }
+                          : s,
+                      ),
+                    }
+                  : m,
+              ),
+            }
+          : f,
+      ),
+    );
 
     toast({
       title: "Domaine créé",
@@ -477,7 +501,13 @@ export default function ProgramsPage() {
   };
 
   const handleAddUE = () => {
-    if (!selectedFiliereForActions || !selectedMaquetteForActions || !selectedSequenceForActions || !selectedDomaineForActions) return;
+    if (
+      !selectedFiliereForActions ||
+      !selectedMaquetteForActions ||
+      !selectedSequenceForActions ||
+      !selectedDomaineForActions
+    )
+      return;
 
     const newUE: UE = {
       id: Date.now().toString(),
@@ -489,32 +519,34 @@ export default function ProgramsPage() {
       statut: "actif",
     };
 
-    setFilieres(prev => prev.map(f =>
-      f.id === selectedFiliereForActions
-        ? {
-            ...f,
-            maquettes: f.maquettes.map(m =>
-              m.id === selectedMaquetteForActions
-                ? {
-                    ...m,
-                    sequences: m.sequences.map(s =>
-                      s.id === selectedSequenceForActions
-                        ? {
-                            ...s,
-                            domaines: s.domaines.map(d =>
-                              d.id === selectedDomaineForActions
-                                ? { ...d, ues: [...d.ues, newUE] }
-                                : d
-                            )
-                          }
-                        : s
-                    )
-                  }
-                : m
-            )
-          }
-        : f
-    ));
+    setFilieres((prev) =>
+      prev.map((f) =>
+        f.id === selectedFiliereForActions
+          ? {
+              ...f,
+              maquettes: f.maquettes.map((m) =>
+                m.id === selectedMaquetteForActions
+                  ? {
+                      ...m,
+                      sequences: m.sequences.map((s) =>
+                        s.id === selectedSequenceForActions
+                          ? {
+                              ...s,
+                              domaines: s.domaines.map((d) =>
+                                d.id === selectedDomaineForActions
+                                  ? { ...d, ues: [...d.ues, newUE] }
+                                  : d,
+                              ),
+                            }
+                          : s,
+                      ),
+                    }
+                  : m,
+              ),
+            }
+          : f,
+      ),
+    );
 
     toast({
       title: "UE créée",
@@ -530,7 +562,14 @@ export default function ProgramsPage() {
   };
 
   const handleAddModule = () => {
-    if (!selectedFiliereForActions || !selectedMaquetteForActions || !selectedSequenceForActions || !selectedDomaineForActions || !selectedUEForEdit) return;
+    if (
+      !selectedFiliereForActions ||
+      !selectedMaquetteForActions ||
+      !selectedSequenceForActions ||
+      !selectedDomaineForActions ||
+      !selectedUEForEdit
+    )
+      return;
 
     const newModule: Module = {
       id: Date.now().toString(),
@@ -546,39 +585,47 @@ export default function ProgramsPage() {
       prerequis: formData.prerequis || [],
     };
 
-    setFilieres(prev => prev.map(f =>
-      f.id === selectedFiliereForActions
-        ? {
-            ...f,
-            maquettes: f.maquettes.map(m =>
-              m.id === selectedMaquetteForActions
-                ? {
-                    ...m,
-                    sequences: m.sequences.map(s =>
-                      s.id === selectedSequenceForActions
-                        ? {
-                            ...s,
-                            domaines: s.domaines.map(d =>
-                              d.id === selectedDomaineForActions
-                                ? {
-                                    ...d,
-                                    ues: d.ues.map(ue =>
-                                      ue.id === selectedUEForEdit?.id
-                                        ? { ...ue, modules: [...ue.modules, newModule] }
-                                        : ue
-                                    )
-                                  }
-                                : d
-                            )
-                          }
-                        : s
-                    )
-                  }
-                : m
-            )
-          }
-        : f
-    ));
+    setFilieres((prev) =>
+      prev.map((f) =>
+        f.id === selectedFiliereForActions
+          ? {
+              ...f,
+              maquettes: f.maquettes.map((m) =>
+                m.id === selectedMaquetteForActions
+                  ? {
+                      ...m,
+                      sequences: m.sequences.map((s) =>
+                        s.id === selectedSequenceForActions
+                          ? {
+                              ...s,
+                              domaines: s.domaines.map((d) =>
+                                d.id === selectedDomaineForActions
+                                  ? {
+                                      ...d,
+                                      ues: d.ues.map((ue) =>
+                                        ue.id === selectedUEForEdit?.id
+                                          ? {
+                                              ...ue,
+                                              modules: [
+                                                ...ue.modules,
+                                                newModule,
+                                              ],
+                                            }
+                                          : ue,
+                                      ),
+                                    }
+                                  : d,
+                              ),
+                            }
+                          : s,
+                      ),
+                    }
+                  : m,
+              ),
+            }
+          : f,
+      ),
+    );
 
     toast({
       title: "Module créé",
@@ -967,7 +1014,9 @@ export default function ProgramsPage() {
                 <CardHeader className="pb-3">
                   <div className="flex items-center justify-between">
                     <div>
-                      <CardTitle className="text-lg text-blue-900">Licence 3 Informatique (INFO-L3)</CardTitle>
+                      <CardTitle className="text-lg text-blue-900">
+                        Licence 3 Informatique (INFO-L3)
+                      </CardTitle>
                       <CardDescription className="flex items-center gap-4 mt-1">
                         <span>Filière: Informatique</span>
                         <span>|</span>
@@ -975,7 +1024,9 @@ export default function ProgramsPage() {
                       </CardDescription>
                     </div>
                     <div className="flex items-center gap-2">
-                      <Badge className="bg-green-100 text-green-800">Active</Badge>
+                      <Badge className="bg-green-100 text-green-800">
+                        Active
+                      </Badge>
                       <Button
                         variant="outline"
                         size="sm"
@@ -998,16 +1049,18 @@ export default function ProgramsPage() {
                             id: "1",
                             nom: "Licence 3 Informatique (INFO-L3)",
                             version: "2023.1",
-                            description: "Maquette pour la licence 3 informatique",
+                            description:
+                              "Maquette pour la licence 3 informatique",
                             dateCreation: "2023-06-01",
                             sequences: [],
                             statut: "actif",
-                            totalCredits: 180
+                            totalCredits: 180,
                           });
                           setFormData({
                             nom: "Licence 3 Informatique (INFO-L3)",
                             version: "2023.1",
-                            description: "Maquette pour la licence 3 informatique"
+                            description:
+                              "Maquette pour la licence 3 informatique",
                           });
                           setIsEditMaquetteOpen(true);
                         }}
@@ -1022,11 +1075,12 @@ export default function ProgramsPage() {
                             id: "1",
                             nom: "Licence 3 Informatique (INFO-L3)",
                             version: "2023.1",
-                            description: "Maquette pour la licence 3 informatique",
+                            description:
+                              "Maquette pour la licence 3 informatique",
                             dateCreation: "2023-06-01",
                             sequences: [],
                             statut: "actif",
-                            totalCredits: 180
+                            totalCredits: 180,
                           });
                           setDeleteMaquetteDialogOpen(true);
                         }}
@@ -1042,16 +1096,18 @@ export default function ProgramsPage() {
                     <Collapsible>
                       <div className="flex items-center justify-between w-full p-3 bg-gray-50 rounded-lg hover:bg-gray-100">
                         <CollapsibleTrigger
-                          onClick={() => toggleExpanded('semestre-5')}
+                          onClick={() => toggleExpanded("semestre-5")}
                           className="flex items-center space-x-2 flex-1"
                         >
-                          {expandedItems.has('semestre-5') ? (
+                          {expandedItems.has("semestre-5") ? (
                             <ChevronDown className="h-4 w-4" />
                           ) : (
                             <ChevronRight className="h-4 w-4" />
                           )}
                           <Calendar className="h-4 w-4 text-purple-600" />
-                          <span className="font-medium">Semestre 5 (2023-09-01 - 2024-01-31)</span>
+                          <span className="font-medium">
+                            Semestre 5 (2023-09-01 - 2024-01-31)
+                          </span>
                         </CollapsibleTrigger>
                         <div className="flex items-center gap-2">
                           <Button
@@ -1075,15 +1131,17 @@ export default function ProgramsPage() {
                               setSelectedSequenceForEdit({
                                 id: "semestre-5",
                                 nom: "Semestre 5",
-                                description: "Semestre 5 de la licence 3 informatique",
+                                description:
+                                  "Semestre 5 de la licence 3 informatique",
                                 duree: 6,
                                 domaines: [],
-                                statut: "actif"
+                                statut: "actif",
                               });
                               setFormData({
                                 nom: "Semestre 5",
-                                description: "Semestre 5 de la licence 3 informatique",
-                                duree: 6
+                                description:
+                                  "Semestre 5 de la licence 3 informatique",
+                                duree: 6,
                               });
                               setIsEditSequenceOpen(true);
                             }}
@@ -1097,10 +1155,11 @@ export default function ProgramsPage() {
                               setSelectedSequenceForEdit({
                                 id: "semestre-5",
                                 nom: "Semestre 5",
-                                description: "Semestre 5 de la licence 3 informatique",
+                                description:
+                                  "Semestre 5 de la licence 3 informatique",
                                 duree: 6,
                                 domaines: [],
-                                statut: "actif"
+                                statut: "actif",
                               });
                               setDeleteSequenceDialogOpen(true);
                             }}
@@ -1115,16 +1174,18 @@ export default function ProgramsPage() {
                           <Collapsible>
                             <div className="flex items-center justify-between w-full p-3 bg-blue-50 rounded-lg hover:bg-blue-100">
                               <CollapsibleTrigger
-                                onClick={() => toggleExpanded('programmation')}
+                                onClick={() => toggleExpanded("programmation")}
                                 className="flex items-center space-x-2 flex-1"
                               >
-                                {expandedItems.has('programmation') ? (
+                                {expandedItems.has("programmation") ? (
                                   <ChevronDown className="h-4 w-4" />
                                 ) : (
                                   <ChevronRight className="h-4 w-4" />
                                 )}
                                 <Target className="h-4 w-4 text-orange-600" />
-                                <span className="font-medium">Programmation</span>
+                                <span className="font-medium">
+                                  Programmation
+                                </span>
                               </CollapsibleTrigger>
                               <div className="flex items-center gap-2">
                                 <Button
@@ -1135,7 +1196,9 @@ export default function ProgramsPage() {
                                     setSelectedFiliereForActions("1");
                                     setSelectedMaquetteForActions("1");
                                     setSelectedSequenceForActions("semestre-5");
-                                    setSelectedDomaineForActions("programmation");
+                                    setSelectedDomaineForActions(
+                                      "programmation",
+                                    );
                                     setIsAddUEOpen(true);
                                   }}
                                 >
@@ -1151,11 +1214,11 @@ export default function ProgramsPage() {
                                       nom: "Programmation",
                                       description: "Domaine de programmation",
                                       ues: [],
-                                      statut: "actif"
+                                      statut: "actif",
                                     });
                                     setFormData({
                                       nom: "Programmation",
-                                      description: "Domaine de programmation"
+                                      description: "Domaine de programmation",
                                     });
                                     setIsEditDomaineOpen(true);
                                   }}
@@ -1171,7 +1234,7 @@ export default function ProgramsPage() {
                                       nom: "Programmation",
                                       description: "Domaine de programmation",
                                       ues: [],
-                                      statut: "actif"
+                                      statut: "actif",
                                     });
                                     setDeleteDomaineDialogOpen(true);
                                   }}
@@ -1186,16 +1249,21 @@ export default function ProgramsPage() {
                                 <Collapsible>
                                   <div className="flex items-center justify-between w-full p-2 border rounded-lg hover:bg-gray-50">
                                     <CollapsibleTrigger
-                                      onClick={() => toggleExpanded('prog-java')}
+                                      onClick={() =>
+                                        toggleExpanded("prog-java")
+                                      }
                                       className="flex items-center space-x-2 flex-1"
                                     >
-                                      {expandedItems.has('prog-java') ? (
+                                      {expandedItems.has("prog-java") ? (
                                         <ChevronDown className="h-4 w-4" />
                                       ) : (
                                         <ChevronRight className="h-4 w-4" />
                                       )}
                                       <BookOpen className="h-4 w-4 text-blue-600" />
-                                      <span className="font-medium">Programmation Java (PROG-JAVA) - Coefficient: 3</span>
+                                      <span className="font-medium">
+                                        Programmation Java (PROG-JAVA) -
+                                        Coefficient: 3
+                                      </span>
                                     </CollapsibleTrigger>
                                     <div className="flex items-center gap-2">
                                       <Button
@@ -1205,16 +1273,21 @@ export default function ProgramsPage() {
                                         onClick={() => {
                                           setSelectedFiliereForActions("1");
                                           setSelectedMaquetteForActions("1");
-                                          setSelectedSequenceForActions("semestre-5");
-                                          setSelectedDomaineForActions("programmation");
+                                          setSelectedSequenceForActions(
+                                            "semestre-5",
+                                          );
+                                          setSelectedDomaineForActions(
+                                            "programmation",
+                                          );
                                           setSelectedUEForEdit({
                                             id: "prog-java",
                                             code: "PROG-JAVA",
                                             nom: "Programmation Java",
-                                            description: "Programmation orientée objet en Java",
+                                            description:
+                                              "Programmation orientée objet en Java",
                                             credits: 3,
                                             modules: [],
-                                            statut: "actif"
+                                            statut: "actif",
                                           });
                                           setIsAddModuleOpen(true);
                                         }}
@@ -1230,16 +1303,18 @@ export default function ProgramsPage() {
                                             id: "prog-java",
                                             code: "PROG-JAVA",
                                             nom: "Programmation Java",
-                                            description: "Programmation orientée objet en Java",
+                                            description:
+                                              "Programmation orientée objet en Java",
                                             credits: 3,
                                             modules: [],
-                                            statut: "actif"
+                                            statut: "actif",
                                           });
                                           setFormData({
                                             code: "PROG-JAVA",
                                             nom: "Programmation Java",
-                                            description: "Programmation orientée objet en Java",
-                                            credits: 3
+                                            description:
+                                              "Programmation orientée objet en Java",
+                                            credits: 3,
                                           });
                                           setIsEditUEOpen(true);
                                         }}
@@ -1254,10 +1329,11 @@ export default function ProgramsPage() {
                                             id: "prog-java",
                                             code: "PROG-JAVA",
                                             nom: "Programmation Java",
-                                            description: "Programmation orientée objet en Java",
+                                            description:
+                                              "Programmation orientée objet en Java",
                                             credits: 3,
                                             modules: [],
-                                            statut: "actif"
+                                            statut: "actif",
                                           });
                                           setDeleteUEDialogOpen(true);
                                         }}
@@ -1270,17 +1346,31 @@ export default function ProgramsPage() {
                                     <Table>
                                       <TableHeader>
                                         <TableRow className="bg-gray-50">
-                                          <TableHead className="font-semibold">CODE</TableHead>
-                                          <TableHead className="font-semibold">NOM</TableHead>
-                                          <TableHead className="font-semibold">TYPE</TableHead>
-                                          <TableHead className="font-semibold">HEURES</TableHead>
-                                          <TableHead className="font-semibold">ACTIONS</TableHead>
+                                          <TableHead className="font-semibold">
+                                            CODE
+                                          </TableHead>
+                                          <TableHead className="font-semibold">
+                                            NOM
+                                          </TableHead>
+                                          <TableHead className="font-semibold">
+                                            TYPE
+                                          </TableHead>
+                                          <TableHead className="font-semibold">
+                                            HEURES
+                                          </TableHead>
+                                          <TableHead className="font-semibold">
+                                            ACTIONS
+                                          </TableHead>
                                         </TableRow>
                                       </TableHeader>
                                       <TableBody>
                                         <TableRow>
-                                          <TableCell className="font-mono">JAVA-CM</TableCell>
-                                          <TableCell>Cours Magistral Java</TableCell>
+                                          <TableCell className="font-mono">
+                                            JAVA-CM
+                                          </TableCell>
+                                          <TableCell>
+                                            Cours Magistral Java
+                                          </TableCell>
                                           <TableCell>CM</TableCell>
                                           <TableCell>20</TableCell>
                                           <TableCell>
@@ -1295,8 +1385,12 @@ export default function ProgramsPage() {
                                           </TableCell>
                                         </TableRow>
                                         <TableRow>
-                                          <TableCell className="font-mono">JAVA-TP</TableCell>
-                                          <TableCell>Travaux Pratiques Java</TableCell>
+                                          <TableCell className="font-mono">
+                                            JAVA-TP
+                                          </TableCell>
+                                          <TableCell>
+                                            Travaux Pratiques Java
+                                          </TableCell>
                                           <TableCell>TP</TableCell>
                                           <TableCell>30</TableCell>
                                           <TableCell>
@@ -1319,16 +1413,19 @@ export default function ProgramsPage() {
                                 <Collapsible>
                                   <div className="flex items-center justify-between w-full p-2 border rounded-lg hover:bg-gray-50">
                                     <CollapsibleTrigger
-                                      onClick={() => toggleExpanded('prog-web')}
+                                      onClick={() => toggleExpanded("prog-web")}
                                       className="flex items-center space-x-2 flex-1"
                                     >
-                                      {expandedItems.has('prog-web') ? (
+                                      {expandedItems.has("prog-web") ? (
                                         <ChevronDown className="h-4 w-4" />
                                       ) : (
                                         <ChevronRight className="h-4 w-4" />
                                       )}
                                       <BookOpen className="h-4 w-4 text-blue-600" />
-                                      <span className="font-medium">Développement Web (PROG-WEB) - Coefficient: 2</span>
+                                      <span className="font-medium">
+                                        Développement Web (PROG-WEB) -
+                                        Coefficient: 2
+                                      </span>
                                     </CollapsibleTrigger>
                                     <div className="flex items-center gap-2">
                                       <Button
@@ -1338,16 +1435,21 @@ export default function ProgramsPage() {
                                         onClick={() => {
                                           setSelectedFiliereForActions("1");
                                           setSelectedMaquetteForActions("1");
-                                          setSelectedSequenceForActions("semestre-5");
-                                          setSelectedDomaineForActions("programmation");
+                                          setSelectedSequenceForActions(
+                                            "semestre-5",
+                                          );
+                                          setSelectedDomaineForActions(
+                                            "programmation",
+                                          );
                                           setSelectedUEForEdit({
                                             id: "prog-web",
                                             code: "PROG-WEB",
                                             nom: "Développement Web",
-                                            description: "Développement d'applications web",
+                                            description:
+                                              "Développement d'applications web",
                                             credits: 2,
                                             modules: [],
-                                            statut: "actif"
+                                            statut: "actif",
                                           });
                                           setIsAddModuleOpen(true);
                                         }}
@@ -1363,16 +1465,18 @@ export default function ProgramsPage() {
                                             id: "prog-web",
                                             code: "PROG-WEB",
                                             nom: "Développement Web",
-                                            description: "Développement d'applications web",
+                                            description:
+                                              "Développement d'applications web",
                                             credits: 2,
                                             modules: [],
-                                            statut: "actif"
+                                            statut: "actif",
                                           });
                                           setFormData({
                                             code: "PROG-WEB",
                                             nom: "Développement Web",
-                                            description: "Développement d'applications web",
-                                            credits: 2
+                                            description:
+                                              "Développement d'applications web",
+                                            credits: 2,
                                           });
                                           setIsEditUEOpen(true);
                                         }}
@@ -1387,10 +1491,11 @@ export default function ProgramsPage() {
                                             id: "prog-web",
                                             code: "PROG-WEB",
                                             nom: "Développement Web",
-                                            description: "Développement d'applications web",
+                                            description:
+                                              "Développement d'applications web",
                                             credits: 2,
                                             modules: [],
-                                            statut: "actif"
+                                            statut: "actif",
                                           });
                                           setDeleteUEDialogOpen(true);
                                         }}
@@ -1403,17 +1508,31 @@ export default function ProgramsPage() {
                                     <Table>
                                       <TableHeader>
                                         <TableRow className="bg-gray-50">
-                                          <TableHead className="font-semibold">CODE</TableHead>
-                                          <TableHead className="font-semibold">NOM</TableHead>
-                                          <TableHead className="font-semibold">TYPE</TableHead>
-                                          <TableHead className="font-semibold">HEURES</TableHead>
-                                          <TableHead className="font-semibold">ACTIONS</TableHead>
+                                          <TableHead className="font-semibold">
+                                            CODE
+                                          </TableHead>
+                                          <TableHead className="font-semibold">
+                                            NOM
+                                          </TableHead>
+                                          <TableHead className="font-semibold">
+                                            TYPE
+                                          </TableHead>
+                                          <TableHead className="font-semibold">
+                                            HEURES
+                                          </TableHead>
+                                          <TableHead className="font-semibold">
+                                            ACTIONS
+                                          </TableHead>
                                         </TableRow>
                                       </TableHeader>
                                       <TableBody>
                                         <TableRow>
-                                          <TableCell className="font-mono">WEB-CM</TableCell>
-                                          <TableCell>Cours Magistral Web</TableCell>
+                                          <TableCell className="font-mono">
+                                            WEB-CM
+                                          </TableCell>
+                                          <TableCell>
+                                            Cours Magistral Web
+                                          </TableCell>
                                           <TableCell>CM</TableCell>
                                           <TableCell>15</TableCell>
                                           <TableCell>
@@ -1428,8 +1547,12 @@ export default function ProgramsPage() {
                                           </TableCell>
                                         </TableRow>
                                         <TableRow>
-                                          <TableCell className="font-mono">WEB-TP</TableCell>
-                                          <TableCell>Travaux Pratiques Web</TableCell>
+                                          <TableCell className="font-mono">
+                                            WEB-TP
+                                          </TableCell>
+                                          <TableCell>
+                                            Travaux Pratiques Web
+                                          </TableCell>
                                           <TableCell>TP</TableCell>
                                           <TableCell>25</TableCell>
                                           <TableCell>
@@ -1455,16 +1578,18 @@ export default function ProgramsPage() {
                           <Collapsible>
                             <div className="flex items-center justify-between w-full p-3 bg-blue-50 rounded-lg hover:bg-blue-100">
                               <CollapsibleTrigger
-                                onClick={() => toggleExpanded('bases-donnees')}
+                                onClick={() => toggleExpanded("bases-donnees")}
                                 className="flex items-center space-x-2 flex-1"
                               >
-                                {expandedItems.has('bases-donnees') ? (
+                                {expandedItems.has("bases-donnees") ? (
                                   <ChevronDown className="h-4 w-4" />
                                 ) : (
                                   <ChevronRight className="h-4 w-4" />
                                 )}
                                 <Target className="h-4 w-4 text-orange-600" />
-                                <span className="font-medium">Bases de données</span>
+                                <span className="font-medium">
+                                  Bases de données
+                                </span>
                               </CollapsibleTrigger>
                               <div className="flex items-center gap-2">
                                 <Button
@@ -1475,7 +1600,9 @@ export default function ProgramsPage() {
                                     setSelectedFiliereForActions("1");
                                     setSelectedMaquetteForActions("1");
                                     setSelectedSequenceForActions("semestre-5");
-                                    setSelectedDomaineForActions("bases-donnees");
+                                    setSelectedDomaineForActions(
+                                      "bases-donnees",
+                                    );
                                     setIsAddUEOpen(true);
                                   }}
                                 >
@@ -1489,13 +1616,15 @@ export default function ProgramsPage() {
                                     setSelectedDomaineForEdit({
                                       id: "bases-donnees",
                                       nom: "Bases de données",
-                                      description: "Gestion et conception de bases de données",
+                                      description:
+                                        "Gestion et conception de bases de données",
                                       ues: [],
-                                      statut: "actif"
+                                      statut: "actif",
                                     });
                                     setFormData({
                                       nom: "Bases de données",
-                                      description: "Gestion et conception de bases de données"
+                                      description:
+                                        "Gestion et conception de bases de données",
                                     });
                                     setIsEditDomaineOpen(true);
                                   }}
@@ -1509,9 +1638,10 @@ export default function ProgramsPage() {
                                     setSelectedDomaineForEdit({
                                       id: "bases-donnees",
                                       nom: "Bases de données",
-                                      description: "Gestion et conception de bases de données",
+                                      description:
+                                        "Gestion et conception de bases de données",
                                       ues: [],
-                                      statut: "actif"
+                                      statut: "actif",
                                     });
                                     setDeleteDomaineDialogOpen(true);
                                   }}
@@ -2246,7 +2376,10 @@ export default function ProgramsPage() {
                   placeholder="6"
                   value={formData.credits || ""}
                   onChange={(e) =>
-                    setFormData({ ...formData, credits: Number(e.target.value) })
+                    setFormData({
+                      ...formData,
+                      credits: Number(e.target.value),
+                    })
                   }
                 />
               </div>
@@ -2332,7 +2465,10 @@ export default function ProgramsPage() {
                   placeholder="3"
                   value={formData.credits || ""}
                   onChange={(e) =>
-                    setFormData({ ...formData, credits: Number(e.target.value) })
+                    setFormData({
+                      ...formData,
+                      credits: Number(e.target.value),
+                    })
                   }
                 />
               </div>
@@ -2468,15 +2604,17 @@ export default function ProgramsPage() {
               >
                 Annuler
               </Button>
-              <Button onClick={() => {
-                toast({
-                  title: "Maquette modifiée",
-                  description: "La maquette a été mise à jour avec succès.",
-                });
-                setIsEditMaquetteOpen(false);
-                setFormData({});
-                setSelectedMaquetteForEdit(null);
-              }}>
+              <Button
+                onClick={() => {
+                  toast({
+                    title: "Maquette modifiée",
+                    description: "La maquette a été mise à jour avec succès.",
+                  });
+                  setIsEditMaquetteOpen(false);
+                  setFormData({});
+                  setSelectedMaquetteForEdit(null);
+                }}
+              >
                 Modifier
               </Button>
             </DialogFooter>
@@ -2533,15 +2671,17 @@ export default function ProgramsPage() {
               >
                 Annuler
               </Button>
-              <Button onClick={() => {
-                toast({
-                  title: "Séquence modifiée",
-                  description: "La séquence a été mise à jour avec succès.",
-                });
-                setIsEditSequenceOpen(false);
-                setFormData({});
-                setSelectedSequenceForEdit(null);
-              }}>
+              <Button
+                onClick={() => {
+                  toast({
+                    title: "Séquence modifiée",
+                    description: "La séquence a été mise à jour avec succès.",
+                  });
+                  setIsEditSequenceOpen(false);
+                  setFormData({});
+                  setSelectedSequenceForEdit(null);
+                }}
+              >
                 Modifier
               </Button>
             </DialogFooter>
@@ -2587,15 +2727,17 @@ export default function ProgramsPage() {
               >
                 Annuler
               </Button>
-              <Button onClick={() => {
-                toast({
-                  title: "Domaine modifié",
-                  description: "Le domaine a été mis à jour avec succès.",
-                });
-                setIsEditDomaineOpen(false);
-                setFormData({});
-                setSelectedDomaineForEdit(null);
-              }}>
+              <Button
+                onClick={() => {
+                  toast({
+                    title: "Domaine modifié",
+                    description: "Le domaine a été mis à jour avec succès.",
+                  });
+                  setIsEditDomaineOpen(false);
+                  setFormData({});
+                  setSelectedDomaineForEdit(null);
+                }}
+              >
                 Modifier
               </Button>
             </DialogFooter>
@@ -2626,7 +2768,10 @@ export default function ProgramsPage() {
                   type="number"
                   value={formData.credits || ""}
                   onChange={(e) =>
-                    setFormData({ ...formData, credits: Number(e.target.value) })
+                    setFormData({
+                      ...formData,
+                      credits: Number(e.target.value),
+                    })
                   }
                 />
               </div>
@@ -2662,15 +2807,17 @@ export default function ProgramsPage() {
               >
                 Annuler
               </Button>
-              <Button onClick={() => {
-                toast({
-                  title: "UE modifiée",
-                  description: "L'UE a été mise à jour avec succès.",
-                });
-                setIsEditUEOpen(false);
-                setFormData({});
-                setSelectedUEForEdit(null);
-              }}>
+              <Button
+                onClick={() => {
+                  toast({
+                    title: "UE modifiée",
+                    description: "L'UE a été mise à jour avec succès.",
+                  });
+                  setIsEditUEOpen(false);
+                  setFormData({});
+                  setSelectedUEForEdit(null);
+                }}
+              >
                 Modifier
               </Button>
             </DialogFooter>
@@ -2678,19 +2825,25 @@ export default function ProgramsPage() {
         </Dialog>
 
         {/* Delete Maquette Dialog */}
-        <AlertDialog open={deleteMaquetteDialogOpen} onOpenChange={setDeleteMaquetteDialogOpen}>
+        <AlertDialog
+          open={deleteMaquetteDialogOpen}
+          onOpenChange={setDeleteMaquetteDialogOpen}
+        >
           <AlertDialogContent>
             <AlertDialogHeader>
               <AlertDialogTitle>Supprimer la maquette</AlertDialogTitle>
               <AlertDialogDescription>
-                Êtes-vous sûr de vouloir supprimer cette maquette ? Cette action est irréversible.
+                Êtes-vous sûr de vouloir supprimer cette maquette ? Cette action
+                est irréversible.
               </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
-              <AlertDialogCancel onClick={() => {
-                setDeleteMaquetteDialogOpen(false);
-                setSelectedMaquetteForEdit(null);
-              }}>
+              <AlertDialogCancel
+                onClick={() => {
+                  setDeleteMaquetteDialogOpen(false);
+                  setSelectedMaquetteForEdit(null);
+                }}
+              >
                 Annuler
               </AlertDialogCancel>
               <AlertDialogAction
@@ -2712,19 +2865,25 @@ export default function ProgramsPage() {
         </AlertDialog>
 
         {/* Delete Sequence Dialog */}
-        <AlertDialog open={deleteSequenceDialogOpen} onOpenChange={setDeleteSequenceDialogOpen}>
+        <AlertDialog
+          open={deleteSequenceDialogOpen}
+          onOpenChange={setDeleteSequenceDialogOpen}
+        >
           <AlertDialogContent>
             <AlertDialogHeader>
               <AlertDialogTitle>Supprimer la séquence</AlertDialogTitle>
               <AlertDialogDescription>
-                Êtes-vous sûr de vouloir supprimer cette séquence ? Cette action est irréversible.
+                Êtes-vous sûr de vouloir supprimer cette séquence ? Cette action
+                est irréversible.
               </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
-              <AlertDialogCancel onClick={() => {
-                setDeleteSequenceDialogOpen(false);
-                setSelectedSequenceForEdit(null);
-              }}>
+              <AlertDialogCancel
+                onClick={() => {
+                  setDeleteSequenceDialogOpen(false);
+                  setSelectedSequenceForEdit(null);
+                }}
+              >
                 Annuler
               </AlertDialogCancel>
               <AlertDialogAction
@@ -2746,19 +2905,25 @@ export default function ProgramsPage() {
         </AlertDialog>
 
         {/* Delete Domaine Dialog */}
-        <AlertDialog open={deleteDomaineDialogOpen} onOpenChange={setDeleteDomaineDialogOpen}>
+        <AlertDialog
+          open={deleteDomaineDialogOpen}
+          onOpenChange={setDeleteDomaineDialogOpen}
+        >
           <AlertDialogContent>
             <AlertDialogHeader>
               <AlertDialogTitle>Supprimer le domaine</AlertDialogTitle>
               <AlertDialogDescription>
-                Êtes-vous sûr de vouloir supprimer ce domaine ? Cette action est irréversible.
+                Êtes-vous sûr de vouloir supprimer ce domaine ? Cette action est
+                irréversible.
               </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
-              <AlertDialogCancel onClick={() => {
-                setDeleteDomaineDialogOpen(false);
-                setSelectedDomaineForEdit(null);
-              }}>
+              <AlertDialogCancel
+                onClick={() => {
+                  setDeleteDomaineDialogOpen(false);
+                  setSelectedDomaineForEdit(null);
+                }}
+              >
                 Annuler
               </AlertDialogCancel>
               <AlertDialogAction
@@ -2780,19 +2945,25 @@ export default function ProgramsPage() {
         </AlertDialog>
 
         {/* Delete UE Dialog */}
-        <AlertDialog open={deleteUEDialogOpen} onOpenChange={setDeleteUEDialogOpen}>
+        <AlertDialog
+          open={deleteUEDialogOpen}
+          onOpenChange={setDeleteUEDialogOpen}
+        >
           <AlertDialogContent>
             <AlertDialogHeader>
               <AlertDialogTitle>Supprimer l'UE</AlertDialogTitle>
               <AlertDialogDescription>
-                Êtes-vous sûr de vouloir supprimer cette UE ? Cette action est irréversible.
+                Êtes-vous sûr de vouloir supprimer cette UE ? Cette action est
+                irréversible.
               </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
-              <AlertDialogCancel onClick={() => {
-                setDeleteUEDialogOpen(false);
-                setSelectedUEForEdit(null);
-              }}>
+              <AlertDialogCancel
+                onClick={() => {
+                  setDeleteUEDialogOpen(false);
+                  setSelectedUEForEdit(null);
+                }}
+              >
                 Annuler
               </AlertDialogCancel>
               <AlertDialogAction

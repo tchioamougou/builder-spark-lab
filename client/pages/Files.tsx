@@ -298,14 +298,17 @@ export default function FilesPage() {
     }
   };
 
-  const handleProprietaireRedirect = (proprietaire: string, typeProprietaire: string) => {
+  const handleProprietaireRedirect = (
+    proprietaire: string,
+    typeProprietaire: string,
+  ) => {
     if (typeProprietaire === "Étudiant") {
       // For demo, using ID 1 as we don't have the actual student ID
-      navigate('/student-details/1');
+      navigate("/student-details/1");
     } else if (typeProprietaire === "Enseignant") {
-      navigate('/teachers');
+      navigate("/teachers");
     } else {
-      navigate('/user-management');
+      navigate("/user-management");
     }
   };
 
@@ -324,24 +327,15 @@ export default function FilesPage() {
           </div>
 
           <div className="flex space-x-2">
-            <Button
-              variant="outline"
-              onClick={() => navigate('/students')}
-            >
+            <Button variant="outline" onClick={() => navigate("/students")}>
               <User className="h-4 w-4 mr-2" />
               Gestion Étudiants
             </Button>
-            <Button
-              variant="outline"
-              onClick={() => navigate('/teachers')}
-            >
+            <Button variant="outline" onClick={() => navigate("/teachers")}>
               <User className="h-4 w-4 mr-2" />
               Gestion Enseignants
             </Button>
-            <Button
-              variant="outline"
-              onClick={() => navigate('/programs')}
-            >
+            <Button variant="outline" onClick={() => navigate("/programs")}>
               <Archive className="h-4 w-4 mr-2" />
               Programmes
             </Button>
@@ -536,7 +530,12 @@ export default function FilesPage() {
                           <div>
                             <div
                               className="font-medium cursor-pointer text-blue-600 hover:underline"
-                              onClick={() => handleProprietaireRedirect(doc.proprietaire, doc.typeProprietaire)}
+                              onClick={() =>
+                                handleProprietaireRedirect(
+                                  doc.proprietaire,
+                                  doc.typeProprietaire,
+                                )
+                              }
                             >
                               {doc.proprietaire}
                             </div>
@@ -598,13 +597,18 @@ export default function FilesPage() {
                               </DropdownMenuItem>
                               <DropdownMenuSeparator />
                               <DropdownMenuItem
-                                onClick={() => handleProprietaireRedirect(doc.proprietaire, doc.typeProprietaire)}
+                                onClick={() =>
+                                  handleProprietaireRedirect(
+                                    doc.proprietaire,
+                                    doc.typeProprietaire,
+                                  )
+                                }
                               >
                                 <User className="mr-2 h-4 w-4" />
                                 Voir le propriétaire
                               </DropdownMenuItem>
                               <DropdownMenuItem
-                                onClick={() => navigate('/programs')}
+                                onClick={() => navigate("/programs")}
                               >
                                 <FileText className="mr-2 h-4 w-4" />
                                 Voir la filière
@@ -668,11 +672,12 @@ export default function FilesPage() {
                               className="font-medium cursor-pointer text-blue-600 hover:underline"
                               onClick={() => {
                                 // Determine if it's a student or teacher based on name pattern
-                                const isTeacher = demande.demandeur.startsWith('Dr.');
+                                const isTeacher =
+                                  demande.demandeur.startsWith("Dr.");
                                 if (isTeacher) {
-                                  navigate('/teachers');
+                                  navigate("/teachers");
                                 } else {
-                                  navigate('/student-details/1'); // Using ID 1 for demo
+                                  navigate("/student-details/1"); // Using ID 1 for demo
                                 }
                               }}
                             >
