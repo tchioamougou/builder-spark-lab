@@ -295,36 +295,36 @@ export default function Index() {
           <CardContent>
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
               <Button
-                className="h-20 flex-col space-y-2 hover:bg-blue-50 hover:border-blue-300 transition-colors"
+                className="h-20 flex-col space-y-2 hover:bg-blue-50 hover:border-blue-300 hover:text-blue-700 transition-colors group"
                 variant="outline"
                 onClick={() => navigate('/user-management')}
               >
-                <Users className="h-6 w-6 text-blue-600" />
-                <span className="text-sm font-medium">Gérer les utilisateurs</span>
+                <Users className="h-6 w-6 text-blue-600 group-hover:text-blue-700" />
+                <span className="text-sm font-medium group-hover:text-blue-700">Gérer les utilisateurs</span>
               </Button>
               <Button
-                className="h-20 flex-col space-y-2 hover:bg-green-50 hover:border-green-300 transition-colors"
+                className="h-20 flex-col space-y-2 hover:bg-green-50 hover:border-green-300 hover:text-green-700 transition-colors group"
                 variant="outline"
                 onClick={() => navigate('/programs')}
               >
-                <BookOpen className="h-6 w-6 text-green-600" />
-                <span className="text-sm font-medium">Programmes académiques</span>
+                <BookOpen className="h-6 w-6 text-green-600 group-hover:text-green-700" />
+                <span className="text-sm font-medium group-hover:text-green-700">Programmes académiques</span>
               </Button>
               <Button
-                className="h-20 flex-col space-y-2 hover:bg-orange-50 hover:border-orange-300 transition-colors"
+                className="h-20 flex-col space-y-2 hover:bg-orange-50 hover:border-orange-300 hover:text-orange-700 transition-colors group"
                 variant="outline"
                 onClick={() => navigate('/files')}
               >
-                <FileText className="h-6 w-6 text-orange-600" />
-                <span className="text-sm font-medium">Demandes en attente</span>
+                <FileText className="h-6 w-6 text-orange-600 group-hover:text-orange-700" />
+                <span className="text-sm font-medium group-hover:text-orange-700">Demandes en attente</span>
               </Button>
               <Button
-                className="h-20 flex-col space-y-2 hover:bg-purple-50 hover:border-purple-300 transition-colors"
+                className="h-20 flex-col space-y-2 hover:bg-purple-50 hover:border-purple-300 hover:text-purple-700 transition-colors group"
                 variant="outline"
                 onClick={() => navigate('/academic-years')}
               >
-                <Calendar className="h-6 w-6 text-purple-600" />
-                <span className="text-sm font-medium">Calendrier académique</span>
+                <Calendar className="h-6 w-6 text-purple-600 group-hover:text-purple-700" />
+                <span className="text-sm font-medium group-hover:text-purple-700">Calendrier académique</span>
               </Button>
             </div>
           </CardContent>
