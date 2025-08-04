@@ -308,6 +308,7 @@ const statutFinancierLabels = {
 export default function StudentDetailsPage() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { user } = useAuth();
   const [student] = useState<StudentDetail>(mockStudent);
   const [notes] = useState<Note[]>(mockNotes);
   const [documents] = useState<Document[]>(mockDocuments);
@@ -318,6 +319,11 @@ export default function StudentDetailsPage() {
   const [statusComment, setStatusComment] = useState("");
 
   const { toast } = useToast();
+
+  // Permission logic
+  const canEdit = user?.role === "admin" || (user?.role === "etudiant" && user?.id === id);
+  const canViewFinancial = user?.role === "admin" || user?.role === "scolarite" || (user?.role === "etudiant" && user?.id === id);
+  const canManageStatus = user?.role === "admin" || user?.role === "scolarite";
 
   const calculateMoyenne = () => {
     const totalPoints = notes.reduce(
