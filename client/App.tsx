@@ -24,6 +24,7 @@ import StudentDashboard from "./pages/StudentDashboard";
 import StudentGrades from "./pages/StudentGrades";
 import StudentDocuments from "./pages/StudentDocuments";
 import StudentProfile from "./pages/StudentProfile";
+import StudentSchedule from "./pages/StudentSchedule";
 import TeacherDashboard from "./pages/TeacherDashboard";
 
 const queryClient = new QueryClient();
