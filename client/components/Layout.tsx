@@ -30,6 +30,7 @@ const navigation = [
   { name: "Années académiques", href: "/academic-years", icon: Calendar },
   { name: "Enseignants", href: "/teachers", icon: GraduationCap },
   { name: "Étudiants", href: "/students", icon: UserCog },
+  { name: "Assignation UE", href: "/course-assignment", icon: UserCheck },
   { name: "Dossiers", href: "/files", icon: FileText },
   { name: "Administration", href: "/admin", icon: Building2 },
 ];
