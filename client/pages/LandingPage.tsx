@@ -476,15 +476,86 @@ const LandingPage: React.FC = () => {
         </section>
 
         {/* Section CTA (Call to Action) */}
-        <section id="cta" className="py-12 bg-gray-100">
-          <div className="container mx-auto px-4">
-            <div className="bg-[#e4ddf6] rounded-3xl p-8 shadow-md flex flex-col md:flex-row items-center justify-between">
-              <h3 className="heading-font text-xl md:text-2xl text-[#3b2c6a] font-bold mb-4 md:mb-0 text-center md:text-left">
-                Prêt à <span className="text-[#ff9900]">commencer</span> votre parcours dans le secteur de la santé ?
-              </h3>
-              <a href="#" className="bg-white hover:bg-gray-200 text-[#3b2c6a] heading-font font-bold py-3 px-8 rounded-full shadow-lg transition-all duration-300">
-                conditions d'admission
+        <section id="cta" className="py-20 md:py-32 bg-gradient-to-br from-[#3b2c6a] to-[#2a2251] relative overflow-hidden">
+          {/* Éléments décoratifs de fond */}
+          <div className="absolute inset-0 opacity-10">
+            <div className="absolute top-10 left-10 w-32 h-32 bg-[#ff9900] rounded-full blur-3xl"></div>
+            <div className="absolute bottom-10 right-10 w-48 h-48 bg-[#ff9900] rounded-full blur-3xl"></div>
+            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-white rounded-full blur-3xl opacity-5"></div>
+          </div>
+
+          <div className="container mx-auto px-4 relative z-10">
+            <div className="text-center mb-12">
+              <h2 className="heading-font text-3xl md:text-5xl font-bold text-white mb-6 leading-tight">
+                Prêt à <span className="text-[#ff9900]">commencer</span> votre parcours<br />
+                dans le secteur de la <span className="text-[#ff9900]">santé</span> ?
+              </h2>
+              <p className="text-gray-200 text-lg md:text-xl max-w-3xl mx-auto mb-8">
+                Rejoignez notre communauté d'étudiants passionnés et préparez-vous à faire la différence dans le monde de la santé.
+                Votre avenir commence ici !
+              </p>
+            </div>
+
+            {/* Actions principales */}
+            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16">
+              <a href="#" className="bg-[#ff9900] hover:bg-[#e68a00] text-white heading-font font-bold py-4 px-10 rounded-full shadow-xl transition-all duration-300 transform hover:scale-105 hover:shadow-2xl flex items-center gap-3">
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                Demande d'admission
               </a>
+              <a href="#" className="bg-transparent border-2 border-white hover:bg-white hover:text-[#3b2c6a] text-white heading-font font-bold py-4 px-10 rounded-full transition-all duration-300 transform hover:scale-105 flex items-center gap-3">
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                Conditions d'admission
+              </a>
+            </div>
+
+            {/* Informations de contact rapide */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+              {/* Contact téléphonique */}
+              <div className="text-center">
+                <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 hover:bg-white/20 transition-all duration-300">
+                  <div className="w-16 h-16 bg-[#ff9900] rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                    </svg>
+                  </div>
+                  <h4 className="text-white font-bold mb-2">Appelez-nous</h4>
+                  <p className="text-gray-200 text-sm">+237 6XX XXX XXX</p>
+                  <p className="text-gray-200 text-sm">Lun-Ven 8h-17h</p>
+                </div>
+              </div>
+
+              {/* Visite du campus */}
+              <div className="text-center">
+                <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 hover:bg-white/20 transition-all duration-300">
+                  <div className="w-16 h-16 bg-[#ff9900] rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                  </div>
+                  <h4 className="text-white font-bold mb-2">Visitez le campus</h4>
+                  <p className="text-gray-200 text-sm">Meiganga, Cameroun</p>
+                  <p className="text-gray-200 text-sm">Visites guidées disponibles</p>
+                </div>
+              </div>
+
+              {/* Email */}
+              <div className="text-center">
+                <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 hover:bg-white/20 transition-all duration-300">
+                  <div className="w-16 h-16 bg-[#ff9900] rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 7.89a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    </svg>
+                  </div>
+                  <h4 className="text-white font-bold mb-2">Écrivez-nous</h4>
+                  <p className="text-gray-200 text-sm">contact@epfps.cm</p>
+                  <p className="text-gray-200 text-sm">Réponse sous 24h</p>
+                </div>
+              </div>
             </div>
           </div>
         </section>
