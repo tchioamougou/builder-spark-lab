@@ -20,6 +20,7 @@ import TeachersPage from "./pages/Teachers";
 import StudentsPage from "./pages/Students";
 import FilesPage from "./pages/Files";
 import AdminPage from "./pages/Admin";
+import CourseAssignment from "./pages/CourseAssignment";
 import StudentDashboard from "./pages/StudentDashboard";
 import StudentGrades from "./pages/StudentGrades";
 import StudentDocuments from "./pages/StudentDocuments";
