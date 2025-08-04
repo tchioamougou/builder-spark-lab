@@ -534,7 +534,10 @@ export default function FilesPage() {
                         </TableCell>
                         <TableCell>
                           <div>
-                            <div className="font-medium">
+                            <div
+                              className="font-medium cursor-pointer text-blue-600 hover:underline"
+                              onClick={() => handleProprietaireRedirect(doc.proprietaire, doc.typeProprietaire)}
+                            >
                               {doc.proprietaire}
                             </div>
                             <div className="text-sm text-muted-foreground">
