@@ -358,9 +358,8 @@ export default function TeacherCourses() {
                       <div className="flex justify-between items-start">
                         <div className="flex-1">
                           <CardTitle className="text-lg">{course.name}</CardTitle>
-                          <CardDescription className="space-y-1">
-                            <div>{course.code}</div>
-                            <div>{course.filiere} - {course.niveau}</div>
+                          <CardDescription>
+                            {course.code} • {course.filiere} - {course.niveau}
                           </CardDescription>
                         </div>
                         <Badge className={statusLabels[course.status].color}>
