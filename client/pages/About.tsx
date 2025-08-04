@@ -92,9 +92,10 @@ const About: React.FC = () => {
                 </div>
                 <h3 className="heading-font text-2xl font-bold text-[#3b2c6a] mb-4">Mission</h3>
                 <p className="text-gray-600 leading-relaxed">
-                  Former des professionnels de santé compétents, éthiques et dévoués, capables de répondre 
-                  aux défis sanitaires du Cameroun et de l'Afrique, en privilégiant l'excellence académique 
-                  et l'approche humaine des soins.
+                  L'EPFPS se concentre sur le développement éducatif et socio-économique de la région.
+                  Notre mission est de former des leaders et des innovateurs capables de transformer les
+                  défis sanitaires actuels en opportunités, en intégrant l'innovation, la responsabilité
+                  sociale et le développement durable dans la formation des professionnels de santé.
                 </p>
               </div>
 
