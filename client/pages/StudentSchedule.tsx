@@ -151,6 +151,14 @@ const todayClasses = [
 export default function StudentSchedule() {
   const { user } = useAuth();
   const [currentWeek, setCurrentWeek] = useState("Semaine du 22-26 Janvier 2024");
+  const [filterType, setFilterType] = useState("Tous");
+  const [filterTeacher, setFilterTeacher] = useState("Tous");
+
+  const handleExportSchedule = () => {
+    if (user) {
+      generateSchedulePDF(scheduleData, user);
+    }
+  };
 
   const getTypeColor = (type: string) => {
     switch (type) {
