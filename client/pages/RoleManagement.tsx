@@ -264,6 +264,8 @@ export default function RoleManagementPage() {
   const [isCreateRoleOpen, setIsCreateRoleOpen] = useState(false);
   const [isPermissionDialogOpen, setIsPermissionDialogOpen] = useState(false);
   const [formData, setFormData] = useState<any>({});
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [roleToDelete, setRoleToDelete] = useState<string | null>(null);
   
   const { toast } = useToast();
 
