@@ -73,6 +73,7 @@ const mockStudents = [
 
 export default function TeacherLayout({ children }: TeacherLayoutProps) {
   const location = useLocation();
+  const navigate = useNavigate();
   const { user, logout } = useAuth();
   const { toast } = useToast();
 
