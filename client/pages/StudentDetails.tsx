@@ -79,6 +79,7 @@ import {
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { generateBulletinPDF } from "@/lib/pdf-utils";
+import { useAuth } from "@/contexts/AuthContext";
 
 interface StudentDetail {
   id: string;
