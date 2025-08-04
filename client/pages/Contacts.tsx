@@ -58,7 +58,7 @@ const Contacts: React.FC = () => {
               <div>
                 <div className="bg-white rounded-3xl shadow-xl p-8">
                   <h2 className="heading-font text-3xl font-bold text-[#3b2c6a] mb-6">
-                    Envoyez-nous un <span className="text-[#ff9900]">message</span>
+                    {t('contact.sendMessage').split(' ').slice(0, -2).join(' ')} <span className="text-[#ff9900]">message</span>
                   </h2>
                   
                   <form onSubmit={handleSubmit} className="space-y-6">
