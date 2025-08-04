@@ -1,7 +1,7 @@
-import { ReactNode } from 'react';
-import { Navigate, useLocation } from 'react-router-dom';
-import { useAuth } from '@/contexts/AuthContext';
-import { Loader2 } from 'lucide-react';
+import { ReactNode } from "react";
+import { Navigate, useLocation } from "react-router-dom";
+import { useAuth } from "@/contexts/AuthContext";
+import { Loader2 } from "lucide-react";
 
 interface ProtectedRouteProps {
   children: ReactNode;
@@ -9,10 +9,10 @@ interface ProtectedRouteProps {
   requiredPermission?: string;
 }
 
-export default function ProtectedRoute({ 
-  children, 
-  requiredRole = [], 
-  requiredPermission 
+export default function ProtectedRoute({
+  children,
+  requiredRole = [],
+  requiredPermission,
 }: ProtectedRouteProps) {
   const { user, isLoading } = useAuth();
   const location = useLocation();
@@ -39,7 +39,8 @@ export default function ProtectedRoute({
         <div className="text-center">
           <h1 className="text-2xl font-bold text-red-600 mb-4">Accès refusé</h1>
           <p className="text-muted-foreground">
-            Vous n'avez pas les permissions nécessaires pour accéder à cette page.
+            Vous n'avez pas les permissions nécessaires pour accéder à cette
+            page.
           </p>
         </div>
       </div>
@@ -47,7 +48,11 @@ export default function ProtectedRoute({
   }
 
   // Check permission requirements
-  if (requiredPermission && !user.permissions.includes('*') && !user.permissions.includes(requiredPermission)) {
+  if (
+    requiredPermission &&
+    !user.permissions.includes("*") &&
+    !user.permissions.includes(requiredPermission)
+  ) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">

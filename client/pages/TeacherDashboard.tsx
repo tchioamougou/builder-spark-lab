@@ -1,12 +1,18 @@
 import TeacherLayout from "@/components/TeacherLayout";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useAuth } from "@/contexts/AuthContext";
-import { 
-  Users, 
-  Calendar, 
-  BarChart3, 
+import {
+  Users,
+  Calendar,
+  BarChart3,
   TrendingUp,
   AlertCircle,
   CheckCircle,
@@ -14,7 +20,7 @@ import {
   BookOpen,
   FileText,
   MessageSquare,
-  Star
+  Star,
 } from "lucide-react";
 
 const myClasses = [
@@ -25,7 +31,7 @@ const myClasses = [
     etudiants: 45,
     prochainCours: "2024-01-22 10:00",
     salle: "Amphi B",
-    notesEnAttente: 12
+    notesEnAttente: 12,
   },
   {
     id: 2,
@@ -34,7 +40,7 @@ const myClasses = [
     etudiants: 38,
     prochainCours: "2024-01-23 14:00",
     salle: "Salle 205",
-    notesEnAttente: 0
+    notesEnAttente: 0,
   },
   {
     id: 3,
@@ -43,8 +49,8 @@ const myClasses = [
     etudiants: 22,
     prochainCours: "2024-01-24 09:00",
     salle: "Labo 1",
-    notesEnAttente: 22
-  }
+    notesEnAttente: 22,
+  },
 ];
 
 const todaySchedule = [
@@ -54,15 +60,15 @@ const todaySchedule = [
     title: "Cours Anatomie générale",
     class: "Pharmacie Année 1",
     room: "Amphi B",
-    type: "Cours magistral"
+    type: "Cours magistral",
   },
   {
     id: 2,
     time: "14:00 - 15:30",
     title: "TP Physiologie",
-    class: "Médecine Année 2", 
+    class: "Médecine Année 2",
     room: "Labo 3",
-    type: "Travaux pratiques"
+    type: "Travaux pratiques",
   },
   {
     id: 3,
@@ -70,8 +76,8 @@ const todaySchedule = [
     title: "Réunion pédagogique",
     class: "Équipe enseignante",
     room: "Salle de réunion",
-    type: "Réunion"
-  }
+    type: "Réunion",
+  },
 ];
 
 const recentMessages = [
@@ -81,7 +87,7 @@ const recentMessages = [
     subject: "Question sur le cours d'anatomie",
     preview: "Bonjour professeur, j'aurais une question concernant...",
     date: "2024-01-20",
-    read: false
+    read: false,
   },
   {
     id: 2,
@@ -89,7 +95,7 @@ const recentMessages = [
     subject: "Planning des examens finalisé",
     preview: "Le planning des examens de fin de semestre est...",
     date: "2024-01-19",
-    read: true
+    read: true,
   },
   {
     id: 3,
@@ -97,8 +103,8 @@ const recentMessages = [
     subject: "Demande de rendez-vous",
     preview: "Pourriez-vous me recevoir cette semaine pour...",
     date: "2024-01-18",
-    read: false
-  }
+    read: false,
+  },
 ];
 
 const studentStats = [
@@ -106,20 +112,20 @@ const studentStats = [
     filiere: "Pharmacie Année 1",
     moyenne: 13.8,
     taux_reussite: 82,
-    absences: 5
+    absences: 5,
   },
   {
     filiere: "Médecine Année 2",
     moyenne: 15.2,
     taux_reussite: 89,
-    absences: 2
+    absences: 2,
   },
   {
     filiere: "Kinésithérapie Année 1",
     moyenne: 14.1,
     taux_reussite: 86,
-    absences: 3
-  }
+    absences: 3,
+  },
 ];
 
 export default function TeacherDashboard() {
@@ -134,10 +140,14 @@ export default function TeacherDashboard() {
 
   const getTypeColor = (type: string) => {
     switch (type) {
-      case "Cours magistral": return "bg-blue-100 text-blue-800";
-      case "Travaux pratiques": return "bg-green-100 text-green-800";
-      case "Réunion": return "bg-purple-100 text-purple-800";
-      default: return "bg-gray-100 text-gray-800";
+      case "Cours magistral":
+        return "bg-blue-100 text-blue-800";
+      case "Travaux pratiques":
+        return "bg-green-100 text-green-800";
+      case "Réunion":
+        return "bg-purple-100 text-purple-800";
+      default:
+        return "bg-gray-100 text-gray-800";
     }
   };
 
@@ -158,7 +168,9 @@ export default function TeacherDashboard() {
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Mes étudiants</CardTitle>
+              <CardTitle className="text-sm font-medium">
+                Mes étudiants
+              </CardTitle>
               <Users className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
@@ -171,7 +183,9 @@ export default function TeacherDashboard() {
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Cours cette semaine</CardTitle>
+              <CardTitle className="text-sm font-medium">
+                Cours cette semaine
+              </CardTitle>
               <Calendar className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
@@ -184,7 +198,9 @@ export default function TeacherDashboard() {
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Notes à saisir</CardTitle>
+              <CardTitle className="text-sm font-medium">
+                Notes à saisir
+              </CardTitle>
               <BarChart3 className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
@@ -197,7 +213,9 @@ export default function TeacherDashboard() {
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Messages non lus</CardTitle>
+              <CardTitle className="text-sm font-medium">
+                Messages non lus
+              </CardTitle>
               <MessageSquare className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
@@ -228,7 +246,9 @@ export default function TeacherDashboard() {
                     <div className="flex items-start justify-between">
                       <div className="flex-1">
                         <div className="font-medium">{classe.nom}</div>
-                        <div className="text-sm text-muted-foreground">{classe.filiere}</div>
+                        <div className="text-sm text-muted-foreground">
+                          {classe.filiere}
+                        </div>
                         <div className="flex items-center space-x-4 mt-2 text-sm">
                           <span className="flex items-center">
                             <Users className="h-3 w-3 mr-1" />
@@ -236,7 +256,9 @@ export default function TeacherDashboard() {
                           </span>
                           <span className="flex items-center">
                             <Calendar className="h-3 w-3 mr-1" />
-                            {new Date(classe.prochainCours).toLocaleDateString('fr-FR')}
+                            {new Date(classe.prochainCours).toLocaleDateString(
+                              "fr-FR",
+                            )}
                           </span>
                         </div>
                       </div>
@@ -263,22 +285,30 @@ export default function TeacherDashboard() {
                 <Clock className="h-5 w-5" />
                 <span>Emploi du temps aujourd'hui</span>
               </CardTitle>
-              <CardDescription>
-                Vos cours et réunions du jour
-              </CardDescription>
+              <CardDescription>Vos cours et réunions du jour</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
                 {todaySchedule.map((event) => (
-                  <div key={event.id} className="flex items-center justify-between border-l-4 border-primary pl-4">
+                  <div
+                    key={event.id}
+                    className="flex items-center justify-between border-l-4 border-primary pl-4"
+                  >
                     <div className="flex-1">
                       <div className="font-medium">{event.title}</div>
-                      <div className="text-sm text-muted-foreground">{event.class}</div>
-                      <div className="text-sm text-muted-foreground">{event.room}</div>
+                      <div className="text-sm text-muted-foreground">
+                        {event.class}
+                      </div>
+                      <div className="text-sm text-muted-foreground">
+                        {event.room}
+                      </div>
                     </div>
                     <div className="text-right">
                       <div className="font-medium text-sm">{event.time}</div>
-                      <Badge variant="secondary" className={getTypeColor(event.type)}>
+                      <Badge
+                        variant="secondary"
+                        className={getTypeColor(event.type)}
+                      >
                         {event.type}
                       </Badge>
                     </div>
@@ -312,7 +342,9 @@ export default function TeacherDashboard() {
                   <div className="space-y-2">
                     <div className="flex justify-between text-sm">
                       <span>Moyenne classe:</span>
-                      <span className={`font-medium ${getGradeColor(stat.moyenne)}`}>
+                      <span
+                        className={`font-medium ${getGradeColor(stat.moyenne)}`}
+                      >
                         {stat.moyenne}/20
                       </span>
                     </div>
@@ -345,14 +377,19 @@ export default function TeacherDashboard() {
           <CardContent>
             <div className="space-y-4">
               {recentMessages.map((message) => (
-                <div key={message.id} className={`flex items-start space-x-3 p-3 rounded-lg ${
-                  message.read ? 'bg-gray-50' : 'bg-blue-50'
-                }`}>
+                <div
+                  key={message.id}
+                  className={`flex items-start space-x-3 p-3 rounded-lg ${
+                    message.read ? "bg-gray-50" : "bg-blue-50"
+                  }`}
+                >
                   <div className="flex-shrink-0 mt-1">
                     <MessageSquare className="h-4 w-4 text-blue-600" />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <div className={`font-medium ${!message.read ? 'text-blue-900' : 'text-gray-900'}`}>
+                    <div
+                      className={`font-medium ${!message.read ? "text-blue-900" : "text-gray-900"}`}
+                    >
                       {message.subject}
                     </div>
                     <div className="text-sm text-muted-foreground">
@@ -362,7 +399,7 @@ export default function TeacherDashboard() {
                       {message.preview}
                     </div>
                     <div className="text-xs text-muted-foreground mt-1">
-                      {new Date(message.date).toLocaleDateString('fr-FR')}
+                      {new Date(message.date).toLocaleDateString("fr-FR")}
                     </div>
                   </div>
                   {!message.read && (

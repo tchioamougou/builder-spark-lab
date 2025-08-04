@@ -1,19 +1,25 @@
 import { useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useNavigate, useLocation } from "react-router-dom";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { 
-  GraduationCap, 
-  Mail, 
-  Lock, 
+import {
+  GraduationCap,
+  Mail,
+  Lock,
   Loader2,
   AlertCircle,
   Eye,
-  EyeOff
+  EyeOff,
 } from "lucide-react";
 
 export default function LoginPage() {
@@ -22,7 +28,7 @@ export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [showDemoCredentials, setShowDemoCredentials] = useState(false);
-  
+
   const { login, isLoading } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
@@ -48,10 +54,22 @@ export default function LoginPage() {
 
   const demoCredentials = [
     { role: "Administrateur", email: "admin@univ.fr", password: "admin123" },
-    { role: "Étudiant", email: "marie.dupont@etud.univ.fr", password: "etudiant123" },
-    { role: "Enseignant", email: "jean.martin@univ.fr", password: "enseignant123" },
+    {
+      role: "Étudiant",
+      email: "marie.dupont@etud.univ.fr",
+      password: "etudiant123",
+    },
+    {
+      role: "Enseignant",
+      email: "jean.martin@univ.fr",
+      password: "enseignant123",
+    },
     { role: "RH", email: "sophie.laurent@rh.univ.fr", password: "rh123" },
-    { role: "Scolarité", email: "pierre.dubois@scolarite.univ.fr", password: "scolarite123" }
+    {
+      role: "Scolarité",
+      email: "pierre.dubois@scolarite.univ.fr",
+      password: "scolarite123",
+    },
   ];
 
   const fillDemoCredentials = (email: string, password: string) => {
@@ -126,16 +144,16 @@ export default function LoginPage() {
                     className="absolute right-3 top-3 text-gray-400 hover:text-gray-600"
                     disabled={isLoading}
                   >
-                    {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                    {showPassword ? (
+                      <EyeOff className="h-4 w-4" />
+                    ) : (
+                      <Eye className="h-4 w-4" />
+                    )}
                   </button>
                 </div>
               </div>
 
-              <Button 
-                type="submit" 
-                className="w-full" 
-                disabled={isLoading}
-              >
+              <Button type="submit" className="w-full" disabled={isLoading}>
                 {isLoading ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -155,21 +173,25 @@ export default function LoginPage() {
                   onClick={() => setShowDemoCredentials(!showDemoCredentials)}
                   className="text-xs"
                 >
-                  {showDemoCredentials ? "Masquer" : "Voir"} les comptes de démonstration
+                  {showDemoCredentials ? "Masquer" : "Voir"} les comptes de
+                  démonstration
                 </Button>
               </div>
 
               {showDemoCredentials && (
                 <div className="mt-4 space-y-2">
                   <p className="text-xs text-gray-600 text-center mb-3">
-                    Cliquez sur un rôle pour remplir automatiquement les champs :
+                    Cliquez sur un rôle pour remplir automatiquement les champs
+                    :
                   </p>
                   <div className="grid gap-2">
                     {demoCredentials.map((cred, index) => (
                       <button
                         key={index}
                         type="button"
-                        onClick={() => fillDemoCredentials(cred.email, cred.password)}
+                        onClick={() =>
+                          fillDemoCredentials(cred.email, cred.password)
+                        }
                         className="text-left p-2 text-xs bg-gray-50 hover:bg-gray-100 rounded border transition-colors"
                         disabled={isLoading}
                       >

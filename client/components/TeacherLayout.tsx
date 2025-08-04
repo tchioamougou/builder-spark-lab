@@ -4,7 +4,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { 
+import {
   Home,
   Users,
   Calendar,
@@ -16,7 +16,7 @@ import {
   BarChart3,
   BookOpen,
   Clock,
-  MessageSquare
+  MessageSquare,
 } from "lucide-react";
 
 interface TeacherLayoutProps {
@@ -52,23 +52,30 @@ export default function TeacherLayout({ children }: TeacherLayoutProps) {
                 </h1>
               </div>
             </div>
-            
+
             <div className="flex items-center space-x-4">
               <Button variant="outline" size="sm" className="relative">
                 <Bell className="h-4 w-4" />
                 <span className="absolute -top-1 -right-1 h-3 w-3 bg-red-500 rounded-full"></span>
               </Button>
-              
+
               <div className="flex items-center space-x-2">
                 <Avatar>
                   <AvatarImage src={user?.avatar} />
                   <AvatarFallback>
-                    {user?.nom.split(' ').map(n => n[0]).join('')}
+                    {user?.nom
+                      .split(" ")
+                      .map((n) => n[0])
+                      .join("")}
                   </AvatarFallback>
                 </Avatar>
                 <div className="hidden md:block">
-                  <div className="text-sm font-medium text-gray-700">{user?.nom}</div>
-                  <div className="text-xs text-gray-500">{user?.specialite}</div>
+                  <div className="text-sm font-medium text-gray-700">
+                    {user?.nom}
+                  </div>
+                  <div className="text-xs text-gray-500">
+                    {user?.specialite}
+                  </div>
                   <div className="text-xs text-gray-500">Enseignant</div>
                 </div>
               </div>
@@ -88,7 +95,9 @@ export default function TeacherLayout({ children }: TeacherLayoutProps) {
           <div className="p-4">
             {/* Quick Stats */}
             <div className="mb-6 p-4 bg-primary/5 rounded-lg">
-              <h3 className="text-sm font-medium text-gray-900 mb-2">Mes statistiques</h3>
+              <h3 className="text-sm font-medium text-gray-900 mb-2">
+                Mes statistiques
+              </h3>
               <div className="space-y-1 text-sm">
                 <div className="flex justify-between">
                   <span className="text-gray-600">Étudiants:</span>
@@ -116,7 +125,7 @@ export default function TeacherLayout({ children }: TeacherLayoutProps) {
                         "flex items-center space-x-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors",
                         isActive
                           ? "bg-primary text-primary-foreground"
-                          : "text-gray-700 hover:bg-gray-100"
+                          : "text-gray-700 hover:bg-gray-100",
                       )}
                     >
                       <item.icon className="h-5 w-5" />
@@ -133,11 +142,19 @@ export default function TeacherLayout({ children }: TeacherLayoutProps) {
                 Actions rapides
               </h3>
               <div className="space-y-2">
-                <Button variant="outline" size="sm" className="w-full justify-start">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="w-full justify-start"
+                >
                   <BarChart3 className="h-4 w-4 mr-2" />
                   Saisir notes
                 </Button>
-                <Button variant="outline" size="sm" className="w-full justify-start">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="w-full justify-start"
+                >
                   <Clock className="h-4 w-4 mr-2" />
                   Signaler absence
                 </Button>
@@ -147,9 +164,7 @@ export default function TeacherLayout({ children }: TeacherLayoutProps) {
         </nav>
 
         {/* Main content */}
-        <main className="flex-1 p-6">
-          {children}
-        </main>
+        <main className="flex-1 p-6">{children}</main>
       </div>
     </div>
   );
