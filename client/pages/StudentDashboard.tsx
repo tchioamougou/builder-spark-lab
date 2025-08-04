@@ -9,6 +9,9 @@ import {
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useAuth } from "@/contexts/AuthContext";
+import { generateBulletinPDF } from "@/lib/pdf-utils";
+import AbsenceRequestDialog from "@/components/AbsenceRequestDialog";
+import { useState } from "react";
 import {
   BookOpen,
   Calendar,
