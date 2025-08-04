@@ -139,49 +139,190 @@ const LandingPage: React.FC = () => {
         </section>
 
         {/* Section Témoignages */}
-        <section id="testimonials" className="bg-white py-20 md:py-32">
-          <div className="container mx-auto px-4">
-            <h2 className="heading-font text-3xl md:text-4xl text-[#5d40a2] font-bold text-center mb-12">
-              Ce qu'ils disent de nous
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {/* Témoignage 1 */}
-              <div className="bg-gray-100 p-6 rounded-2xl shadow-lg">
-                <p className="italic text-gray-600 mb-4">
-                  "Une expérience incroyable qui a transformé ma carrière. La qualité de l'enseignement est exceptionnelle et le soutien des professeurs est inégalable."
-                </p>
+        <section id="testimonials" className="bg-gray-50 py-20 md:py-32 relative overflow-hidden">
+          {/* Éléments décoratifs */}
+          <div className="absolute inset-0 opacity-5">
+            <div className="absolute top-20 right-20 w-32 h-32 bg-[#ff9900] rounded-full blur-3xl"></div>
+            <div className="absolute bottom-20 left-20 w-48 h-48 bg-[#3b2c6a] rounded-full blur-3xl"></div>
+          </div>
+
+          <div className="container mx-auto px-4 relative z-10">
+            {/* En-tête de section */}
+            <div className="text-center mb-16">
+              <h2 className="heading-font text-3xl md:text-4xl text-[#3b2c6a] font-bold mb-2">
+                Ce qu'ils <span className="text-[#ff9900]">disent de nous</span>
+              </h2>
+              <div className="w-20 h-1 bg-[#ff9900] mx-auto mb-6"></div>
+              <p className="text-gray-600 max-w-2xl mx-auto text-lg">
+                Découvrez les témoignages authentiques de nos étudiants et diplômés qui font aujourd'hui
+                la différence dans le secteur de la santé.
+              </p>
+            </div>
+
+            {/* Grille des témoignages */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+              {/* Témoignage 1 - Étudiante en soins infirmiers */}
+              <div className="group bg-white rounded-3xl shadow-lg hover:shadow-xl transition-all duration-300 p-8 relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-20 h-20 bg-[#ff9900]/10 rounded-full -translate-y-10 translate-x-10"></div>
+
+                {/* Étoiles de notation */}
+                <div className="flex gap-1 mb-4">
+                  {[...Array(5)].map((_, i) => (
+                    <svg key={i} className="w-5 h-5 text-[#ff9900] fill-current" viewBox="0 0 24 24">
+                      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                    </svg>
+                  ))}
+                </div>
+
+                <blockquote className="text-gray-700 mb-6 leading-relaxed">
+                  "La formation en soins infirmiers à l'EPFPS m'a donné toutes les compétences nécessaires
+                  pour réussir. Les professeurs sont dévoués et les stages pratiques excellents."
+                </blockquote>
+
                 <div className="flex items-center gap-4">
-                  <img src="https://placehold.co/60x60/ff9900/ffffff?text=Visage" alt="Portrait de l'étudiant" className="w-12 h-12 rounded-full object-cover" />
+                  <div className="relative">
+                    <img
+                      src={StudentWoman}
+                      alt="Fatima Mballa"
+                      className="w-14 h-14 rounded-full object-cover border-3 border-[#ff9900]/20"
+                    />
+                    <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-[#ff9900] rounded-full flex items-center justify-center">
+                      <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                      </svg>
+                    </div>
+                  </div>
                   <div>
-                    <p className="font-semibold text-[#5d40a2]">Jane Doe</p>
-                    <p className="text-sm text-gray-500">Étudiante en Marketing</p>
+                    <p className="font-bold text-[#3b2c6a]">Fatima Mballa</p>
+                    <p className="text-sm text-gray-500">Diplômée en Soins Infirmiers</p>
+                    <p className="text-xs text-[#ff9900] font-semibold">Travaille à l'Hôpital Central</p>
                   </div>
                 </div>
               </div>
-              {/* Témoignage 2 */}
-              <div className="bg-gray-100 p-6 rounded-2xl shadow-lg">
-                <p className="italic text-gray-600 mb-4">
-                  "J'ai pu développer des compétences concrètes et trouver un emploi dans une entreprise prestigieuse juste après l'obtention de mon diplôme."
-                </p>
+
+              {/* Témoignage 2 - Étudiant en aide-soignant */}
+              <div className="group bg-white rounded-3xl shadow-lg hover:shadow-xl transition-all duration-300 p-8 relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-20 h-20 bg-[#3b2c6a]/10 rounded-full -translate-y-10 translate-x-10"></div>
+
+                {/* Étoiles de notation */}
+                <div className="flex gap-1 mb-4">
+                  {[...Array(5)].map((_, i) => (
+                    <svg key={i} className="w-5 h-5 text-[#ff9900] fill-current" viewBox="0 0 24 24">
+                      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                    </svg>
+                  ))}
+                </div>
+
+                <blockquote className="text-gray-700 mb-6 leading-relaxed">
+                  "L'approche pratique de l'enseignement et l'accompagnement personnalisé m'ont permis
+                  de développer ma confiance et mes compétences professionnelles."
+                </blockquote>
+
                 <div className="flex items-center gap-4">
-                  <img src="https://placehold.co/60x60/ff9900/ffffff?text=Visage" alt="Portrait de l'étudiant" className="w-12 h-12 rounded-full object-cover" />
+                  <div className="relative">
+                    <img
+                      src={StudyGroup2}
+                      alt="Emmanuel Ngono"
+                      className="w-14 h-14 rounded-full object-cover border-3 border-[#ff9900]/20"
+                    />
+                    <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-[#ff9900] rounded-full flex items-center justify-center">
+                      <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                      </svg>
+                    </div>
+                  </div>
                   <div>
-                    <p className="font-semibold text-[#5d40a2]">John Smith</p>
-                    <p className="text-sm text-gray-500">Étudiant en Développement</p>
+                    <p className="font-bold text-[#3b2c6a]">Emmanuel Ngono</p>
+                    <p className="text-sm text-gray-500">Étudiant en 3ème année</p>
+                    <p className="text-xs text-[#ff9900] font-semibold">Spécialité Aide-soignant</p>
                   </div>
                 </div>
               </div>
-              {/* Témoignage 3 */}
-              <div className="bg-gray-100 p-6 rounded-2xl shadow-lg">
-                <p className="italic text-gray-600 mb-4">
-                  "Le réseau d'anciens élèves est une véritable force. J'ai pu échanger avec des professionnels et obtenir des conseils précieux pour mon parcours."
-                </p>
+
+              {/* Témoignage 3 - Diplômée en santé communautaire */}
+              <div className="group bg-white rounded-3xl shadow-lg hover:shadow-xl transition-all duration-300 p-8 relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-20 h-20 bg-[#ff9900]/10 rounded-full -translate-y-10 translate-x-10"></div>
+
+                {/* Étoiles de notation */}
+                <div className="flex gap-1 mb-4">
+                  {[...Array(5)].map((_, i) => (
+                    <svg key={i} className="w-5 h-5 text-[#ff9900] fill-current" viewBox="0 0 24 24">
+                      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                    </svg>
+                  ))}
+                </div>
+
+                <blockquote className="text-gray-700 mb-6 leading-relaxed">
+                  "Grâce à ma formation à l'EPFPS, je contribue maintenant à améliorer la santé
+                  de ma communauté. L'école m'a donné les outils pour faire la différence."
+                </blockquote>
+
                 <div className="flex items-center gap-4">
-                  <img src="https://placehold.co/60x60/ff9900/ffffff?text=Visage" alt="Portrait de l'étudiant" className="w-12 h-12 rounded-full object-cover" />
-                  <div>
-                    <p className="font-semibold text-[#5d40a2]">Marie Dubois</p>
-                    <p className="text-sm text-gray-500">Étudiante en Design</p>
+                  <div className="relative">
+                    <img
+                      src={CollegeStudents}
+                      alt="Marie Tchounkeu"
+                      className="w-14 h-14 rounded-full object-cover border-3 border-[#ff9900]/20"
+                    />
+                    <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-[#ff9900] rounded-full flex items-center justify-center">
+                      <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                      </svg>
+                    </div>
                   </div>
+                  <div>
+                    <p className="font-bold text-[#3b2c6a]">Marie Tchounkeu</p>
+                    <p className="text-sm text-gray-500">Diplômée 2023</p>
+                    <p className="text-xs text-[#ff9900] font-semibold">Agent de Santé Communautaire</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Section statistiques de satisfaction */}
+            <div className="bg-white rounded-3xl shadow-xl p-8 md:p-12">
+              <div className="text-center mb-8">
+                <h3 className="heading-font text-2xl md:text-3xl font-bold text-[#3b2c6a] mb-4">
+                  Taux de satisfaction de nos étudiants
+                </h3>
+                <p className="text-gray-600">Basé sur une enquête de 500+ étudiants et diplômés</p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+                {/* Satisfaction générale */}
+                <div className="text-center">
+                  <div className="w-20 h-20 bg-[#ff9900] rounded-full flex items-center justify-center mx-auto mb-4">
+                    <span className="text-2xl font-bold text-white">98%</span>
+                  </div>
+                  <h4 className="font-bold text-[#3b2c6a] mb-2">Satisfaction générale</h4>
+                  <p className="text-sm text-gray-600">Recommandent notre école</p>
+                </div>
+
+                {/* Qualité enseignement */}
+                <div className="text-center">
+                  <div className="w-20 h-20 bg-[#3b2c6a] rounded-full flex items-center justify-center mx-auto mb-4">
+                    <span className="text-2xl font-bold text-white">96%</span>
+                  </div>
+                  <h4 className="font-bold text-[#3b2c6a] mb-2">Qualité enseignement</h4>
+                  <p className="text-sm text-gray-600">Excellent niveau des cours</p>
+                </div>
+
+                {/* Insertion professionnelle */}
+                <div className="text-center">
+                  <div className="w-20 h-20 bg-[#ff9900] rounded-full flex items-center justify-center mx-auto mb-4">
+                    <span className="text-2xl font-bold text-white">94%</span>
+                  </div>
+                  <h4 className="font-bold text-[#3b2c6a] mb-2">Insertion professionnelle</h4>
+                  <p className="text-sm text-gray-600">Trouvent un emploi dans les 6 mois</p>
+                </div>
+
+                {/* Accompagnement */}
+                <div className="text-center">
+                  <div className="w-20 h-20 bg-[#3b2c6a] rounded-full flex items-center justify-center mx-auto mb-4">
+                    <span className="text-2xl font-bold text-white">97%</span>
+                  </div>
+                  <h4 className="font-bold text-[#3b2c6a] mb-2">Accompagnement</h4>
+                  <p className="text-sm text-gray-600">Suivi personnalisé apprécié</p>
                 </div>
               </div>
             </div>
