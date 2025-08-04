@@ -263,8 +263,7 @@ export default function TeacherStudents() {
   };
 
   const handleViewStudentProfile = (studentId: string) => {
-    // Navigate to student profile or show details
-    console.log("Viewing student profile:", studentId);
+    navigate(`/student-details/${studentId}`);
   };
 
   const totalStudents = allStudents.length;
