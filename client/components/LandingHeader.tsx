@@ -90,6 +90,7 @@ const LandingHeader = () => {
           >
             {t("common.clientArea")}
           </Link>
+          <LanguageSwitcher />
         </div>
         {/* Bouton pour la version mobile */}
         <button className="lg:hidden p-2 rounded-md hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-[#ff9900] text-white">
