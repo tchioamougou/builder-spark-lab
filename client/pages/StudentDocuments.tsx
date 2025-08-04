@@ -165,6 +165,10 @@ export default function StudentDocuments() {
           </div>
           
           <div className="flex space-x-2">
+            <Button variant="outline" onClick={handleExportDocuments}>
+              <Download className="h-4 w-4 mr-2" />
+              Exporter liste (PDF)
+            </Button>
             <Dialog open={isUploadDialogOpen} onOpenChange={setIsUploadDialogOpen}>
               <DialogTrigger asChild>
                 <Button variant="outline">
