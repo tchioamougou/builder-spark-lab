@@ -109,6 +109,13 @@ const notifications = [
 
 export default function StudentDashboard() {
   const { user } = useAuth();
+  const [isAbsenceDialogOpen, setIsAbsenceDialogOpen] = useState(false);
+
+  const handleDownloadBulletin = () => {
+    if (user) {
+      generateBulletinPDF(user);
+    }
+  };
 
   const getGradeColor = (note: number) => {
     if (note >= 16) return "text-green-600";
