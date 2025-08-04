@@ -279,8 +279,7 @@ const LandingFooter = () => {
           </div>
           <div className="text-center mt-4">
             <p className="text-xs text-gray-400">
-              Établissement reconnu par le Ministère de la Santé Publique du
-              Cameroun
+              {t("footer.recognition")}
             </p>
           </div>
         </div>
