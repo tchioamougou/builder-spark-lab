@@ -380,6 +380,113 @@
     "parkingAvailable": "Parking available",
     "parkingText": "Free parking available on campus for visitors and students."
   },
+  "landingPage": {
+    "hero": {
+      "schoolNameFull": "Private School for Health Professionals Training of Meiganga",
+      "tagline": "Transform your life through health education",
+      "applyButton": "Application request",
+      "viewPrograms": "View our programs"
+    },
+    "presentation": {
+      "title": "Presentation",
+      "subtitle": "Private Higher School of Health Training - Director's Presentation",
+      "description": "Recognized by [Ministry or organization name], our institution offers a rigorous and humane learning environment to train tomorrow's health professionals."
+    },
+    "programs": {
+      "title": "Our Flagship Programs!",
+      "communityHealthAid": "Community health aide",
+      "programDescription": "We interconnect systems and optimize data flows to ensure infrastructure",
+      "enrollNow": "Enroll now"
+    },
+    "testimonials": {
+      "title": "What they say about us",
+      "subtitle": "Discover authentic testimonials from our students and graduates who are making a difference in the health sector today.",
+      "fatima": {
+        "quote": "The nursing training at EPFPS gave me all the necessary skills to succeed. The teachers are dedicated and the practical internships excellent.",
+        "name": "Fatima Mballa",
+        "title": "Graduate in Nursing",
+        "workplace": "Works at Central Hospital"
+      },
+      "emmanuel": {
+        "quote": "The practical approach to teaching and personalized support allowed me to develop my confidence and professional skills.",
+        "name": "Emmanuel Ngono",
+        "title": "3rd year student",
+        "specialty": "Nursing aide specialty"
+      },
+      "marie": {
+        "quote": "Thanks to my training at EPFPS, I now contribute to improving the health of my community. The school gave me the tools to make a difference.",
+        "name": "Marie Tchounkeu",
+        "title": "2023 Graduate",
+        "job": "Community Health Agent"
+      },
+      "satisfaction": {
+        "title": "Student satisfaction rate",
+        "subtitle": "Based on a survey of 500+ students and graduates",
+        "overall": "Overall satisfaction",
+        "overallDesc": "Recommend our school",
+        "quality": "Teaching quality",
+        "qualityDesc": "Excellent course level",
+        "employment": "Professional integration",
+        "employmentDesc": "Find employment within 6 months",
+        "support": "Support",
+        "supportDesc": "Personalized follow-up appreciated"
+      }
+    },
+    "stats": {
+      "studentsFormed": "Students trained",
+      "professionalExperts": "Professional experts",
+      "partners": "Partners",
+      "campus": "Campus"
+    },
+    "campusLife": {
+      "title": "Campus life",
+      "subtitle": "Discover an inspiring and dynamic community where our students evolve in an environment rich in academic, social and cultural activities, promoting their personal and professional development.",
+      "modernClassrooms": "Modern classrooms",
+      "classroomsDesc": "Rooms equipped with the latest technologies for interactive and collaborative learning.",
+      "studySpaces": "Collaborative study spaces",
+      "studyDesc": "Areas dedicated to group work and collaborative projects between students.",
+      "library": "Library",
+      "libraryDesc": "Access to a rich collection of medical and scientific works, silent reading spaces.",
+      "laboratories": "Laboratories",
+      "labDesc": "Modern laboratories equipped for practical work in medical and biological sciences.",
+      "relaxSpaces": "Relaxation spaces",
+      "relaxDesc": "Rest and socialization areas to encourage exchanges between students.",
+      "studentTestimonial": {
+        "quote": "The campus atmosphere is exceptional. The spaces are modern, the teachers are available and the spirit of collaboration between students pushes us to give our best every day.",
+        "name": "Amina Moussa",
+        "title": "2nd year student - Nursing aide"
+      }
+    },
+    "infrastructure": {
+      "title": "Campus infrastructure",
+      "equippedLab": "Equipped laboratory",
+      "labDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et massa mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien fringilla."
+    },
+    "news": {
+      "title": "Our News",
+      "subtitle": "Stay informed about the latest news, events and developments from our health training school.",
+      "emergencyTraining": "New emergency care training",
+      "emergencyDesc": "Discover our new training program specialized in emergency care, designed to meet the growing needs of the health sector...",
+      "hospitalPartnership": "Partnership with the regional hospital",
+      "partnershipDesc": "Our school strengthens its ties with the regional hospital to offer better practical internship opportunities to our students...",
+      "graduation": "2023 graduation ceremony",
+      "graduationDesc": "Congratulations to our 150 new graduates who join the health sector with excellence and dedication...",
+      "readMore": "Read more",
+      "viewAll": "View all news"
+    },
+    "cta": {
+      "title": "Ready to start your journey in the health sector?",
+      "subtitle": "Join our community of passionate students and prepare to make a difference in the world of health. Your future starts here!",
+      "admissionRequest": "Admission request",
+      "admissionConditions": "Admission conditions",
+      "callUs": "Call us",
+      "schedule": "Mon-Fri 8am-5pm",
+      "visitCampus": "Visit the campus",
+      "guidedTours": "Guided tours available",
+      "writeUs": "Write to us",
+      "responseTime": "Response within 24h"
+    }
+  },
   "footer": {
     "schoolName1": "Private School for Health",
     "schoolName2": "Professionals Training",
