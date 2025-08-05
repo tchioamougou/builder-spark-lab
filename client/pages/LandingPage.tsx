@@ -66,11 +66,10 @@ const LandingPage: React.FC = () => {
             <div className="md:flex items-start gap-12">
               <div className="md:w-1/2 mb-8 md:mb-0">
                 <h2 className="heading-font text-3xl md:text-4xl text-[#5d40a2] font-bold mb-4">
-                  Présentation
+                  {t('landingPage.presentation.title')}
                 </h2>
                 <p className="text-gray-600 leading-relaxed mb-6">
-                  École Supérieure Privée de Formation Sanitaire - Présentation
-                  du Directeur
+                  {t('landingPage.presentation.subtitle')}
                 </p>
                 <p className="text-gray-600 leading-relaxed">
                   Reconnue par [Nom du ministère ou organisme], notre
@@ -217,7 +216,7 @@ const LandingPage: React.FC = () => {
               href="#contact"
               className="mt-12 inline-block bg-[#ff9900] hover:bg-[#e68a00] text-white heading-font font-bold py-3 px-8 rounded-full shadow-lg transition-all duration-300 transform hover:scale-105"
             >
-              S'inscrire maintenant
+              {t('landingPage.programs.enrollNow')}
             </a>
           </div>
         </section>
