@@ -64,9 +64,7 @@ const About: React.FC = () => {
                     {t("about.historyText2")}
                   </p>
                   <p className="text-gray-600 leading-relaxed">
-                    Reconnue par le Ministère de la Santé Publique du Cameroun,
-                    l'EPFPS forme chaque année des centaines d'étudiants qui
-                    contribuent �� améliorer le système de santé national.
+                    {t("about.historyText3")}
                   </p>
                 </div>
               </div>
