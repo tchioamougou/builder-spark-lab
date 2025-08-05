@@ -504,6 +504,7 @@
     "testimonials": {
       "title": "Ce qu'ils disent de nous",
       "subtitle": "Découvrez les témoignages authentiques de nos étudiants et diplômés qui font aujourd'hui la différence dans le secteur de la santé.",
+      "sectionLabel": "TÉMOIGNAGES",
       "fatima": {
         "quote": "La formation en soins infirmiers à l'EPFPS m'a donné toutes les compétences nécessaires pour réussir. Les professeurs sont dévoués et les stages pratiques excellents.",
         "name": "Fatima Mballa",
