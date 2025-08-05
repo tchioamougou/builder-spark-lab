@@ -105,7 +105,7 @@ export default function StudentLayout({ children }: StudentLayoutProps) {
             </div>
 
             {/* Right side actions */}
-            <div className="flex items-center space-x-1 md:space-x-3">
+            <div className="flex items-center space-x-1 md:space-x-3 flex-shrink-0">
               {/* Search button */}
               <Button
                 variant="ghost"
