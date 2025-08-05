@@ -447,10 +447,10 @@ const LandingPage: React.FC = () => {
                     <span className="text-xl font-bold text-white">96%</span>
                   </div>
                   <h4 className="font-semibold text-[#3b2c6a] mb-2">
-                    Qualité enseignement
+                    {t("landingPage.testimonials.satisfaction.quality")}
                   </h4>
                   <p className="text-sm text-gray-600">
-                    Excellent niveau des cours
+                    {t("landingPage.testimonials.satisfaction.qualityDesc")}
                   </p>
                 </div>
 
@@ -459,10 +459,10 @@ const LandingPage: React.FC = () => {
                     <span className="text-xl font-bold text-white">94%</span>
                   </div>
                   <h4 className="font-semibold text-[#3b2c6a] mb-2">
-                    Insertion professionnelle
+                    {t("landingPage.testimonials.satisfaction.employment")}
                   </h4>
                   <p className="text-sm text-gray-600">
-                    Trouvent un emploi dans les 6 mois
+                    {t("landingPage.testimonials.satisfaction.employmentDesc")}
                   </p>
                 </div>
 
@@ -471,10 +471,10 @@ const LandingPage: React.FC = () => {
                     <span className="text-xl font-bold text-white">97%</span>
                   </div>
                   <h4 className="font-semibold text-[#3b2c6a] mb-2">
-                    Accompagnement
+                    {t("landingPage.testimonials.satisfaction.support")}
                   </h4>
                   <p className="text-sm text-gray-600">
-                    Suivi personnalisé apprécié
+                    {t("landingPage.testimonials.satisfaction.supportDesc")}
                   </p>
                 </div>
               </div>
