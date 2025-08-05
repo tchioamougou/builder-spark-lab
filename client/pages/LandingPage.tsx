@@ -618,14 +618,11 @@ const LandingPage: React.FC = () => {
             {/* En-tête de section */}
             <div className="text-center mb-16">
               <h2 className="heading-font text-3xl md:text-4xl text-[#3b2c6a] font-bold mb-2">
-                La vie au <span className="text-[#ff9900]">campus</span>
+                {t("landingPage.campusLife.title")}
               </h2>
               <div className="w-20 h-1 bg-[#ff9900] mx-auto mb-6"></div>
               <p className="text-gray-600 max-w-3xl mx-auto text-lg leading-relaxed">
-                Découvrez une communauté inspirante et dynamique où nos
-                étudiants évoluent dans un environnement riche en activités
-                académiques, sociales et culturelles, favorisant leur
-                épanouissement personnel et professionnel.
+                {t("landingPage.campusLife.subtitle")}
               </p>
             </div>
 
