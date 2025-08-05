@@ -42,7 +42,7 @@ export default function LoginPage() {
     setError("");
 
     if (!email || !password) {
-      setError(t('auth.fillAllFields'));
+      setError(t("auth.fillAllFields"));
       return;
     }
 
@@ -50,7 +50,7 @@ export default function LoginPage() {
     if (success) {
       navigate(from, { replace: true });
     } else {
-      setError(t('auth.incorrectCredentials'));
+      setError(t("auth.incorrectCredentials"));
     }
   };
 
@@ -90,17 +90,17 @@ export default function LoginPage() {
               <GraduationCap className="h-8 w-8 text-primary-foreground" />
             </div>
           </div>
-          <h1 className="text-3xl font-bold text-gray-900">{t('auth.systemTitle')}</h1>
-          <p className="text-gray-600 mt-2">{t('auth.systemSubtitle')}</p>
+          <h1 className="text-3xl font-bold text-gray-900">
+            {t("auth.systemTitle")}
+          </h1>
+          <p className="text-gray-600 mt-2">{t("auth.systemSubtitle")}</p>
         </div>
 
         {/* Login Form */}
         <Card>
           <CardHeader>
-            <CardTitle>{t('auth.loginTitle')}</CardTitle>
-            <CardDescription>
-              {t('auth.loginSubtitle')}
-            </CardDescription>
+            <CardTitle>{t("auth.loginTitle")}</CardTitle>
+            <CardDescription>{t("auth.loginSubtitle")}</CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-4">
@@ -162,7 +162,7 @@ export default function LoginPage() {
                     Connexion en cours...
                   </>
                 ) : (
-                  t('auth.loginButton')
+                  t("auth.loginButton")
                 )}
               </Button>
             </form>
@@ -210,7 +210,7 @@ export default function LoginPage() {
 
         {/* Footer */}
         <div className="text-center text-sm text-gray-500">
-          <p>{t('auth.secureSystem')}</p>
+          <p>{t("auth.secureSystem")}</p>
         </div>
       </div>
     </div>

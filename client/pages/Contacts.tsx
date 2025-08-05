@@ -29,7 +29,7 @@ const Contacts: React.FC = () => {
     e.preventDefault();
     // Logique d'envoi du formulaire
     console.log("Formulaire soumis:", formData);
-    alert(t('contact.formSubmitMessage'));
+    alert(t("contact.formSubmitMessage"));
     setFormData({ nom: "", email: "", telephone: "", sujet: "", message: "" });
   };
 
@@ -66,7 +66,7 @@ const Contacts: React.FC = () => {
               <div>
                 <div className="bg-white rounded-3xl shadow-xl p-8">
                   <h2 className="heading-font text-3xl font-bold text-[#3b2c6a] mb-6">
-                    {t('contact.sendMessage')}
+                    {t("contact.sendMessage")}
                   </h2>
 
                   <form onSubmit={handleSubmit} className="space-y-6">
@@ -94,7 +94,7 @@ const Contacts: React.FC = () => {
                         htmlFor="email"
                         className="block text-sm font-semibold text-[#3b2c6a] mb-2"
                       >
-                        {t('contact.email')} *
+                        {t("contact.email")} *
                       </label>
                       <input
                         type="email"
@@ -104,7 +104,7 @@ const Contacts: React.FC = () => {
                         onChange={handleChange}
                         required
                         className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#ff9900] focus:border-transparent"
-                        placeholder={t('contact.emailPlaceholder')}
+                        placeholder={t("contact.emailPlaceholder")}
                       />
                     </div>
 
@@ -131,7 +131,7 @@ const Contacts: React.FC = () => {
                         htmlFor="sujet"
                         className="block text-sm font-semibold text-[#3b2c6a] mb-2"
                       >
-                        {t('contact.subject')} *
+                        {t("contact.subject")} *
                       </label>
                       <select
                         id="sujet"
@@ -141,14 +141,20 @@ const Contacts: React.FC = () => {
                         required
                         className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#ff9900] focus:border-transparent"
                       >
-                        <option value="">{t('contact.selectSubject')}</option>
-                        <option value="admission">{t('contact.admissionRequest')}</option>
-                        <option value="formations">
-                          {t('contact.trainingInfo')}
+                        <option value="">{t("contact.selectSubject")}</option>
+                        <option value="admission">
+                          {t("contact.admissionRequest")}
                         </option>
-                        <option value="frais">{t('contact.tuitionFees')}</option>
-                        <option value="stages">{t('contact.internshipsJobs')}</option>
-                        <option value="autre">{t('contact.other')}</option>
+                        <option value="formations">
+                          {t("contact.trainingInfo")}
+                        </option>
+                        <option value="frais">
+                          {t("contact.tuitionFees")}
+                        </option>
+                        <option value="stages">
+                          {t("contact.internshipsJobs")}
+                        </option>
+                        <option value="autre">{t("contact.other")}</option>
                       </select>
                     </div>
 
@@ -157,7 +163,7 @@ const Contacts: React.FC = () => {
                         htmlFor="message"
                         className="block text-sm font-semibold text-[#3b2c6a] mb-2"
                       >
-                        {t('contact.message')} *
+                        {t("contact.message")} *
                       </label>
                       <textarea
                         id="message"
@@ -167,7 +173,7 @@ const Contacts: React.FC = () => {
                         required
                         rows={5}
                         className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#ff9900] focus:border-transparent resize-none"
-                        placeholder={t('contact.messagePlaceholder')}
+                        placeholder={t("contact.messagePlaceholder")}
                       />
                     </div>
 
@@ -188,7 +194,7 @@ const Contacts: React.FC = () => {
                           d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
                         />
                       </svg>
-                      {t('contact.sendMessageButton')}
+                      {t("contact.sendMessageButton")}
                     </button>
                   </form>
                 </div>
