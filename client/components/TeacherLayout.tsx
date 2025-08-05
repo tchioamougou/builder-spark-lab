@@ -1,4 +1,4 @@
-import { ReactNode, useState } from "react";
+import { ReactNode, useState, useEffect, useRef } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { cn } from "@/lib/utils";
@@ -106,6 +106,11 @@ export default function TeacherLayout({ children }: TeacherLayoutProps) {
   const { user, logout } = useAuth();
   const { toast } = useToast();
   const { t } = useTranslation();
+  const [isNotificationOpen, setIsNotificationOpen] = useState(false);
+  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+  
+  const notificationRef = useRef<HTMLDivElement>(null);
+  const userMenuRef = useRef<HTMLDivElement>(null);
 
   // State for dialogs
   const [isGradeDialogOpen, setIsGradeDialogOpen] = useState(false);
@@ -129,6 +134,23 @@ export default function TeacherLayout({ children }: TeacherLayoutProps) {
     students: [] as string[],
     comment: "",
   });
+
+  // Close dropdowns when clicking outside
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (notificationRef.current && !notificationRef.current.contains(event.target as Node)) {
+        setIsNotificationOpen(false);
+      }
+      if (userMenuRef.current && !userMenuRef.current.contains(event.target as Node)) {
+        setIsUserMenuOpen(false);
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   const handleSubmitGrade = () => {
     if (
@@ -224,7 +246,7 @@ export default function TeacherLayout({ children }: TeacherLayoutProps) {
             </div>
 
             {/* Right side actions */}
-            <div className="flex items-center space-x-1 md:space-x-3 overflow-x-auto">
+            <div className="flex items-center space-x-1 md:space-x-3">
               {/* Search button */}
               <Button
                 variant="ghost"
@@ -236,72 +258,79 @@ export default function TeacherLayout({ children }: TeacherLayoutProps) {
               </Button>
 
               {/* Notifications dropdown */}
-              <div className="relative group">
+              <div className="relative" ref={notificationRef}>
                 <Button
                   variant="ghost"
                   size="sm"
                   className="relative bg-white/10 hover:bg-white/20 text-white rounded-full p-2 h-9 w-9"
+                  onClick={() => setIsNotificationOpen(!isNotificationOpen)}
                 >
                   <Bell className="h-4 w-4" />
                   <span className="absolute -top-1 -right-1 h-4 w-4 flex items-center justify-center bg-amber-500 text-[10px] text-white font-bold rounded-full shadow-sm border border-white/20">
                     4
                   </span>
                 </Button>
-                <div className="absolute right-0 mt-2 w-80 max-w-[90vw] bg-white rounded-lg shadow-xl overflow-hidden z-50 opacity-0 group-hover:opacity-100 invisible group-hover:visible border border-gray-100">
-                  <div className="p-3 border-b border-gray-100 bg-gray-50 flex justify-between items-center">
-                    <h3 className="text-sm font-semibold text-gray-700">
-                      {t("common.notifications")}
-                    </h3>
-                    <span className="text-xs text-gray-500 bg-gray-200 rounded-full px-2 py-0.5">
-                      4 nouvelles
-                    </span>
-                  </div>
-                  <div className="max-h-72 overflow-y-auto">
-                    <div className="p-3 hover:bg-gray-50 border-l-4 border-orange-500">
-                      <div className="flex items-start">
-                        <div className="bg-orange-100 p-1.5 rounded-full mr-3">
-                          <BarChart3 className="h-4 w-4 text-orange-600" />
+                {isNotificationOpen && (
+                  <div className="absolute right-0 mt-2 w-80 max-w-[90vw] bg-white rounded-lg shadow-xl overflow-hidden z-50 border border-gray-100 animate-in slide-in-from-top-2 duration-200">
+                    <div className="p-3 border-b border-gray-100 bg-gray-50 flex justify-between items-center">
+                      <h3 className="text-sm font-semibold text-gray-700">
+                        {t("common.notifications")}
+                      </h3>
+                      <span className="text-xs text-gray-500 bg-gray-200 rounded-full px-2 py-0.5">
+                        4 nouvelles
+                      </span>
+                    </div>
+                    <div className="max-h-72 overflow-y-auto">
+                      <div className="p-3 hover:bg-gray-50 border-l-4 border-orange-500">
+                        <div className="flex items-start">
+                          <div className="bg-orange-100 p-1.5 rounded-full mr-3">
+                            <BarChart3 className="h-4 w-4 text-orange-600" />
+                          </div>
+                          <div className="flex-1">
+                            <p className="text-sm font-medium text-gray-800">
+                              23 notes à saisir
+                            </p>
+                            <p className="text-xs text-gray-500 mt-1">
+                              Examens terminés
+                            </p>
+                          </div>
                         </div>
-                        <div className="flex-1">
-                          <p className="text-sm font-medium text-gray-800">
-                            23 notes à saisir
-                          </p>
-                          <p className="text-xs text-gray-500 mt-1">
-                            Examens terminés
-                          </p>
+                      </div>
+                      <div className="p-3 hover:bg-gray-50 border-l-4 border-blue-500">
+                        <div className="flex items-start">
+                          <div className="bg-blue-100 p-1.5 rounded-full mr-3">
+                            <MessageSquare className="h-4 w-4 text-blue-600" />
+                          </div>
+                          <div className="flex-1">
+                            <p className="text-sm font-medium text-gray-800">
+                              5 nouveaux messages
+                            </p>
+                            <p className="text-xs text-gray-500 mt-1">
+                              Questions d'étudiants
+                            </p>
+                          </div>
                         </div>
                       </div>
                     </div>
-                    <div className="p-3 hover:bg-gray-50 border-l-4 border-blue-500">
-                      <div className="flex items-start">
-                        <div className="bg-blue-100 p-1.5 rounded-full mr-3">
-                          <MessageSquare className="h-4 w-4 text-blue-600" />
-                        </div>
-                        <div className="flex-1">
-                          <p className="text-sm font-medium text-gray-800">
-                            5 nouveaux messages
-                          </p>
-                          <p className="text-xs text-gray-500 mt-1">
-                            Questions d'étudiants
-                          </p>
-                        </div>
-                      </div>
+                    <div className="p-2 bg-gray-50 border-t border-gray-100 flex justify-between items-center">
+                      <Link
+                        to="/teacher/notifications"
+                        className="text-xs font-medium text-primary hover:text-primary/80 flex items-center"
+                        onClick={() => setIsNotificationOpen(false)}
+                      >
+                        Voir toutes <ChevronRight className="h-3 w-3 ml-1" />
+                      </Link>
                     </div>
                   </div>
-                  <div className="p-2 bg-gray-50 border-t border-gray-100 flex justify-between items-center">
-                    <Link
-                      to="/teacher/notifications"
-                      className="text-xs font-medium text-primary hover:text-primary/80 flex items-center"
-                    >
-                      Voir toutes <ChevronRight className="h-3 w-3 ml-1" />
-                    </Link>
-                  </div>
-                </div>
+                )}
               </div>
 
               {/* User profile dropdown */}
-              <div className="relative group">
-                <div className="flex items-center space-x-2 bg-white/10 hover:bg-white/15 p-1.5 rounded-full cursor-pointer pr-3">
+              <div className="relative" ref={userMenuRef}>
+                <div 
+                  className="flex items-center space-x-2 bg-white/10 hover:bg-white/15 p-1.5 rounded-full cursor-pointer pr-3"
+                  onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
+                >
                   <Avatar className="h-7 w-7 border-2 border-white/30">
                     <AvatarImage src={user?.avatar} />
                     <AvatarFallback className="bg-primary-foreground text-primary font-medium text-xs">
@@ -323,48 +352,56 @@ export default function TeacherLayout({ children }: TeacherLayoutProps) {
                 </div>
 
                 {/* User dropdown menu */}
-                <div className="absolute right-0 mt-2 w-56 max-w-[90vw] bg-white rounded-lg shadow-xl overflow-hidden z-50 opacity-0 group-hover:opacity-100 invisible group-hover:visible border border-gray-100">
-                  <div className="p-3 border-b border-gray-100 bg-gray-50">
-                    <p className="text-sm font-medium text-gray-700">
-                      {user?.nom}
-                    </p>
-                    <p className="text-xs text-gray-500 mt-0.5">
-                      {user?.specialite} • {t("auth.roles.teacher")}
-                    </p>
+                {isUserMenuOpen && (
+                  <div className="absolute right-0 mt-2 w-56 max-w-[90vw] bg-white rounded-lg shadow-xl overflow-hidden z-50 border border-gray-100 animate-in slide-in-from-top-2 duration-200">
+                    <div className="p-3 border-b border-gray-100 bg-gray-50">
+                      <p className="text-sm font-medium text-gray-700">
+                        {user?.nom}
+                      </p>
+                      <p className="text-xs text-gray-500 mt-0.5">
+                        {user?.specialite} • {t("auth.roles.teacher")}
+                      </p>
+                    </div>
+                    <div className="py-1">
+                      <Link
+                        to="/teacher/profile"
+                        className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
+                        onClick={() => setIsUserMenuOpen(false)}
+                      >
+                        <User className="h-4 w-4 mr-3 text-gray-400" />
+                        {t("common.profile")}
+                      </Link>
+                      <Link
+                        to="/teacher/messages"
+                        className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
+                        onClick={() => setIsUserMenuOpen(false)}
+                      >
+                        <MessageSquare className="h-4 w-4 mr-3 text-gray-400" />
+                        {t("common.messages")}
+                      </Link>
+                      <Link
+                        to="/teacher/settings"
+                        className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
+                        onClick={() => setIsUserMenuOpen(false)}
+                      >
+                        <Settings className="h-4 w-4 mr-3 text-gray-400" />
+                        {t("common.settings")}
+                      </Link>
+                    </div>
+                    <div className="py-1 border-t border-gray-100 bg-gray-50">
+                      <button
+                        onClick={() => {
+                          logout();
+                          setIsUserMenuOpen(false);
+                        }}
+                        className="flex w-full items-center px-4 py-2 text-sm text-red-600 hover:bg-red-50"
+                      >
+                        <LogOut className="h-4 w-4 mr-3 text-red-500" />
+                        {t("common.logout")}
+                      </button>
+                    </div>
                   </div>
-                  <div className="py-1">
-                    <Link
-                      to="/teacher/profile"
-                      className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
-                    >
-                      <User className="h-4 w-4 mr-3 text-gray-400" />
-                      {t("common.profile")}
-                    </Link>
-                    <Link
-                      to="/teacher/messages"
-                      className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
-                    >
-                      <MessageSquare className="h-4 w-4 mr-3 text-gray-400" />
-                      {t("common.messages")}
-                    </Link>
-                    <Link
-                      to="/teacher/settings"
-                      className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
-                    >
-                      <Settings className="h-4 w-4 mr-3 text-gray-400" />
-                      {t("common.settings")}
-                    </Link>
-                  </div>
-                  <div className="py-1 border-t border-gray-100 bg-gray-50">
-                    <button
-                      onClick={logout}
-                      className="flex w-full items-center px-4 py-2 text-sm text-red-600 hover:bg-red-50"
-                    >
-                      <LogOut className="h-4 w-4 mr-3 text-red-500" />
-                      {t("common.logout")}
-                    </button>
-                  </div>
-                </div>
+                )}
               </div>
 
               {/* Language switcher */}
