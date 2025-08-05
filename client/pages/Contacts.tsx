@@ -29,9 +29,7 @@ const Contacts: React.FC = () => {
     e.preventDefault();
     // Logique d'envoi du formulaire
     console.log("Formulaire soumis:", formData);
-    alert(
-      "Merci pour votre message ! Nous vous répondrons dans les plus brefs délais.",
-    );
+    alert(t('contact.formSubmitMessage'));
     setFormData({ nom: "", email: "", telephone: "", sujet: "", message: "" });
   };
 
@@ -68,8 +66,7 @@ const Contacts: React.FC = () => {
               <div>
                 <div className="bg-white rounded-3xl shadow-xl p-8">
                   <h2 className="heading-font text-3xl font-bold text-[#3b2c6a] mb-6">
-                    {t("contact.sendMessage").split(" ").slice(0, -2).join(" ")}{" "}
-                    <span className="text-[#ff9900]">message</span>
+                    {t('contact.sendMessage')}
                   </h2>
 
                   <form onSubmit={handleSubmit} className="space-y-6">
@@ -97,7 +94,7 @@ const Contacts: React.FC = () => {
                         htmlFor="email"
                         className="block text-sm font-semibold text-[#3b2c6a] mb-2"
                       >
-                        Email *
+                        {t('contact.email')} *
                       </label>
                       <input
                         type="email"
@@ -107,7 +104,7 @@ const Contacts: React.FC = () => {
                         onChange={handleChange}
                         required
                         className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#ff9900] focus:border-transparent"
-                        placeholder="votre.email@exemple.com"
+                        placeholder={t('contact.emailPlaceholder')}
                       />
                     </div>
 
