@@ -805,19 +805,16 @@ const LandingPage: React.FC = () => {
                     </span>
                   </div>
                   <blockquote className="text-gray-700 text-lg md:text-xl leading-relaxed mb-6 italic">
-                    "L'ambiance au campus est exceptionnelle. Les espaces sont
-                    modernes, les professeurs sont disponibles et l'esprit de
-                    collaboration entre étudiants nous pousse à donner le
-                    meilleur de nous-mêmes chaque jour."
+                    "{t("landingPage.campusLife.studentTestimonial.quote")}"
                   </blockquote>
                   <div className="flex items-center gap-4">
                     <div className="w-12 h-12 bg-[#3b2c6a] rounded-full flex items-center justify-center">
                       <span className="text-white font-bold">AM</span>
                     </div>
                     <div>
-                      <p className="font-bold text-[#3b2c6a]">Amina Moussa</p>
+                      <p className="font-bold text-[#3b2c6a]">{t("landingPage.campusLife.studentTestimonial.name")}</p>
                       <p className="text-gray-500 text-sm">
-                        Étudiante en 2ème année - Aide-soignante
+                        {t("landingPage.campusLife.studentTestimonial.title")}
                       </p>
                     </div>
                   </div>
@@ -1090,7 +1087,7 @@ const LandingPage: React.FC = () => {
                     <span>Événements</span>
                   </div>
                   <h3 className="heading-font text-xl font-bold text-[#3b2c6a] mb-3">
-                    C��rémonie de remise des diplômes 2023
+                    Cérémonie de remise des diplômes 2023
                   </h3>
                   <p className="text-gray-600 mb-4 line-clamp-3">
                     Félicitations à nos 150 nouveaux diplômés qui rejoignent le
