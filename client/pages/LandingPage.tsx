@@ -332,9 +332,7 @@ const LandingPage: React.FC = () => {
                   ))}
                 </div>
                 <blockquote className="text-gray-700 mb-6 leading-relaxed italic">
-                  "La formation en soins infirmiers à l'EPFPS m'a donné toutes
-                  les compétences nécessaires pour réussir. Les professeurs sont
-                  dévoués et les stages pratiques excellents."
+                  "{t("landingPage.testimonials.fatima.quote")}"
                 </blockquote>
                 <div className="flex items-center gap-3">
                   <img
