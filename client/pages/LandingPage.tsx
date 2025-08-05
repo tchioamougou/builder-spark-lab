@@ -300,7 +300,7 @@ const LandingPage: React.FC = () => {
           className="bg-gradient-to-br from-gray-50 to-white py-20 md:py-32 relative"
         >
           <div className="container mx-auto px-4 relative z-10">
-            {/* En-t��te de section professionnelle */}
+            {/* En-tête de section professionnelle */}
             <div className="text-center mb-16">
               <div className="inline-flex items-center justify-center p-2 bg-[#3b2c6a]/10 rounded-full mb-6">
                 <span className="text-[#3b2c6a] text-sm font-semibold px-4 py-2 bg-white rounded-full shadow-sm">
@@ -1064,7 +1064,7 @@ const LandingPage: React.FC = () => {
                     className="w-full h-48 object-cover"
                   />
                   <div className="absolute top-4 left-4 bg-green-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
-                    Événement
+                    {t("landingPage.news.event")}
                   </div>
                 </div>
                 <div className="p-6">
