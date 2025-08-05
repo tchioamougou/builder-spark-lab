@@ -14,7 +14,19 @@ import StudyGroup2 from "@/assets/images/landingpageimage/study-group-african-pe
 import CollegeStudents from "@/assets/images/landingpageimage/college-students-different-ethnicities-cramming.jpg";
 
 const LandingPage: React.FC = () => {
-  const { t } = useTranslation();
+  const { t, ready } = useTranslation();
+
+  // Attendre que i18n soit prêt
+  if (!ready) {
+    return (
+      <div className="min-h-screen bg-white flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#3b2c6a] mx-auto mb-4"></div>
+          <p className="text-gray-600">Chargement...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="landing-page">
