@@ -21,6 +21,9 @@ import {
   Upload,
   MessageSquare,
   Clock,
+  GraduationCap,
+  ChevronDown,
+  Search,
 } from "lucide-react";
 
 interface StudentLayoutProps {
