@@ -210,7 +210,7 @@ export default function LoginPage() {
 
         {/* Footer */}
         <div className="text-center text-sm text-gray-500">
-          <p>Système sécurisé - Tous droits réservés</p>
+          <p>{t('auth.secureSystem')}</p>
         </div>
       </div>
     </div>
