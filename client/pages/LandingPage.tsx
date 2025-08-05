@@ -834,7 +834,7 @@ const LandingPage: React.FC = () => {
             <div className="mb-20">
               <div className="inline-flex items-center justify-center p-2 bg-[#3b2c6a]/10 rounded-full mb-6">
                 <span className="text-[#3b2c6a] text-sm font-bold px-4 py-2 bg-white rounded-full shadow-lg">
-                  INFRASTRUCTURES
+                  {t("landingPage.infrastructure.title").toUpperCase()}
                 </span>
               </div>
               <h2 className="heading-font text-4xl md:text-6xl text-[#3b2c6a] font-black mb-6 leading-tight">
