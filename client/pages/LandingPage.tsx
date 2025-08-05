@@ -35,29 +35,23 @@ const LandingPage: React.FC = () => {
               {/* Bloc de texte avec fond semi-transparent */}
               <div className="md:w-1/2 p-8 bg-black/60 backdrop-blur-sm rounded-lg rounded-br-[80px] shadow-lg">
                 <h2 className="heading-font text-lg font-bold mb-2">
-                  École Privée de Formation des Professionels de Santé de
-                  Meingaga
+                  {t('landingPage.hero.schoolNameFull')}
                 </h2>
                 <h1 className="heading-font text-3xl md:text-5xl lg:text-6xl font-extrabold mb-6 leading-tight">
-                  Transformez votre vie grâce à l'éducation en santé
+                  {t('landingPage.hero.tagline')}
                 </h1>
-                <div className="bg-[#ff9900] text-white px-4 py-2 rounded-full inline-block mb-4">
-                  <span className="text-sm font-bold">
-                    Excellence • Innovation • Engagement Communautaire
-                  </span>
-                </div>
                 <div className="space-y-4">
                   <a
                     href="#"
                     className="block w-full text-center md:w-auto bg-[#ff9900] hover:bg-[#e68a00] text-white heading-font font-bold py-3 px-8 rounded-full shadow-lg transition-all duration-300 transform hover:scale-105"
                   >
-                    Demande d'adhésion
+                    {t('landingPage.hero.applyButton')}
                   </a>
                   <a
                     href="#"
                     className="block w-full text-center md:w-auto bg-transparent border-2 border-white hover:bg-white hover:text-[#3b2c6a] text-white heading-font font-bold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105"
                   >
-                    Voir nos formations
+                    {t('landingPage.hero.viewPrograms')}
                   </a>
                 </div>
               </div>
@@ -71,14 +65,13 @@ const LandingPage: React.FC = () => {
             <div className="md:flex items-start gap-12">
               <div className="md:w-1/2 mb-8 md:mb-0">
                 <h2 className="heading-font text-3xl md:text-4xl text-[#5d40a2] font-bold mb-4">
-                  Présentation
+                  {t('landingPage.presentation.title')}
                 </h2>
                 <p className="text-gray-600 leading-relaxed mb-6">
-                  École Supérieure Privée de Formation Sanitaire - Présentation
-                  du Directeur
+                  {t('landingPage.presentation.subtitle')}
                 </p>
                 <p className="text-gray-600 leading-relaxed">
-                  Reconnue par [Nom du ministère ou organisme], notre
+                  {t('landingPage.presentation.description')}
                   établissement offre un cadre d’apprentissage rigoureux et
                   humain pour former les professionnels de santé de demain.
                 </p>
@@ -111,7 +104,7 @@ const LandingPage: React.FC = () => {
         >
           <div className="container mx-auto px-4 text-center">
             <h2 className="heading-font text-3xl md:text-4xl font-bold mb-12">
-              Nos Filières Phares !
+              {t('landingPage.programs.title')}
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
               {/* Carte Filière 1 */}
@@ -194,7 +187,7 @@ const LandingPage: React.FC = () => {
                     Aide de santé communautaire
                   </h3>
                   <p className="text-gray-600">
-                    Nous interconnectons les systèmes et optimisons les flux de
+                    Nous interconnectons les syst��mes et optimisons les flux de
                     données pour garantir une infrastructure
                   </p>
                 </div>
@@ -222,7 +215,7 @@ const LandingPage: React.FC = () => {
               href="#contact"
               className="mt-12 inline-block bg-[#ff9900] hover:bg-[#e68a00] text-white heading-font font-bold py-3 px-8 rounded-full shadow-lg transition-all duration-300 transform hover:scale-105"
             >
-              S'inscrire maintenant
+              {t('landingPage.programs.enrollNow')}
             </a>
           </div>
         </section>

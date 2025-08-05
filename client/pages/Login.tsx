@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useAuth } from "@/contexts/AuthContext";
 import { useNavigate, useLocation } from "react-router-dom";
 import {
@@ -23,6 +24,7 @@ import {
 } from "lucide-react";
 
 export default function LoginPage() {
+  const { t } = useTranslation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -40,7 +42,7 @@ export default function LoginPage() {
     setError("");
 
     if (!email || !password) {
-      setError("Veuillez remplir tous les champs");
+      setError(t("auth.fillAllFields"));
       return;
     }
 
@@ -48,7 +50,7 @@ export default function LoginPage() {
     if (success) {
       navigate(from, { replace: true });
     } else {
-      setError("Email ou mot de passe incorrect");
+      setError(t("auth.incorrectCredentials"));
     }
   };
 
@@ -88,17 +90,17 @@ export default function LoginPage() {
               <GraduationCap className="h-8 w-8 text-primary-foreground" />
             </div>
           </div>
-          <h1 className="text-3xl font-bold text-gray-900">EduManage Pro</h1>
-          <p className="text-gray-600 mt-2">Système de gestion éducative</p>
+          <h1 className="text-3xl font-bold text-gray-900">
+            {t("auth.systemTitle")}
+          </h1>
+          <p className="text-gray-600 mt-2">{t("auth.systemSubtitle")}</p>
         </div>
 
         {/* Login Form */}
         <Card>
           <CardHeader>
-            <CardTitle>Connexion</CardTitle>
-            <CardDescription>
-              Connectez-vous à votre espace personnel
-            </CardDescription>
+            <CardTitle>{t("auth.loginTitle")}</CardTitle>
+            <CardDescription>{t("auth.loginSubtitle")}</CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-4">
@@ -160,7 +162,7 @@ export default function LoginPage() {
                     Connexion en cours...
                   </>
                 ) : (
-                  "Se connecter"
+                  t("auth.loginButton")
                 )}
               </Button>
             </form>
@@ -208,7 +210,7 @@ export default function LoginPage() {
 
         {/* Footer */}
         <div className="text-center text-sm text-gray-500">
-          <p>Système sécurisé - Tous droits réservés</p>
+          <p>{t("auth.secureSystem")}</p>
         </div>
       </div>
     </div>

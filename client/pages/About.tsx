@@ -26,10 +26,10 @@ const About: React.FC = () => {
           <div className="absolute inset-0 bg-black/60"></div>
           <div className="container mx-auto px-4 relative z-10 text-center">
             <h1 className="heading-font text-4xl md:text-6xl font-bold mb-6">
-              À propos de l'<span className="text-[#ff9900]">EPFPS</span>
+              {t("about.title")}
             </h1>
             <p className="text-xl md:text-2xl text-gray-200 max-w-3xl mx-auto leading-relaxed">
-              École Privée de Formation des Professionnels de Santé de Meiganga
+              {t("about.subtitle")}
             </p>
           </div>
         </section>
@@ -40,7 +40,7 @@ const About: React.FC = () => {
             <div className="max-w-4xl mx-auto">
               <div className="text-center mb-16">
                 <h2 className="heading-font text-3xl md:text-4xl text-[#3b2c6a] font-bold mb-4">
-                  Notre <span className="text-[#ff9900]">Histoire</span>
+                  {t("about.history")}
                 </h2>
                 <div className="w-20 h-1 bg-[#ff9900] mx-auto mb-6"></div>
               </div>
@@ -55,7 +55,7 @@ const About: React.FC = () => {
                 </div>
                 <div>
                   <h3 className="heading-font text-2xl font-bold text-[#3b2c6a] mb-6">
-                    Fondée pour l'excellence en santé
+                    {t("about.historyTitle")}
                   </h3>
                   <p className="text-gray-600 leading-relaxed mb-4">
                     L'École Privée de Formation des Professionnels de Santé de
@@ -85,7 +85,7 @@ const About: React.FC = () => {
           <div className="container mx-auto px-4">
             <div className="text-center mb-16">
               <h2 className="heading-font text-3xl md:text-4xl text-[#3b2c6a] font-bold mb-4">
-                Nos <span className="text-[#ff9900]">Fondements</span>
+                {t("about.foundations")}
               </h2>
               <div className="w-20 h-1 bg-[#ff9900] mx-auto mb-6"></div>
             </div>
@@ -109,7 +109,7 @@ const About: React.FC = () => {
                   </svg>
                 </div>
                 <h3 className="heading-font text-2xl font-bold text-[#3b2c6a] mb-4">
-                  Mission
+                  {t("about.mission")}
                 </h3>
                 <p className="text-gray-600 leading-relaxed">
                   L'EPFPS se concentre sur le développement éducatif et
@@ -145,7 +145,7 @@ const About: React.FC = () => {
                   </svg>
                 </div>
                 <h3 className="heading-font text-2xl font-bold text-[#3b2c6a] mb-4">
-                  Vision
+                  {t("about.vision")}
                 </h3>
                 <p className="text-gray-600 leading-relaxed">
                   Être l'école de référence en Afrique centrale pour la
@@ -173,7 +173,7 @@ const About: React.FC = () => {
                   </svg>
                 </div>
                 <h3 className="heading-font text-2xl font-bold text-[#3b2c6a] mb-4">
-                  Valeurs
+                  {t("about.values")}
                 </h3>
                 <p className="text-gray-600 leading-relaxed">
                   Excellence, Intégrité, Compassion, Innovation, Respect de la

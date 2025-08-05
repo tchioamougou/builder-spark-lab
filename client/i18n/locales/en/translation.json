@@ -87,12 +87,33 @@
     "hoursAgo": "{{count}} hours ago"
   },
   "auth": {
-    "loginTitle": "Login to your account",
-    "loginSubtitle": "Enter your credentials to access your account",
+    "loginTitle": "Login",
+    "loginSubtitle": "Sign in to your personal space",
     "forgotPassword": "Forgot password?",
     "rememberMe": "Remember me",
-    "loginButton": "Login",
-    "loginError": "Invalid credentials"
+    "loginButton": "Sign in",
+    "loginError": "Invalid credentials",
+    "systemTitle": "EduManage Pro",
+    "systemSubtitle": "Educational Management System",
+    "fillAllFields": "Please fill in all fields",
+    "incorrectCredentials": "Incorrect email or password",
+    "emailLabel": "Email address",
+    "emailPlaceholder": "your.email@univ.fr",
+    "passwordLabel": "Password",
+    "passwordPlaceholder": "••••••••",
+    "loginInProgress": "Signing in...",
+    "demoAccounts": "demo accounts",
+    "showDemo": "Show",
+    "hideDemo": "Hide",
+    "clickRoleToFill": "Click on a role to automatically fill the fields:",
+    "secureSystem": "Secure System - All rights reserved",
+    "roles": {
+      "administrator": "Administrator",
+      "student": "Student",
+      "teacher": "Teacher",
+      "hr": "HR",
+      "studentAffairs": "Student Affairs"
+    }
   },
   "navigation": {
     "studentDashboard": "Student Dashboard",
@@ -230,6 +251,19 @@
     "historyText1": "The Private School for Health Professionals Training of Meiganga (EPFPS) was created in response to the growing need for qualified health professionals in the Adamawa region and Cameroon in general.",
     "historyText2": "Since its creation, our institution has established itself as a reference in health professionals training, combining academic rigor, practical excellence and human values.",
     "historyText3": "Recognized by the Ministry of Public Health of Cameroon, EPFPS trains hundreds of students each year who contribute to improving the national health system.",
+    "ourMissions": "Our Missions",
+    "qualityTraining": "Quality Training",
+    "qualityTrainingDesc": "Innovative and high-performing academic programs, with an emphasis on practical skills and the integration of modern technologies in medical education.",
+    "communityEngagement": "Community Engagement",
+    "communityEngagementDesc": "Promoting youth social engagement and active involvement in public health community projects in the Adamawa region.",
+    "sustainableDevelopment": "Sustainable Development",
+    "sustainableDevelopmentDesc": "Awareness initiatives on climate and social issues, integrating sustainability principles into medical practice and healthcare.",
+    "innovationResearch": "Innovation and Research",
+    "innovationResearchDesc": "Encouraging applied research and local innovation in the health field, with a focus on solutions adapted to the African context.",
+    "ictTechnologies": "ICT Technologies",
+    "ictTechnologiesDesc": "Integration of Information and Communication Technologies in our programs to develop digital skills essential for modern health professionals.",
+    "strategicPartnerships": "Strategic Partnerships",
+    "strategicPartnershipsDesc": "Active collaborations with local companies, partner hospitals and international academic institutions to enrich the student experience.",
     "foundations": "Our Foundations",
     "mission": "Mission",
     "missionText": "To train competent, ethical and dedicated health professionals, capable of responding to the health challenges of Cameroon and Africa, emphasizing academic excellence and a human approach to care.",
@@ -346,6 +380,7 @@
     "sendMessage": "Send us a message",
     "fullName": "Full name",
     "fullNamePlaceholder": "Your full name",
+    "email": "Email",
     "emailPlaceholder": "your.email@example.com",
     "phone": "Phone",
     "phonePlaceholder": "+237 6XX XXX XXX",
@@ -358,16 +393,25 @@
     "other": "Other",
     "message": "Message",
     "messagePlaceholder": "Describe your request or questions...",
-    "sendMessage": "Send message",
+    "sendMessageButton": "Send message",
+    "formSubmitMessage": "Thank you for your message! We will respond to you as soon as possible.",
     "coordinates": "Our Coordinates",
     "address": "Address",
-    "addressText": "Private School for Health Professionals Training\nPO Box 123, Meiganga\nAdamawa Region, Cameroon",
-    "phoneText": "Main: +237 6XX XXX XXX\nAdmissions: +237 6YY YYY YYY\nMonday - Friday: 8am - 5pm",
-    "emailText": "General: contact@epfps-meiganga.cm\nAdmissions: admissions@epfps-meiganga.cm\nManagement: direction@epfps-meiganga.cm",
+    "addressText": "Private School for Health Professionals Training",
+    "neighborhood": "Sabongari Gbaboy District",
+    "poBox": "PO Box 123, Meiganga",
+    "region": "Adamawa Region, Cameroon",
+    "phoneLabel": "Phone",
+    "standard": "Main",
+    "admissions": "Admissions",
+    "direction": "Management",
+    "scholarship": "Student Affairs",
+    "emailLabel": "Email",
+    "general": "General",
     "openingHours": "Opening hours",
-    "mondayFriday": "Monday - Friday:",
-    "saturday": "Saturday:",
-    "sunday": "Sunday:",
+    "mondayFriday": "Monday - Friday",
+    "saturday": "Saturday",
+    "sunday": "Sunday",
     "closed": "Closed",
     "howToFind": "How to find us",
     "schoolAccess": "School access",
@@ -378,7 +422,115 @@
     "landmarks": "Landmarks",
     "landmarksText": "The school is located near Meiganga regional hospital, opposite the Total gas station.",
     "parkingAvailable": "Parking available",
-    "parkingText": "Free parking available on campus for visitors and students."
+    "parkingText": "Free parking available on campus for visitors and students.",
+    "interactiveMap": "Interactive location map"
+  },
+  "landingPage": {
+    "hero": {
+      "schoolNameFull": "Private School for Health Professionals Training of Meiganga",
+      "tagline": "Transform your life through health education",
+      "applyButton": "Application request",
+      "viewPrograms": "View our programs"
+    },
+    "presentation": {
+      "title": "Presentation",
+      "subtitle": "Private Higher School of Health Training - Director's Presentation",
+      "description": "Recognized by [Ministry or organization name], our institution offers a rigorous and humane learning environment to train tomorrow's health professionals."
+    },
+    "programs": {
+      "title": "Our Flagship Programs!",
+      "communityHealthAid": "Community health aide",
+      "programDescription": "We interconnect systems and optimize data flows to ensure infrastructure",
+      "enrollNow": "Enroll now"
+    },
+    "testimonials": {
+      "title": "What they say about us",
+      "subtitle": "Discover authentic testimonials from our students and graduates who are making a difference in the health sector today.",
+      "fatima": {
+        "quote": "The nursing training at EPFPS gave me all the necessary skills to succeed. The teachers are dedicated and the practical internships excellent.",
+        "name": "Fatima Mballa",
+        "title": "Graduate in Nursing",
+        "workplace": "Works at Central Hospital"
+      },
+      "emmanuel": {
+        "quote": "The practical approach to teaching and personalized support allowed me to develop my confidence and professional skills.",
+        "name": "Emmanuel Ngono",
+        "title": "3rd year student",
+        "specialty": "Nursing aide specialty"
+      },
+      "marie": {
+        "quote": "Thanks to my training at EPFPS, I now contribute to improving the health of my community. The school gave me the tools to make a difference.",
+        "name": "Marie Tchounkeu",
+        "title": "2023 Graduate",
+        "job": "Community Health Agent"
+      },
+      "satisfaction": {
+        "title": "Student satisfaction rate",
+        "subtitle": "Based on a survey of 500+ students and graduates",
+        "overall": "Overall satisfaction",
+        "overallDesc": "Recommend our school",
+        "quality": "Teaching quality",
+        "qualityDesc": "Excellent course level",
+        "employment": "Professional integration",
+        "employmentDesc": "Find employment within 6 months",
+        "support": "Support",
+        "supportDesc": "Personalized follow-up appreciated"
+      }
+    },
+    "stats": {
+      "studentsFormed": "Students trained",
+      "professionalExperts": "Professional experts",
+      "partners": "Partners",
+      "campus": "Campus"
+    },
+    "campusLife": {
+      "title": "Campus life",
+      "subtitle": "Discover an inspiring and dynamic community where our students evolve in an environment rich in academic, social and cultural activities, promoting their personal and professional development.",
+      "modernClassrooms": "Modern classrooms",
+      "classroomsDesc": "Rooms equipped with the latest technologies for interactive and collaborative learning.",
+      "studySpaces": "Collaborative study spaces",
+      "studyDesc": "Areas dedicated to group work and collaborative projects between students.",
+      "library": "Library",
+      "libraryDesc": "Access to a rich collection of medical and scientific works, silent reading spaces.",
+      "laboratories": "Laboratories",
+      "labDesc": "Modern laboratories equipped for practical work in medical and biological sciences.",
+      "relaxSpaces": "Relaxation spaces",
+      "relaxDesc": "Rest and socialization areas to encourage exchanges between students.",
+      "studentTestimonial": {
+        "quote": "The campus atmosphere is exceptional. The spaces are modern, the teachers are available and the spirit of collaboration between students pushes us to give our best every day.",
+        "name": "Amina Moussa",
+        "title": "2nd year student - Nursing aide"
+      }
+    },
+    "infrastructure": {
+      "title": "Campus infrastructure",
+      "equippedLab": "Equipped laboratory",
+      "labDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et massa mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien fringilla."
+    },
+    "news": {
+      "title": "Our News",
+      "subtitle": "Stay informed about the latest news, events and developments from our health training school.",
+      "emergencyTraining": "New emergency care training",
+      "emergencyDesc": "Discover our new training program specialized in emergency care, designed to meet the growing needs of the health sector...",
+      "hospitalPartnership": "Partnership with the regional hospital",
+      "partnershipDesc": "Our school strengthens its ties with the regional hospital to offer better practical internship opportunities to our students...",
+      "graduation": "2023 graduation ceremony",
+      "graduationDesc": "Congratulations to our 150 new graduates who join the health sector with excellence and dedication...",
+      "readMore": "Read more",
+      "viewAll": "View all news"
+    },
+    "cta": {
+      "title": "Ready to start your journey in the health sector?",
+      "subtitle": "Join our community of passionate students and prepare to make a difference in the world of health. Your future starts here!",
+      "admissionRequest": "Admission request",
+      "admissionConditions": "Admission conditions",
+      "callUs": "Call us",
+      "schedule": "Mon-Fri 8am-5pm",
+      "visitCampus": "Visit the campus",
+      "guidedTours": "Guided tours available",
+      "writeUs": "Write to us",
+      "responseTime": "Response within 24h"
+    }
   },
   "footer": {
     "schoolName1": "Private School for Health",
