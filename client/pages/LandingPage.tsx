@@ -606,7 +606,7 @@ const LandingPage: React.FC = () => {
                 <p className="text-lg font-medium text-gray-200 mb-1">
                   {t("landingPage.stats.campus")}
                 </p>
-                <p className="text-sm text-gray-400">À Meiganga</p>
+                <p className="text-sm text-gray-400">{t("landingPage.stats.inMeiganga")}</p>
               </div>
             </div>
           </div>
