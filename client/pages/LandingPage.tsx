@@ -14,10 +14,24 @@ import StudyGroup2 from "@/assets/images/landingpageimage/study-group-african-pe
 import CollegeStudents from "@/assets/images/landingpageimage/college-students-different-ethnicities-cramming.jpg";
 
 const LandingPage: React.FC = () => {
-  const { t, ready } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    // Attendre que i18n soit initialisé
+    if (i18n.isInitialized) {
+      setIsLoading(false);
+    } else {
+      const handleInitialized = () => {
+        setIsLoading(false);
+      };
+      i18n.on('initialized', handleInitialized);
+      return () => i18n.off('initialized', handleInitialized);
+    }
+  }, [i18n]);
 
   // Attendre que i18n soit prêt
-  if (!ready) {
+  if (isLoading) {
     return (
       <div className="min-h-screen bg-white flex items-center justify-center">
         <div className="text-center">
