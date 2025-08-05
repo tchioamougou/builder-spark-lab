@@ -227,29 +227,31 @@ export default function StudentLayout({ children }: StudentLayoutProps) {
 
       <div className="flex flex-col lg:flex-row">
         {/* Sidebar */}
-        <nav className="w-full lg:w-64 bg-white shadow-sm h-auto lg:h-[calc(100vh-4rem)] overflow-y-auto border-b lg:border-b-0 lg:border-r">
+        <nav className="w-full lg:w-64 bg-gradient-to-b from-gray-50 to-white shadow-lg h-auto lg:h-[calc(100vh-5rem)] overflow-y-auto border-b lg:border-b-0 lg:border-r border-gray-200/50">
           <div className="p-4">
-            {/* Quick Stats */}
-            <div className="mb-6 p-4 bg-primary/5 rounded-lg">
-              <h3 className="text-sm font-medium text-gray-900 mb-2">
+            {/* Quick Stats with futuristic design */}
+            <div className="mb-6 p-4 bg-gradient-to-r from-primary/10 via-primary/5 to-amber-50 rounded-xl border border-primary/20 backdrop-blur-sm">
+              <h3 className="text-sm font-bold text-gray-900 mb-3 flex items-center">
+                <div className="w-2 h-2 bg-primary rounded-full mr-2"></div>
                 {t("student.academicStatus")}
               </h3>
-              <div className="space-y-1 text-sm">
-                <div className="flex justify-between">
+              <div className="space-y-2 text-sm">
+                <div className="flex justify-between items-center p-2 bg-white/50 rounded-lg">
                   <span className="text-gray-600">{t("common.grades")}:</span>
-                  <span className="font-medium">14.5/20</span>
+                  <span className="font-bold text-primary">14.5/20</span>
                 </div>
-                <div className="flex justify-between">
+                <div className="flex justify-between items-center p-2 bg-white/50 rounded-lg">
                   <span className="text-gray-600">
                     {t("programs.credits")}:
                   </span>
-                  <span className="font-medium">45/60</span>
+                  <span className="font-bold text-blue-600">45/60</span>
                 </div>
-                <div className="flex justify-between">
+                <div className="flex justify-between items-center p-2 bg-white/50 rounded-lg">
                   <span className="text-gray-600">
                     {t("student.financialStatus")}:
                   </span>
-                  <span className="font-medium text-green-600">
+                  <span className="font-bold text-green-600 flex items-center">
+                    <div className="w-2 h-2 bg-green-500 rounded-full mr-1"></div>
                     {t("status.upToDate")}
                   </span>
                 </div>
