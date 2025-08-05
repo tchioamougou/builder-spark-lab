@@ -554,7 +554,7 @@ const LandingPage: React.FC = () => {
                 <p className="text-lg font-medium text-gray-200 mb-1">
                   {t("landingPage.stats.professionalExperts")}
                 </p>
-                <p className="text-sm text-gray-400">Enseignants qualifiés</p>
+                <p className="text-sm text-gray-400">{t("landingPage.stats.qualifiedTeachers")}</p>
               </div>
 
               {/* Statistique 3 */}
