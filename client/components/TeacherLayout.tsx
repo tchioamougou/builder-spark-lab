@@ -48,14 +48,22 @@ interface TeacherLayoutProps {
 }
 
 const getTeacherNavigation = (t: any) => [
-  { name: t('navigation.teacherDashboard'), href: "/teacher/dashboard", icon: Home },
-  { name: t('common.students'), href: "/teacher/students", icon: Users },
-  { name: t('teacher.enterGrades'), href: "/teacher/grades", icon: BarChart3 },
-  { name: t('common.schedule'), href: "/teacher/schedule", icon: Calendar },
-  { name: t('common.courses'), href: "/teacher/courses", icon: BookOpen },
-  { name: t('common.documents'), href: "/teacher/documents", icon: FileText },
-  { name: t('common.messages'), href: "/teacher/messages", icon: MessageSquare },
-  { name: t('common.profile'), href: "/teacher/profile", icon: User },
+  {
+    name: t("navigation.teacherDashboard"),
+    href: "/teacher/dashboard",
+    icon: Home,
+  },
+  { name: t("common.students"), href: "/teacher/students", icon: Users },
+  { name: t("teacher.enterGrades"), href: "/teacher/grades", icon: BarChart3 },
+  { name: t("common.schedule"), href: "/teacher/schedule", icon: Calendar },
+  { name: t("common.courses"), href: "/teacher/courses", icon: BookOpen },
+  { name: t("common.documents"), href: "/teacher/documents", icon: FileText },
+  {
+    name: t("common.messages"),
+    href: "/teacher/messages",
+    icon: MessageSquare,
+  },
+  { name: t("common.profile"), href: "/teacher/profile", icon: User },
 ];
 
 // Mock data for courses and students
@@ -126,7 +134,7 @@ export default function TeacherLayout({ children }: TeacherLayoutProps) {
       !gradeForm.grade
     ) {
       toast({
-        title: t('common.error'),
+        title: t("common.error"),
         description: "Veuillez remplir tous les champs obligatoires.",
         variant: "destructive",
       });
@@ -156,7 +164,7 @@ export default function TeacherLayout({ children }: TeacherLayoutProps) {
       absenceForm.students.length === 0
     ) {
       toast({
-        title: t('common.error'),
+        title: t("common.error"),
         description:
           "Veuillez remplir tous les champs obligatoires et sélectionner au moins un étudiant.",
         variant: "destructive",
@@ -198,7 +206,7 @@ export default function TeacherLayout({ children }: TeacherLayoutProps) {
               <div className="flex items-center">
                 <GraduationCap className="h-8 w-8 text-primary" />
                 <h1 className="ml-2 text-xl font-bold text-gray-900">
-                  {t('navigation.teacherDashboard')}
+                  {t("navigation.teacherDashboard")}
                 </h1>
               </div>
             </div>
@@ -226,7 +234,9 @@ export default function TeacherLayout({ children }: TeacherLayoutProps) {
                   <div className="text-xs text-gray-500">
                     {user?.specialite}
                   </div>
-                  <div className="text-xs text-gray-500">{t('auth.roles.teacher')}</div>
+                  <div className="text-xs text-gray-500">
+                    {t("auth.roles.teacher")}
+                  </div>
                 </div>
               </div>
 
@@ -235,7 +245,9 @@ export default function TeacherLayout({ children }: TeacherLayoutProps) {
 
               <Button variant="outline" size="sm" onClick={logout}>
                 <LogOut className="h-4 w-4" />
-                <span className="hidden md:inline ml-2">{t('common.logout')}</span>
+                <span className="hidden md:inline ml-2">
+                  {t("common.logout")}
+                </span>
               </Button>
             </div>
           </div>
@@ -253,7 +265,7 @@ export default function TeacherLayout({ children }: TeacherLayoutProps) {
               </h3>
               <div className="space-y-1 text-sm">
                 <div className="flex justify-between">
-                  <span className="text-gray-600">{t('common.students')}:</span>
+                  <span className="text-gray-600">{t("common.students")}:</span>
                   <span className="font-medium">127</span>
                 </div>
                 <div className="flex justify-between">
@@ -292,7 +304,7 @@ export default function TeacherLayout({ children }: TeacherLayoutProps) {
             {/* Quick Actions */}
             <div className="mt-8 pt-6 border-t">
               <h3 className="text-xs font-medium text-gray-500 uppercase tracking-wider mb-3">
-                {t('common.quickActions')}
+                {t("common.quickActions")}
               </h3>
               <div className="space-y-2">
                 <Button
@@ -302,7 +314,7 @@ export default function TeacherLayout({ children }: TeacherLayoutProps) {
                   onClick={() => navigate("/teacher/grade-entry")}
                 >
                   <BarChart3 className="h-4 w-4 mr-2" />
-                  {t('teacher.enterGrades')}
+                  {t("teacher.enterGrades")}
                 </Button>
                 <Button
                   variant="outline"
@@ -440,11 +452,11 @@ export default function TeacherLayout({ children }: TeacherLayoutProps) {
               variant="outline"
               onClick={() => setIsGradeDialogOpen(false)}
             >
-              {t('common.cancel')}
+              {t("common.cancel")}
             </Button>
             <Button onClick={handleSubmitGrade}>
               <Save className="h-4 w-4 mr-2" />
-              {t('common.save')}
+              {t("common.save")}
             </Button>
           </DialogFooter>
         </DialogContent>
@@ -558,7 +570,7 @@ export default function TeacherLayout({ children }: TeacherLayoutProps) {
               variant="outline"
               onClick={() => setIsAbsenceDialogOpen(false)}
             >
-              {t('common.cancel')}
+              {t("common.cancel")}
             </Button>
             <Button onClick={handleSubmitAbsence}>
               <UserCheck className="h-4 w-4 mr-2" />

@@ -202,8 +202,9 @@
 
 .neon-outline {
   border: 2px solid transparent;
-  background: linear-gradient(white, white) padding-box,
-              linear-gradient(45deg, #4ecdc4, #45b7d1) border-box;
+  background:
+    linear-gradient(white, white) padding-box,
+    linear-gradient(45deg, #4ecdc4, #45b7d1) border-box;
 }
 
 .cyber-card {
@@ -227,7 +228,11 @@
 
 .glass-card {
   backdrop-filter: blur(25px) saturate(200%);
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.1),
+    rgba(255, 255, 255, 0.05)
+  );
   border: 1px solid rgba(255, 255, 255, 0.2);
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
 }

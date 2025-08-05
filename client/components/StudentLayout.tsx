@@ -28,13 +28,21 @@ interface StudentLayoutProps {
 }
 
 const getStudentNavigation = (t: any) => [
-  { name: t('navigation.studentDashboard'), href: "/student/dashboard", icon: Home },
-  { name: t('common.grades'), href: "/student/grades", icon: FileText },
-  { name: t('common.schedule'), href: "/student/schedule", icon: Calendar },
-  { name: t('common.documents'), href: "/student/documents", icon: Download },
-  { name: t('common.requests'), href: "/student/requests", icon: Upload },
-  { name: t('common.messages'), href: "/student/messages", icon: MessageSquare },
-  { name: t('common.profile'), href: "/student/profile", icon: User },
+  {
+    name: t("navigation.studentDashboard"),
+    href: "/student/dashboard",
+    icon: Home,
+  },
+  { name: t("common.grades"), href: "/student/grades", icon: FileText },
+  { name: t("common.schedule"), href: "/student/schedule", icon: Calendar },
+  { name: t("common.documents"), href: "/student/documents", icon: Download },
+  { name: t("common.requests"), href: "/student/requests", icon: Upload },
+  {
+    name: t("common.messages"),
+    href: "/student/messages",
+    icon: MessageSquare,
+  },
+  { name: t("common.profile"), href: "/student/profile", icon: User },
 ];
 
 export default function StudentLayout({ children }: StudentLayoutProps) {
@@ -58,7 +66,7 @@ export default function StudentLayout({ children }: StudentLayoutProps) {
               <div className="flex items-center">
                 <BookOpen className="h-8 w-8 text-primary" />
                 <h1 className="ml-2 text-xl font-bold text-gray-900">
-                  {t('navigation.studentDashboard')}
+                  {t("navigation.studentDashboard")}
                 </h1>
               </div>
             </div>
@@ -97,7 +105,9 @@ export default function StudentLayout({ children }: StudentLayoutProps) {
 
               <Button variant="outline" size="sm" onClick={logout}>
                 <LogOut className="h-4 w-4" />
-                <span className="hidden md:inline ml-2">{t('common.logout')}</span>
+                <span className="hidden md:inline ml-2">
+                  {t("common.logout")}
+                </span>
               </Button>
             </div>
           </div>
@@ -111,20 +121,26 @@ export default function StudentLayout({ children }: StudentLayoutProps) {
             {/* Quick Stats */}
             <div className="mb-6 p-4 bg-primary/5 rounded-lg">
               <h3 className="text-sm font-medium text-gray-900 mb-2">
-                {t('student.academicStatus')}
+                {t("student.academicStatus")}
               </h3>
               <div className="space-y-1 text-sm">
                 <div className="flex justify-between">
-                  <span className="text-gray-600">{t('common.grades')}:</span>
+                  <span className="text-gray-600">{t("common.grades")}:</span>
                   <span className="font-medium">14.5/20</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-600">{t('programs.credits')}:</span>
+                  <span className="text-gray-600">
+                    {t("programs.credits")}:
+                  </span>
                   <span className="font-medium">45/60</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-600">{t('student.financialStatus')}:</span>
-                  <span className="font-medium text-green-600">{t('status.upToDate')}</span>
+                  <span className="text-gray-600">
+                    {t("student.financialStatus")}:
+                  </span>
+                  <span className="font-medium text-green-600">
+                    {t("status.upToDate")}
+                  </span>
                 </div>
               </div>
             </div>
@@ -154,7 +170,7 @@ export default function StudentLayout({ children }: StudentLayoutProps) {
             {/* Quick Actions */}
             <div className="mt-8 pt-6 border-t">
               <h3 className="text-xs font-medium text-gray-500 uppercase tracking-wider mb-3">
-                {t('common.quickActions')}
+                {t("common.quickActions")}
               </h3>
               <div className="space-y-2">
                 <AbsenceRequestDialog
@@ -165,7 +181,7 @@ export default function StudentLayout({ children }: StudentLayoutProps) {
                       className="w-full justify-start"
                     >
                       <Clock className="h-4 w-4 mr-2" />
-                      {t('student.requestAbsence')}
+                      {t("student.requestAbsence")}
                     </Button>
                   }
                 />
@@ -176,7 +192,7 @@ export default function StudentLayout({ children }: StudentLayoutProps) {
                   onClick={handleDownloadBulletin}
                 >
                   <Download className="h-4 w-4 mr-2" />
-                  {t('common.download')} bulletin
+                  {t("common.download")} bulletin
                 </Button>
               </div>
             </div>
