@@ -659,11 +659,10 @@ const LandingPage: React.FC = () => {
                       </span>
                     </div>
                     <h3 className="heading-font text-2xl font-bold text-white mb-2">
-                      Salles de cours modernes
+                      {t("landingPage.campusLife.modernClassrooms")}
                     </h3>
                     <p className="text-gray-200 text-sm leading-relaxed">
-                      Des salles équipées des dernières technologies pour un
-                      apprentissage interactif et collaboratif.
+                      {t("landingPage.campusLife.classroomsDesc")}
                     </p>
                   </div>
                 </div>
