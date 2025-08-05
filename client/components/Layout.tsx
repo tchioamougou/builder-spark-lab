@@ -257,9 +257,9 @@ export default function Layout({ children }: LayoutProps) {
 
       <div className="flex flex-col lg:flex-row">
         {/* Sidebar */}
-        <nav className="w-full lg:w-64 bg-white shadow-sm h-auto lg:h-[calc(100vh-4rem)] overflow-y-auto border-b lg:border-b-0 lg:border-r">
+        <nav className="w-full lg:w-64 bg-gradient-to-b from-gray-50 to-white shadow-lg h-auto lg:h-[calc(100vh-5rem)] overflow-y-auto border-b lg:border-b-0 lg:border-r border-gray-200/50">
           <div className="p-4">
-            <ul className="space-y-2">
+            <ul className="space-y-1">
               {getNavigation(t).map((item) => {
                 const isActive = location.pathname === item.href;
                 return (
@@ -267,14 +267,24 @@ export default function Layout({ children }: LayoutProps) {
                     <Link
                       to={item.href}
                       className={cn(
-                        "flex items-center space-x-3 px-3 py-2 rounded-lg text-sm font-medium",
+                        "flex items-center space-x-3 px-3 py-3 rounded-xl text-sm font-medium transition-all duration-200 group",
                         isActive
-                          ? "bg-primary text-primary-foreground"
-                          : "text-gray-700 hover:bg-gray-100",
+                          ? "bg-gradient-to-r from-primary to-primary/90 text-white shadow-lg shadow-primary/30"
+                          : "text-gray-700 hover:bg-gradient-to-r hover:from-gray-100 hover:to-gray-50 hover:shadow-md",
                       )}
                     >
-                      <item.icon className="h-5 w-5" />
-                      <span>{item.name}</span>
+                      <div className={cn(
+                        "p-1.5 rounded-lg transition-colors",
+                        isActive
+                          ? "bg-white/20"
+                          : "bg-gray-100 group-hover:bg-primary/10"
+                      )}>
+                        <item.icon className={cn(
+                          "h-4 w-4",
+                          isActive ? "text-white" : "text-gray-600 group-hover:text-primary"
+                        )} />
+                      </div>
+                      <span className="font-medium">{item.name}</span>
                     </Link>
                   </li>
                 );
