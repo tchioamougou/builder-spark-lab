@@ -381,6 +381,113 @@
     "parkingAvailable": "Parking disponible",
     "parkingText": "Stationnement gratuit disponible sur le campus pour les visiteurs et étudiants."
   },
+  "landingPage": {
+    "hero": {
+      "schoolNameFull": "École Privée de Formation des Professionnels de Santé de Meiganga",
+      "tagline": "Transformez votre vie grâce à l'éducation en santé",
+      "applyButton": "Demande d'adhésion",
+      "viewPrograms": "Voir nos formations"
+    },
+    "presentation": {
+      "title": "Présentation",
+      "subtitle": "École Supérieure Privée de Formation Sanitaire - Présentation du Directeur",
+      "description": "Reconnue par [Nom du ministère ou organisme], notre établissement offre un cadre d'apprentissage rigoureux et humain pour former les professionnels de santé de demain."
+    },
+    "programs": {
+      "title": "Nos Filières Phares !",
+      "communityHealthAid": "Aide de santé communautaire",
+      "programDescription": "Nous interconnectons les systèmes et optimisons les flux de données pour garantir une infrastructure",
+      "enrollNow": "S'inscrire maintenant"
+    },
+    "testimonials": {
+      "title": "Ce qu'ils disent de nous",
+      "subtitle": "Découvrez les témoignages authentiques de nos étudiants et diplômés qui font aujourd'hui la différence dans le secteur de la santé.",
+      "fatima": {
+        "quote": "La formation en soins infirmiers à l'EPFPS m'a donné toutes les compétences nécessaires pour réussir. Les professeurs sont dévoués et les stages pratiques excellents.",
+        "name": "Fatima Mballa",
+        "title": "Diplômée en Soins Infirmiers",
+        "workplace": "Travaille à l'Hôpital Central"
+      },
+      "emmanuel": {
+        "quote": "L'approche pratique de l'enseignement et l'accompagnement personnalisé m'ont permis de développer ma confiance et mes compétences professionnelles.",
+        "name": "Emmanuel Ngono",
+        "title": "Étudiant en 3ème année",
+        "specialty": "Spécialité Aide-soignant"
+      },
+      "marie": {
+        "quote": "Grâce à ma formation à l'EPFPS, je contribue maintenant à améliorer la santé de ma communauté. L'école m'a donné les outils pour faire la différence.",
+        "name": "Marie Tchounkeu",
+        "title": "Diplômée 2023",
+        "job": "Agent de Santé Communautaire"
+      },
+      "satisfaction": {
+        "title": "Taux de satisfaction de nos étudiants",
+        "subtitle": "Basé sur une enquête de 500+ étudiants et diplômés",
+        "overall": "Satisfaction générale",
+        "overallDesc": "Recommandent notre école",
+        "quality": "Qualité enseignement",
+        "qualityDesc": "Excellent niveau des cours",
+        "employment": "Insertion professionnelle",
+        "employmentDesc": "Trouvent un emploi dans les 6 mois",
+        "support": "Accompagnement",
+        "supportDesc": "Suivi personnalisé apprécié"
+      }
+    },
+    "stats": {
+      "studentsFormed": "Étudiants formés",
+      "professionalExperts": "Experts professionnels",
+      "partners": "Partenaires",
+      "campus": "Campus"
+    },
+    "campusLife": {
+      "title": "La vie au campus",
+      "subtitle": "Découvrez une communauté inspirante et dynamique où nos étudiants évoluent dans un environnement riche en activités académiques, sociales et culturelles, favorisant leur épanouissement personnel et professionnel.",
+      "modernClassrooms": "Salles de cours modernes",
+      "classroomsDesc": "Des salles équipées des dernières technologies pour un apprentissage interactif et collaboratif.",
+      "studySpaces": "Espaces d'étude collaboratif",
+      "studyDesc": "Des zones dédiées au travail en groupe et aux projets collaboratifs entre étudiants.",
+      "library": "Bibliothèque",
+      "libraryDesc": "Accès à une riche collection d'ouvrages médicaux et scientifiques, espaces de lecture silencieux.",
+      "laboratories": "Laboratoires",
+      "labDesc": "Laboratoires modernes équipés pour les travaux pratiques en sciences médicales et biologiques.",
+      "relaxSpaces": "Espaces de détente",
+      "relaxDesc": "Zones de repos et de socialisation pour favoriser les échanges entre étudiants.",
+      "studentTestimonial": {
+        "quote": "L'ambiance au campus est exceptionnelle. Les espaces sont modernes, les professeurs sont disponibles et l'esprit de collaboration entre étudiants nous pousse à donner le meilleur de nous-mêmes chaque jour.",
+        "name": "Amina Moussa",
+        "title": "Étudiante en 2ème année - Aide-soignante"
+      }
+    },
+    "infrastructure": {
+      "title": "Infrastructures du campus",
+      "equippedLab": "Laboratoire équipé",
+      "labDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et massa mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien fringilla."
+    },
+    "news": {
+      "title": "Nos Actualités",
+      "subtitle": "Restez informés des dernières nouvelles, événements et développements de notre école de formation sanitaire.",
+      "emergencyTraining": "Nouvelle formation en soins d'urgence",
+      "emergencyDesc": "Découvrez notre nouveau programme de formation spécialisé dans les soins d'urgence, conçu pour répondre aux besoins croissants du secteur de la santé...",
+      "hospitalPartnership": "Partenariat avec l'hôpital régional",
+      "partnershipDesc": "Notre école renforce ses liens avec l'hôpital régional pour offrir de meilleures opportunités de stage pratique à nos étudiants...",
+      "graduation": "Cérémonie de remise des diplômes 2023",
+      "graduationDesc": "Félicitations à nos 150 nouveaux diplômés qui rejoignent le secteur de la santé avec excellence et dévouement...",
+      "readMore": "Lire la suite",
+      "viewAll": "Voir toutes les actualités"
+    },
+    "cta": {
+      "title": "Prêt à commencer votre parcours dans le secteur de la santé ?",
+      "subtitle": "Rejoignez notre communauté d'étudiants passionnés et préparez-vous à faire la différence dans le monde de la santé. Votre avenir commence ici !",
+      "admissionRequest": "Demande d'admission",
+      "admissionConditions": "Conditions d'admission",
+      "callUs": "Appelez-nous",
+      "schedule": "Lun-Ven 8h-17h",
+      "visitCampus": "Visitez le campus",
+      "guidedTours": "Visites guidées disponibles",
+      "writeUs": "Écrivez-nous",
+      "responseTime": "Réponse sous 24h"
+    }
+  },
   "footer": {
     "schoolName1": "École Privée de Formation des",
     "schoolName2": "Professionnels de Santé",
