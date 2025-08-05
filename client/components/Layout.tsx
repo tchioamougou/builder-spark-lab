@@ -54,24 +54,30 @@ export default function Layout({ children }: LayoutProps) {
   const { t } = useTranslation();
   const [isNotificationOpen, setIsNotificationOpen] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
-  
+
   const notificationRef = useRef<HTMLDivElement>(null);
   const userMenuRef = useRef<HTMLDivElement>(null);
 
   // Close dropdowns when clicking outside
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
-      if (notificationRef.current && !notificationRef.current.contains(event.target as Node)) {
+      if (
+        notificationRef.current &&
+        !notificationRef.current.contains(event.target as Node)
+      ) {
         setIsNotificationOpen(false);
       }
-      if (userMenuRef.current && !userMenuRef.current.contains(event.target as Node)) {
+      if (
+        userMenuRef.current &&
+        !userMenuRef.current.contains(event.target as Node)
+      ) {
         setIsUserMenuOpen(false);
       }
     }
 
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
 
@@ -203,7 +209,7 @@ export default function Layout({ children }: LayoutProps) {
 
               {/* User profile dropdown */}
               <div className="relative" ref={userMenuRef}>
-                <div 
+                <div
                   className="flex items-center space-x-2 bg-white/10 hover:bg-white/15 p-1.5 rounded-full cursor-pointer pr-3"
                   onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
                 >
