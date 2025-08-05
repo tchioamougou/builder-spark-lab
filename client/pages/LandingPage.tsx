@@ -40,7 +40,6 @@ const LandingPage: React.FC = () => {
                 <h1 className="heading-font text-3xl md:text-5xl lg:text-6xl font-extrabold mb-6 leading-tight">
                   {t('landingPage.hero.tagline')}
                 </h1>
-
                 <div className="space-y-4">
                   <a
                     href="#"
