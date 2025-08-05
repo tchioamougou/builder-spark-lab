@@ -52,6 +52,8 @@ export default function Layout({ children }: LayoutProps) {
   const location = useLocation();
   const { user, logout } = useAuth();
   const { t } = useTranslation();
+  const [isNotificationOpen, setIsNotificationOpen] = useState(false);
+  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
 
   return (
     <div className="min-h-screen bg-gray-50">
