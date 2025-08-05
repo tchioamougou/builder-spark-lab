@@ -162,7 +162,7 @@ export default function LoginPage() {
                     Connexion en cours...
                   </>
                 ) : (
-                  "Se connecter"
+                  t('auth.loginButton')
                 )}
               </Button>
             </form>
