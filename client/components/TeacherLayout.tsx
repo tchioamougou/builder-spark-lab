@@ -40,6 +40,10 @@ import {
   MessageSquare,
   Save,
   UserCheck,
+  ChevronDown,
+  Search,
+  Settings,
+  ChevronRight,
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
