@@ -842,9 +842,7 @@ const LandingPage: React.FC = () => {
               </h2>
               <div className="w-32 h-1.5 bg-gradient-to-r from-[#3b2c6a] to-[#ff9900] mx-auto mb-8 rounded-full shadow-lg"></div>
               <p className="text-gray-700 max-w-3xl mx-auto text-xl leading-relaxed font-medium">
-                Découvrez nos installations modernes conçues pour offrir un
-                environnement d'apprentissage optimal aux futurs professionnels
-                de santé.
+                {t("landingPage.infrastructure.subtitle")}
               </p>
             </div>
 
