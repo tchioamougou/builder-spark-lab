@@ -79,7 +79,7 @@ export default function Layout({ children }: LayoutProps) {
             </div>
 
             {/* Right side actions */}
-            <div className="flex items-center space-x-1 md:space-x-3">
+            <div className="flex items-center space-x-1 md:space-x-3 overflow-x-auto">
               {/* Search button */}
               <Button variant="ghost" size="sm" className="hidden md:flex items-center bg-white/10 hover:bg-white/20 text-white rounded-full px-3 py-1.5 h-9">
                 <Search className="h-4 w-4 mr-2" />
@@ -92,7 +92,7 @@ export default function Layout({ children }: LayoutProps) {
                   <Bell className="h-4 w-4" />
                   <span className="absolute -top-1 -right-1 h-4 w-4 flex items-center justify-center bg-amber-500 text-[10px] text-white font-bold rounded-full shadow-sm border border-white/20">3</span>
                 </Button>
-                <div className="absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-xl overflow-hidden z-50 opacity-0 group-hover:opacity-100 invisible group-hover:visible border border-gray-100">
+                <div className="absolute right-0 mt-2 w-80 max-w-[90vw] bg-white rounded-lg shadow-xl overflow-hidden z-50 opacity-0 group-hover:opacity-100 invisible group-hover:visible border border-gray-100">
                   <div className="p-3 border-b border-gray-100 bg-gray-50 flex justify-between items-center">
                     <h3 className="text-sm font-semibold text-gray-700">{t('common.notifications')}</h3>
                     <span className="text-xs text-gray-500 bg-gray-200 rounded-full px-2 py-0.5">3 {t('common.new')}</span>
@@ -167,7 +167,7 @@ export default function Layout({ children }: LayoutProps) {
                 </div>
                 
                 {/* User dropdown menu */}
-                <div className="absolute right-0 mt-2 w-56 bg-white rounded-lg shadow-xl overflow-hidden z-50 opacity-0 group-hover:opacity-100 invisible group-hover:visible border border-gray-100">
+                <div className="absolute right-0 mt-2 w-56 max-w-[90vw] bg-white rounded-lg shadow-xl overflow-hidden z-50 opacity-0 group-hover:opacity-100 invisible group-hover:visible border border-gray-100">
                   <div className="p-3 border-b border-gray-100 bg-gray-50">
                     <p className="text-sm font-medium text-gray-700">{user?.nom}</p>
                     <p className="text-xs text-gray-500 mt-0.5">{user?.email || 'admin@example.com'}</p>
@@ -202,9 +202,9 @@ export default function Layout({ children }: LayoutProps) {
         </div>
       </header>
 
-      <div className="flex">
+      <div className="flex flex-col lg:flex-row">
         {/* Sidebar */}
-        <nav className="w-64 bg-white shadow-sm h-[calc(100vh-4rem)] overflow-y-auto">
+        <nav className="w-full lg:w-64 bg-white shadow-sm h-auto lg:h-[calc(100vh-4rem)] overflow-y-auto border-b lg:border-b-0 lg:border-r">
           <div className="p-4">
             <ul className="space-y-2">
               {getNavigation(t).map((item) => {
@@ -231,7 +231,7 @@ export default function Layout({ children }: LayoutProps) {
         </nav>
 
         {/* Main content */}
-        <main className="flex-1 p-6">{children}</main>
+        <main className="flex-1 p-4 lg:p-6 bg-gray-50">{children}</main>
       </div>
     </div>
   );
