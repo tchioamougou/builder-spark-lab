@@ -72,7 +72,7 @@ const LandingPage: React.FC = () => {
                   {t('landingPage.presentation.subtitle')}
                 </p>
                 <p className="text-gray-600 leading-relaxed">
-                  Reconnue par [Nom du ministère ou organisme], notre
+                  {t('landingPage.presentation.description')}
                   établissement offre un cadre d’apprentissage rigoureux et
                   humain pour former les professionnels de santé de demain.
                 </p>
