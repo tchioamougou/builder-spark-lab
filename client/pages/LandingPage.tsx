@@ -1071,7 +1071,7 @@ const LandingPage: React.FC = () => {
                   <div className="flex items-center text-sm text-gray-500 mb-3">
                     <span>5 Janvier 2024</span>
                     <span className="mx-2">•</span>
-                    <span>Événements</span>
+                    <span>{t("landingPage.news.events")}</span>
                   </div>
                   <h3 className="heading-font text-xl font-bold text-[#3b2c6a] mb-3">
                     Cérémonie de remise des diplômes 2023
