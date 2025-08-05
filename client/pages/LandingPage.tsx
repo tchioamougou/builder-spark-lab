@@ -422,10 +422,10 @@ const LandingPage: React.FC = () => {
             <div className="bg-white rounded-2xl shadow-lg p-8 border border-gray-100">
               <div className="text-center mb-8">
                 <h3 className="heading-font text-2xl md:text-3xl font-bold text-[#3b2c6a] mb-4">
-                  Taux de satisfaction de nos étudiants
+                  {t("landingPage.testimonials.satisfaction.title")}
                 </h3>
                 <p className="text-gray-600">
-                  Basé sur une enquête de 500+ étudiants et diplômés
+                  {t("landingPage.testimonials.satisfaction.subtitle")}
                 </p>
               </div>
 
