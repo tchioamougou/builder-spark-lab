@@ -1129,11 +1129,7 @@ const LandingPage: React.FC = () => {
           <div className="container mx-auto px-4 relative z-10">
             <div className="text-center mb-12">
               <h2 className="heading-font text-3xl md:text-5xl font-bold text-white mb-6 leading-tight">
-                Prêt à <span className="text-[#ff9900]">commencer</span> votre
-                parcours
-                <br />
-                dans le secteur de la{" "}
-                <span className="text-[#ff9900]">santé</span> ?
+                {t("landingPage.cta.title")}
               </h2>
               <p className="text-gray-200 text-lg md:text-xl max-w-3xl mx-auto mb-8">
                 Rejoignez notre communauté d'étudiants passionnés et
