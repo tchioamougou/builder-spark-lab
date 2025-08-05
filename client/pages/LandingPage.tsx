@@ -961,12 +961,11 @@ const LandingPage: React.FC = () => {
             {/* En-tête de la section */}
             <div className="text-center mb-16">
               <h2 className="heading-font text-3xl md:text-4xl text-[#3b2c6a] font-bold mb-2">
-                Nos <span className="text-[#ff9900]">Actualités</span>
+                {t("landingPage.news.title")}
               </h2>
               <div className="w-20 h-1 bg-[#ff9900] mx-auto mb-6"></div>
               <p className="text-gray-600 max-w-2xl mx-auto">
-                Restez informés des dernières nouvelles, événements et
-                développements de notre école de formation sanitaire.
+                {t("landingPage.news.subtitle")}
               </p>
             </div>
 
