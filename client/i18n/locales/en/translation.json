@@ -87,12 +87,33 @@
     "hoursAgo": "{{count}} hours ago"
   },
   "auth": {
-    "loginTitle": "Login to your account",
-    "loginSubtitle": "Enter your credentials to access your account",
+    "loginTitle": "Login",
+    "loginSubtitle": "Sign in to your personal space",
     "forgotPassword": "Forgot password?",
     "rememberMe": "Remember me",
-    "loginButton": "Login",
-    "loginError": "Invalid credentials"
+    "loginButton": "Sign in",
+    "loginError": "Invalid credentials",
+    "systemTitle": "EduManage Pro",
+    "systemSubtitle": "Educational Management System",
+    "fillAllFields": "Please fill in all fields",
+    "incorrectCredentials": "Incorrect email or password",
+    "emailLabel": "Email address",
+    "emailPlaceholder": "your.email@univ.fr",
+    "passwordLabel": "Password",
+    "passwordPlaceholder": "••••••••",
+    "loginInProgress": "Signing in...",
+    "demoAccounts": "demo accounts",
+    "showDemo": "Show",
+    "hideDemo": "Hide",
+    "clickRoleToFill": "Click on a role to automatically fill the fields:",
+    "secureSystem": "Secure System - All rights reserved",
+    "roles": {
+      "administrator": "Administrator",
+      "student": "Student",
+      "teacher": "Teacher",
+      "hr": "HR",
+      "studentAffairs": "Student Affairs"
+    }
   },
   "navigation": {
     "studentDashboard": "Student Dashboard",

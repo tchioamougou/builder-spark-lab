@@ -88,12 +88,33 @@
     "hoursAgo": "Il y a {{count}} heures"
   },
   "auth": {
-    "loginTitle": "Connexion à votre compte",
-    "loginSubtitle": "Entrez vos identifiants pour accéder à votre compte",
+    "loginTitle": "Connexion",
+    "loginSubtitle": "Connectez-vous à votre espace personnel",
     "forgotPassword": "Mot de passe oublié ?",
     "rememberMe": "Se souvenir de moi",
     "loginButton": "Se connecter",
-    "loginError": "Identifiants incorrects"
+    "loginError": "Identifiants incorrects",
+    "systemTitle": "EduManage Pro",
+    "systemSubtitle": "Système de gestion éducative",
+    "fillAllFields": "Veuillez remplir tous les champs",
+    "incorrectCredentials": "Email ou mot de passe incorrect",
+    "emailLabel": "Adresse email",
+    "emailPlaceholder": "votre.email@univ.fr",
+    "passwordLabel": "Mot de passe",
+    "passwordPlaceholder": "••••••••",
+    "loginInProgress": "Connexion en cours...",
+    "demoAccounts": "comptes de démonstration",
+    "showDemo": "Voir",
+    "hideDemo": "Masquer",
+    "clickRoleToFill": "Cliquez sur un rôle pour remplir automatiquement les champs :",
+    "secureSystem": "Système sécurisé - Tous droits réservés",
+    "roles": {
+      "administrator": "Administrateur",
+      "student": "Étudiant",
+      "teacher": "Enseignant",
+      "hr": "RH",
+      "studentAffairs": "Scolarité"
+    }
   },
   "navigation": {
     "studentDashboard": "Tableau de bord étudiant",
