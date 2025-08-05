@@ -699,11 +699,10 @@ const LandingPage: React.FC = () => {
                       </span>
                     </div>
                     <h3 className="heading-font text-2xl font-bold text-white mb-2">
-                      Espaces d'étude collaboratif
+                      {t("landingPage.campusLife.studySpaces")}
                     </h3>
                     <p className="text-gray-200 text-sm leading-relaxed">
-                      Des zones dédiées au travail en groupe et aux projets
-                      collaboratifs entre étudiants.
+                      {t("landingPage.campusLife.studyDesc")}
                     </p>
                   </div>
                 </div>
