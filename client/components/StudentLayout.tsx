@@ -52,6 +52,11 @@ export default function StudentLayout({ children }: StudentLayoutProps) {
   const location = useLocation();
   const { user, logout } = useAuth();
   const { t } = useTranslation();
+  const [isNotificationOpen, setIsNotificationOpen] = useState(false);
+  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+
+  const notificationRef = useRef<HTMLDivElement>(null);
+  const userMenuRef = useRef<HTMLDivElement>(null);
 
   const handleDownloadBulletin = () => {
     if (user) {
