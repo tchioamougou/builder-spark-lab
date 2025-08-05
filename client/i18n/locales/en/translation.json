@@ -537,9 +537,17 @@
       }
     },
     "infrastructure": {
-      "title": "Campus infrastructure",
-      "equippedLab": "Equipped laboratory",
-      "labDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et massa mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien fringilla."
+      "title": "State-of-the-art Infrastructure",
+      "subtitle": "Discover our modern facilities designed to provide an optimal learning environment for future health professionals.",
+      "simLab": "Simulation Laboratory",
+      "simLabDesc": "State-of-the-art medical simulation equipment for practical training of students in a safe and realistic environment.",
+      "amphitheater": "Modern Amphitheater",
+      "amphitheaterDesc": "Classrooms equipped with the latest audiovisual technologies for interactive teaching and optimal learning experience.",
+      "digitalLibrary": "Digital Library",
+      "digitalLibraryDesc": "Complete collection of medical books, scientific databases and collaborative study spaces to enhance research.",
+      "highTech": "High technology",
+      "capacity200": "200 seat capacity",
+      "books5000": "5000+ books"
     },
     "news": {
       "title": "Our News",
