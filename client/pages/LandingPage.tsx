@@ -106,7 +106,7 @@ const LandingPage: React.FC = () => {
         >
           <div className="container mx-auto px-4 text-center">
             <h2 className="heading-font text-3xl md:text-4xl font-bold mb-12">
-              Nos Filières Phares !
+              {t('landingPage.programs.title')}
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
               {/* Carte Filière 1 */}
@@ -189,7 +189,7 @@ const LandingPage: React.FC = () => {
                     Aide de santé communautaire
                   </h3>
                   <p className="text-gray-600">
-                    Nous interconnectons les systèmes et optimisons les flux de
+                    Nous interconnectons les syst��mes et optimisons les flux de
                     données pour garantir une infrastructure
                   </p>
                 </div>
@@ -1086,7 +1086,7 @@ const LandingPage: React.FC = () => {
                 href="#"
                 className="inline-block bg-[#ff9900] hover:bg-[#e68a00] text-white heading-font font-bold py-3 px-8 rounded-full shadow-lg transition-all duration-300 transform hover:scale-105"
               >
-                Voir toutes les actualit��s
+                Voir toutes les actualités
               </a>
             </div>
           </div>
