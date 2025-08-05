@@ -1074,11 +1074,10 @@ const LandingPage: React.FC = () => {
                     <span>{t("landingPage.news.events")}</span>
                   </div>
                   <h3 className="heading-font text-xl font-bold text-[#3b2c6a] mb-3">
-                    Cérémonie de remise des diplômes 2023
+                    {t("landingPage.news.graduation")}
                   </h3>
                   <p className="text-gray-600 mb-4 line-clamp-3">
-                    Félicitations à nos 150 nouveaux diplômés qui rejoignent le
-                    secteur de la santé avec excellence et dévouement...
+                    {t("landingPage.news.graduationDesc")}
                   </p>
                   <a
                     href="#"
