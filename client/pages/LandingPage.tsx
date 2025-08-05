@@ -979,7 +979,7 @@ const LandingPage: React.FC = () => {
                   <div className="flex items-center text-sm text-gray-500 mb-3">
                     <span>15 Janvier 2024</span>
                     <span className="mx-2">•</span>
-                    <span>Formation</span>
+                    <span>{t("landingPage.news.training")}</span>
                   </div>
                   <h3 className="heading-font text-xl font-bold text-[#3b2c6a] mb-3">
                     {t("landingPage.news.emergencyTraining")}
