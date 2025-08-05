@@ -52,18 +52,18 @@ export default function Layout({ children }: LayoutProps) {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <header className="bg-gradient-to-r from-primary/95 via-primary to-primary/90 shadow-lg border-b border-primary/20 sticky top-0 z-50 backdrop-blur-sm">
+      <header className="bg-gradient-to-r from-primary/95 via-primary to-primary/90 shadow-lg border-b border-primary/20 sticky top-0 z-50">
         {/* Top notification banner - can be conditionally rendered */}
         <div className="bg-amber-500/90 py-1 px-4 text-center text-xs md:text-sm font-medium text-white hidden">
           {t('common.semester2')} {t('dates.today')}
         </div>
         
-        <div className="mx-auto  px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 md:h-20 justify-between items-center">
             {/* Logo and Brand */}
             <div className="flex items-center">
-              <Link to="/" className="flex items-center group">
-                <div className="flex items-center bg-white/15 backdrop-blur-sm p-2 rounded-full shadow-md border border-white/10 group-hover:bg-white/20 transition-all duration-300">
+              <Link to="/" className="flex items-center">
+                <div className="flex items-center bg-white/15 p-2 rounded-full shadow-md border border-white/10">
                   <GraduationCap className="h-7 w-7 text-white" />
                 </div>
                 <div className="ml-3 flex flex-col">
@@ -76,7 +76,6 @@ export default function Layout({ children }: LayoutProps) {
                   </span>
                 </div>
               </Link>
-            
             </div>
 
             {/* Right side actions */}
@@ -93,13 +92,13 @@ export default function Layout({ children }: LayoutProps) {
                   <Bell className="h-4 w-4" />
                   <span className="absolute -top-1 -right-1 h-4 w-4 flex items-center justify-center bg-amber-500 text-[10px] text-white font-bold rounded-full shadow-sm border border-white/20">3</span>
                 </Button>
-                <div className="absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-xl overflow-hidden z-50 opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 transition-all duration-200 origin-top-right invisible group-hover:visible border border-gray-100">
+                <div className="absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-xl overflow-hidden z-50 opacity-0 group-hover:opacity-100 invisible group-hover:visible border border-gray-100">
                   <div className="p-3 border-b border-gray-100 bg-gray-50 flex justify-between items-center">
                     <h3 className="text-sm font-semibold text-gray-700">{t('common.notifications')}</h3>
                     <span className="text-xs text-gray-500 bg-gray-200 rounded-full px-2 py-0.5">3 {t('common.new')}</span>
                   </div>
                   <div className="max-h-72 overflow-y-auto">
-                    <div className="p-3 hover:bg-gray-50 transition-colors border-l-4 border-amber-500">
+                    <div className="p-3 hover:bg-gray-50 border-l-4 border-amber-500">
                       <div className="flex items-start">
                         <div className="bg-amber-100 p-1.5 rounded-full mr-3">
                           <UserPlus className="h-4 w-4 text-amber-600" />
@@ -110,7 +109,7 @@ export default function Layout({ children }: LayoutProps) {
                         </div>
                       </div>
                     </div>
-                    <div className="p-3 hover:bg-gray-50 transition-colors border-l-4 border-blue-500">
+                    <div className="p-3 hover:bg-gray-50 border-l-4 border-blue-500">
                       <div className="flex items-start">
                         <div className="bg-blue-100 p-1.5 rounded-full mr-3">
                           <FileText className="h-4 w-4 text-blue-600" />
@@ -121,7 +120,7 @@ export default function Layout({ children }: LayoutProps) {
                         </div>
                       </div>
                     </div>
-                    <div className="p-3 hover:bg-gray-50 transition-colors border-l-4 border-green-500">
+                    <div className="p-3 hover:bg-gray-50 border-l-4 border-green-500">
                       <div className="flex items-start">
                         <div className="bg-green-100 p-1.5 rounded-full mr-3">
                           <CheckCircle className="h-4 w-4 text-green-600" />
@@ -146,7 +145,7 @@ export default function Layout({ children }: LayoutProps) {
 
               {/* User profile dropdown */}
               <div className="relative group">
-                <div className="flex items-center space-x-2 bg-white/10 hover:bg-white/15 transition-colors p-1.5 rounded-full cursor-pointer pr-3">
+                <div className="flex items-center space-x-2 bg-white/10 hover:bg-white/15 p-1.5 rounded-full cursor-pointer pr-3">
                   <Avatar className="h-7 w-7 border-2 border-white/30">
                     <AvatarImage src={user?.avatar} />
                     <AvatarFallback className="bg-primary-foreground text-primary font-medium text-xs">
@@ -168,7 +167,7 @@ export default function Layout({ children }: LayoutProps) {
                 </div>
                 
                 {/* User dropdown menu */}
-                <div className="absolute right-0 mt-2 w-56 bg-white rounded-lg shadow-xl overflow-hidden z-50 opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 transition-all duration-200 origin-top-right invisible group-hover:visible border border-gray-100">
+                <div className="absolute right-0 mt-2 w-56 bg-white rounded-lg shadow-xl overflow-hidden z-50 opacity-0 group-hover:opacity-100 invisible group-hover:visible border border-gray-100">
                   <div className="p-3 border-b border-gray-100 bg-gray-50">
                     <p className="text-sm font-medium text-gray-700">{user?.nom}</p>
                     <p className="text-xs text-gray-500 mt-0.5">{user?.email || 'admin@example.com'}</p>
@@ -201,8 +200,6 @@ export default function Layout({ children }: LayoutProps) {
             </div>
           </div>
         </div>
-        
-     
       </header>
 
       <div className="flex">
@@ -217,7 +214,7 @@ export default function Layout({ children }: LayoutProps) {
                     <Link
                       to={item.href}
                       className={cn(
-                        "flex items-center space-x-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors",
+                        "flex items-center space-x-3 px-3 py-2 rounded-lg text-sm font-medium",
                         isActive
                           ? "bg-primary text-primary-foreground"
                           : "text-gray-700 hover:bg-gray-100",
