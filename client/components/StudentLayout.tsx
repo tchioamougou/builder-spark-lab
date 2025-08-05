@@ -258,7 +258,7 @@ export default function StudentLayout({ children }: StudentLayoutProps) {
               </div>
             </div>
 
-            <ul className="space-y-2">
+            <ul className="space-y-1">
               {getStudentNavigation(t).map((item) => {
                 const isActive = location.pathname === item.href;
                 return (
@@ -266,34 +266,47 @@ export default function StudentLayout({ children }: StudentLayoutProps) {
                     <Link
                       to={item.href}
                       className={cn(
-                        "flex items-center space-x-3 px-3 py-2 rounded-lg text-sm font-medium",
+                        "flex items-center space-x-3 px-3 py-3 rounded-xl text-sm font-medium transition-all duration-200 group",
                         isActive
-                          ? "bg-primary text-primary-foreground"
-                          : "text-gray-700 hover:bg-gray-100",
+                          ? "bg-gradient-to-r from-primary to-primary/90 text-white shadow-lg shadow-primary/30"
+                          : "text-gray-700 hover:bg-gradient-to-r hover:from-gray-100 hover:to-gray-50 hover:shadow-md",
                       )}
                     >
-                      <item.icon className="h-5 w-5" />
-                      <span>{item.name}</span>
+                      <div className={cn(
+                        "p-1.5 rounded-lg transition-colors",
+                        isActive
+                          ? "bg-white/20"
+                          : "bg-gray-100 group-hover:bg-primary/10"
+                      )}>
+                        <item.icon className={cn(
+                          "h-4 w-4",
+                          isActive ? "text-white" : "text-gray-600 group-hover:text-primary"
+                        )} />
+                      </div>
+                      <span className="font-medium">{item.name}</span>
                     </Link>
                   </li>
                 );
               })}
             </ul>
 
-            {/* Quick Actions */}
-            <div className="mt-8 pt-6 border-t">
-              <h3 className="text-xs font-medium text-gray-500 uppercase tracking-wider mb-3">
+            {/* Quick Actions with enhanced design */}
+            <div className="mt-8 pt-6 border-t border-gray-200">
+              <h3 className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-4 flex items-center">
+                <div className="w-1 h-1 bg-amber-400 rounded-full mr-2"></div>
                 {t("common.quickActions")}
               </h3>
-              <div className="space-y-2">
+              <div className="space-y-3">
                 <AbsenceRequestDialog
                   trigger={
                     <Button
                       variant="outline"
                       size="sm"
-                      className="w-full justify-start"
+                      className="w-full justify-start bg-gradient-to-r from-orange-50 to-red-50 border-orange-200 hover:from-orange-100 hover:to-red-100 text-orange-700 hover:text-orange-800 shadow-sm"
                     >
-                      <Clock className="h-4 w-4 mr-2" />
+                      <div className="p-1 bg-orange-100 rounded-lg mr-2">
+                        <Clock className="h-3 w-3 text-orange-600" />
+                      </div>
                       {t("student.requestAbsence")}
                     </Button>
                   }
@@ -301,10 +314,12 @@ export default function StudentLayout({ children }: StudentLayoutProps) {
                 <Button
                   variant="outline"
                   size="sm"
-                  className="w-full justify-start"
+                  className="w-full justify-start bg-gradient-to-r from-blue-50 to-indigo-50 border-blue-200 hover:from-blue-100 hover:to-indigo-100 text-blue-700 hover:text-blue-800 shadow-sm"
                   onClick={handleDownloadBulletin}
                 >
-                  <Download className="h-4 w-4 mr-2" />
+                  <div className="p-1 bg-blue-100 rounded-lg mr-2">
+                    <Download className="h-3 w-3 text-blue-600" />
+                  </div>
                   {t("common.download")} bulletin
                 </Button>
               </div>
