@@ -35,25 +35,24 @@ const LandingPage: React.FC = () => {
               {/* Bloc de texte avec fond semi-transparent */}
               <div className="md:w-1/2 p-8 bg-black/60 backdrop-blur-sm rounded-lg rounded-br-[80px] shadow-lg">
                 <h2 className="heading-font text-lg font-bold mb-2">
-                  École Privée de Formation des Professionels de Santé de
-                  Meingaga
+                  {t('landingPage.hero.schoolNameFull')}
                 </h2>
                 <h1 className="heading-font text-3xl md:text-5xl lg:text-6xl font-extrabold mb-6 leading-tight">
-                  Transformez votre vie grâce à l'éducation en santé
+                  {t('landingPage.hero.tagline')}
                 </h1>
-                
+
                 <div className="space-y-4">
                   <a
                     href="#"
                     className="block w-full text-center md:w-auto bg-[#ff9900] hover:bg-[#e68a00] text-white heading-font font-bold py-3 px-8 rounded-full shadow-lg transition-all duration-300 transform hover:scale-105"
                   >
-                    Demande d'adhésion
+                    {t('landingPage.hero.applyButton')}
                   </a>
                   <a
                     href="#"
                     className="block w-full text-center md:w-auto bg-transparent border-2 border-white hover:bg-white hover:text-[#3b2c6a] text-white heading-font font-bold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105"
                   >
-                    Voir nos formations
+                    {t('landingPage.hero.viewPrograms')}
                   </a>
                 </div>
               </div>
@@ -1087,7 +1086,7 @@ const LandingPage: React.FC = () => {
                 href="#"
                 className="inline-block bg-[#ff9900] hover:bg-[#e68a00] text-white heading-font font-bold py-3 px-8 rounded-full shadow-lg transition-all duration-300 transform hover:scale-105"
               >
-                Voir toutes les actualités
+                Voir toutes les actualit��s
               </a>
             </div>
           </div>
