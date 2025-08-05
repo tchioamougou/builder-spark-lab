@@ -1198,9 +1198,9 @@ const LandingPage: React.FC = () => {
                       />
                     </svg>
                   </div>
-                  <h4 className="text-white font-bold mb-2">Appelez-nous</h4>
-                  <p className="text-gray-200 text-sm">+237 6XX XXX XXX</p>
-                  <p className="text-gray-200 text-sm">Lun-Ven 8h-17h</p>
+                  <h4 className="text-white font-bold mb-2">{t("landingPage.cta.callUs")}</h4>
+                  <p className="text-gray-200 text-sm">{t("landingPage.cta.phoneNumber")}</p>
+                  <p className="text-gray-200 text-sm">{t("landingPage.cta.mondayFriday")}</p>
                 </div>
               </div>
 
