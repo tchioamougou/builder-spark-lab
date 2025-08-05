@@ -290,7 +290,7 @@
     "qualityTraining": "Formation de Qualité",
     "qualityTrainingDesc": "Programmes académiques innovants et performants, avec un accent sur les compétences pratiques et l'intégration des technologies modernes dans l'enseignement médical.",
     "communityEngagement": "Engagement Communautaire",
-    "communityEngagementDesc": "Promotion de l'engagement social des jeunes et implication active dans des projets communautaires de santé publique dans la région de l'Adamaoua.",
+    "communityEngagementDesc": "Promotion de l'engagement social des jeunes et implication active dans des projets communautaires de santé publique dans la r��gion de l'Adamaoua.",
     "sustainableDevelopment": "Développement Durable",
     "sustainableDevelopmentDesc": "Initiatives de sensibilisation aux enjeux climatiques et sociaux, intégrant les principes de durabilité dans la pratique médicale et les soins de santé.",
     "innovationResearch": "Innovation et Recherche",
@@ -476,7 +476,30 @@
       "title": "Nos Filières Phares !",
       "communityHealthAid": "Aide de santé communautaire",
       "programDescription": "Nous interconnectons les systèmes et optimisons les flux de données pour garantir une infrastructure",
-      "enrollNow": "S'inscrire maintenant"
+      "enrollNow": "S'inscrire maintenant",
+      "applyNow": "Candidater maintenant",
+      "seeAll": "Voir toutes nos formations",
+      "epfpsPrograms": {
+        "infirmierPrincipal": {
+          "title": "Infirmier Principal",
+          "description": "Formation complète en soins infirmiers avancés, gestion des équipes et coordination des soins dans les établissements de santé.",
+          "duration": "3 ans",
+          "level": "Bac+3"
+        },
+        "agentTechniquePharmacie": {
+          "title": "Agent Technique Pharmacie",
+          "subtitle": "Spécialité Dispensation",
+          "description": "Formation spécialisée en gestion pharmaceutique, dispensation des médicaments et conseil aux patients.",
+          "duration": "2 ans",
+          "level": "Bac+2"
+        },
+        "sageFemme": {
+          "title": "Sage-Femme",
+          "description": "Formation en obstétrique, suivi prénatal, accouchement et soins post-nataux pour la mère et l'enfant.",
+          "duration": "3 ans",
+          "level": "Bac+3"
+        }
+      }
     },
     "testimonials": {
       "title": "Ce qu'ils disent de nous",
