@@ -435,10 +435,10 @@ const LandingPage: React.FC = () => {
                     <span className="text-xl font-bold text-white">98%</span>
                   </div>
                   <h4 className="font-semibold text-[#3b2c6a] mb-2">
-                    Satisfaction générale
+                    {t("landingPage.testimonials.satisfaction.overall")}
                   </h4>
                   <p className="text-sm text-gray-600">
-                    Recommandent notre école
+                    {t("landingPage.testimonials.satisfaction.overallDesc")}
                   </p>
                 </div>
 
