@@ -932,16 +932,14 @@ const LandingPage: React.FC = () => {
                   </div>
                 </div>
                 <h3 className="heading-font text-2xl font-bold mb-4 text-[#3b2c6a]">
-                  Bibliothèque Numérique
+                  {t("landingPage.infrastructure.digitalLibrary")}
                 </h3>
                 <p className="text-gray-700 leading-relaxed">
-                  Collection complète d'ouvrages médicaux, bases de données
-                  scientifiques et espaces d'étude collaboratifs pour enrichir
-                  la recherche.
+                  {t("landingPage.infrastructure.digitalLibraryDesc")}
                 </p>
                 <div className="mt-6 flex items-center justify-center">
                   <span className="text-[#ff9900] text-sm font-semibold bg-[#ff9900]/10 px-3 py-1 rounded-full">
-                    5000+ ouvrages
+                    {t("landingPage.infrastructure.books5000")}
                   </span>
                 </div>
               </div>
