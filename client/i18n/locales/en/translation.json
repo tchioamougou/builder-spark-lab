@@ -559,7 +559,14 @@
       "graduation": "2023 graduation ceremony",
       "graduationDesc": "Congratulations to our 150 new graduates who join the health sector with excellence and dedication...",
       "readMore": "Read more",
-      "viewAll": "View all news"
+      "viewAll": "View all news",
+      "seeAllNews": "View all news",
+      "new": "New",
+      "partnership": "Partnership",
+      "event": "Event",
+      "training": "Training",
+      "news": "News",
+      "events": "Events"
     },
     "cta": {
       "title": "Ready to start your journey in the health sector?",
