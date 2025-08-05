@@ -25,8 +25,8 @@ const LandingPage: React.FC = () => {
       const handleInitialized = () => {
         setIsLoading(false);
       };
-      i18n.on('initialized', handleInitialized);
-      return () => i18n.off('initialized', handleInitialized);
+      i18n.on("initialized", handleInitialized);
+      return () => i18n.off("initialized", handleInitialized);
     }
   }, [i18n]);
 
