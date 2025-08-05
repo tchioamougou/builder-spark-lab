@@ -73,8 +73,6 @@ const LandingPage: React.FC = () => {
                 </p>
                 <p className="text-gray-600 leading-relaxed">
                   {t("landingPage.presentation.description")}
-                  établissement offre un cadre d'apprentissage rigoureux et
-                  humain pour former les professionnels de santé de demain.
                 </p>
               </div>
               <div className="md:w-1/2 rounded-3xl overflow-hidden shadow-2xl">
