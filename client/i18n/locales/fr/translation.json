@@ -550,7 +550,7 @@
       "subtitle": "Découvrez une communauté inspirante et dynamique où nos étudiants évoluent dans un environnement riche en activités académiques, sociales et culturelles, favorisant leur épanouissement personnel et professionnel.",
       "modernClassrooms": "Salles de cours modernes",
       "classroomsDesc": "Des salles équipées des dernières technologies pour un apprentissage interactif et collaboratif.",
-      "studySpaces": "Espaces d'��tude collaboratif",
+      "studySpaces": "Espaces d'étude collaboratif",
       "studyDesc": "Des zones dédiées au travail en groupe et aux projets collaboratifs entre étudiants.",
       "library": "Bibliothèque",
       "libraryDesc": "Accès à une riche collection d'ouvrages médicaux et scientifiques, espaces de lecture silencieux.",
@@ -587,7 +587,14 @@
       "graduation": "Cérémonie de remise des diplômes 2023",
       "graduationDesc": "Félicitations à nos 150 nouveaux diplômés qui rejoignent le secteur de la santé avec excellence et dévouement...",
       "readMore": "Lire la suite",
-      "viewAll": "Voir toutes les actualités"
+      "viewAll": "Voir toutes les actualités",
+      "seeAllNews": "Voir toutes les actualités",
+      "new": "Nouveau",
+      "partnership": "Partenariat",
+      "event": "Événement",
+      "training": "Formation",
+      "news": "Actualités",
+      "events": "Événements"
     },
     "cta": {
       "title": "Prêt à commencer votre parcours dans le secteur de la santé ?",
