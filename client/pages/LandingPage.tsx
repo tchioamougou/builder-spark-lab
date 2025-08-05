@@ -1018,7 +1018,7 @@ const LandingPage: React.FC = () => {
                     className="w-full h-48 object-cover"
                   />
                   <div className="absolute top-4 left-4 bg-[#3b2c6a] text-white px-3 py-1 rounded-full text-sm font-semibold">
-                    Partenariat
+                    {t("landingPage.news.partnership")}
                   </div>
                 </div>
                 <div className="p-6">
