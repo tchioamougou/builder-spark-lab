@@ -168,7 +168,7 @@
     "requestAbsence": "Demander une absence",
     "requestDocument": "Demander un document",
     "enrolledStudents": "Étudiants inscrits",
-    "newEnrollmentValidated": "Nouvelle inscription validée",
+    "newEnrollmentValidated": "Nouvelle inscription valid��e",
     "absenceRequestPending": "Demande d'absence en attente"
   },
   "teacher": {
@@ -318,7 +318,7 @@
     "recognizedDiplomas": "Diplômes Reconnus",
     "recognizedDiplomasText": "Diplômes d'État officiellement reconnus",
     "partnerships": "Partenariats",
-    "partnershipsText": "Hôpitaux et centres de santé partenaires",
+    "partnershipsText": "H��pitaux et centres de santé partenaires",
     "excellence": "Excellence",
     "excellenceText": "Taux de réussite de 95% aux examens d'État"
   },
@@ -543,7 +543,11 @@
       "studentsFormed": "Étudiants formés",
       "professionalExperts": "Experts professionnels",
       "partners": "Partenaires",
-      "campus": "Campus"
+      "campus": "Campus",
+      "since2008": "Depuis 2008",
+      "qualifiedTeachers": "Enseignants qualifiés",
+      "hospitalsAndCenters": "Hôpitaux & Centres",
+      "inMeiganga": "À Meiganga"
     },
     "campusLife": {
       "title": "La vie au campus",
