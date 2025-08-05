@@ -44,7 +44,7 @@ const recentGrades = [
   },
   {
     id: 2,
-    ue: "Chimie organique", 
+    ue: "Chimie organique",
     note: 13.2,
     coefficient: 2,
     date: "2024-01-15",
@@ -74,7 +74,7 @@ const upcomingEvents = [
   {
     id: 2,
     title: "TP - Histologie",
-    date: "2024-01-26", 
+    date: "2024-01-26",
     time: "14:00",
     type: "tp",
     salle: "Labo 2",
@@ -135,17 +135,23 @@ export default function StudentDashboard() {
 
   const getEventIcon = (type: string) => {
     switch (type) {
-      case "exam": return AlertCircle;
-      case "tp": return FileText;
-      default: return BookOpen;
+      case "exam":
+        return AlertCircle;
+      case "tp":
+        return FileText;
+      default:
+        return BookOpen;
     }
   };
 
   const getEventColor = (type: string) => {
     switch (type) {
-      case "exam": return "text-red-600 bg-red-50";
-      case "tp": return "text-blue-600 bg-blue-50";
-      default: return "text-purple-600 bg-purple-50";
+      case "exam":
+        return "text-red-600 bg-red-50";
+      case "tp":
+        return "text-blue-600 bg-blue-50";
+      default:
+        return "text-purple-600 bg-purple-50";
     }
   };
 
@@ -225,7 +231,9 @@ export default function StudentDashboard() {
                 </div>
                 <div className="mt-4">
                   <Progress value={75} className="h-2" />
-                  <p className="text-xs text-gray-500 mt-1">15 crédits restants</p>
+                  <p className="text-xs text-gray-500 mt-1">
+                    15 crédits restants
+                  </p>
                 </div>
               </CardContent>
             </Card>
@@ -248,7 +256,9 @@ export default function StudentDashboard() {
                   </div>
                 </div>
                 <div className="mt-4">
-                  <p className="text-xs text-gray-500">Dans les 7 prochains jours</p>
+                  <p className="text-xs text-gray-500">
+                    Dans les 7 prochains jours
+                  </p>
                 </div>
               </CardContent>
             </Card>
@@ -265,8 +275,7 @@ export default function StudentDashboard() {
                   <div>
                     <p className="text-sm text-gray-600">Statut financier</p>
                     <p className="text-sm font-bold text-green-600 flex items-center">
-                      <CheckCircle className="h-4 w-4 mr-1" />
-                      À jour
+                      <CheckCircle className="h-4 w-4 mr-1" />À jour
                     </p>
                   </div>
                   <div className="p-3 bg-purple-50 rounded-full">
@@ -274,7 +283,9 @@ export default function StudentDashboard() {
                   </div>
                 </div>
                 <div className="mt-4">
-                  <p className="text-xs text-gray-500">Dernière échéance payée</p>
+                  <p className="text-xs text-gray-500">
+                    Dernière échéance payée
+                  </p>
                 </div>
               </CardContent>
             </Card>
@@ -318,7 +329,9 @@ export default function StudentDashboard() {
                       className="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
                     >
                       <div className="flex-1">
-                        <h4 className="font-medium text-gray-900">{grade.ue}</h4>
+                        <h4 className="font-medium text-gray-900">
+                          {grade.ue}
+                        </h4>
                         <div className="flex items-center gap-2 text-sm text-gray-500">
                           <span>{grade.type}</span>
                           <span>•</span>
@@ -328,7 +341,9 @@ export default function StudentDashboard() {
                         </div>
                       </div>
                       <div className="text-right">
-                        <div className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${getGradeColor(grade.note)}`}>
+                        <div
+                          className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${getGradeColor(grade.note)}`}
+                        >
                           {grade.note}/20
                         </div>
                       </div>
@@ -351,9 +366,7 @@ export default function StudentDashboard() {
                   <Calendar className="h-5 w-5 text-primary" />
                   Événements à venir
                 </CardTitle>
-                <CardDescription>
-                  Votre agenda cette semaine
-                </CardDescription>
+                <CardDescription>Votre agenda cette semaine</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="space-y-3">
@@ -367,7 +380,9 @@ export default function StudentDashboard() {
                         transition={{ duration: 0.3, delay: 0.1 * index }}
                         className="flex items-start gap-3 p-3 border border-gray-200 rounded-lg hover:shadow-md transition-shadow"
                       >
-                        <div className={`p-2 rounded-lg ${getEventColor(event.type)}`}>
+                        <div
+                          className={`p-2 rounded-lg ${getEventColor(event.type)}`}
+                        >
                           <Icon className="h-4 w-4" />
                         </div>
                         <div className="flex-1 min-w-0">
@@ -375,7 +390,8 @@ export default function StudentDashboard() {
                             {event.title}
                           </h5>
                           <div className="text-sm text-gray-500">
-                            {new Date(event.date).toLocaleDateString()} • {event.time}
+                            {new Date(event.date).toLocaleDateString()} •{" "}
+                            {event.time}
                           </div>
                           <div className="text-xs text-gray-400">
                             {event.salle}
@@ -417,17 +433,19 @@ export default function StudentDashboard() {
                       animate={{ opacity: 1, scale: 1 }}
                       transition={{ duration: 0.3, delay: 0.1 * index }}
                       className={`p-4 rounded-xl border-2 transition-all hover:shadow-lg ${
-                        achievement.earned 
-                          ? 'border-green-200 bg-green-50' 
-                          : 'border-gray-200 bg-gray-50'
+                        achievement.earned
+                          ? "border-green-200 bg-green-50"
+                          : "border-gray-200 bg-gray-50"
                       }`}
                     >
                       <div className="flex items-center gap-3 mb-3">
-                        <div className={`p-2 rounded-lg ${
-                          achievement.earned 
-                            ? 'bg-green-100 text-green-600' 
-                            : 'bg-gray-100 text-gray-600'
-                        }`}>
+                        <div
+                          className={`p-2 rounded-lg ${
+                            achievement.earned
+                              ? "bg-green-100 text-green-600"
+                              : "bg-gray-100 text-gray-600"
+                          }`}
+                        >
                           <Icon className="h-5 w-5" />
                         </div>
                         <div className="flex-1">
@@ -450,7 +468,10 @@ export default function StudentDashboard() {
                             <span>Progression</span>
                             <span>{achievement.progress}%</span>
                           </div>
-                          <Progress value={achievement.progress} className="h-2" />
+                          <Progress
+                            value={achievement.progress}
+                            className="h-2"
+                          />
                         </div>
                       )}
                     </motion.div>
@@ -476,13 +497,19 @@ export default function StudentDashboard() {
             </CardHeader>
             <CardContent>
               <div className="flex flex-wrap gap-3">
-                <Button onClick={handleDownloadBulletin} className="flex items-center gap-2">
+                <Button
+                  onClick={handleDownloadBulletin}
+                  className="flex items-center gap-2"
+                >
                   <Download className="h-4 w-4" />
                   Télécharger bulletin
                 </Button>
                 <AbsenceRequestDialog
                   trigger={
-                    <Button variant="outline" className="flex items-center gap-2">
+                    <Button
+                      variant="outline"
+                      className="flex items-center gap-2"
+                    >
                       <Clock className="h-4 w-4" />
                       Signaler absence
                     </Button>

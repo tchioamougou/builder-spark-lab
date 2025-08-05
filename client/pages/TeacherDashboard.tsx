@@ -155,17 +155,23 @@ export default function TeacherDashboard() {
 
   const getSessionIcon = (type: string) => {
     switch (type) {
-      case "exam": return AlertCircle;
-      case "tp": return FileText;
-      default: return BookOpen;
+      case "exam":
+        return AlertCircle;
+      case "tp":
+        return FileText;
+      default:
+        return BookOpen;
     }
   };
 
   const getSessionColor = (type: string) => {
     switch (type) {
-      case "exam": return "text-red-600 bg-red-50 border-red-200";
-      case "tp": return "text-blue-600 bg-blue-50 border-blue-200";
-      default: return "text-purple-600 bg-purple-50 border-purple-200";
+      case "exam":
+        return "text-red-600 bg-red-50 border-red-200";
+      case "tp":
+        return "text-blue-600 bg-blue-50 border-blue-200";
+      default:
+        return "text-purple-600 bg-purple-50 border-purple-200";
     }
   };
 
@@ -226,23 +232,33 @@ export default function TeacherDashboard() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.1 * (index + 1) }}
               >
-                <Card className={`border-l-4 hover:shadow-lg transition-shadow ${
-                  stat.color === 'blue' ? 'border-l-blue-500' :
-                  stat.color === 'green' ? 'border-l-green-500' :
-                  stat.color === 'orange' ? 'border-l-orange-500' :
-                  'border-l-purple-500'
-                }`}>
+                <Card
+                  className={`border-l-4 hover:shadow-lg transition-shadow ${
+                    stat.color === "blue"
+                      ? "border-l-blue-500"
+                      : stat.color === "green"
+                        ? "border-l-green-500"
+                        : stat.color === "orange"
+                          ? "border-l-orange-500"
+                          : "border-l-purple-500"
+                  }`}
+                >
                   <CardContent className="p-6">
                     <div className="flex items-center justify-between">
                       <div>
                         <p className="text-sm text-gray-600">{stat.label}</p>
                         <div className="flex items-baseline gap-2">
-                          <p className={`text-2xl font-bold ${
-                            stat.color === 'blue' ? 'text-blue-600' :
-                            stat.color === 'green' ? 'text-green-600' :
-                            stat.color === 'orange' ? 'text-orange-600' :
-                            'text-purple-600'
-                          }`}>
+                          <p
+                            className={`text-2xl font-bold ${
+                              stat.color === "blue"
+                                ? "text-blue-600"
+                                : stat.color === "green"
+                                  ? "text-green-600"
+                                  : stat.color === "orange"
+                                    ? "text-orange-600"
+                                    : "text-purple-600"
+                            }`}
+                          >
                             {stat.value}
                             {stat.total && `/${stat.total}`}
                           </p>
@@ -258,13 +274,18 @@ export default function TeacherDashboard() {
                           )}
                         </div>
                       </div>
-                      <div className={`p-3 rounded-full ${getStatColor(stat.color)}`}>
+                      <div
+                        className={`p-3 rounded-full ${getStatColor(stat.color)}`}
+                      >
                         <Icon className="h-6 w-6" />
                       </div>
                     </div>
                     {stat.total && stat.label.includes("Heures") && (
                       <div className="mt-4">
-                        <Progress value={(stat.value / stat.total) * 100} className="h-2" />
+                        <Progress
+                          value={(stat.value / stat.total) * 100}
+                          className="h-2"
+                        />
                         <p className="text-xs text-gray-500 mt-1">
                           {stat.total - stat.value} heures restantes ce mois
                         </p>
@@ -314,8 +335,12 @@ export default function TeacherDashboard() {
                     >
                       <div className="flex items-start justify-between mb-3">
                         <div>
-                          <h4 className="font-semibold text-gray-900">{classe.nom}</h4>
-                          <p className="text-sm text-gray-600">{classe.filiere}</p>
+                          <h4 className="font-semibold text-gray-900">
+                            {classe.nom}
+                          </h4>
+                          <p className="text-sm text-gray-600">
+                            {classe.filiere}
+                          </p>
                         </div>
                         {classe.notesEnAttente > 0 && (
                           <Badge variant="destructive" className="text-xs">
@@ -323,7 +348,7 @@ export default function TeacherDashboard() {
                           </Badge>
                         )}
                       </div>
-                      
+
                       <div className="grid grid-cols-3 gap-4 mb-3">
                         <div className="text-center">
                           <div className="text-lg font-bold text-blue-600">
@@ -350,9 +375,7 @@ export default function TeacherDashboard() {
                           <Clock className="h-4 w-4" />
                           {new Date(classe.prochainCours).toLocaleString()}
                         </div>
-                        <div className="text-gray-600">
-                          {classe.salle}
-                        </div>
+                        <div className="text-gray-600">{classe.salle}</div>
                       </div>
                     </motion.div>
                   ))}
@@ -433,7 +456,7 @@ export default function TeacherDashboard() {
                     </CardDescription>
                   </div>
                   <Badge variant="secondary">
-                    {recentMessages.filter(m => m.unread).length} non lus
+                    {recentMessages.filter((m) => m.unread).length} non lus
                   </Badge>
                 </div>
               </CardHeader>
@@ -446,7 +469,9 @@ export default function TeacherDashboard() {
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.3, delay: 0.1 * index }}
                       className={`p-3 rounded-lg border hover:shadow-sm transition-shadow ${
-                        message.unread ? 'bg-blue-50 border-blue-200' : 'bg-gray-50 border-gray-200'
+                        message.unread
+                          ? "bg-blue-50 border-blue-200"
+                          : "bg-gray-50 border-gray-200"
                       }`}
                     >
                       <div className="flex items-start justify-between">
@@ -497,12 +522,17 @@ export default function TeacherDashboard() {
                       <BarChart3 className="h-5 w-5" />
                       <div className="text-left">
                         <div className="font-medium">Saisir des notes</div>
-                        <div className="text-xs opacity-80">23 notes en attente</div>
+                        <div className="text-xs opacity-80">
+                          23 notes en attente
+                        </div>
                       </div>
                     </div>
                   </Button>
-                  
-                  <Button variant="outline" className="justify-start h-auto p-4">
+
+                  <Button
+                    variant="outline"
+                    className="justify-start h-auto p-4"
+                  >
                     <div className="flex items-center gap-3">
                       <Users className="h-5 w-5" />
                       <div className="text-left">
@@ -511,23 +541,33 @@ export default function TeacherDashboard() {
                       </div>
                     </div>
                   </Button>
-                  
-                  <Button variant="outline" className="justify-start h-auto p-4">
+
+                  <Button
+                    variant="outline"
+                    className="justify-start h-auto p-4"
+                  >
                     <div className="flex items-center gap-3">
                       <FileText className="h-5 w-5" />
                       <div className="text-left">
                         <div className="font-medium">Créer un document</div>
-                        <div className="text-xs opacity-80">Cours, exercices, etc.</div>
+                        <div className="text-xs opacity-80">
+                          Cours, exercices, etc.
+                        </div>
                       </div>
                     </div>
                   </Button>
 
-                  <Button variant="outline" className="justify-start h-auto p-4">
+                  <Button
+                    variant="outline"
+                    className="justify-start h-auto p-4"
+                  >
                     <div className="flex items-center gap-3">
                       <Bell className="h-5 w-5" />
                       <div className="text-left">
                         <div className="font-medium">Signaler absences</div>
-                        <div className="text-xs opacity-80">Pour les cours d'aujourd'hui</div>
+                        <div className="text-xs opacity-80">
+                          Pour les cours d'aujourd'hui
+                        </div>
                       </div>
                     </div>
                   </Button>
