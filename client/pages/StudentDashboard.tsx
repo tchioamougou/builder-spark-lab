@@ -1,4 +1,5 @@
 import StudentLayout from "@/components/StudentLayout";
+import { motion } from "framer-motion";
 import {
   Card,
   CardContent,
@@ -8,6 +9,7 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Progress } from "@/components/ui/progress";
 import { useAuth } from "@/contexts/AuthContext";
 import { generateBulletinPDF } from "@/lib/pdf-utils";
 import AbsenceRequestDialog from "@/components/AbsenceRequestDialog";
@@ -24,6 +26,10 @@ import {
   Bell,
   User,
   CreditCard,
+  GraduationCap,
+  Award,
+  Target,
+  Activity,
 } from "lucide-react";
 
 const recentGrades = [
@@ -34,6 +40,7 @@ const recentGrades = [
     coefficient: 3,
     date: "2024-01-18",
     type: "Examen final",
+    status: "excellent",
   },
   {
     id: 2,
@@ -42,6 +49,7 @@ const recentGrades = [
     coefficient: 2,
     date: "2024-01-15",
     type: "Contrôle continu",
+    status: "good",
   },
   {
     id: 3,
@@ -50,66 +58,67 @@ const recentGrades = [
     coefficient: 3,
     date: "2024-01-12",
     type: "TP",
+    status: "excellent",
   },
 ];
 
 const upcomingEvents = [
   {
     id: 1,
-    title: "Examen Pharmacologie",
+    title: "Examen - Microbiologie",
     date: "2024-01-25",
-    time: "09:00",
-    room: "Amphi A",
-    type: "Examen",
+    time: "08:00",
+    type: "exam",
+    salle: "Amphi A",
   },
   {
     id: 2,
-    title: "TP Chimie analytique",
-    date: "2024-01-23",
+    title: "TP - Histologie",
+    date: "2024-01-26",
     time: "14:00",
-    room: "Labo 3",
-    type: "TP",
+    type: "tp",
+    salle: "Labo 2",
   },
   {
     id: 3,
-    title: "Cours Anatomie",
-    date: "2024-01-22",
+    title: "Cours - Pharmacologie",
+    date: "2024-01-27",
     time: "10:00",
-    room: "Amphi B",
-    type: "Cours",
+    type: "course",
+    salle: "Salle 15",
   },
 ];
 
-const notifications = [
+const achievements = [
   {
     id: 1,
-    title: "Nouveau bulletin disponible",
-    message: "Votre bulletin de la séquence 1 est disponible",
-    date: "2024-01-20",
-    type: "bulletin",
-    read: false,
+    title: "Étudiant exemplaire",
+    description: "Moyenne > 15/20 pendant 3 mois consécutifs",
+    icon: Award,
+    earned: true,
+    date: "Déc 2023",
   },
   {
     id: 2,
-    title: "Rappel: Inscription stage",
-    message: "N'oubliez pas de vous inscrire pour votre stage",
-    date: "2024-01-19",
-    type: "reminder",
-    read: false,
+    title: "Participation active",
+    description: "100% de présence aux TP",
+    icon: Activity,
+    earned: true,
+    date: "Jan 2024",
   },
   {
     id: 3,
-    title: "Demande absence approuvée",
-    message: "Votre demande d'absence du 15/01 a été approuvée",
-    date: "2024-01-18",
-    type: "approval",
-    read: true,
+    title: "Objectif atteint",
+    description: "Validation de tous les modules",
+    icon: Target,
+    earned: false,
+    progress: 85,
   },
 ];
 
 export default function StudentDashboard() {
   const { user } = useAuth();
-  const [isAbsenceDialogOpen, setIsAbsenceDialogOpen] = useState(false);
+  const [selectedPeriod, setSelectedPeriod] = useState("current");
 
   const handleDownloadBulletin = () => {
     if (user) {
@@ -118,278 +127,406 @@ export default function StudentDashboard() {
   };
 
   const getGradeColor = (note: number) => {
-    if (note >= 16) return "text-green-600";
-    if (note >= 14) return "text-blue-600";
-    if (note >= 12) return "text-orange-600";
-    if (note >= 10) return "text-yellow-600";
-    return "text-red-600";
+    if (note >= 16) return "text-green-600 bg-green-50";
+    if (note >= 14) return "text-blue-600 bg-blue-50";
+    if (note >= 12) return "text-orange-600 bg-orange-50";
+    return "text-red-600 bg-red-50";
   };
 
-  const getEventTypeColor = (type: string) => {
+  const getEventIcon = (type: string) => {
     switch (type) {
-      case "Examen":
-        return "bg-red-100 text-red-800";
-      case "TP":
-        return "bg-blue-100 text-blue-800";
-      case "Cours":
-        return "bg-green-100 text-green-800";
+      case "exam":
+        return AlertCircle;
+      case "tp":
+        return FileText;
       default:
-        return "bg-gray-100 text-gray-800";
+        return BookOpen;
     }
   };
 
-  const getNotificationIcon = (type: string) => {
+  const getEventColor = (type: string) => {
     switch (type) {
-      case "bulletin":
-        return <FileText className="h-4 w-4 text-blue-600" />;
-      case "reminder":
-        return <AlertCircle className="h-4 w-4 text-orange-600" />;
-      case "approval":
-        return <CheckCircle className="h-4 w-4 text-green-600" />;
+      case "exam":
+        return "text-red-600 bg-red-50";
+      case "tp":
+        return "text-blue-600 bg-blue-50";
       default:
-        return <Bell className="h-4 w-4 text-gray-600" />;
+        return "text-purple-600 bg-purple-50";
     }
   };
 
   return (
     <StudentLayout>
       <div className="space-y-6">
-        {/* Welcome Header */}
-        <div>
-          <h2 className="text-3xl font-bold tracking-tight text-gray-900">
-            Bonjour, {user?.nom.split(" ")[0]}!
-          </h2>
-          <p className="text-muted-foreground">
-            Bienvenue sur votre tableau de bord - {user?.filiere} {user?.niveau}
-          </p>
-        </div>
-
-        {/* Stats Grid */}
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">
-                Moyenne générale
-              </CardTitle>
-              <TrendingUp className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">14.5/20</div>
-              <p className="text-xs text-muted-foreground">
-                +0.3 depuis le dernier semestre
+        {/* Header Section with Welcome */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="bg-gradient-to-r from-primary to-primary/90 rounded-2xl p-6 text-white"
+        >
+          <div className="flex items-center justify-between">
+            <div>
+              <h1 className="text-2xl md:text-3xl font-bold mb-2">
+                Bonjour, {user?.nom} ! 👋
+              </h1>
+              <p className="text-white/80 text-lg">
+                {user?.filiere} • {user?.niveau} • {user?.numeroEtudiant}
               </p>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">
-                Crédits validés
-              </CardTitle>
-              <CheckCircle className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">45/60</div>
-              <p className="text-xs text-muted-foreground">
-                75% de progression
-              </p>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">
-                Prochains examens
-              </CardTitle>
-              <Calendar className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">3</div>
-              <p className="text-xs text-muted-foreground">Cette semaine</p>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">
-                Statut financier
-              </CardTitle>
-              <CreditCard className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold text-green-600">À jour</div>
-              <p className="text-xs text-muted-foreground">
-                Dernier paiement: 15/01/2024
-              </p>
-            </CardContent>
-          </Card>
-        </div>
-
-        <div className="grid gap-6 md:grid-cols-2">
-          {/* Recent Grades */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center space-x-2">
-                <FileText className="h-5 w-5" />
-                <span>Dernières notes</span>
-              </CardTitle>
-              <CardDescription>Vos notes les plus récentes</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                {recentGrades.map((grade) => (
-                  <div
-                    key={grade.id}
-                    className="flex items-center justify-between"
-                  >
-                    <div className="flex-1">
-                      <div className="font-medium">{grade.ue}</div>
-                      <div className="text-sm text-muted-foreground">
-                        {grade.type} • Coef. {grade.coefficient} •{" "}
-                        {new Date(grade.date).toLocaleDateString("fr-FR")}
-                      </div>
-                    </div>
-                    <div
-                      className={`text-xl font-bold ${getGradeColor(grade.note)}`}
-                    >
-                      {grade.note}/20
-                    </div>
-                  </div>
-                ))}
+            </div>
+            <div className="hidden md:flex items-center space-x-4">
+              <div className="text-center">
+                <div className="text-2xl font-bold">14.5</div>
+                <div className="text-sm text-white/80">Moyenne</div>
               </div>
-              <Button variant="outline" className="w-full mt-4">
-                <FileText className="h-4 w-4 mr-2" />
-                Voir toutes mes notes
-              </Button>
-            </CardContent>
-          </Card>
+              <div className="text-center">
+                <div className="text-2xl font-bold">85%</div>
+                <div className="text-sm text-white/80">Présence</div>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Stats Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+          >
+            <Card className="border-l-4 border-l-blue-500 hover:shadow-lg transition-shadow">
+              <CardContent className="p-6">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm text-gray-600">Moyenne générale</p>
+                    <p className="text-2xl font-bold text-blue-600">14.5/20</p>
+                  </div>
+                  <div className="p-3 bg-blue-50 rounded-full">
+                    <TrendingUp className="h-6 w-6 text-blue-600" />
+                  </div>
+                </div>
+                <div className="mt-4">
+                  <Progress value={72.5} className="h-2" />
+                  <p className="text-xs text-gray-500 mt-1">+0.3 ce mois</p>
+                </div>
+              </CardContent>
+            </Card>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          >
+            <Card className="border-l-4 border-l-green-500 hover:shadow-lg transition-shadow">
+              <CardContent className="p-6">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm text-gray-600">Crédits validés</p>
+                    <p className="text-2xl font-bold text-green-600">45/60</p>
+                  </div>
+                  <div className="p-3 bg-green-50 rounded-full">
+                    <Award className="h-6 w-6 text-green-600" />
+                  </div>
+                </div>
+                <div className="mt-4">
+                  <Progress value={75} className="h-2" />
+                  <p className="text-xs text-gray-500 mt-1">
+                    15 crédits restants
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+          >
+            <Card className="border-l-4 border-l-orange-500 hover:shadow-lg transition-shadow">
+              <CardContent className="p-6">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm text-gray-600">Prochains examens</p>
+                    <p className="text-2xl font-bold text-orange-600">3</p>
+                  </div>
+                  <div className="p-3 bg-orange-50 rounded-full">
+                    <Calendar className="h-6 w-6 text-orange-600" />
+                  </div>
+                </div>
+                <div className="mt-4">
+                  <p className="text-xs text-gray-500">
+                    Dans les 7 prochains jours
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+          >
+            <Card className="border-l-4 border-l-purple-500 hover:shadow-lg transition-shadow">
+              <CardContent className="p-6">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm text-gray-600">Statut financier</p>
+                    <p className="text-sm font-bold text-green-600 flex items-center">
+                      <CheckCircle className="h-4 w-4 mr-1" />À jour
+                    </p>
+                  </div>
+                  <div className="p-3 bg-purple-50 rounded-full">
+                    <CreditCard className="h-6 w-6 text-purple-600" />
+                  </div>
+                </div>
+                <div className="mt-4">
+                  <p className="text-xs text-gray-500">
+                    Dernière échéance payée
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
+          </motion.div>
+        </div>
+
+        {/* Main Content Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {/* Recent Grades */}
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 0.5 }}
+            className="lg:col-span-2"
+          >
+            <Card className="h-full">
+              <CardHeader>
+                <div className="flex items-center justify-between">
+                  <div>
+                    <CardTitle className="flex items-center gap-2">
+                      <TrendingUp className="h-5 w-5 text-primary" />
+                      Dernières Notes
+                    </CardTitle>
+                    <CardDescription>
+                      Vos résultats les plus récents
+                    </CardDescription>
+                  </div>
+                  <Button variant="outline" size="sm">
+                    Voir tout
+                  </Button>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  {recentGrades.map((grade, index) => (
+                    <motion.div
+                      key={grade.id}
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.3, delay: 0.1 * index }}
+                      className="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
+                    >
+                      <div className="flex-1">
+                        <h4 className="font-medium text-gray-900">
+                          {grade.ue}
+                        </h4>
+                        <div className="flex items-center gap-2 text-sm text-gray-500">
+                          <span>{grade.type}</span>
+                          <span>•</span>
+                          <span>{grade.date}</span>
+                          <span>•</span>
+                          <span>Coef. {grade.coefficient}</span>
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <div
+                          className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${getGradeColor(grade.note)}`}
+                        >
+                          {grade.note}/20
+                        </div>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          </motion.div>
 
           {/* Upcoming Events */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center space-x-2">
-                <Calendar className="h-5 w-5" />
-                <span>Emploi du temps</span>
-              </CardTitle>
-              <CardDescription>Vos prochains cours et examens</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                {upcomingEvents.map((event) => (
-                  <div
-                    key={event.id}
-                    className="flex items-center justify-between"
-                  >
-                    <div className="flex-1">
-                      <div className="font-medium">{event.title}</div>
-                      <div className="text-sm text-muted-foreground">
-                        {new Date(event.date).toLocaleDateString("fr-FR")} à{" "}
-                        {event.time} • {event.room}
-                      </div>
-                    </div>
-                    <Badge
-                      variant="secondary"
-                      className={getEventTypeColor(event.type)}
-                    >
-                      {event.type}
-                    </Badge>
-                  </div>
-                ))}
-              </div>
-              <Button variant="outline" className="w-full mt-4">
-                <Calendar className="h-4 w-4 mr-2" />
-                Voir tout l'emploi du temps
-              </Button>
-            </CardContent>
-          </Card>
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 0.6 }}
+          >
+            <Card className="h-full">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Calendar className="h-5 w-5 text-primary" />
+                  Événements à venir
+                </CardTitle>
+                <CardDescription>Votre agenda cette semaine</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-3">
+                  {upcomingEvents.map((event, index) => {
+                    const Icon = getEventIcon(event.type);
+                    return (
+                      <motion.div
+                        key={event.id}
+                        initial={{ opacity: 0, x: 10 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.3, delay: 0.1 * index }}
+                        className="flex items-start gap-3 p-3 border border-gray-200 rounded-lg hover:shadow-md transition-shadow"
+                      >
+                        <div
+                          className={`p-2 rounded-lg ${getEventColor(event.type)}`}
+                        >
+                          <Icon className="h-4 w-4" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <h5 className="font-medium text-gray-900 truncate">
+                            {event.title}
+                          </h5>
+                          <div className="text-sm text-gray-500">
+                            {new Date(event.date).toLocaleDateString()} •{" "}
+                            {event.time}
+                          </div>
+                          <div className="text-xs text-gray-400">
+                            {event.salle}
+                          </div>
+                        </div>
+                      </motion.div>
+                    );
+                  })}
+                </div>
+              </CardContent>
+            </Card>
+          </motion.div>
         </div>
 
-        {/* Notifications */}
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center space-x-2">
-              <Bell className="h-5 w-5" />
-              <span>Notifications récentes</span>
-            </CardTitle>
-            <CardDescription>Messages et alertes importantes</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              {notifications.map((notification) => (
-                <div
-                  key={notification.id}
-                  className={`flex items-start space-x-3 p-3 rounded-lg ${
-                    notification.read ? "bg-gray-50" : "bg-blue-50"
-                  }`}
-                >
-                  <div className="flex-shrink-0 mt-1">
-                    {getNotificationIcon(notification.type)}
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <div
-                      className={`font-medium ${!notification.read ? "text-blue-900" : "text-gray-900"}`}
+        {/* Achievements Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.7 }}
+        >
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <GraduationCap className="h-5 w-5 text-primary" />
+                Accomplissements & Objectifs
+              </CardTitle>
+              <CardDescription>
+                Vos réussites et objectifs en cours
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {achievements.map((achievement, index) => {
+                  const Icon = achievement.icon;
+                  return (
+                    <motion.div
+                      key={achievement.id}
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ duration: 0.3, delay: 0.1 * index }}
+                      className={`p-4 rounded-xl border-2 transition-all hover:shadow-lg ${
+                        achievement.earned
+                          ? "border-green-200 bg-green-50"
+                          : "border-gray-200 bg-gray-50"
+                      }`}
                     >
-                      {notification.title}
-                    </div>
-                    <div className="text-sm text-muted-foreground">
-                      {notification.message}
-                    </div>
-                    <div className="text-xs text-muted-foreground mt-1">
-                      {new Date(notification.date).toLocaleDateString("fr-FR")}
-                    </div>
-                  </div>
-                  {!notification.read && (
-                    <div className="w-2 h-2 bg-blue-600 rounded-full mt-2"></div>
-                  )}
-                </div>
-              ))}
-            </div>
-            <Button variant="outline" className="w-full mt-4">
-              <Bell className="h-4 w-4 mr-2" />
-              Voir toutes les notifications
-            </Button>
-          </CardContent>
-        </Card>
+                      <div className="flex items-center gap-3 mb-3">
+                        <div
+                          className={`p-2 rounded-lg ${
+                            achievement.earned
+                              ? "bg-green-100 text-green-600"
+                              : "bg-gray-100 text-gray-600"
+                          }`}
+                        >
+                          <Icon className="h-5 w-5" />
+                        </div>
+                        <div className="flex-1">
+                          <h5 className="font-medium text-gray-900">
+                            {achievement.title}
+                          </h5>
+                          {achievement.earned && (
+                            <div className="text-xs text-green-600 font-medium">
+                              {achievement.date}
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                      <p className="text-sm text-gray-600 mb-3">
+                        {achievement.description}
+                      </p>
+                      {!achievement.earned && achievement.progress && (
+                        <div>
+                          <div className="flex justify-between text-xs mb-1">
+                            <span>Progression</span>
+                            <span>{achievement.progress}%</span>
+                          </div>
+                          <Progress
+                            value={achievement.progress}
+                            className="h-2"
+                          />
+                        </div>
+                      )}
+                    </motion.div>
+                  );
+                })}
+              </div>
+            </CardContent>
+          </Card>
+        </motion.div>
 
         {/* Quick Actions */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Actions rapides</CardTitle>
-            <CardDescription>
-              Accès direct aux fonctionnalités principales
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-              <Button
-                className="h-20 flex-col space-y-2"
-                variant="outline"
-                onClick={handleDownloadBulletin}
-              >
-                <Download className="h-6 w-6" />
-                <span>Télécharger bulletin</span>
-              </Button>
-              <AbsenceRequestDialog
-                open={isAbsenceDialogOpen}
-                onOpenChange={setIsAbsenceDialogOpen}
-                trigger={
-                  <Button className="h-20 flex-col space-y-2" variant="outline">
-                    <Clock className="h-6 w-6" />
-                    <span>Signaler absence</span>
-                  </Button>
-                }
-              />
-              <Button className="h-20 flex-col space-y-2" variant="outline">
-                <FileText className="h-6 w-6" />
-                <span>Demander attestation</span>
-              </Button>
-              <Button className="h-20 flex-col space-y-2" variant="outline">
-                <User className="h-6 w-6" />
-                <span>Mettre à jour profil</span>
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.8 }}
+        >
+          <Card>
+            <CardHeader>
+              <CardTitle>Actions rapides</CardTitle>
+              <CardDescription>
+                Accès direct aux fonctionnalités principales
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="flex flex-wrap gap-3">
+                <Button
+                  onClick={handleDownloadBulletin}
+                  className="flex items-center gap-2"
+                >
+                  <Download className="h-4 w-4" />
+                  Télécharger bulletin
+                </Button>
+                <AbsenceRequestDialog
+                  trigger={
+                    <Button
+                      variant="outline"
+                      className="flex items-center gap-2"
+                    >
+                      <Clock className="h-4 w-4" />
+                      Signaler absence
+                    </Button>
+                  }
+                />
+                <Button variant="outline" className="flex items-center gap-2">
+                  <FileText className="h-4 w-4" />
+                  Demander attestation
+                </Button>
+                <Button variant="outline" className="flex items-center gap-2">
+                  <User className="h-4 w-4" />
+                  Mettre à jour profil
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </motion.div>
       </div>
     </StudentLayout>
   );

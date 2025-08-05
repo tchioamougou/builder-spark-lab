@@ -58,21 +58,13 @@ const About: React.FC = () => {
                     {t("about.historyTitle")}
                   </h3>
                   <p className="text-gray-600 leading-relaxed mb-4">
-                    L'École Privée de Formation des Professionnels de Santé de
-                    Meiganga (EPFPS) a été créée en réponse au besoin croissant
-                    de professionnels de santé qualifiés dans la région de
-                    l'Adamaoua et au Cameroun en général.
+                    {t("about.historyText1")}
                   </p>
                   <p className="text-gray-600 leading-relaxed mb-4">
-                    Depuis sa création, notre établissement s'est imposé comme
-                    une référence dans la formation des professionnels de santé,
-                    alliant rigueur académique, excellence pratique et valeurs
-                    humaines.
+                    {t("about.historyText2")}
                   </p>
                   <p className="text-gray-600 leading-relaxed">
-                    Reconnue par le Ministère de la Santé Publique du Cameroun,
-                    l'EPFPS forme chaque année des centaines d'étudiants qui
-                    contribuent �� améliorer le système de santé national.
+                    {t("about.historyText3")}
                   </p>
                 </div>
               </div>

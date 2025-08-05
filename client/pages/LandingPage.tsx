@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { motion } from "framer-motion";
 import LandingHeader from "../components/LandingHeader";
 import LandingFooter from "../components/LandingFooter";
 import HeroImage from "@/assets/images/landingpageimage/group_five_african_college_students_spending_time_together_campus.jpg";
@@ -13,7 +14,33 @@ import StudyGroup2 from "@/assets/images/landingpageimage/study-group-african-pe
 import CollegeStudents from "@/assets/images/landingpageimage/college-students-different-ethnicities-cramming.jpg";
 
 const LandingPage: React.FC = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    // Attendre que i18n soit initialisé
+    if (i18n.isInitialized) {
+      setIsLoading(false);
+    } else {
+      const handleInitialized = () => {
+        setIsLoading(false);
+      };
+      i18n.on("initialized", handleInitialized);
+      return () => i18n.off("initialized", handleInitialized);
+    }
+  }, [i18n]);
+
+  // Attendre que i18n soit prêt
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-white flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#3b2c6a] mx-auto mb-4"></div>
+          <p className="text-gray-600">Chargement...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="landing-page">
@@ -21,63 +48,153 @@ const LandingPage: React.FC = () => {
       <LandingHeader />
       <main>
         {/* Section Héroïque (Hero Section) */}
-        <section
-          className="relative bg-[#3b2c6a] text-white pt-32 pb-20 md:py-48"
+        <motion.section
+          className="relative bg-[#3b2c6a] text-white pt-32 pb-20 md:py-48 overflow-hidden"
           style={{
             backgroundImage: `url(${HeroImage})`,
             backgroundSize: "cover",
             backgroundPosition: "center",
           }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1 }}
         >
-          <div className="absolute inset-0 bg-black/50"></div>{" "}
-          {/* Superposition d'opacité */}
+          <motion.div
+            className="absolute inset-0 bg-black/50"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1.2 }}
+          />
+
+          {/* Floating particles animation */}
+          <div className="absolute inset-0 overflow-hidden">
+            {[...Array(6)].map((_, i) => (
+              <motion.div
+                key={i}
+                className="absolute w-2 h-2 bg-amber-400/30 rounded-full"
+                style={{
+                  left: `${20 + i * 15}%`,
+                  top: `${30 + (i % 2) * 40}%`,
+                }}
+                animate={{
+                  y: [-20, 20, -20],
+                  opacity: [0.3, 0.8, 0.3],
+                }}
+                transition={{
+                  duration: 3 + i * 0.5,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+              />
+            ))}
+          </div>
+
           <div className="container mx-auto px-4 relative z-10">
             <div className="flex flex-col md:flex-row items-center md:items-start gap-12">
               {/* Bloc de texte avec fond semi-transparent */}
-              <div className="md:w-1/2 p-8 bg-black/60 backdrop-blur-sm rounded-lg rounded-br-[80px] shadow-lg">
-                <h2 className="heading-font text-lg font-bold mb-2">
+              <motion.div
+                className="md:w-1/2 p-8 bg-black/60 backdrop-blur-sm rounded-lg rounded-br-[80px] shadow-lg"
+                initial={{ x: -100, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                transition={{ duration: 0.8, delay: 0.3 }}
+              >
+                <motion.h2
+                  className="heading-font text-lg font-bold mb-2"
+                  initial={{ y: 20, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ duration: 0.6, delay: 0.5 }}
+                >
                   {t("landingPage.hero.schoolNameFull")}
-                </h2>
-                <h1 className="heading-font text-3xl md:text-5xl lg:text-6xl font-extrabold mb-6 leading-tight">
+                </motion.h2>
+                <motion.h1
+                  className="heading-font text-3xl md:text-5xl lg:text-6xl font-extrabold mb-6 leading-tight"
+                  initial={{ y: 30, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ duration: 0.8, delay: 0.7 }}
+                >
                   {t("landingPage.hero.tagline")}
-                </h1>
-                <div className="space-y-4">
-                  <Link
-                    to="/admission-request"
-                    className="block w-full text-center md:w-auto bg-[#ff9900] hover:bg-[#e68a00] text-white heading-font font-bold py-3 px-8 rounded-full shadow-lg transition-all duration-300 transform hover:scale-105"
+                </motion.h1>
+                <motion.div
+                  className="space-y-4"
+                  initial={{ y: 40, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ duration: 0.8, delay: 0.9 }}
+                >
+                  <motion.div
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
                   >
-                    {t("landingPage.hero.applyButton")}
-                  </Link>
-                  <Link
-                    to="/formations"
-                    className="block w-full text-center md:w-auto bg-transparent border-2 border-white hover:bg-white hover:text-[#3b2c6a] text-white heading-font font-bold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105"
+                    <Link
+                      to="/admission-request"
+                      className="block w-full text-center md:w-auto bg-[#ff9900] hover:bg-[#e68a00] text-white heading-font font-bold py-3 px-8 rounded-full shadow-lg transition-all duration-300"
+                    >
+                      {t("landingPage.hero.applyButton")}
+                    </Link>
+                  </motion.div>
+                  <motion.div
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
                   >
-                    {t("landingPage.hero.viewPrograms")}
-                  </Link>
-                </div>
-              </div>
+                    <Link
+                      to="/formations"
+                      className="block w-full text-center md:w-auto bg-transparent border-2 border-white hover:bg-white hover:text-[#3b2c6a] text-white heading-font font-bold py-3 px-8 rounded-full transition-all duration-300"
+                    >
+                      {t("landingPage.hero.viewPrograms")}
+                    </Link>
+                  </motion.div>
+                </motion.div>
+              </motion.div>
             </div>
           </div>
-        </section>
+        </motion.section>
 
         {/* Section Présentation */}
         <section id="presentation" className="py-20 md:py-32 bg-white">
           <div className="container mx-auto px-4">
             <div className="md:flex items-start gap-12">
-              <div className="md:w-1/2 mb-8 md:mb-0">
-                <h2 className="heading-font text-3xl md:text-4xl text-[#3b2c6a] font-bold mb-4">
+              <motion.div
+                className="md:w-1/2 mb-8 md:mb-0"
+                initial={{ x: -50, opacity: 0 }}
+                whileInView={{ x: 0, opacity: 1 }}
+                transition={{ duration: 0.8 }}
+                viewport={{ once: true }}
+              >
+                <motion.h2
+                  className="heading-font text-3xl md:text-4xl text-[#3b2c6a] font-bold mb-4"
+                  initial={{ y: 20, opacity: 0 }}
+                  whileInView={{ y: 0, opacity: 1 }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
+                  viewport={{ once: true }}
+                >
                   {t("landingPage.presentation.title")}
-                </h2>
-                <p className="text-gray-600 leading-relaxed mb-6">
+                </motion.h2>
+                <motion.p
+                  className="text-gray-600 leading-relaxed mb-6"
+                  initial={{ y: 20, opacity: 0 }}
+                  whileInView={{ y: 0, opacity: 1 }}
+                  transition={{ duration: 0.6, delay: 0.4 }}
+                  viewport={{ once: true }}
+                >
                   {t("landingPage.presentation.subtitle")}
-                </p>
-                <p className="text-gray-600 leading-relaxed">
+                </motion.p>
+                <motion.p
+                  className="text-gray-600 leading-relaxed"
+                  initial={{ y: 20, opacity: 0 }}
+                  whileInView={{ y: 0, opacity: 1 }}
+                  transition={{ duration: 0.6, delay: 0.6 }}
+                  viewport={{ once: true }}
+                >
                   {t("landingPage.presentation.description")}
-                  établissement offre un cadre d'apprentissage rigoureux et
-                  humain pour former les professionnels de santé de demain.
-                </p>
-              </div>
-              <div className="md:w-1/2 rounded-3xl overflow-hidden shadow-2xl">
+                </motion.p>
+              </motion.div>
+              <motion.div
+                className="md:w-1/2 rounded-3xl overflow-hidden shadow-2xl"
+                initial={{ x: 50, opacity: 0, scale: 0.9 }}
+                whileInView={{ x: 0, opacity: 1, scale: 1 }}
+                transition={{ duration: 0.8, delay: 0.3 }}
+                viewport={{ once: true }}
+                whileHover={{ scale: 1.02 }}
+              >
                 {/* Placeholder de lecteur vidéo YouTube */}
                 <div
                   className="relative w-full"
@@ -93,7 +210,7 @@ const LandingPage: React.FC = () => {
                     allowFullScreen
                   />
                 </div>
-              </div>
+              </motion.div>
             </div>
           </div>
         </section>
@@ -306,17 +423,15 @@ const LandingPage: React.FC = () => {
             <div className="text-center mb-16">
               <div className="inline-flex items-center justify-center p-2 bg-[#3b2c6a]/10 rounded-full mb-6">
                 <span className="text-[#3b2c6a] text-sm font-semibold px-4 py-2 bg-white rounded-full shadow-sm">
-                  TÉMOIGNAGES
+                  {t("landingPage.testimonials.sectionLabel")}
                 </span>
               </div>
               <h2 className="heading-font text-3xl md:text-5xl text-[#3b2c6a] font-bold mb-6 leading-tight">
-                Ce qu'ils <span className="text-[#ff9900]">disent de nous</span>
+                {t("landingPage.testimonials.title")}
               </h2>
               <div className="w-24 h-1 bg-[#ff9900] mx-auto mb-8 rounded-full"></div>
               <p className="text-gray-700 max-w-3xl mx-auto text-lg leading-relaxed">
-                Découvrez les témoignages authentiques de nos étudiants et
-                diplômés qui font aujourd'hui la différence dans le secteur de
-                la santé.
+                {t("landingPage.testimonials.subtitle")}
               </p>
             </div>
 
@@ -336,9 +451,7 @@ const LandingPage: React.FC = () => {
                   ))}
                 </div>
                 <blockquote className="text-gray-700 mb-6 leading-relaxed italic">
-                  "La formation en soins infirmiers à l'EPFPS m'a donné toutes
-                  les compétences nécessaires pour réussir. Les professeurs sont
-                  dévoués et les stages pratiques excellents."
+                  "{t("landingPage.testimonials.fatima.quote")}"
                 </blockquote>
                 <div className="flex items-center gap-3">
                   <img
@@ -428,10 +541,10 @@ const LandingPage: React.FC = () => {
             <div className="bg-white rounded-2xl shadow-lg p-8 border border-gray-100">
               <div className="text-center mb-8">
                 <h3 className="heading-font text-2xl md:text-3xl font-bold text-[#3b2c6a] mb-4">
-                  Taux de satisfaction de nos étudiants
+                  {t("landingPage.testimonials.satisfaction.title")}
                 </h3>
                 <p className="text-gray-600">
-                  Basé sur une enquête de 500+ étudiants et diplômés
+                  {t("landingPage.testimonials.satisfaction.subtitle")}
                 </p>
               </div>
 
@@ -441,10 +554,10 @@ const LandingPage: React.FC = () => {
                     <span className="text-xl font-bold text-white">98%</span>
                   </div>
                   <h4 className="font-semibold text-[#3b2c6a] mb-2">
-                    Satisfaction générale
+                    {t("landingPage.testimonials.satisfaction.overall")}
                   </h4>
                   <p className="text-sm text-gray-600">
-                    Recommandent notre école
+                    {t("landingPage.testimonials.satisfaction.overallDesc")}
                   </p>
                 </div>
 
@@ -453,10 +566,10 @@ const LandingPage: React.FC = () => {
                     <span className="text-xl font-bold text-white">96%</span>
                   </div>
                   <h4 className="font-semibold text-[#3b2c6a] mb-2">
-                    Qualité enseignement
+                    {t("landingPage.testimonials.satisfaction.quality")}
                   </h4>
                   <p className="text-sm text-gray-600">
-                    Excellent niveau des cours
+                    {t("landingPage.testimonials.satisfaction.qualityDesc")}
                   </p>
                 </div>
 
@@ -465,10 +578,10 @@ const LandingPage: React.FC = () => {
                     <span className="text-xl font-bold text-white">94%</span>
                   </div>
                   <h4 className="font-semibold text-[#3b2c6a] mb-2">
-                    Insertion professionnelle
+                    {t("landingPage.testimonials.satisfaction.employment")}
                   </h4>
                   <p className="text-sm text-gray-600">
-                    Trouvent un emploi dans les 6 mois
+                    {t("landingPage.testimonials.satisfaction.employmentDesc")}
                   </p>
                 </div>
 
@@ -477,10 +590,10 @@ const LandingPage: React.FC = () => {
                     <span className="text-xl font-bold text-white">97%</span>
                   </div>
                   <h4 className="font-semibold text-[#3b2c6a] mb-2">
-                    Accompagnement
+                    {t("landingPage.testimonials.satisfaction.support")}
                   </h4>
                   <p className="text-sm text-gray-600">
-                    Suivi personnalisé apprécié
+                    {t("landingPage.testimonials.satisfaction.supportDesc")}
                   </p>
                 </div>
               </div>
@@ -498,15 +611,14 @@ const LandingPage: React.FC = () => {
             <div className="text-center mb-16">
               <div className="inline-flex items-center justify-center p-2 bg-white/10 rounded-full mb-6">
                 <span className="text-white text-sm font-semibold px-4 py-2 bg-[#ff9900] rounded-full">
-                  NOS CHIFFRES
+                  {t("landingPage.stats.sectionLabel")}
                 </span>
               </div>
               <h2 className="heading-font text-3xl md:text-5xl font-bold mb-4">
-                L'Excellence en Chiffres
+                {t("landingPage.stats.title")}
               </h2>
               <p className="text-gray-300 max-w-2xl mx-auto text-lg">
-                Plus de 15 ans d'expérience dans la formation des professionnels
-                de santé
+                {t("landingPage.stats.subtitle")}
               </p>
             </div>
 
@@ -535,7 +647,9 @@ const LandingPage: React.FC = () => {
                 <p className="text-lg font-medium text-gray-200 mb-1">
                   {t("landingPage.stats.studentsFormed")}
                 </p>
-                <p className="text-sm text-gray-400">Depuis 2008</p>
+                <p className="text-sm text-gray-400">
+                  {t("landingPage.stats.since2008")}
+                </p>
               </div>
 
               {/* Statistique 2 */}
@@ -561,7 +675,9 @@ const LandingPage: React.FC = () => {
                 <p className="text-lg font-medium text-gray-200 mb-1">
                   {t("landingPage.stats.professionalExperts")}
                 </p>
-                <p className="text-sm text-gray-400">Enseignants qualifiés</p>
+                <p className="text-sm text-gray-400">
+                  {t("landingPage.stats.qualifiedTeachers")}
+                </p>
               </div>
 
               {/* Statistique 3 */}
@@ -587,7 +703,9 @@ const LandingPage: React.FC = () => {
                 <p className="text-lg font-medium text-gray-200 mb-1">
                   {t("landingPage.stats.partners")}
                 </p>
-                <p className="text-sm text-gray-400">Hôpitaux & Centres</p>
+                <p className="text-sm text-gray-400">
+                  {t("landingPage.stats.hospitalsAndCenters")}
+                </p>
               </div>
 
               {/* Statistique 4 */}
@@ -613,7 +731,9 @@ const LandingPage: React.FC = () => {
                 <p className="text-lg font-medium text-gray-200 mb-1">
                   {t("landingPage.stats.campus")}
                 </p>
-                <p className="text-sm text-gray-400">À Meiganga</p>
+                <p className="text-sm text-gray-400">
+                  {t("landingPage.stats.inMeiganga")}
+                </p>
               </div>
             </div>
           </div>
@@ -625,14 +745,11 @@ const LandingPage: React.FC = () => {
             {/* En-tête de section */}
             <div className="text-center mb-16">
               <h2 className="heading-font text-3xl md:text-4xl text-[#3b2c6a] font-bold mb-2">
-                La vie au <span className="text-[#ff9900]">campus</span>
+                {t("landingPage.campusLife.title")}
               </h2>
               <div className="w-20 h-1 bg-[#ff9900] mx-auto mb-6"></div>
               <p className="text-gray-600 max-w-3xl mx-auto text-lg leading-relaxed">
-                Découvrez une communauté inspirante et dynamique où nos
-                étudiants évoluent dans un environnement riche en activités
-                académiques, sociales et culturelles, favorisant leur
-                épanouissement personnel et professionnel.
+                {t("landingPage.campusLife.subtitle")}
               </p>
             </div>
 
@@ -669,11 +786,10 @@ const LandingPage: React.FC = () => {
                       </span>
                     </div>
                     <h3 className="heading-font text-2xl font-bold text-white mb-2">
-                      Salles de cours modernes
+                      {t("landingPage.campusLife.modernClassrooms")}
                     </h3>
                     <p className="text-gray-200 text-sm leading-relaxed">
-                      Des salles équipées des dernières technologies pour un
-                      apprentissage interactif et collaboratif.
+                      {t("landingPage.campusLife.classroomsDesc")}
                     </p>
                   </div>
                 </div>
@@ -710,11 +826,10 @@ const LandingPage: React.FC = () => {
                       </span>
                     </div>
                     <h3 className="heading-font text-2xl font-bold text-white mb-2">
-                      Espaces d'étude collaboratif
+                      {t("landingPage.campusLife.studySpaces")}
                     </h3>
                     <p className="text-gray-200 text-sm leading-relaxed">
-                      Des zones dédiées au travail en groupe et aux projets
-                      collaboratifs entre étudiants.
+                      {t("landingPage.campusLife.studyDesc")}
                     </p>
                   </div>
                 </div>
@@ -741,11 +856,10 @@ const LandingPage: React.FC = () => {
                   </svg>
                 </div>
                 <h4 className="heading-font text-lg font-bold text-[#3b2c6a] mb-3 text-center">
-                  Bibliothèque
+                  {t("landingPage.campusLife.library")}
                 </h4>
                 <p className="text-gray-600 text-sm text-center leading-relaxed">
-                  Accès à une riche collection d'ouvrages médicaux et
-                  scientifiques, espaces de lecture silencieux.
+                  {t("landingPage.campusLife.libraryDesc")}
                 </p>
               </div>
 
@@ -767,11 +881,10 @@ const LandingPage: React.FC = () => {
                   </svg>
                 </div>
                 <h4 className="heading-font text-lg font-bold text-[#3b2c6a] mb-3 text-center">
-                  Laboratoires
+                  {t("landingPage.campusLife.laboratories")}
                 </h4>
                 <p className="text-gray-600 text-sm text-center leading-relaxed">
-                  Laboratoires modernes équipés pour les travaux pratiques en
-                  sciences médicales et biologiques.
+                  {t("landingPage.campusLife.labDesc")}
                 </p>
               </div>
 
@@ -793,11 +906,10 @@ const LandingPage: React.FC = () => {
                   </svg>
                 </div>
                 <h4 className="heading-font text-lg font-bold text-[#3b2c6a] mb-3 text-center">
-                  Espaces de détente
+                  {t("landingPage.campusLife.relaxSpaces")}
                 </h4>
                 <p className="text-gray-600 text-sm text-center leading-relaxed">
-                  Zones de repos et de socialisation pour favoriser les échanges
-                  entre étudiants.
+                  {t("landingPage.campusLife.relaxDesc")}
                 </p>
               </div>
             </div>
@@ -820,19 +932,18 @@ const LandingPage: React.FC = () => {
                     </span>
                   </div>
                   <blockquote className="text-gray-700 text-lg md:text-xl leading-relaxed mb-6 italic">
-                    "L'ambiance au campus est exceptionnelle. Les espaces sont
-                    modernes, les professeurs sont disponibles et l'esprit de
-                    collaboration entre étudiants nous pousse à donner le
-                    meilleur de nous-mêmes chaque jour."
+                    "{t("landingPage.campusLife.studentTestimonial.quote")}"
                   </blockquote>
                   <div className="flex items-center gap-4">
                     <div className="w-12 h-12 bg-[#3b2c6a] rounded-full flex items-center justify-center">
                       <span className="text-white font-bold">AM</span>
                     </div>
                     <div>
-                      <p className="font-bold text-[#3b2c6a]">Amina Moussa</p>
+                      <p className="font-bold text-[#3b2c6a]">
+                        {t("landingPage.campusLife.studentTestimonial.name")}
+                      </p>
                       <p className="text-gray-500 text-sm">
-                        Étudiante en 2ème année - Aide-soignante
+                        {t("landingPage.campusLife.studentTestimonial.title")}
                       </p>
                     </div>
                   </div>
@@ -852,7 +963,7 @@ const LandingPage: React.FC = () => {
             <div className="mb-20">
               <div className="inline-flex items-center justify-center p-2 bg-[#3b2c6a]/10 rounded-full mb-6">
                 <span className="text-[#3b2c6a] text-sm font-bold px-4 py-2 bg-white rounded-full shadow-lg">
-                  INFRASTRUCTURES
+                  {t("landingPage.infrastructure.title").toUpperCase()}
                 </span>
               </div>
               <h2 className="heading-font text-4xl md:text-6xl text-[#3b2c6a] font-black mb-6 leading-tight">
@@ -860,9 +971,7 @@ const LandingPage: React.FC = () => {
               </h2>
               <div className="w-32 h-1.5 bg-gradient-to-r from-[#3b2c6a] to-[#ff9900] mx-auto mb-8 rounded-full shadow-lg"></div>
               <p className="text-gray-700 max-w-3xl mx-auto text-xl leading-relaxed font-medium">
-                Découvrez nos installations modernes conçues pour offrir un
-                environnement d'apprentissage optimal aux futurs professionnels
-                de santé.
+                {t("landingPage.infrastructure.subtitle")}
               </p>
             </div>
 
@@ -888,16 +997,14 @@ const LandingPage: React.FC = () => {
                   </div>
                 </div>
                 <h3 className="heading-font text-2xl font-bold mb-4 text-[#3b2c6a]">
-                  Laboratoire de Simulation
+                  {t("landingPage.infrastructure.simLab")}
                 </h3>
                 <p className="text-gray-700 leading-relaxed">
-                  Équipements de simulation médicale de pointe pour la formation
-                  pratique des étudiants dans un environnement sécurisé et
-                  réaliste.
+                  {t("landingPage.infrastructure.simLabDesc")}
                 </p>
                 <div className="mt-6 flex items-center justify-center">
                   <span className="text-[#ff9900] text-sm font-semibold bg-[#ff9900]/10 px-3 py-1 rounded-full">
-                    Haute technologie
+                    {t("landingPage.infrastructure.highTech")}
                   </span>
                 </div>
               </div>
@@ -922,16 +1029,14 @@ const LandingPage: React.FC = () => {
                   </div>
                 </div>
                 <h3 className="heading-font text-2xl font-bold mb-4 text-[#3b2c6a]">
-                  Amphithéâtre Moderne
+                  {t("landingPage.infrastructure.amphitheater")}
                 </h3>
                 <p className="text-gray-700 leading-relaxed">
-                  Salles de cours équipées des dernières technologies
-                  audiovisuelles pour un enseignement interactif et une
-                  expérience d'apprentissage optimale.
+                  {t("landingPage.infrastructure.amphitheaterDesc")}
                 </p>
                 <div className="mt-6 flex items-center justify-center">
                   <span className="text-[#3b2c6a] text-sm font-semibold bg-[#3b2c6a]/10 px-3 py-1 rounded-full">
-                    Capacité 200 places
+                    {t("landingPage.infrastructure.capacity200")}
                   </span>
                 </div>
               </div>
@@ -956,16 +1061,14 @@ const LandingPage: React.FC = () => {
                   </div>
                 </div>
                 <h3 className="heading-font text-2xl font-bold mb-4 text-[#3b2c6a]">
-                  Bibliothèque Numérique
+                  {t("landingPage.infrastructure.digitalLibrary")}
                 </h3>
                 <p className="text-gray-700 leading-relaxed">
-                  Collection complète d'ouvrages médicaux, bases de données
-                  scientifiques et espaces d'étude collaboratifs pour enrichir
-                  la recherche.
+                  {t("landingPage.infrastructure.digitalLibraryDesc")}
                 </p>
                 <div className="mt-6 flex items-center justify-center">
                   <span className="text-[#ff9900] text-sm font-semibold bg-[#ff9900]/10 px-3 py-1 rounded-full">
-                    5000+ ouvrages
+                    {t("landingPage.infrastructure.books5000")}
                   </span>
                 </div>
               </div>
@@ -979,12 +1082,11 @@ const LandingPage: React.FC = () => {
             {/* En-tête de la section */}
             <div className="text-center mb-16">
               <h2 className="heading-font text-3xl md:text-4xl text-[#3b2c6a] font-bold mb-2">
-                Nos <span className="text-[#ff9900]">Actualités</span>
+                {t("landingPage.news.title")}
               </h2>
               <div className="w-20 h-1 bg-[#ff9900] mx-auto mb-6"></div>
               <p className="text-gray-600 max-w-2xl mx-auto">
-                Restez informés des dernières nouvelles, événements et
-                développements de notre école de formation sanitaire.
+                {t("landingPage.news.subtitle")}
               </p>
             </div>
 
@@ -999,28 +1101,26 @@ const LandingPage: React.FC = () => {
                     className="w-full h-48 object-cover"
                   />
                   <div className="absolute top-4 left-4 bg-[#ff9900] text-white px-3 py-1 rounded-full text-sm font-semibold">
-                    Nouveau
+                    {t("landingPage.news.new")}
                   </div>
                 </div>
                 <div className="p-6">
                   <div className="flex items-center text-sm text-gray-500 mb-3">
                     <span>15 Janvier 2024</span>
                     <span className="mx-2">•</span>
-                    <span>Formation</span>
+                    <span>{t("landingPage.news.training")}</span>
                   </div>
                   <h3 className="heading-font text-xl font-bold text-[#3b2c6a] mb-3">
-                    Nouvelle formation en soins d'urgence
+                    {t("landingPage.news.emergencyTraining")}
                   </h3>
                   <p className="text-gray-600 mb-4 line-clamp-3">
-                    Découvrez notre nouveau programme de formation spécialisé
-                    dans les soins d'urgence, conçu pour répondre aux besoins
-                    croissants du secteur de la santé...
+                    {t("landingPage.news.emergencyDesc")}
                   </p>
                   <a
                     href="#"
                     className="inline-flex items-center text-[#ff9900] font-semibold hover:text-[#e68a00] transition-colors"
                   >
-                    Lire la suite
+                    {t("landingPage.news.readMore")}
                     <svg
                       className="w-4 h-4 ml-1"
                       fill="none"
@@ -1047,28 +1147,26 @@ const LandingPage: React.FC = () => {
                     className="w-full h-48 object-cover"
                   />
                   <div className="absolute top-4 left-4 bg-[#3b2c6a] text-white px-3 py-1 rounded-full text-sm font-semibold">
-                    Partenariat
+                    {t("landingPage.news.partnership")}
                   </div>
                 </div>
                 <div className="p-6">
                   <div className="flex items-center text-sm text-gray-500 mb-3">
                     <span>10 Janvier 2024</span>
                     <span className="mx-2">•</span>
-                    <span>Actualités</span>
+                    <span>{t("landingPage.news.news")}</span>
                   </div>
                   <h3 className="heading-font text-xl font-bold text-[#3b2c6a] mb-3">
-                    Partenariat avec l'hôpital régional
+                    {t("landingPage.news.hospitalPartnership")}
                   </h3>
                   <p className="text-gray-600 mb-4 line-clamp-3">
-                    Notre école renforce ses liens avec l'hôpital régional pour
-                    offrir de meilleures opportunités de stage pratique à nos
-                    étudiants...
+                    {t("landingPage.news.partnershipDesc")}
                   </p>
                   <a
                     href="#"
                     className="inline-flex items-center text-[#ff9900] font-semibold hover:text-[#e68a00] transition-colors"
                   >
-                    Lire la suite
+                    {t("landingPage.news.readMore")}
                     <svg
                       className="w-4 h-4 ml-1"
                       fill="none"
@@ -1095,27 +1193,26 @@ const LandingPage: React.FC = () => {
                     className="w-full h-48 object-cover"
                   />
                   <div className="absolute top-4 left-4 bg-green-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
-                    Événement
+                    {t("landingPage.news.event")}
                   </div>
                 </div>
                 <div className="p-6">
                   <div className="flex items-center text-sm text-gray-500 mb-3">
                     <span>5 Janvier 2024</span>
                     <span className="mx-2">•</span>
-                    <span>Événements</span>
+                    <span>{t("landingPage.news.events")}</span>
                   </div>
                   <h3 className="heading-font text-xl font-bold text-[#3b2c6a] mb-3">
-                    Cérémonie de remise des diplômes 2023
+                    {t("landingPage.news.graduation")}
                   </h3>
                   <p className="text-gray-600 mb-4 line-clamp-3">
-                    Félicitations à nos 150 nouveaux diplômés qui rejoignent le
-                    secteur de la santé avec excellence et dévouement...
+                    {t("landingPage.news.graduationDesc")}
                   </p>
                   <a
                     href="#"
                     className="inline-flex items-center text-[#ff9900] font-semibold hover:text-[#e68a00] transition-colors"
                   >
-                    Lire la suite
+                    {t("landingPage.news.readMore")}
                     <svg
                       className="w-4 h-4 ml-1"
                       fill="none"
@@ -1140,7 +1237,7 @@ const LandingPage: React.FC = () => {
                 href="#"
                 className="inline-block bg-[#ff9900] hover:bg-[#e68a00] text-white heading-font font-bold py-3 px-8 rounded-full shadow-lg transition-all duration-300 transform hover:scale-105"
               >
-                Voir toutes les actualités
+                {t("landingPage.news.seeAllNews")}
               </a>
             </div>
           </div>
@@ -1161,16 +1258,10 @@ const LandingPage: React.FC = () => {
           <div className="container mx-auto px-4 relative z-10">
             <div className="text-center mb-12">
               <h2 className="heading-font text-3xl md:text-5xl font-bold text-white mb-6 leading-tight">
-                Prêt à <span className="text-[#ff9900]">commencer</span> votre
-                parcours
-                <br />
-                dans le secteur de la{" "}
-                <span className="text-[#ff9900]">santé</span> ?
+                {t("landingPage.cta.title")}
               </h2>
               <p className="text-gray-200 text-lg md:text-xl max-w-3xl mx-auto mb-8">
-                Rejoignez notre communauté d'étudiants passionnés et
-                préparez-vous à faire la différence dans le monde de la santé.
-                Votre avenir commence ici !
+                {t("landingPage.cta.subtitle")}
               </p>
             </div>
 
@@ -1193,7 +1284,7 @@ const LandingPage: React.FC = () => {
                     d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
                   />
                 </svg>
-                Demande d'admission
+                {t("landingPage.cta.admissionRequest")}
               </Link>
               <Link
                 to="/admissions"
@@ -1212,7 +1303,7 @@ const LandingPage: React.FC = () => {
                     d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
                   />
                 </svg>
-                Conditions d'admission
+                {t("landingPage.cta.admissionConditions")}
               </Link>
             </div>
 
@@ -1236,9 +1327,15 @@ const LandingPage: React.FC = () => {
                       />
                     </svg>
                   </div>
-                  <h4 className="text-white font-bold mb-2">Appelez-nous</h4>
-                  <p className="text-gray-200 text-sm">+237 6XX XXX XXX</p>
-                  <p className="text-gray-200 text-sm">Lun-Ven 8h-17h</p>
+                  <h4 className="text-white font-bold mb-2">
+                    {t("landingPage.cta.callUs")}
+                  </h4>
+                  <p className="text-gray-200 text-sm">
+                    {t("landingPage.cta.phoneNumber")}
+                  </p>
+                  <p className="text-gray-200 text-sm">
+                    {t("landingPage.cta.mondayFriday")}
+                  </p>
                 </div>
               </div>
 
@@ -1267,11 +1364,13 @@ const LandingPage: React.FC = () => {
                     </svg>
                   </div>
                   <h4 className="text-white font-bold mb-2">
-                    Visitez le campus
+                    {t("landingPage.cta.visitCampus")}
                   </h4>
-                  <p className="text-gray-200 text-sm">Meiganga, Cameroun</p>
                   <p className="text-gray-200 text-sm">
-                    Visites guidées disponibles
+                    {t("landingPage.cta.location")}
+                  </p>
+                  <p className="text-gray-200 text-sm">
+                    {t("landingPage.cta.guidedTours")}
                   </p>
                 </div>
               </div>
@@ -1294,9 +1393,13 @@ const LandingPage: React.FC = () => {
                       />
                     </svg>
                   </div>
-                  <h4 className="text-white font-bold mb-2">Écrivez-nous</h4>
+                  <h4 className="text-white font-bold mb-2">
+                    {t("landingPage.cta.writeUs")}
+                  </h4>
                   <p className="text-gray-200 text-sm">contact@epfps.cm</p>
-                  <p className="text-gray-200 text-sm">Réponse sous 24h</p>
+                  <p className="text-gray-200 text-sm">
+                    {t("landingPage.cta.responseTime")}
+                  </p>
                 </div>
               </div>
             </div>
