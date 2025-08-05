@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import LandingHeader from "../components/LandingHeader";
 import LandingFooter from "../components/LandingFooter";
@@ -340,12 +341,12 @@ const Admissions: React.FC = () => {
               avec nous
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a
-                href="#"
+              <Link
+                to="/admission-request"
                 className="bg-[#ff9900] hover:bg-[#e68a00] text-white font-bold py-3 px-8 rounded-full transition-colors"
               >
-                Télécharger le dossier
-              </a>
+                Faire une demande d'admission
+              </Link>
               <a
                 href="/contacts"
                 className="bg-transparent border-2 border-white hover:bg-white hover:text-[#3b2c6a] text-white font-bold py-3 px-8 rounded-full transition-colors"

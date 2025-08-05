@@ -49,6 +49,7 @@ import TeacherProfile from "./pages/TeacherProfile";
 import UserManagement from "./pages/UserManagement";
 import StudentDetails from "./pages/StudentDetails";
 import RoleManagement from "./pages/RoleManagement";
+import AdmissionRequest from "./pages/AdmissionRequest";
 
 const queryClient = new QueryClient();
 
@@ -63,6 +64,7 @@ function AppRoutes() {
         <Route path="/about" element={<About />} />
         <Route path="/formations" element={<Formations />} />
         <Route path="/admissions" element={<Admissions />} />
+        <Route path="/admission-request" element={<AdmissionRequest />} />
         <Route path="/actualites" element={<Actualites />} />
         <Route path="/faq" element={<FAQ />} />
         <Route path="/recrutement" element={<Recrutement />} />

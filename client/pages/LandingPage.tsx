@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import LandingHeader from "../components/LandingHeader";
@@ -11,6 +11,7 @@ import StudyGroupImage from "@/assets/images/landingpageimage/study-group-africa
 import StudentWoman from "@/assets/images/landingpageimage/african_american_woman_wearing_student_backpack_holding_books_smiling.jpg";
 import StudyGroup2 from "@/assets/images/landingpageimage/study-group-african-people (1).jpg";
 import CollegeStudents from "@/assets/images/landingpageimage/college-students-different-ethnicities-cramming.jpg";
+
 const LandingPage: React.FC = () => {
   const { t } = useTranslation();
 
@@ -35,24 +36,24 @@ const LandingPage: React.FC = () => {
               {/* Bloc de texte avec fond semi-transparent */}
               <div className="md:w-1/2 p-8 bg-black/60 backdrop-blur-sm rounded-lg rounded-br-[80px] shadow-lg">
                 <h2 className="heading-font text-lg font-bold mb-2">
-                  {t('landingPage.hero.schoolNameFull')}
+                  {t("landingPage.hero.schoolNameFull")}
                 </h2>
                 <h1 className="heading-font text-3xl md:text-5xl lg:text-6xl font-extrabold mb-6 leading-tight">
-                  {t('landingPage.hero.tagline')}
+                  {t("landingPage.hero.tagline")}
                 </h1>
                 <div className="space-y-4">
-                  <a
-                    href="#"
+                  <Link
+                    to="/admission-request"
                     className="block w-full text-center md:w-auto bg-[#ff9900] hover:bg-[#e68a00] text-white heading-font font-bold py-3 px-8 rounded-full shadow-lg transition-all duration-300 transform hover:scale-105"
                   >
-                    {t('landingPage.hero.applyButton')}
-                  </a>
-                  <a
-                    href="#"
+                    {t("landingPage.hero.applyButton")}
+                  </Link>
+                  <Link
+                    to="/formations"
                     className="block w-full text-center md:w-auto bg-transparent border-2 border-white hover:bg-white hover:text-[#3b2c6a] text-white heading-font font-bold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105"
                   >
-                    {t('landingPage.hero.viewPrograms')}
-                  </a>
+                    {t("landingPage.hero.viewPrograms")}
+                  </Link>
                 </div>
               </div>
             </div>
@@ -64,15 +65,15 @@ const LandingPage: React.FC = () => {
           <div className="container mx-auto px-4">
             <div className="md:flex items-start gap-12">
               <div className="md:w-1/2 mb-8 md:mb-0">
-                <h2 className="heading-font text-3xl md:text-4xl text-[#5d40a2] font-bold mb-4">
-                  {t('landingPage.presentation.title')}
+                <h2 className="heading-font text-3xl md:text-4xl text-[#3b2c6a] font-bold mb-4">
+                  {t("landingPage.presentation.title")}
                 </h2>
                 <p className="text-gray-600 leading-relaxed mb-6">
-                  {t('landingPage.presentation.subtitle')}
+                  {t("landingPage.presentation.subtitle")}
                 </p>
                 <p className="text-gray-600 leading-relaxed">
-                  {t('landingPage.presentation.description')}
-                  établissement offre un cadre d’apprentissage rigoureux et
+                  {t("landingPage.presentation.description")}
+                  établissement offre un cadre d'apprentissage rigoureux et
                   humain pour former les professionnels de santé de demain.
                 </p>
               </div>
@@ -104,141 +105,215 @@ const LandingPage: React.FC = () => {
         >
           <div className="container mx-auto px-4 text-center">
             <h2 className="heading-font text-3xl md:text-4xl font-bold mb-12">
-              {t('landingPage.programs.title')}
+              {t("landingPage.programs.title")}
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-              {/* Carte Filière 1 */}
-              <div className="bg-white rounded-3xl shadow-lg overflow-hidden relative">
+              {/* Filière 1 - Infirmier Principal */}
+              <div className="bg-white rounded-3xl shadow-lg overflow-hidden group hover:shadow-2xl transition-all duration-300">
                 <img
                   src={MyFie}
-                  alt="Filière 1"
-                  className="w-full h-56 object-cover"
+                  alt="Infirmier Principal"
+                  className="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-300"
                 />
                 <div className="p-6 text-left">
-                  <h3 className="heading-font text-xl font-semibold text-[#5d40a2] mb-1">
-                    Aide de santé communautaire
+                  <div className="flex items-center gap-2 mb-3">
+                    <span className="bg-[#3b2c6a] text-white text-xs px-2 py-1 rounded-full">
+                      {t(
+                        "landingPage.programs.epfpsPrograms.infirmierPrincipal.duration",
+                      )}
+                    </span>
+                    <span className="bg-[#ff9900] text-white text-xs px-2 py-1 rounded-full">
+                      {t(
+                        "landingPage.programs.epfpsPrograms.infirmierPrincipal.level",
+                      )}
+                    </span>
+                  </div>
+                  <h3 className="heading-font text-xl font-semibold text-[#3b2c6a] mb-2">
+                    {t(
+                      "landingPage.programs.epfpsPrograms.infirmierPrincipal.title",
+                    )}
                   </h3>
-                  <p className="text-gray-600">
-                    Nous interconnectons les systèmes et optimisons les flux de
-                    données pour garantir une infrastructure
+                  <p className="text-gray-600 text-sm mb-4">
+                    {t(
+                      "landingPage.programs.epfpsPrograms.infirmierPrincipal.description",
+                    )}
                   </p>
-                </div>
-                {/* Bouton Plus */}
-                <button className="absolute bottom-6 right-6 p-2 rounded-full bg-[#3b2c6a] text-white shadow-md">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-6 w-6"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
+                  <Link
+                    to="/admission-request"
+                    className="inline-flex items-center text-[#ff9900] font-semibold hover:text-[#e68a00] transition-colors text-sm"
                   >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-                    />
-                  </svg>
-                </button>
+                    {t("landingPage.programs.applyNow")}
+                    <svg
+                      className="w-4 h-4 ml-1"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M17 8l4 4m0 0l-4 4m4-4H3"
+                      />
+                    </svg>
+                  </Link>
+                </div>
               </div>
-              {/* Carte Filière 2 */}
-              <div className="bg-white rounded-3xl shadow-lg overflow-hidden relative">
+
+              {/* Filière 2 - Agent Technique Pharmacie */}
+              <div className="bg-white rounded-3xl shadow-lg overflow-hidden group hover:shadow-2xl transition-all duration-300">
                 <img
-                  src={MyFie}
-                  alt="Filière 2"
-                  className="w-full h-56 object-cover"
+                  src={ClassroomImage}
+                  alt="Agent Technique Pharmacie"
+                  className="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-300"
                 />
                 <div className="p-6 text-left">
-                  <h3 className="heading-font text-xl font-semibold text-[#5d40a2] mb-1">
-                    Aide de santé communautaire
+                  <div className="flex items-center gap-2 mb-3">
+                    <span className="bg-[#3b2c6a] text-white text-xs px-2 py-1 rounded-full">
+                      {t(
+                        "landingPage.programs.epfpsPrograms.agentTechniquePharmacie.duration",
+                      )}
+                    </span>
+                    <span className="bg-[#ff9900] text-white text-xs px-2 py-1 rounded-full">
+                      {t(
+                        "landingPage.programs.epfpsPrograms.agentTechniquePharmacie.level",
+                      )}
+                    </span>
+                  </div>
+                  <h3 className="heading-font text-xl font-semibold text-[#3b2c6a] mb-1">
+                    {t(
+                      "landingPage.programs.epfpsPrograms.agentTechniquePharmacie.title",
+                    )}
                   </h3>
-                  <p className="text-gray-600">
-                    Nous interconnectons les systèmes et optimisons les flux de
-                    données pour garantir une infrastructure
+                  <p className="text-[#ff9900] text-sm font-medium mb-2">
+                    {t(
+                      "landingPage.programs.epfpsPrograms.agentTechniquePharmacie.subtitle",
+                    )}
                   </p>
-                </div>
-                {/* Bouton Plus */}
-                <button className="absolute bottom-6 right-6 p-2 rounded-full bg-[#3b2c6a] text-white shadow-md">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-6 w-6"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
+                  <p className="text-gray-600 text-sm mb-4">
+                    {t(
+                      "landingPage.programs.epfpsPrograms.agentTechniquePharmacie.description",
+                    )}
+                  </p>
+                  <Link
+                    to="/admission-request"
+                    className="inline-flex items-center text-[#ff9900] font-semibold hover:text-[#e68a00] transition-colors text-sm"
                   >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-                    />
-                  </svg>
-                </button>
+                    {t("landingPage.programs.applyNow")}
+                    <svg
+                      className="w-4 h-4 ml-1"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M17 8l4 4m0 0l-4 4m4-4H3"
+                      />
+                    </svg>
+                  </Link>
+                </div>
               </div>
-              {/* Carte Filière 3 */}
-              <div className="bg-white rounded-3xl shadow-lg overflow-hidden relative">
+
+              {/* Filière 3 - Sage-Femme */}
+              <div className="bg-white rounded-3xl shadow-lg overflow-hidden group hover:shadow-2xl transition-all duration-300">
                 <img
-                  src={MyFie}
-                  alt="Filière 3"
-                  className="w-full h-56 object-cover"
+                  src={StudentsStudying}
+                  alt="Sage-Femme"
+                  className="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-300"
                 />
                 <div className="p-6 text-left">
-                  <h3 className="heading-font text-xl font-semibold text-[#5d40a2] mb-1">
-                    Aide de santé communautaire
+                  <div className="flex items-center gap-2 mb-3">
+                    <span className="bg-[#3b2c6a] text-white text-xs px-2 py-1 rounded-full">
+                      {t(
+                        "landingPage.programs.epfpsPrograms.sageFemme.duration",
+                      )}
+                    </span>
+                    <span className="bg-[#ff9900] text-white text-xs px-2 py-1 rounded-full">
+                      {t("landingPage.programs.epfpsPrograms.sageFemme.level")}
+                    </span>
+                  </div>
+                  <h3 className="heading-font text-xl font-semibold text-[#3b2c6a] mb-2">
+                    {t("landingPage.programs.epfpsPrograms.sageFemme.title")}
                   </h3>
-                  <p className="text-gray-600">
-                    Nous interconnectons les syst��mes et optimisons les flux de
-                    données pour garantir une infrastructure
+                  <p className="text-gray-600 text-sm mb-4">
+                    {t(
+                      "landingPage.programs.epfpsPrograms.sageFemme.description",
+                    )}
                   </p>
-                </div>
-                {/* Bouton Plus */}
-                <button className="absolute bottom-6 right-6 p-2 rounded-full bg-[#3b2c6a] text-white shadow-md">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-6 w-6"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
+                  <Link
+                    to="/admission-request"
+                    className="inline-flex items-center text-[#ff9900] font-semibold hover:text-[#e68a00] transition-colors text-sm"
                   >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-                    />
-                  </svg>
-                </button>
+                    {t("landingPage.programs.applyNow")}
+                    <svg
+                      className="w-4 h-4 ml-1"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M17 8l4 4m0 0l-4 4m4-4H3"
+                      />
+                    </svg>
+                  </Link>
+                </div>
               </div>
             </div>
-            {/* Bouton "S'inscrire maintenant" */}
-            <a
-              href="#contact"
-              className="mt-12 inline-block bg-[#ff9900] hover:bg-[#e68a00] text-white heading-font font-bold py-3 px-8 rounded-full shadow-lg transition-all duration-300 transform hover:scale-105"
-            >
-              {t('landingPage.programs.enrollNow')}
-            </a>
+            {/* Boutons d'action */}
+            <div className="mt-12 flex flex-col sm:flex-row gap-4 justify-center">
+              <Link
+                to="/formations"
+                className="inline-flex items-center bg-transparent border-2 border-white hover:bg-white hover:text-[#3b2c6a] text-white heading-font font-bold py-3 px-8 rounded-full transition-all duration-300"
+              >
+                <svg
+                  className="w-5 h-5 mr-2"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+                  />
+                </svg>
+                {t("landingPage.programs.seeAll")}
+              </Link>
+              <Link
+                to="/admission-request"
+                className="bg-[#ff9900] hover:bg-[#e68a00] text-white heading-font font-bold py-3 px-8 rounded-full shadow-lg transition-all duration-300"
+              >
+                {t("landingPage.programs.enrollNow")}
+              </Link>
+            </div>
           </div>
         </section>
 
-        {/* Section Témoignages */}
+        {/* Section Témoignages Professionnelle */}
         <section
           id="testimonials"
-          className="bg-gray-50 py-20 md:py-32 relative overflow-hidden"
+          className="bg-gradient-to-br from-gray-50 to-white py-20 md:py-32 relative"
         >
-          {/* Éléments décoratifs */}
-          <div className="absolute inset-0 opacity-5">
-            <div className="absolute top-20 right-20 w-32 h-32 bg-[#ff9900] rounded-full blur-3xl"></div>
-            <div className="absolute bottom-20 left-20 w-48 h-48 bg-[#3b2c6a] rounded-full blur-3xl"></div>
-          </div>
-
           <div className="container mx-auto px-4 relative z-10">
-            {/* En-tête de section */}
+            {/* En-tête de section professionnelle */}
             <div className="text-center mb-16">
-              <h2 className="heading-font text-3xl md:text-4xl text-[#3b2c6a] font-bold mb-2">
+              <div className="inline-flex items-center justify-center p-2 bg-[#3b2c6a]/10 rounded-full mb-6">
+                <span className="text-[#3b2c6a] text-sm font-semibold px-4 py-2 bg-white rounded-full shadow-sm">
+                  TÉMOIGNAGES
+                </span>
+              </div>
+              <h2 className="heading-font text-3xl md:text-5xl text-[#3b2c6a] font-bold mb-6 leading-tight">
                 Ce qu'ils <span className="text-[#ff9900]">disent de nous</span>
               </h2>
-              <div className="w-20 h-1 bg-[#ff9900] mx-auto mb-6"></div>
-              <p className="text-gray-600 max-w-2xl mx-auto text-lg">
+              <div className="w-24 h-1 bg-[#ff9900] mx-auto mb-8 rounded-full"></div>
+              <p className="text-gray-700 max-w-3xl mx-auto text-lg leading-relaxed">
                 Découvrez les témoignages authentiques de nos étudiants et
                 diplômés qui font aujourd'hui la différence dans le secteur de
                 la santé.
@@ -247,11 +322,8 @@ const LandingPage: React.FC = () => {
 
             {/* Grille des témoignages */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-              {/* Témoignage 1 - Étudiante en soins infirmiers */}
-              <div className="group bg-white rounded-3xl shadow-lg hover:shadow-xl transition-all duration-300 p-8 relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-20 h-20 bg-[#ff9900]/10 rounded-full -translate-y-10 translate-x-10"></div>
-
-                {/* Étoiles de notation */}
+              {/* Témoignage 1 */}
+              <div className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 p-6 border border-gray-100">
                 <div className="flex gap-1 mb-4">
                   {[...Array(5)].map((_, i) => (
                     <svg
@@ -263,51 +335,30 @@ const LandingPage: React.FC = () => {
                     </svg>
                   ))}
                 </div>
-
-                <blockquote className="text-gray-700 mb-6 leading-relaxed">
+                <blockquote className="text-gray-700 mb-6 leading-relaxed italic">
                   "La formation en soins infirmiers à l'EPFPS m'a donné toutes
                   les compétences nécessaires pour réussir. Les professeurs sont
                   dévoués et les stages pratiques excellents."
                 </blockquote>
-
-                <div className="flex items-center gap-4">
-                  <div className="relative">
-                    <img
-                      src={StudentWoman}
-                      alt="Fatima Mballa"
-                      className="w-14 h-14 rounded-full object-cover border-3 border-[#ff9900]/20"
-                    />
-                    <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-[#ff9900] rounded-full flex items-center justify-center">
-                      <svg
-                        className="w-3 h-3 text-white"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
-                    </div>
-                  </div>
+                <div className="flex items-center gap-3">
+                  <img
+                    src={StudentWoman}
+                    alt="Fatima Mballa"
+                    className="w-12 h-12 rounded-full object-cover"
+                  />
                   <div>
-                    <p className="font-bold text-[#3b2c6a]">Fatima Mballa</p>
-                    <p className="text-sm text-gray-500">
-                      Diplômée en Soins Infirmiers
+                    <p className="font-semibold text-[#3b2c6a]">
+                      {t("landingPage.testimonials.fatima.name")}
                     </p>
-                    <p className="text-xs text-[#ff9900] font-semibold">
-                      Travaille à l'Hôpital Central
+                    <p className="text-sm text-gray-600">
+                      {t("landingPage.testimonials.fatima.title")}
                     </p>
                   </div>
                 </div>
               </div>
 
-              {/* Témoignage 2 - Étudiant en aide-soignant */}
-              <div className="group bg-white rounded-3xl shadow-lg hover:shadow-xl transition-all duration-300 p-8 relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-20 h-20 bg-[#3b2c6a]/10 rounded-full -translate-y-10 translate-x-10"></div>
-
-                {/* Étoiles de notation */}
+              {/* Témoignage 2 */}
+              <div className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 p-6 border border-gray-100">
                 <div className="flex gap-1 mb-4">
                   {[...Array(5)].map((_, i) => (
                     <svg
@@ -319,51 +370,28 @@ const LandingPage: React.FC = () => {
                     </svg>
                   ))}
                 </div>
-
-                <blockquote className="text-gray-700 mb-6 leading-relaxed">
-                  "L'approche pratique de l'enseignement et l'accompagnement
-                  personnalisé m'ont permis de développer ma confiance et mes
-                  compétences professionnelles."
+                <blockquote className="text-gray-700 mb-6 leading-relaxed italic">
+                  {t("landingPage.testimonials.emmanuel.quote")}
                 </blockquote>
-
-                <div className="flex items-center gap-4">
-                  <div className="relative">
-                    <img
-                      src={StudyGroup2}
-                      alt="Emmanuel Ngono"
-                      className="w-14 h-14 rounded-full object-cover border-3 border-[#ff9900]/20"
-                    />
-                    <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-[#ff9900] rounded-full flex items-center justify-center">
-                      <svg
-                        className="w-3 h-3 text-white"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
-                    </div>
-                  </div>
+                <div className="flex items-center gap-3">
+                  <img
+                    src={StudyGroup2}
+                    alt="Emmanuel Ngono"
+                    className="w-12 h-12 rounded-full object-cover"
+                  />
                   <div>
-                    <p className="font-bold text-[#3b2c6a]">Emmanuel Ngono</p>
-                    <p className="text-sm text-gray-500">
-                      Étudiant en 3ème année
+                    <p className="font-semibold text-[#3b2c6a]">
+                      {t("landingPage.testimonials.emmanuel.name")}
                     </p>
-                    <p className="text-xs text-[#ff9900] font-semibold">
-                      Spécialité Aide-soignant
+                    <p className="text-sm text-gray-600">
+                      {t("landingPage.testimonials.emmanuel.title")}
                     </p>
                   </div>
                 </div>
               </div>
 
-              {/* Témoignage 3 - Diplômée en santé communautaire */}
-              <div className="group bg-white rounded-3xl shadow-lg hover:shadow-xl transition-all duration-300 p-8 relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-20 h-20 bg-[#ff9900]/10 rounded-full -translate-y-10 translate-x-10"></div>
-
-                {/* Étoiles de notation */}
+              {/* Témoignage 3 */}
+              <div className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 p-6 border border-gray-100">
                 <div className="flex gap-1 mb-4">
                   {[...Array(5)].map((_, i) => (
                     <svg
@@ -375,39 +403,21 @@ const LandingPage: React.FC = () => {
                     </svg>
                   ))}
                 </div>
-
-                <blockquote className="text-gray-700 mb-6 leading-relaxed">
-                  "Grâce à ma formation à l'EPFPS, je contribue maintenant à
-                  améliorer la santé de ma communauté. L'école m'a donné les
-                  outils pour faire la différence."
+                <blockquote className="text-gray-700 mb-6 leading-relaxed italic">
+                  {t("landingPage.testimonials.marie.quote")}
                 </blockquote>
-
-                <div className="flex items-center gap-4">
-                  <div className="relative">
-                    <img
-                      src={CollegeStudents}
-                      alt="Marie Tchounkeu"
-                      className="w-14 h-14 rounded-full object-cover border-3 border-[#ff9900]/20"
-                    />
-                    <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-[#ff9900] rounded-full flex items-center justify-center">
-                      <svg
-                        className="w-3 h-3 text-white"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
-                    </div>
-                  </div>
+                <div className="flex items-center gap-3">
+                  <img
+                    src={CollegeStudents}
+                    alt="Marie Tchounkeu"
+                    className="w-12 h-12 rounded-full object-cover"
+                  />
                   <div>
-                    <p className="font-bold text-[#3b2c6a]">Marie Tchounkeu</p>
-                    <p className="text-sm text-gray-500">Diplômée 2023</p>
-                    <p className="text-xs text-[#ff9900] font-semibold">
-                      Agent de Santé Communautaire
+                    <p className="font-semibold text-[#3b2c6a]">
+                      {t("landingPage.testimonials.marie.name")}
+                    </p>
+                    <p className="text-sm text-gray-600">
+                      {t("landingPage.testimonials.marie.title")}
                     </p>
                   </div>
                 </div>
@@ -415,7 +425,7 @@ const LandingPage: React.FC = () => {
             </div>
 
             {/* Section statistiques de satisfaction */}
-            <div className="bg-white rounded-3xl shadow-xl p-8 md:p-12">
+            <div className="bg-white rounded-2xl shadow-lg p-8 border border-gray-100">
               <div className="text-center mb-8">
                 <h3 className="heading-font text-2xl md:text-3xl font-bold text-[#3b2c6a] mb-4">
                   Taux de satisfaction de nos étudiants
@@ -425,13 +435,12 @@ const LandingPage: React.FC = () => {
                 </p>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-                {/* Satisfaction générale */}
-                <div className="text-center">
-                  <div className="w-20 h-20 bg-[#ff9900] rounded-full flex items-center justify-center mx-auto mb-4">
-                    <span className="text-2xl font-bold text-white">98%</span>
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <div className="text-center p-4">
+                  <div className="w-16 h-16 bg-[#ff9900] rounded-full flex items-center justify-center mx-auto mb-3">
+                    <span className="text-xl font-bold text-white">98%</span>
                   </div>
-                  <h4 className="font-bold text-[#3b2c6a] mb-2">
+                  <h4 className="font-semibold text-[#3b2c6a] mb-2">
                     Satisfaction générale
                   </h4>
                   <p className="text-sm text-gray-600">
@@ -439,12 +448,11 @@ const LandingPage: React.FC = () => {
                   </p>
                 </div>
 
-                {/* Qualité enseignement */}
-                <div className="text-center">
-                  <div className="w-20 h-20 bg-[#3b2c6a] rounded-full flex items-center justify-center mx-auto mb-4">
-                    <span className="text-2xl font-bold text-white">96%</span>
+                <div className="text-center p-4">
+                  <div className="w-16 h-16 bg-[#3b2c6a] rounded-full flex items-center justify-center mx-auto mb-3">
+                    <span className="text-xl font-bold text-white">96%</span>
                   </div>
-                  <h4 className="font-bold text-[#3b2c6a] mb-2">
+                  <h4 className="font-semibold text-[#3b2c6a] mb-2">
                     Qualité enseignement
                   </h4>
                   <p className="text-sm text-gray-600">
@@ -452,12 +460,11 @@ const LandingPage: React.FC = () => {
                   </p>
                 </div>
 
-                {/* Insertion professionnelle */}
-                <div className="text-center">
-                  <div className="w-20 h-20 bg-[#ff9900] rounded-full flex items-center justify-center mx-auto mb-4">
-                    <span className="text-2xl font-bold text-white">94%</span>
+                <div className="text-center p-4">
+                  <div className="w-16 h-16 bg-[#ff9900] rounded-full flex items-center justify-center mx-auto mb-3">
+                    <span className="text-xl font-bold text-white">94%</span>
                   </div>
-                  <h4 className="font-bold text-[#3b2c6a] mb-2">
+                  <h4 className="font-semibold text-[#3b2c6a] mb-2">
                     Insertion professionnelle
                   </h4>
                   <p className="text-sm text-gray-600">
@@ -465,12 +472,11 @@ const LandingPage: React.FC = () => {
                   </p>
                 </div>
 
-                {/* Accompagnement */}
-                <div className="text-center">
-                  <div className="w-20 h-20 bg-[#3b2c6a] rounded-full flex items-center justify-center mx-auto mb-4">
-                    <span className="text-2xl font-bold text-white">97%</span>
+                <div className="text-center p-4">
+                  <div className="w-16 h-16 bg-[#3b2c6a] rounded-full flex items-center justify-center mx-auto mb-3">
+                    <span className="text-xl font-bold text-white">97%</span>
                   </div>
-                  <h4 className="font-bold text-[#3b2c6a] mb-2">
+                  <h4 className="font-semibold text-[#3b2c6a] mb-2">
                     Accompagnement
                   </h4>
                   <p className="text-sm text-gray-600">
@@ -482,33 +488,132 @@ const LandingPage: React.FC = () => {
           </div>
         </section>
 
-        {/* Section Statistiques */}
-        <section id="numbers" className="bg-[#5d40a2] py-20 text-white">
+        {/* Section Statistiques Professionnelle */}
+        <section
+          id="numbers"
+          className="bg-gradient-to-br from-[#3b2c6a] to-[#2a2251] py-20 text-white"
+        >
           <div className="container mx-auto px-4">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-              <div>
-                <span className="block heading-font text-5xl font-bold text-[#ff9900]">
+            {/* En-tête de section */}
+            <div className="text-center mb-16">
+              <div className="inline-flex items-center justify-center p-2 bg-white/10 rounded-full mb-6">
+                <span className="text-white text-sm font-semibold px-4 py-2 bg-[#ff9900] rounded-full">
+                  NOS CHIFFRES
+                </span>
+              </div>
+              <h2 className="heading-font text-3xl md:text-5xl font-bold mb-4">
+                L'Excellence en Chiffres
+              </h2>
+              <p className="text-gray-300 max-w-2xl mx-auto text-lg">
+                Plus de 15 ans d'expérience dans la formation des professionnels
+                de santé
+              </p>
+            </div>
+
+            {/* Grille des statistiques */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+              {/* Statistique 1 */}
+              <div className="text-center p-6 bg-white/5 backdrop-blur-sm rounded-xl border border-white/10">
+                <div className="mb-4 mx-auto w-14 h-14 bg-[#ff9900] rounded-full flex items-center justify-center">
+                  <svg
+                    className="w-7 h-7 text-white"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"
+                    />
+                  </svg>
+                </div>
+                <span className="block heading-font text-4xl md:text-5xl font-bold text-[#ff9900] mb-2">
                   +2000
                 </span>
-                <p className="mt-2 text-lg">Étudiants formés</p>
+                <p className="text-lg font-medium text-gray-200 mb-1">
+                  {t("landingPage.stats.studentsFormed")}
+                </p>
+                <p className="text-sm text-gray-400">Depuis 2008</p>
               </div>
-              <div>
-                <span className="block heading-font text-5xl font-bold text-[#ff9900]">
+
+              {/* Statistique 2 */}
+              <div className="text-center p-6 bg-white/5 backdrop-blur-sm rounded-xl border border-white/10">
+                <div className="mb-4 mx-auto w-14 h-14 bg-[#ff9900] rounded-full flex items-center justify-center">
+                  <svg
+                    className="w-7 h-7 text-white"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
+                    />
+                  </svg>
+                </div>
+                <span className="block heading-font text-4xl md:text-5xl font-bold text-[#ff9900] mb-2">
                   +100
                 </span>
-                <p className="mt-2 text-lg">Experts professionnels</p>
+                <p className="text-lg font-medium text-gray-200 mb-1">
+                  {t("landingPage.stats.professionalExperts")}
+                </p>
+                <p className="text-sm text-gray-400">Enseignants qualifiés</p>
               </div>
-              <div>
-                <span className="block heading-font text-5xl font-bold text-[#ff9900]">
+
+              {/* Statistique 3 */}
+              <div className="text-center p-6 bg-white/5 backdrop-blur-sm rounded-xl border border-white/10">
+                <div className="mb-4 mx-auto w-14 h-14 bg-[#ff9900] rounded-full flex items-center justify-center">
+                  <svg
+                    className="w-7 h-7 text-white"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
+                    />
+                  </svg>
+                </div>
+                <span className="block heading-font text-4xl md:text-5xl font-bold text-[#ff9900] mb-2">
                   20
                 </span>
-                <p className="mt-2 text-lg">Partenaires</p>
+                <p className="text-lg font-medium text-gray-200 mb-1">
+                  {t("landingPage.stats.partners")}
+                </p>
+                <p className="text-sm text-gray-400">Hôpitaux & Centres</p>
               </div>
-              <div>
-                <span className="block heading-font text-5xl font-bold text-[#ff9900]">
+
+              {/* Statistique 4 */}
+              <div className="text-center p-6 bg-white/5 backdrop-blur-sm rounded-xl border border-white/10">
+                <div className="mb-4 mx-auto w-14 h-14 bg-[#ff9900] rounded-full flex items-center justify-center">
+                  <svg
+                    className="w-7 h-7 text-white"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
+                    />
+                  </svg>
+                </div>
+                <span className="block heading-font text-4xl md:text-5xl font-bold text-[#ff9900] mb-2">
                   1
                 </span>
-                <p className="mt-2 text-lg">Campus</p>
+                <p className="text-lg font-medium text-gray-200 mb-1">
+                  {t("landingPage.stats.campus")}
+                </p>
+                <p className="text-sm text-gray-400">À Meiganga</p>
               </div>
             </div>
           </div>
@@ -738,180 +843,131 @@ const LandingPage: React.FC = () => {
         </section>
 
         {/* Section Infrastructures */}
-        <section id="infrastructures" className="bg-white py-20 md:py-32">
+        <section
+          id="infrastructures"
+          className="bg-gradient-to-br from-gray-50 via-white to-blue-50 py-24 md:py-32"
+        >
           <div className="container mx-auto px-4 text-center">
-            <h2 className="heading-font text-3xl md:text-4xl text-[#3b2c6a] font-bold mb-2">
-              Infrastructures du campus
-            </h2>
-            <div className="w-20 h-1 bg-[#ff9900] mx-auto mb-12"></div>
+            {/* En-tête de section */}
+            <div className="mb-20">
+              <div className="inline-flex items-center justify-center p-2 bg-[#3b2c6a]/10 rounded-full mb-6">
+                <span className="text-[#3b2c6a] text-sm font-bold px-4 py-2 bg-white rounded-full shadow-lg">
+                  INFRASTRUCTURES
+                </span>
+              </div>
+              <h2 className="heading-font text-4xl md:text-6xl text-[#3b2c6a] font-black mb-6 leading-tight">
+                {t("landingPage.infrastructure.title")}
+              </h2>
+              <div className="w-32 h-1.5 bg-gradient-to-r from-[#3b2c6a] to-[#ff9900] mx-auto mb-8 rounded-full shadow-lg"></div>
+              <p className="text-gray-700 max-w-3xl mx-auto text-xl leading-relaxed font-medium">
+                Découvrez nos installations modernes conçues pour offrir un
+                environnement d'apprentissage optimal aux futurs professionnels
+                de santé.
+              </p>
+            </div>
 
+            {/* Grille des infrastructures */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {/* Carte 1 */}
-              <div className="bg-[#3b2c6a] text-white p-8 rounded-3xl shadow-lg">
-                <div className="flex justify-center mb-4">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="64"
-                    height="64"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="#ff9900"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="M12 2a7 7 0 0114 0 7 7 0 01-14 0z" />
-                    <path d="M10 16v6m0-6h6m-6 0v-6m0 0l-8-8" />
-                  </svg>
+              {/* Infrastructure 1 - Laboratoire de Simulation */}
+              <div className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 p-8 border border-gray-100">
+                <div className="flex justify-center mb-6">
+                  <div className="p-4 bg-[#3b2c6a] rounded-2xl shadow-lg">
+                    <svg
+                      className="w-12 h-12 text-white"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"
+                      />
+                    </svg>
+                  </div>
                 </div>
-                <h3 className="heading-font text-2xl font-bold mb-2">
-                  Laboratoire équipé
+                <h3 className="heading-font text-2xl font-bold mb-4 text-[#3b2c6a]">
+                  Laboratoire de Simulation
                 </h3>
-                <p className="text-gray-200">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et
-                  massa mi. Aliquam in hendrerit urna. Pellentesque sit amet
-                  sapien fringilla.
+                <p className="text-gray-700 leading-relaxed">
+                  Équipements de simulation médicale de pointe pour la formation
+                  pratique des étudiants dans un environnement sécurisé et
+                  réaliste.
                 </p>
+                <div className="mt-6 flex items-center justify-center">
+                  <span className="text-[#ff9900] text-sm font-semibold bg-[#ff9900]/10 px-3 py-1 rounded-full">
+                    Haute technologie
+                  </span>
+                </div>
               </div>
 
-              {/* Carte 2 */}
-              <div className="bg-gray-200 text-gray-800 p-8 rounded-3xl shadow-lg">
-                <div className="flex justify-center mb-4">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="64"
-                    height="64"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="#ff9900"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="M12 2a7 7 0 0114 0 7 7 0 01-14 0z" />
-                    <path d="M10 16v6m0-6h6m-6 0v-6m0 0l-8-8" />
-                  </svg>
+              {/* Infrastructure 2 - Amphithéâtre Moderne */}
+              <div className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 p-8 border border-gray-100">
+                <div className="flex justify-center mb-6">
+                  <div className="p-4 bg-[#ff9900] rounded-2xl shadow-lg">
+                    <svg
+                      className="w-12 h-12 text-white"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M7 4V2a1 1 0 011-1h8a1 1 0 011 1v2m0 0V3a1 1 0 011 1v10a1 1 0 01-1 1H8a1 1 0 01-1-1V4m0 0h10M9 8h6m-6 4h6"
+                      />
+                    </svg>
+                  </div>
                 </div>
-                <h3 className="heading-font text-2xl font-bold mb-2">
-                  Laboratoire équipé
+                <h3 className="heading-font text-2xl font-bold mb-4 text-[#3b2c6a]">
+                  Amphithéâtre Moderne
                 </h3>
-                <p className="text-gray-600">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et
-                  massa mi. Aliquam in hendrerit urna. Pellentesque sit amet
-                  sapien fringilla.
+                <p className="text-gray-700 leading-relaxed">
+                  Salles de cours équipées des dernières technologies
+                  audiovisuelles pour un enseignement interactif et une
+                  expérience d'apprentissage optimale.
                 </p>
+                <div className="mt-6 flex items-center justify-center">
+                  <span className="text-[#3b2c6a] text-sm font-semibold bg-[#3b2c6a]/10 px-3 py-1 rounded-full">
+                    Capacité 200 places
+                  </span>
+                </div>
               </div>
 
-              {/* Carte 3 */}
-              <div className="bg-[#3b2c6a] text-white p-8 rounded-3xl shadow-lg">
-                <div className="flex justify-center mb-4">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="64"
-                    height="64"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="#ff9900"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="M12 2a7 7 0 0114 0 7 7 0 01-14 0z" />
-                    <path d="M10 16v6m0-6h6m-6 0v-6m0 0l-8-8" />
-                  </svg>
+              {/* Infrastructure 3 - Bibliothèque Numérique */}
+              <div className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 p-8 border border-gray-100">
+                <div className="flex justify-center mb-6">
+                  <div className="p-4 bg-[#3b2c6a] rounded-2xl shadow-lg">
+                    <svg
+                      className="w-12 h-12 text-white"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+                      />
+                    </svg>
+                  </div>
                 </div>
-                <h3 className="heading-font text-2xl font-bold mb-2">
-                  Laboratoire équipé
+                <h3 className="heading-font text-2xl font-bold mb-4 text-[#3b2c6a]">
+                  Bibliothèque Numérique
                 </h3>
-                <p className="text-gray-200">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et
-                  massa mi. Aliquam in hendrerit urna. Pellentesque sit amet
-                  sapien fringilla.
+                <p className="text-gray-700 leading-relaxed">
+                  Collection complète d'ouvrages médicaux, bases de données
+                  scientifiques et espaces d'étude collaboratifs pour enrichir
+                  la recherche.
                 </p>
-              </div>
-
-              {/* Carte 4 */}
-              <div className="bg-gray-200 text-gray-800 p-8 rounded-3xl shadow-lg">
-                <div className="flex justify-center mb-4">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="64"
-                    height="64"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="#ff9900"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="M12 2a7 7 0 0114 0 7 7 0 01-14 0z" />
-                    <path d="M10 16v6m0-6h6m-6 0v-6m0 0l-8-8" />
-                  </svg>
+                <div className="mt-6 flex items-center justify-center">
+                  <span className="text-[#ff9900] text-sm font-semibold bg-[#ff9900]/10 px-3 py-1 rounded-full">
+                    5000+ ouvrages
+                  </span>
                 </div>
-                <h3 className="heading-font text-2xl font-bold mb-2">
-                  Laboratoire équipé
-                </h3>
-                <p className="text-gray-600">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et
-                  massa mi. Aliquam in hendrerit urna. Pellentesque sit amet
-                  sapien fringilla.
-                </p>
-              </div>
-
-              {/* Carte 5 */}
-              <div className="bg-[#3b2c6a] text-white p-8 rounded-3xl shadow-lg">
-                <div className="flex justify-center mb-4">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="64"
-                    height="64"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="#ff9900"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="M12 2a7 7 0 0114 0 7 7 0 01-14 0z" />
-                    <path d="M10 16v6m0-6h6m-6 0v-6m0 0l-8-8" />
-                  </svg>
-                </div>
-                <h3 className="heading-font text-2xl font-bold mb-2">
-                  Laboratoire équipé
-                </h3>
-                <p className="text-gray-200">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et
-                  massa mi. Aliquam in hendrerit urna. Pellentesque sit amet
-                  sapien fringilla.
-                </p>
-              </div>
-
-              {/* Carte 6 */}
-              <div className="bg-gray-200 text-gray-800 p-8 rounded-3xl shadow-lg">
-                <div className="flex justify-center mb-4">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="64"
-                    height="64"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="#ff9900"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="M12 2a7 7 0 0114 0 7 7 0 01-14 0z" />
-                    <path d="M10 16v6m0-6h6m-6 0v-6m0 0l-8-8" />
-                  </svg>
-                </div>
-                <h3 className="heading-font text-2xl font-bold mb-2">
-                  Laboratoire équipé
-                </h3>
-                <p className="text-gray-600">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et
-                  massa mi. Aliquam in hendrerit urna. Pellentesque sit amet
-                  sapien fringilla.
-                </p>
               </div>
             </div>
           </div>
@@ -1120,8 +1176,8 @@ const LandingPage: React.FC = () => {
 
             {/* Actions principales */}
             <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16">
-              <a
-                href="#"
+              <Link
+                to="/admission-request"
                 className="bg-[#ff9900] hover:bg-[#e68a00] text-white heading-font font-bold py-4 px-10 rounded-full shadow-xl transition-all duration-300 transform hover:scale-105 hover:shadow-2xl flex items-center gap-3"
               >
                 <svg
@@ -1138,9 +1194,9 @@ const LandingPage: React.FC = () => {
                   />
                 </svg>
                 Demande d'admission
-              </a>
-              <a
-                href="#"
+              </Link>
+              <Link
+                to="/admissions"
                 className="bg-transparent border-2 border-white hover:bg-white hover:text-[#3b2c6a] text-white heading-font font-bold py-4 px-10 rounded-full transition-all duration-300 transform hover:scale-105 flex items-center gap-3"
               >
                 <svg
@@ -1157,7 +1213,7 @@ const LandingPage: React.FC = () => {
                   />
                 </svg>
                 Conditions d'admission
-              </a>
+              </Link>
             </div>
 
             {/* Informations de contact rapide */}

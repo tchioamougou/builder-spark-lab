@@ -29,24 +29,25 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
+
 // Mock users data - in real app this would come from API
 const mockUsers: Record<string, { password: string; user: User }> = {
-  "admin@univ.fr": {
-    password: "admin123",
+  "directeur@epfps.cm": {
+    password: "epfps2024",
     user: {
       id: "1",
       nom: "Administrateur Système",
-      email: "admin@univ.fr",
+      email: "directeur@epfps.cm",
       role: "admin",
       permissions: ["*"], // All permissions
     },
   },
-  "marie.dupont@etud.univ.fr": {
-    password: "etudiant123",
+  "aissatou.bello@etudiant.epfps.cm": {
+    password: "student2024",
     user: {
       id: "2",
-      nom: "Marie Dupont",
-      email: "marie.dupont@etud.univ.fr",
+      nom: "aissatou bello",
+      email: "aissatou.bello@etudiant.epfps.cm",
       role: "etudiant",
       filiere: "Pharmacie",
       niveau: "Année 1",
@@ -59,12 +60,12 @@ const mockUsers: Record<string, { password: string; user: User }> = {
       ],
     },
   },
-  "jean.martin@univ.fr": {
-    password: "enseignant123",
+  "dr.moussa@professeur.epfps.cm": {
+    password: "prof2024",
     user: {
       id: "3",
-      nom: "Dr. Jean Martin",
-      email: "jean.martin@univ.fr",
+      nom: "Dr. Moussa",
+      email: "dr.moussa@professeur.epfps.cm",
       role: "enseignant",
       specialite: "Anatomie",
       permissions: [
