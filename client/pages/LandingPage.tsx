@@ -972,7 +972,7 @@ const LandingPage: React.FC = () => {
                     className="w-full h-48 object-cover"
                   />
                   <div className="absolute top-4 left-4 bg-[#ff9900] text-white px-3 py-1 rounded-full text-sm font-semibold">
-                    Nouveau
+                    {t("landingPage.news.new")}
                   </div>
                 </div>
                 <div className="p-6">
