@@ -1108,7 +1108,7 @@ const LandingPage: React.FC = () => {
                 href="#"
                 className="inline-block bg-[#ff9900] hover:bg-[#e68a00] text-white heading-font font-bold py-3 px-8 rounded-full shadow-lg transition-all duration-300 transform hover:scale-105"
               >
-                Voir toutes les actualités
+                {t("landingPage.news.seeAllNews")}
               </a>
             </div>
           </div>
