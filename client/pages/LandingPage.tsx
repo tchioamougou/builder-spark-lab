@@ -729,11 +729,10 @@ const LandingPage: React.FC = () => {
                   </svg>
                 </div>
                 <h4 className="heading-font text-lg font-bold text-[#3b2c6a] mb-3 text-center">
-                  Bibliothèque
+                  {t("landingPage.campusLife.library")}
                 </h4>
                 <p className="text-gray-600 text-sm text-center leading-relaxed">
-                  Accès à une riche collection d'ouvrages médicaux et
-                  scientifiques, espaces de lecture silencieux.
+                  {t("landingPage.campusLife.libraryDesc")}
                 </p>
               </div>
 
@@ -755,11 +754,10 @@ const LandingPage: React.FC = () => {
                   </svg>
                 </div>
                 <h4 className="heading-font text-lg font-bold text-[#3b2c6a] mb-3 text-center">
-                  Laboratoires
+                  {t("landingPage.campusLife.laboratories")}
                 </h4>
                 <p className="text-gray-600 text-sm text-center leading-relaxed">
-                  Laboratoires modernes équipés pour les travaux pratiques en
-                  sciences médicales et biologiques.
+                  {t("landingPage.campusLife.labDesc")}
                 </p>
               </div>
 
@@ -781,11 +779,10 @@ const LandingPage: React.FC = () => {
                   </svg>
                 </div>
                 <h4 className="heading-font text-lg font-bold text-[#3b2c6a] mb-3 text-center">
-                  Espaces de détente
+                  {t("landingPage.campusLife.relaxSpaces")}
                 </h4>
                 <p className="text-gray-600 text-sm text-center leading-relaxed">
-                  Zones de repos et de socialisation pour favoriser les échanges
-                  entre étudiants.
+                  {t("landingPage.campusLife.relaxDesc")}
                 </p>
               </div>
             </div>
@@ -1093,7 +1090,7 @@ const LandingPage: React.FC = () => {
                     <span>Événements</span>
                   </div>
                   <h3 className="heading-font text-xl font-bold text-[#3b2c6a] mb-3">
-                    Cérémonie de remise des diplômes 2023
+                    C��rémonie de remise des diplômes 2023
                   </h3>
                   <p className="text-gray-600 mb-4 line-clamp-3">
                     Félicitations à nos 150 nouveaux diplômés qui rejoignent le
