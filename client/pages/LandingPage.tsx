@@ -900,16 +900,14 @@ const LandingPage: React.FC = () => {
                   </div>
                 </div>
                 <h3 className="heading-font text-2xl font-bold mb-4 text-[#3b2c6a]">
-                  Amphithéâtre Moderne
+                  {t("landingPage.infrastructure.amphitheater")}
                 </h3>
                 <p className="text-gray-700 leading-relaxed">
-                  Salles de cours équipées des dernières technologies
-                  audiovisuelles pour un enseignement interactif et une
-                  expérience d'apprentissage optimale.
+                  {t("landingPage.infrastructure.amphitheaterDesc")}
                 </p>
                 <div className="mt-6 flex items-center justify-center">
                   <span className="text-[#3b2c6a] text-sm font-semibold bg-[#3b2c6a]/10 px-3 py-1 rounded-full">
-                    Capacité 200 places
+                    {t("landingPage.infrastructure.capacity200")}
                   </span>
                 </div>
               </div>
