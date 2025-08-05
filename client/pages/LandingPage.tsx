@@ -126,18 +126,49 @@ const LandingPage: React.FC = () => {
         <section id="presentation" className="py-20 md:py-32 bg-white">
           <div className="container mx-auto px-4">
             <div className="md:flex items-start gap-12">
-              <div className="md:w-1/2 mb-8 md:mb-0">
-                <h2 className="heading-font text-3xl md:text-4xl text-[#3b2c6a] font-bold mb-4">
+              <motion.div
+                className="md:w-1/2 mb-8 md:mb-0"
+                initial={{ x: -50, opacity: 0 }}
+                whileInView={{ x: 0, opacity: 1 }}
+                transition={{ duration: 0.8 }}
+                viewport={{ once: true }}
+              >
+                <motion.h2
+                  className="heading-font text-3xl md:text-4xl text-[#3b2c6a] font-bold mb-4"
+                  initial={{ y: 20, opacity: 0 }}
+                  whileInView={{ y: 0, opacity: 1 }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
+                  viewport={{ once: true }}
+                >
                   {t("landingPage.presentation.title")}
-                </h2>
-                <p className="text-gray-600 leading-relaxed mb-6">
+                </motion.h2>
+                <motion.p
+                  className="text-gray-600 leading-relaxed mb-6"
+                  initial={{ y: 20, opacity: 0 }}
+                  whileInView={{ y: 0, opacity: 1 }}
+                  transition={{ duration: 0.6, delay: 0.4 }}
+                  viewport={{ once: true }}
+                >
                   {t("landingPage.presentation.subtitle")}
-                </p>
-                <p className="text-gray-600 leading-relaxed">
+                </motion.p>
+                <motion.p
+                  className="text-gray-600 leading-relaxed"
+                  initial={{ y: 20, opacity: 0 }}
+                  whileInView={{ y: 0, opacity: 1 }}
+                  transition={{ duration: 0.6, delay: 0.6 }}
+                  viewport={{ once: true }}
+                >
                   {t("landingPage.presentation.description")}
-                </p>
-              </div>
-              <div className="md:w-1/2 rounded-3xl overflow-hidden shadow-2xl">
+                </motion.p>
+              </motion.div>
+              <motion.div
+                className="md:w-1/2 rounded-3xl overflow-hidden shadow-2xl"
+                initial={{ x: 50, opacity: 0, scale: 0.9 }}
+                whileInView={{ x: 0, opacity: 1, scale: 1 }}
+                transition={{ duration: 0.8, delay: 0.3 }}
+                viewport={{ once: true }}
+                whileHover={{ scale: 1.02 }}
+              >
                 {/* Placeholder de lecteur vidéo YouTube */}
                 <div
                   className="relative w-full"
@@ -153,7 +184,7 @@ const LandingPage: React.FC = () => {
                     allowFullScreen
                   />
                 </div>
-              </div>
+              </motion.div>
             </div>
           </div>
         </section>
