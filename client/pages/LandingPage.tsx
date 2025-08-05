@@ -1256,9 +1256,9 @@ const LandingPage: React.FC = () => {
                       />
                     </svg>
                   </div>
-                  <h4 className="text-white font-bold mb-2">Écrivez-nous</h4>
+                  <h4 className="text-white font-bold mb-2">{t("landingPage.cta.writeUs")}</h4>
                   <p className="text-gray-200 text-sm">contact@epfps.cm</p>
-                  <p className="text-gray-200 text-sm">Réponse sous 24h</p>
+                  <p className="text-gray-200 text-sm">{t("landingPage.cta.responseTime")}</p>
                 </div>
               </div>
             </div>
