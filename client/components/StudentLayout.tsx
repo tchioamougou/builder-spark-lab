@@ -6,6 +6,8 @@ import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { generateBulletinPDF } from "@/lib/pdf-utils";
 import AbsenceRequestDialog from "@/components/AbsenceRequestDialog";
+import { useTranslation } from "react-i18next";
+import LanguageSwitcher from "./LanguageSwitcher";
 import {
   Home,
   FileText,
@@ -25,19 +27,20 @@ interface StudentLayoutProps {
   children: ReactNode;
 }
 
-const studentNavigation = [
-  { name: "Mon tableau de bord", href: "/student/dashboard", icon: Home },
-  { name: "Mes notes", href: "/student/grades", icon: FileText },
-  { name: "Emploi du temps", href: "/student/schedule", icon: Calendar },
-  { name: "Mes documents", href: "/student/documents", icon: Download },
-  { name: "Demandes", href: "/student/requests", icon: Upload },
-  { name: "Messages", href: "/student/messages", icon: MessageSquare },
-  { name: "Mon profil", href: "/student/profile", icon: User },
+const getStudentNavigation = (t: any) => [
+  { name: t('navigation.studentDashboard'), href: "/student/dashboard", icon: Home },
+  { name: t('common.grades'), href: "/student/grades", icon: FileText },
+  { name: t('common.schedule'), href: "/student/schedule", icon: Calendar },
+  { name: t('common.documents'), href: "/student/documents", icon: Download },
+  { name: t('common.requests'), href: "/student/requests", icon: Upload },
+  { name: t('common.messages'), href: "/student/messages", icon: MessageSquare },
+  { name: t('common.profile'), href: "/student/profile", icon: User },
 ];
 
 export default function StudentLayout({ children }: StudentLayoutProps) {
   const location = useLocation();
   const { user, logout } = useAuth();
+  const { t } = useTranslation();
 
   const handleDownloadBulletin = () => {
     if (user) {
@@ -55,7 +58,7 @@ export default function StudentLayout({ children }: StudentLayoutProps) {
               <div className="flex items-center">
                 <BookOpen className="h-8 w-8 text-primary" />
                 <h1 className="ml-2 text-xl font-bold text-gray-900">
-                  Portail Étudiant
+                  {t('navigation.studentDashboard')}
                 </h1>
               </div>
             </div>
@@ -89,9 +92,12 @@ export default function StudentLayout({ children }: StudentLayoutProps) {
                 </div>
               </div>
 
+              {/* Language switcher */}
+              <LanguageSwitcher />
+
               <Button variant="outline" size="sm" onClick={logout}>
                 <LogOut className="h-4 w-4" />
-                <span className="hidden md:inline ml-2">Déconnexion</span>
+                <span className="hidden md:inline ml-2">{t('common.logout')}</span>
               </Button>
             </div>
           </div>
@@ -105,33 +111,33 @@ export default function StudentLayout({ children }: StudentLayoutProps) {
             {/* Quick Stats */}
             <div className="mb-6 p-4 bg-primary/5 rounded-lg">
               <h3 className="text-sm font-medium text-gray-900 mb-2">
-                Statut académique
+                {t('student.academicStatus')}
               </h3>
               <div className="space-y-1 text-sm">
                 <div className="flex justify-between">
-                  <span className="text-gray-600">Moyenne générale:</span>
+                  <span className="text-gray-600">{t('common.grades')}:</span>
                   <span className="font-medium">14.5/20</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-600">Crédits validés:</span>
+                  <span className="text-gray-600">{t('programs.credits')}:</span>
                   <span className="font-medium">45/60</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-600">Statut financier:</span>
-                  <span className="font-medium text-green-600">À jour</span>
+                  <span className="text-gray-600">{t('student.financialStatus')}:</span>
+                  <span className="font-medium text-green-600">{t('status.upToDate')}</span>
                 </div>
               </div>
             </div>
 
             <ul className="space-y-2">
-              {studentNavigation.map((item) => {
+              {getStudentNavigation(t).map((item) => {
                 const isActive = location.pathname === item.href;
                 return (
                   <li key={item.name}>
                     <Link
                       to={item.href}
                       className={cn(
-                        "flex items-center space-x-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors",
+                        "flex items-center space-x-3 px-3 py-2 rounded-lg text-sm font-medium",
                         isActive
                           ? "bg-primary text-primary-foreground"
                           : "text-gray-700 hover:bg-gray-100",
@@ -148,7 +154,7 @@ export default function StudentLayout({ children }: StudentLayoutProps) {
             {/* Quick Actions */}
             <div className="mt-8 pt-6 border-t">
               <h3 className="text-xs font-medium text-gray-500 uppercase tracking-wider mb-3">
-                Actions rapides
+                {t('common.quickActions')}
               </h3>
               <div className="space-y-2">
                 <AbsenceRequestDialog
@@ -159,7 +165,7 @@ export default function StudentLayout({ children }: StudentLayoutProps) {
                       className="w-full justify-start"
                     >
                       <Clock className="h-4 w-4 mr-2" />
-                      Signaler absence
+                      {t('student.requestAbsence')}
                     </Button>
                   }
                 />
@@ -170,7 +176,7 @@ export default function StudentLayout({ children }: StudentLayoutProps) {
                   onClick={handleDownloadBulletin}
                 >
                   <Download className="h-4 w-4 mr-2" />
-                  Télécharger bulletin
+                  {t('common.download')} bulletin
                 </Button>
               </div>
             </div>
