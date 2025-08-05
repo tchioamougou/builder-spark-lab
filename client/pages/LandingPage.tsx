@@ -1132,9 +1132,7 @@ const LandingPage: React.FC = () => {
                 {t("landingPage.cta.title")}
               </h2>
               <p className="text-gray-200 text-lg md:text-xl max-w-3xl mx-auto mb-8">
-                Rejoignez notre communauté d'étudiants passionnés et
-                préparez-vous à faire la différence dans le monde de la santé.
-                Votre avenir commence ici !
+                {t("landingPage.cta.subtitle")}
               </p>
             </div>
 
