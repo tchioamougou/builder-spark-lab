@@ -1083,7 +1083,7 @@ const LandingPage: React.FC = () => {
                     href="#"
                     className="inline-flex items-center text-[#ff9900] font-semibold hover:text-[#e68a00] transition-colors"
                   >
-                    Lire la suite
+                    {t("landingPage.news.readMore")}
                     <svg
                       className="w-4 h-4 ml-1"
                       fill="none"
