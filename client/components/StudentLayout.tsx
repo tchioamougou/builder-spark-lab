@@ -85,8 +85,8 @@ export default function StudentLayout({ children }: StudentLayoutProps) {
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
       <header className="bg-gradient-to-r from-primary/95 via-primary to-primary/90 shadow-lg border-b border-primary/20 sticky top-0 z-50">
-        <div className="mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex h-16 md:h-20 justify-between items-center">
+        <div className="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+          <div className="flex h-16 md:h-20 justify-between items-center min-w-0">
             {/* Logo and Brand */}
             <div className="flex items-center">
               <Link to="/student/dashboard" className="flex items-center">
