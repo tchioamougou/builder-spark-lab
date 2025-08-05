@@ -17,8 +17,32 @@ const LanguageSwitcher: React.FC = () => {
   };
 
   const languages = {
-    fr: { code: "FR", name: "Français", flag: "🇫🇷" },
-    en: { code: "EN", name: "English", flag: "🇬🇧" },
+    fr: {
+      code: "FR",
+      name: "Français",
+      flag: (
+        <svg width="20" height="15" viewBox="0 0 20 15" className="inline-block">
+          <rect width="20" height="15" fill="#002654"/>
+          <rect width="13.33" height="15" fill="#ffffff"/>
+          <rect width="6.67" height="15" fill="#ED2939"/>
+        </svg>
+      )
+    },
+    en: {
+      code: "EN",
+      name: "English",
+      flag: (
+        <svg width="20" height="15" viewBox="0 0 20 15" className="inline-block">
+          <rect width="20" height="15" fill="#012169"/>
+          <path d="M0,0 L20,15 M20,0 L0,15" stroke="#ffffff" strokeWidth="1"/>
+          <path d="M0,0 L20,15 M20,0 L0,15" stroke="#C8102E" strokeWidth="0.5"/>
+          <rect x="8" y="0" width="4" height="15" fill="#ffffff"/>
+          <rect x="0" y="6" width="20" height="3" fill="#ffffff"/>
+          <rect x="9" y="0" width="2" height="15" fill="#C8102E"/>
+          <rect x="0" y="7" width="20" height="1" fill="#C8102E"/>
+        </svg>
+      )
+    },
   };
 
   const currentLanguage =
@@ -31,7 +55,7 @@ const LanguageSwitcher: React.FC = () => {
           variant="ghost"
           className="text-gray-200 hover:text-[#ff9900] hover:bg-white/10 transition-all duration-300 h-auto px-3 py-2 gap-2 text-sm font-medium"
         >
-          <span className="text-lg leading-none">{currentLanguage.flag}</span>
+          <span className="leading-none">{currentLanguage.flag}</span>
           <span className="hidden sm:inline">{currentLanguage.code}</span>
           <ChevronDown className="h-3 w-3 opacity-50" />
         </Button>
@@ -51,7 +75,7 @@ const LanguageSwitcher: React.FC = () => {
               ${i18n.language === code ? "bg-gray-50 font-medium" : ""}
             `}
           >
-            <span className="text-lg leading-none">{lang.flag}</span>
+            <span className="leading-none">{lang.flag}</span>
             <div className="flex flex-col">
               <span className="text-sm font-medium">{lang.name}</span>
               <span className="text-xs opacity-70">{lang.code}</span>
