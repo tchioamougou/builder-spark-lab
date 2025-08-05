@@ -990,18 +990,16 @@ const LandingPage: React.FC = () => {
                     <span>Formation</span>
                   </div>
                   <h3 className="heading-font text-xl font-bold text-[#3b2c6a] mb-3">
-                    Nouvelle formation en soins d'urgence
+                    {t("landingPage.news.emergencyTraining")}
                   </h3>
                   <p className="text-gray-600 mb-4 line-clamp-3">
-                    Découvrez notre nouveau programme de formation spécialisé
-                    dans les soins d'urgence, conçu pour répondre aux besoins
-                    croissants du secteur de la santé...
+                    {t("landingPage.news.emergencyDesc")}
                   </p>
                   <a
                     href="#"
                     className="inline-flex items-center text-[#ff9900] font-semibold hover:text-[#e68a00] transition-colors"
                   >
-                    Lire la suite
+                    {t("landingPage.news.readMore")}
                     <svg
                       className="w-4 h-4 ml-1"
                       fill="none"
@@ -1082,7 +1080,7 @@ const LandingPage: React.FC = () => {
                 <div className="p-6">
                   <div className="flex items-center text-sm text-gray-500 mb-3">
                     <span>5 Janvier 2024</span>
-                    <span className="mx-2">•</span>
+                    <span className="mx-2">��</span>
                     <span>Événements</span>
                   </div>
                   <h3 className="heading-font text-xl font-bold text-[#3b2c6a] mb-3">
