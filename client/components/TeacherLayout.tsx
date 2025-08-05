@@ -4,6 +4,8 @@ import { useAuth } from "@/contexts/AuthContext";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { useTranslation } from "react-i18next";
+import LanguageSwitcher from "./LanguageSwitcher";
 import {
   Dialog,
   DialogContent,
@@ -45,15 +47,15 @@ interface TeacherLayoutProps {
   children: ReactNode;
 }
 
-const teacherNavigation = [
-  { name: "Mon tableau de bord", href: "/teacher/dashboard", icon: Home },
-  { name: "Mes étudiants", href: "/teacher/students", icon: Users },
-  { name: "Gestion des notes", href: "/teacher/grades", icon: BarChart3 },
-  { name: "Emploi du temps", href: "/teacher/schedule", icon: Calendar },
-  { name: "Mes cours", href: "/teacher/courses", icon: BookOpen },
-  { name: "Documents de cours", href: "/teacher/documents", icon: FileText },
-  { name: "Messages", href: "/teacher/messages", icon: MessageSquare },
-  { name: "Mon profil", href: "/teacher/profile", icon: User },
+const getTeacherNavigation = (t: any) => [
+  { name: t('navigation.teacherDashboard'), href: "/teacher/dashboard", icon: Home },
+  { name: t('common.students'), href: "/teacher/students", icon: Users },
+  { name: t('teacher.enterGrades'), href: "/teacher/grades", icon: BarChart3 },
+  { name: t('common.schedule'), href: "/teacher/schedule", icon: Calendar },
+  { name: t('common.courses'), href: "/teacher/courses", icon: BookOpen },
+  { name: t('common.documents'), href: "/teacher/documents", icon: FileText },
+  { name: t('common.messages'), href: "/teacher/messages", icon: MessageSquare },
+  { name: t('common.profile'), href: "/teacher/profile", icon: User },
 ];
 
 // Mock data for courses and students
@@ -91,6 +93,7 @@ export default function TeacherLayout({ children }: TeacherLayoutProps) {
   const navigate = useNavigate();
   const { user, logout } = useAuth();
   const { toast } = useToast();
+  const { t } = useTranslation();
 
   // State for dialogs
   const [isGradeDialogOpen, setIsGradeDialogOpen] = useState(false);
@@ -123,20 +126,18 @@ export default function TeacherLayout({ children }: TeacherLayoutProps) {
       !gradeForm.grade
     ) {
       toast({
-        title: "Erreur",
+        title: t('common.error'),
         description: "Veuillez remplir tous les champs obligatoires.",
         variant: "destructive",
       });
       return;
     }
 
-    // Here you would normally submit to your API
     toast({
       title: "Note saisie",
       description: "La note a été enregistrée avec succès.",
     });
 
-    // Reset form and close dialog
     setGradeForm({
       course: "",
       student: "",
@@ -155,7 +156,7 @@ export default function TeacherLayout({ children }: TeacherLayoutProps) {
       absenceForm.students.length === 0
     ) {
       toast({
-        title: "Erreur",
+        title: t('common.error'),
         description:
           "Veuillez remplir tous les champs obligatoires et sélectionner au moins un étudiant.",
         variant: "destructive",
@@ -163,13 +164,11 @@ export default function TeacherLayout({ children }: TeacherLayoutProps) {
       return;
     }
 
-    // Here you would normally submit to your API
     toast({
       title: "Absences signalées",
       description: `${absenceForm.students.length} absence(s) signalée(s) avec succès.`,
     });
 
-    // Reset form and close dialog
     setAbsenceForm({
       course: "",
       date: new Date().toISOString().split("T")[0],
@@ -199,7 +198,7 @@ export default function TeacherLayout({ children }: TeacherLayoutProps) {
               <div className="flex items-center">
                 <GraduationCap className="h-8 w-8 text-primary" />
                 <h1 className="ml-2 text-xl font-bold text-gray-900">
-                  Espace Enseignant
+                  {t('navigation.teacherDashboard')}
                 </h1>
               </div>
             </div>
@@ -227,13 +226,16 @@ export default function TeacherLayout({ children }: TeacherLayoutProps) {
                   <div className="text-xs text-gray-500">
                     {user?.specialite}
                   </div>
-                  <div className="text-xs text-gray-500">Enseignant</div>
+                  <div className="text-xs text-gray-500">{t('auth.roles.teacher')}</div>
                 </div>
               </div>
 
+              {/* Language switcher */}
+              <LanguageSwitcher />
+
               <Button variant="outline" size="sm" onClick={logout}>
                 <LogOut className="h-4 w-4" />
-                <span className="hidden md:inline ml-2">Déconnexion</span>
+                <span className="hidden md:inline ml-2">{t('common.logout')}</span>
               </Button>
             </div>
           </div>
@@ -251,7 +253,7 @@ export default function TeacherLayout({ children }: TeacherLayoutProps) {
               </h3>
               <div className="space-y-1 text-sm">
                 <div className="flex justify-between">
-                  <span className="text-gray-600">Étudiants:</span>
+                  <span className="text-gray-600">{t('common.students')}:</span>
                   <span className="font-medium">127</span>
                 </div>
                 <div className="flex justify-between">
@@ -266,14 +268,14 @@ export default function TeacherLayout({ children }: TeacherLayoutProps) {
             </div>
 
             <ul className="space-y-2">
-              {teacherNavigation.map((item) => {
+              {getTeacherNavigation(t).map((item) => {
                 const isActive = location.pathname === item.href;
                 return (
                   <li key={item.name}>
                     <Link
                       to={item.href}
                       className={cn(
-                        "flex items-center space-x-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors",
+                        "flex items-center space-x-3 px-3 py-2 rounded-lg text-sm font-medium",
                         isActive
                           ? "bg-primary text-primary-foreground"
                           : "text-gray-700 hover:bg-gray-100",
@@ -290,7 +292,7 @@ export default function TeacherLayout({ children }: TeacherLayoutProps) {
             {/* Quick Actions */}
             <div className="mt-8 pt-6 border-t">
               <h3 className="text-xs font-medium text-gray-500 uppercase tracking-wider mb-3">
-                Actions rapides
+                {t('common.quickActions')}
               </h3>
               <div className="space-y-2">
                 <Button
@@ -300,7 +302,7 @@ export default function TeacherLayout({ children }: TeacherLayoutProps) {
                   onClick={() => navigate("/teacher/grade-entry")}
                 >
                   <BarChart3 className="h-4 w-4 mr-2" />
-                  Saisir notes
+                  {t('teacher.enterGrades')}
                 </Button>
                 <Button
                   variant="outline"
@@ -438,11 +440,11 @@ export default function TeacherLayout({ children }: TeacherLayoutProps) {
               variant="outline"
               onClick={() => setIsGradeDialogOpen(false)}
             >
-              Annuler
+              {t('common.cancel')}
             </Button>
             <Button onClick={handleSubmitGrade}>
               <Save className="h-4 w-4 mr-2" />
-              Enregistrer la note
+              {t('common.save')}
             </Button>
           </DialogFooter>
         </DialogContent>
@@ -556,7 +558,7 @@ export default function TeacherLayout({ children }: TeacherLayoutProps) {
               variant="outline"
               onClick={() => setIsAbsenceDialogOpen(false)}
             >
-              Annuler
+              {t('common.cancel')}
             </Button>
             <Button onClick={handleSubmitAbsence}>
               <UserCheck className="h-4 w-4 mr-2" />
