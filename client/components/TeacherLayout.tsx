@@ -242,9 +242,9 @@ export default function TeacherLayout({ children }: TeacherLayoutProps) {
         </div>
       </header>
 
-      <div className="flex">
+      <div className="flex flex-col lg:flex-row">
         {/* Sidebar */}
-        <nav className="w-64 bg-white shadow-sm h-[calc(100vh-4rem)] overflow-y-auto">
+        <nav className="w-full lg:w-64 bg-white shadow-sm h-auto lg:h-[calc(100vh-4rem)] overflow-y-auto border-b lg:border-b-0 lg:border-r">
           <div className="p-4">
             {/* Quick Stats */}
             <div className="mb-6 p-4 bg-primary/5 rounded-lg">
@@ -319,7 +319,7 @@ export default function TeacherLayout({ children }: TeacherLayoutProps) {
         </nav>
 
         {/* Main content */}
-        <main className="flex-1 p-6">{children}</main>
+        <main className="flex-1 p-4 lg:p-6 bg-gray-50">{children}</main>
       </div>
 
       {/* Grade Dialog */}
