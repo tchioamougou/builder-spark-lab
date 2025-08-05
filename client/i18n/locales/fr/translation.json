@@ -363,7 +363,7 @@
     "title": "Admissions",
     "subtitle": "Rejoignez-nous pour une formation d'excellence en santé",
     "admissionProcess": "Processus d'Admission",
-    "step1": "Dépôt du dossier",
+    "step1": "D��pôt du dossier",
     "step1Text": "Soumettez votre candidature avec tous les documents requis",
     "step2": "Étude du dossier",
     "step2Text": "Examen de votre profil par notre commission d'admission",
@@ -537,6 +537,9 @@
       }
     },
     "stats": {
+      "sectionLabel": "NOS CHIFFRES",
+      "title": "L'Excellence en Chiffres",
+      "subtitle": "Plus de 15 ans d'expérience dans la formation des professionnels de santé",
       "studentsFormed": "Étudiants formés",
       "professionalExperts": "Experts professionnels",
       "partners": "Partenaires",
@@ -635,7 +638,7 @@
       "overviewTeaching": "Vue d'ensemble de vos enseignements",
       "manageAllCourses": "Gérer tous mes cours",
       "todaySchedule": "Emploi du temps aujourd'hui",
-      "todayClassesMeetings": "Vos cours et réunions du jour",
+      "todayClassesMeetings": "Vos cours et r��unions du jour",
       "viewFullSchedule": "Voir tout l'emploi du temps",
       "classStatistics": "Statistiques de mes classes",
       "performanceTracking": "Performance et suivi de vos étudiants",
