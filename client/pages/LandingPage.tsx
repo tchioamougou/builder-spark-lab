@@ -868,16 +868,14 @@ const LandingPage: React.FC = () => {
                   </div>
                 </div>
                 <h3 className="heading-font text-2xl font-bold mb-4 text-[#3b2c6a]">
-                  Laboratoire de Simulation
+                  {t("landingPage.infrastructure.simLab")}
                 </h3>
                 <p className="text-gray-700 leading-relaxed">
-                  Équipements de simulation médicale de pointe pour la formation
-                  pratique des étudiants dans un environnement sécurisé et
-                  réaliste.
+                  {t("landingPage.infrastructure.simLabDesc")}
                 </p>
                 <div className="mt-6 flex items-center justify-center">
                   <span className="text-[#ff9900] text-sm font-semibold bg-[#ff9900]/10 px-3 py-1 rounded-full">
-                    Haute technologie
+                    {t("landingPage.infrastructure.highTech")}
                   </span>
                 </div>
               </div>
