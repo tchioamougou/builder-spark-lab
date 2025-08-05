@@ -1229,11 +1229,11 @@ const LandingPage: React.FC = () => {
                     </svg>
                   </div>
                   <h4 className="text-white font-bold mb-2">
-                    Visitez le campus
+                    {t("landingPage.cta.visitCampus")}
                   </h4>
-                  <p className="text-gray-200 text-sm">Meiganga, Cameroun</p>
+                  <p className="text-gray-200 text-sm">{t("landingPage.cta.location")}</p>
                   <p className="text-gray-200 text-sm">
-                    Visites guidées disponibles
+                    {t("landingPage.cta.guidedTours")}
                   </p>
                 </div>
               </div>
