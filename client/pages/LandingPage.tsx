@@ -22,44 +22,105 @@ const LandingPage: React.FC = () => {
       <LandingHeader />
       <main>
         {/* Section Héroïque (Hero Section) */}
-        <section
-          className="relative bg-[#3b2c6a] text-white pt-32 pb-20 md:py-48"
+        <motion.section
+          className="relative bg-[#3b2c6a] text-white pt-32 pb-20 md:py-48 overflow-hidden"
           style={{
             backgroundImage: `url(${HeroImage})`,
             backgroundSize: "cover",
             backgroundPosition: "center",
           }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1 }}
         >
-          <div className="absolute inset-0 bg-black/50"></div>{" "}
-          {/* Superposition d'opacité */}
+          <motion.div
+            className="absolute inset-0 bg-black/50"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1.2 }}
+          />
+
+          {/* Floating particles animation */}
+          <div className="absolute inset-0 overflow-hidden">
+            {[...Array(6)].map((_, i) => (
+              <motion.div
+                key={i}
+                className="absolute w-2 h-2 bg-amber-400/30 rounded-full"
+                style={{
+                  left: `${20 + i * 15}%`,
+                  top: `${30 + (i % 2) * 40}%`,
+                }}
+                animate={{
+                  y: [-20, 20, -20],
+                  opacity: [0.3, 0.8, 0.3],
+                }}
+                transition={{
+                  duration: 3 + i * 0.5,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+              />
+            ))}
+          </div>
+
           <div className="container mx-auto px-4 relative z-10">
             <div className="flex flex-col md:flex-row items-center md:items-start gap-12">
               {/* Bloc de texte avec fond semi-transparent */}
-              <div className="md:w-1/2 p-8 bg-black/60 backdrop-blur-sm rounded-lg rounded-br-[80px] shadow-lg">
-                <h2 className="heading-font text-lg font-bold mb-2">
+              <motion.div
+                className="md:w-1/2 p-8 bg-black/60 backdrop-blur-sm rounded-lg rounded-br-[80px] shadow-lg"
+                initial={{ x: -100, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                transition={{ duration: 0.8, delay: 0.3 }}
+              >
+                <motion.h2
+                  className="heading-font text-lg font-bold mb-2"
+                  initial={{ y: 20, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ duration: 0.6, delay: 0.5 }}
+                >
                   {t("landingPage.hero.schoolNameFull")}
-                </h2>
-                <h1 className="heading-font text-3xl md:text-5xl lg:text-6xl font-extrabold mb-6 leading-tight">
+                </motion.h2>
+                <motion.h1
+                  className="heading-font text-3xl md:text-5xl lg:text-6xl font-extrabold mb-6 leading-tight"
+                  initial={{ y: 30, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ duration: 0.8, delay: 0.7 }}
+                >
                   {t("landingPage.hero.tagline")}
-                </h1>
-                <div className="space-y-4">
-                  <Link
-                    to="/admission-request"
-                    className="block w-full text-center md:w-auto bg-[#ff9900] hover:bg-[#e68a00] text-white heading-font font-bold py-3 px-8 rounded-full shadow-lg transition-all duration-300 transform hover:scale-105"
+                </motion.h1>
+                <motion.div
+                  className="space-y-4"
+                  initial={{ y: 40, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ duration: 0.8, delay: 0.9 }}
+                >
+                  <motion.div
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
                   >
-                    {t("landingPage.hero.applyButton")}
-                  </Link>
-                  <Link
-                    to="/formations"
-                    className="block w-full text-center md:w-auto bg-transparent border-2 border-white hover:bg-white hover:text-[#3b2c6a] text-white heading-font font-bold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105"
+                    <Link
+                      to="/admission-request"
+                      className="block w-full text-center md:w-auto bg-[#ff9900] hover:bg-[#e68a00] text-white heading-font font-bold py-3 px-8 rounded-full shadow-lg transition-all duration-300"
+                    >
+                      {t("landingPage.hero.applyButton")}
+                    </Link>
+                  </motion.div>
+                  <motion.div
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
                   >
-                    {t("landingPage.hero.viewPrograms")}
-                  </Link>
-                </div>
-              </div>
+                    <Link
+                      to="/formations"
+                      className="block w-full text-center md:w-auto bg-transparent border-2 border-white hover:bg-white hover:text-[#3b2c6a] text-white heading-font font-bold py-3 px-8 rounded-full transition-all duration-300"
+                    >
+                      {t("landingPage.hero.viewPrograms")}
+                    </Link>
+                  </motion.div>
+                </motion.div>
+              </motion.div>
             </div>
           </div>
-        </section>
+        </motion.section>
 
         {/* Section Présentation */}
         <section id="presentation" className="py-20 md:py-32 bg-white">
