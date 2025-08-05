@@ -59,40 +59,40 @@ export default function LoginPage() {
   };
 
   const demoCredentials = [
-    { 
-      role: t("auth.roles.administrator"), 
-      email: "admin@univ.fr", 
+    {
+      role: t("auth.roles.administrator"),
+      email: "admin@univ.fr",
       password: "admin123",
       icon: Shield,
-      gradient: "from-purple-500 to-blue-600"
+      gradient: "from-purple-500 to-blue-600",
     },
     {
       role: t("auth.roles.student"),
       email: "marie.dupont@etud.univ.fr",
       password: "etudiant123",
       icon: GraduationCap,
-      gradient: "from-green-500 to-teal-600"
+      gradient: "from-green-500 to-teal-600",
     },
     {
       role: t("auth.roles.teacher"),
       email: "jean.martin@univ.fr",
       password: "enseignant123",
       icon: Brain,
-      gradient: "from-orange-500 to-red-600"
+      gradient: "from-orange-500 to-red-600",
     },
-    { 
-      role: t("auth.roles.hr"), 
-      email: "sophie.laurent@rh.univ.fr", 
+    {
+      role: t("auth.roles.hr"),
+      email: "sophie.laurent@rh.univ.fr",
       password: "rh123",
       icon: Sparkles,
-      gradient: "from-pink-500 to-purple-600"
+      gradient: "from-pink-500 to-purple-600",
     },
     {
       role: t("auth.roles.studentAffairs"),
       email: "pierre.dubois@scolarite.univ.fr",
       password: "scolarite123",
       icon: Shield,
-      gradient: "from-cyan-500 to-blue-600"
+      gradient: "from-cyan-500 to-blue-600",
     },
   ];
 
@@ -110,22 +110,22 @@ export default function LoginPage() {
       y: 0,
       transition: {
         duration: 0.6,
-        staggerChildren: 0.1
-      }
-    }
+        staggerChildren: 0.1,
+      },
+    },
   };
 
   const itemVariants = {
     hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0 }
+    visible: { opacity: 1, y: 0 },
   };
 
   const cardVariants = {
     hover: {
       y: -5,
       scale: 1.02,
-      transition: { duration: 0.2 }
-    }
+      transition: { duration: 0.2 },
+    },
   };
 
   return (
@@ -146,7 +146,7 @@ export default function LoginPage() {
               transition={{
                 duration: 3 + Math.random() * 2,
                 repeat: Infinity,
-                ease: "easeInOut"
+                ease: "easeInOut",
               }}
               style={{
                 left: `${Math.random() * 100}%`,
@@ -155,7 +155,7 @@ export default function LoginPage() {
             />
           ))}
         </div>
-        
+
         {/* Geometric shapes */}
         <motion.div
           className="absolute top-20 left-20 w-32 h-32 border border-cyan-400/30 rounded-full"
@@ -167,7 +167,7 @@ export default function LoginPage() {
           animate={{ rotate: [45, 405] }}
           transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
         />
-        
+
         {/* Grid overlay */}
         <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4xIj48Y2lyY2xlIGN4PSIzMCIgY3k9IjMwIiByPSIyIi8+PC9nPjwvZz48L3N2Zz4=')] opacity-20" />
       </div>
@@ -180,7 +180,7 @@ export default function LoginPage() {
       >
         {/* Header */}
         <motion.div variants={itemVariants} className="text-center">
-          <motion.div 
+          <motion.div
             className="flex justify-center mb-6"
             whileHover={{ scale: 1.1, rotate: 360 }}
             transition={{ duration: 0.5 }}
@@ -202,10 +202,7 @@ export default function LoginPage() {
           >
             {t("auth.systemTitle")}
           </motion.h1>
-          <motion.p
-            variants={itemVariants}
-            className="text-gray-300 text-lg"
-          >
+          <motion.p variants={itemVariants} className="text-gray-300 text-lg">
             {t("auth.systemSubtitle")}
           </motion.p>
         </motion.div>
@@ -229,7 +226,10 @@ export default function LoginPage() {
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.3 }}
                   >
-                    <Alert variant="destructive" className="bg-red-500/20 border-red-500/50 backdrop-blur">
+                    <Alert
+                      variant="destructive"
+                      className="bg-red-500/20 border-red-500/50 backdrop-blur"
+                    >
                       <AlertCircle className="h-4 w-4" />
                       <AlertDescription className="text-red-200">
                         {error}
@@ -257,7 +257,10 @@ export default function LoginPage() {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="password" className="text-gray-200 font-medium">
+                  <Label
+                    htmlFor="password"
+                    className="text-gray-200 font-medium"
+                  >
                     {t("auth.passwordLabel")}
                   </Label>
                   <div className="relative group">
@@ -288,10 +291,13 @@ export default function LoginPage() {
                   </div>
                 </div>
 
-                <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-                  <Button 
-                    type="submit" 
-                    className="w-full h-12 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white font-bold text-lg shadow-lg hover:shadow-xl transition-all duration-300" 
+                <motion.div
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <Button
+                    type="submit"
+                    className="w-full h-12 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white font-bold text-lg shadow-lg hover:shadow-xl transition-all duration-300"
                     disabled={isLoading}
                   >
                     {isLoading ? (
@@ -320,10 +326,15 @@ export default function LoginPage() {
                     <Button
                       variant="outline"
                       size="sm"
-                      onClick={() => setShowDemoCredentials(!showDemoCredentials)}
+                      onClick={() =>
+                        setShowDemoCredentials(!showDemoCredentials)
+                      }
                       className="text-xs bg-white/10 border-white/30 text-gray-200 hover:bg-white/20 hover:text-white backdrop-blur"
                     >
-                      {showDemoCredentials ? t("auth.hideDemo") : t("auth.showDemo")} {t("auth.demoAccounts")}
+                      {showDemoCredentials
+                        ? t("auth.hideDemo")
+                        : t("auth.showDemo")}{" "}
+                      {t("auth.demoAccounts")}
                     </Button>
                   </motion.div>
                 </div>
@@ -357,9 +368,13 @@ export default function LoginPage() {
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: index * 0.1 }}
                           >
-                            <div className={`absolute inset-0 bg-gradient-to-r ${cred.gradient} opacity-0 group-hover:opacity-20 transition-opacity duration-300`} />
+                            <div
+                              className={`absolute inset-0 bg-gradient-to-r ${cred.gradient} opacity-0 group-hover:opacity-20 transition-opacity duration-300`}
+                            />
                             <div className="flex items-center space-x-3 relative z-10">
-                              <div className={`p-2 rounded-lg bg-gradient-to-r ${cred.gradient} shadow-lg`}>
+                              <div
+                                className={`p-2 rounded-lg bg-gradient-to-r ${cred.gradient} shadow-lg`}
+                              >
                                 <IconComponent className="h-5 w-5 text-white" />
                               </div>
                               <div className="flex-1">

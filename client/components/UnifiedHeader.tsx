@@ -36,9 +36,9 @@ interface UnifiedHeaderProps {
   showMobileMenuButton?: boolean;
 }
 
-export default function UnifiedHeader({ 
-  onMobileMenuToggle, 
-  showMobileMenuButton = true 
+export default function UnifiedHeader({
+  onMobileMenuToggle,
+  showMobileMenuButton = true,
 }: UnifiedHeaderProps) {
   const { user, logout } = useAuth();
   const { t } = useTranslation();
@@ -52,15 +52,15 @@ export default function UnifiedHeader({
 
   const getRoleIcon = (role: string) => {
     switch (role) {
-      case 'admin':
+      case "admin":
         return Shield;
-      case 'etudiant':
+      case "etudiant":
         return GraduationCap;
-      case 'enseignant':
+      case "enseignant":
         return Brain;
-      case 'rh':
+      case "rh":
         return Sparkles;
-      case 'scolarite':
+      case "scolarite":
         return Shield;
       default:
         return User;
@@ -69,15 +69,15 @@ export default function UnifiedHeader({
 
   const getRoleGradient = (role: string) => {
     switch (role) {
-      case 'admin':
+      case "admin":
         return "from-purple-500 to-blue-600";
-      case 'etudiant':
+      case "etudiant":
         return "from-green-500 to-teal-600";
-      case 'enseignant':
+      case "enseignant":
         return "from-orange-500 to-red-600";
-      case 'rh':
+      case "rh":
         return "from-pink-500 to-purple-600";
-      case 'scolarite':
+      case "scolarite":
         return "from-cyan-500 to-blue-600";
       default:
         return "from-gray-500 to-gray-600";
@@ -86,15 +86,15 @@ export default function UnifiedHeader({
 
   const getRoleName = (role: string) => {
     switch (role) {
-      case 'admin':
+      case "admin":
         return t("auth.roles.administrator");
-      case 'etudiant':
+      case "etudiant":
         return t("auth.roles.student");
-      case 'enseignant':
+      case "enseignant":
         return t("auth.roles.teacher");
-      case 'rh':
+      case "rh":
         return t("auth.roles.hr");
-      case 'scolarite':
+      case "scolarite":
         return t("auth.roles.studentAffairs");
       default:
         return role;
@@ -104,9 +104,9 @@ export default function UnifiedHeader({
   const getProfilePath = () => {
     if (!user) return "/";
     switch (user.role) {
-      case 'etudiant':
+      case "etudiant":
         return "/student/profile";
-      case 'enseignant':
+      case "enseignant":
         return "/teacher/profile";
       default:
         return "/admin";
@@ -116,9 +116,9 @@ export default function UnifiedHeader({
   const getMessagesPath = () => {
     if (!user) return "/";
     switch (user.role) {
-      case 'etudiant':
+      case "etudiant":
         return "/student/messages";
-      case 'enseignant':
+      case "enseignant":
         return "/teacher/messages";
       default:
         return "/admin";
@@ -128,9 +128,9 @@ export default function UnifiedHeader({
   const getDashboardPath = () => {
     if (!user) return "/";
     switch (user.role) {
-      case 'etudiant':
+      case "etudiant":
         return "/student/dashboard";
-      case 'enseignant':
+      case "enseignant":
         return "/teacher/dashboard";
       default:
         return "/";
@@ -142,7 +142,7 @@ export default function UnifiedHeader({
   const RoleIcon = getRoleIcon(user.role);
 
   return (
-    <motion.header 
+    <motion.header
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5 }}
@@ -165,7 +165,10 @@ export default function UnifiedHeader({
             )}
 
             {/* Logo and Title */}
-            <Link to={getDashboardPath()} className="flex items-center space-x-3 group">
+            <Link
+              to={getDashboardPath()}
+              className="flex items-center space-x-3 group"
+            >
               <motion.div
                 whileHover={{ rotate: 360 }}
                 transition={{ duration: 0.5 }}
@@ -242,9 +245,14 @@ export default function UnifiedHeader({
                 >
                   <div className="flex items-center space-x-3">
                     <Avatar className="h-8 w-8 ring-2 ring-white/30">
-                      <AvatarImage src={`https://api.dicebear.com/7.x/initials/svg?seed=${user.nom} ${user.prenom}`} />
-                      <AvatarFallback className={`bg-gradient-to-r ${getRoleGradient(user.role)} text-white text-sm font-bold`}>
-                        {user.nom?.charAt(0)}{user.prenom?.charAt(0)}
+                      <AvatarImage
+                        src={`https://api.dicebear.com/7.x/initials/svg?seed=${user.nom} ${user.prenom}`}
+                      />
+                      <AvatarFallback
+                        className={`bg-gradient-to-r ${getRoleGradient(user.role)} text-white text-sm font-bold`}
+                      >
+                        {user.nom?.charAt(0)}
+                        {user.prenom?.charAt(0)}
                       </AvatarFallback>
                     </Avatar>
                     <div className="hidden md:block text-left">
@@ -262,17 +270,22 @@ export default function UnifiedHeader({
                   </div>
                 </motion.button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent 
-                align="end" 
+              <DropdownMenuContent
+                align="end"
                 className="w-64 bg-white/95 backdrop-blur-xl border border-white/20 shadow-xl"
               >
                 {/* User Info Header */}
                 <DropdownMenuLabel className="pb-3">
                   <div className="flex items-center space-x-3">
                     <Avatar className="h-12 w-12 ring-2 ring-gray-200">
-                      <AvatarImage src={`https://api.dicebear.com/7.x/initials/svg?seed=${user.nom} ${user.prenom}`} />
-                      <AvatarFallback className={`bg-gradient-to-r ${getRoleGradient(user.role)} text-white font-bold`}>
-                        {user.nom?.charAt(0)}{user.prenom?.charAt(0)}
+                      <AvatarImage
+                        src={`https://api.dicebear.com/7.x/initials/svg?seed=${user.nom} ${user.prenom}`}
+                      />
+                      <AvatarFallback
+                        className={`bg-gradient-to-r ${getRoleGradient(user.role)} text-white font-bold`}
+                      >
+                        {user.nom?.charAt(0)}
+                        {user.prenom?.charAt(0)}
                       </AvatarFallback>
                     </Avatar>
                     <div className="flex-1 min-w-0">
@@ -280,7 +293,10 @@ export default function UnifiedHeader({
                         {user.prenom} {user.nom}
                       </p>
                       <div className="flex items-center space-x-2 mt-1">
-                        <Badge variant="secondary" className={`bg-gradient-to-r ${getRoleGradient(user.role)} text-white text-xs`}>
+                        <Badge
+                          variant="secondary"
+                          className={`bg-gradient-to-r ${getRoleGradient(user.role)} text-white text-xs`}
+                        >
                           <RoleIcon className="h-3 w-3 mr-1" />
                           {getRoleName(user.role)}
                         </Badge>
@@ -296,14 +312,20 @@ export default function UnifiedHeader({
 
                 {/* Profile Menu Items */}
                 <DropdownMenuItem asChild>
-                  <Link to={getProfilePath()} className="flex items-center space-x-2 cursor-pointer">
+                  <Link
+                    to={getProfilePath()}
+                    className="flex items-center space-x-2 cursor-pointer"
+                  >
                     <User className="h-4 w-4" />
                     <span>{t("common.profile")}</span>
                   </Link>
                 </DropdownMenuItem>
 
                 <DropdownMenuItem asChild>
-                  <Link to={getMessagesPath()} className="flex items-center space-x-2 cursor-pointer">
+                  <Link
+                    to={getMessagesPath()}
+                    className="flex items-center space-x-2 cursor-pointer"
+                  >
                     <MessageSquare className="h-4 w-4" />
                     <span>{t("common.messages")}</span>
                     {notificationCount > 0 && (
@@ -321,7 +343,7 @@ export default function UnifiedHeader({
 
                 <DropdownMenuSeparator />
 
-                <DropdownMenuItem 
+                <DropdownMenuItem
                   onClick={handleLogout}
                   className="flex items-center space-x-2 cursor-pointer text-red-600 hover:text-red-700 hover:bg-red-50"
                 >
