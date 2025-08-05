@@ -550,7 +550,7 @@
       "subtitle": "Découvrez une communauté inspirante et dynamique où nos étudiants évoluent dans un environnement riche en activités académiques, sociales et culturelles, favorisant leur épanouissement personnel et professionnel.",
       "modernClassrooms": "Salles de cours modernes",
       "classroomsDesc": "Des salles équipées des dernières technologies pour un apprentissage interactif et collaboratif.",
-      "studySpaces": "Espaces d'étude collaboratif",
+      "studySpaces": "Espaces d'��tude collaboratif",
       "studyDesc": "Des zones dédiées au travail en groupe et aux projets collaboratifs entre étudiants.",
       "library": "Bibliothèque",
       "libraryDesc": "Accès à une riche collection d'ouvrages médicaux et scientifiques, espaces de lecture silencieux.",
@@ -565,9 +565,17 @@
       }
     },
     "infrastructure": {
-      "title": "Infrastructures du campus",
-      "equippedLab": "Laboratoire équipé",
-      "labDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et massa mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien fringilla."
+      "title": "Des Infrastructures de Pointe",
+      "subtitle": "Découvrez nos installations modernes conçues pour offrir un environnement d'apprentissage optimal aux futurs professionnels de santé.",
+      "simLab": "Laboratoire de Simulation",
+      "simLabDesc": "Équipements de simulation médicale de pointe pour la formation pratique des étudiants dans un environnement sécurisé et réaliste.",
+      "amphitheater": "Amphithéâtre Moderne",
+      "amphitheaterDesc": "Salles de cours équipées des dernières technologies audiovisuelles pour un enseignement interactif et une expérience d'apprentissage optimale.",
+      "digitalLibrary": "Bibliothèque Numérique",
+      "digitalLibraryDesc": "Collection complète d'ouvrages médicaux, bases de données scientifiques et espaces d'étude collaboratifs pour enrichir la recherche.",
+      "highTech": "Haute technologie",
+      "capacity200": "Capacité 200 places",
+      "books5000": "5000+ ouvrages"
     },
     "news": {
       "title": "Nos Actualités",
