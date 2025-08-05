@@ -203,56 +203,173 @@ export default function TeacherLayout({ children }: TeacherLayoutProps) {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <header className="bg-white shadow-sm border-b border-gray-200">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex h-16 justify-between items-center">
-            <div className="flex items-center space-x-4">
-              <div className="flex items-center">
-                <GraduationCap className="h-8 w-8 text-primary" />
-                <h1 className="ml-2 text-xl font-bold text-gray-900">
-                  {t("navigation.teacherDashboard")}
-                </h1>
-              </div>
+      <header className="bg-gradient-to-r from-primary/95 via-primary to-primary/90 shadow-lg border-b border-primary/20 sticky top-0 z-50">
+        <div className="mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex h-16 md:h-20 justify-between items-center">
+            {/* Logo and Brand */}
+            <div className="flex items-center">
+              <Link to="/teacher/dashboard" className="flex items-center">
+                <div className="flex items-center bg-white/15 p-2 rounded-full shadow-md border border-white/10">
+                  <GraduationCap className="h-7 w-7 text-white" />
+                </div>
+                <div className="ml-3 flex flex-col">
+                  <h1 className="text-lg md:text-xl font-bold text-white tracking-tight">
+                    EP<span className="text-amber-300">FPS</span>
+                  </h1>
+                  <span className="text-[10px] text-white/60 -mt-1 tracking-wider uppercase hidden md:inline-block">
+                    Espace enseignant • {new Date().getFullYear()}
+                  </span>
+                </div>
+              </Link>
             </div>
 
-            <div className="flex items-center space-x-4">
-              <Button variant="outline" size="sm" className="relative">
-                <Bell className="h-4 w-4" />
-                <span className="absolute -top-1 -right-1 h-3 w-3 bg-red-500 rounded-full"></span>
+            {/* Right side actions */}
+            <div className="flex items-center space-x-1 md:space-x-3 overflow-x-auto">
+              {/* Search button */}
+              <Button
+                variant="ghost"
+                size="sm"
+                className="hidden md:flex items-center bg-white/10 hover:bg-white/20 text-white rounded-full px-3 py-1.5 h-9"
+              >
+                <Search className="h-4 w-4 mr-2" />
+                <span className="text-xs">{t("common.search")}...</span>
               </Button>
 
-              <div className="flex items-center space-x-2">
-                <Avatar>
-                  <AvatarImage src={user?.avatar} />
-                  <AvatarFallback>
-                    {user?.nom
-                      .split(" ")
-                      .map((n) => n[0])
-                      .join("")}
-                  </AvatarFallback>
-                </Avatar>
-                <div className="hidden md:block">
-                  <div className="text-sm font-medium text-gray-700">
-                    {user?.nom}
+              {/* Notifications dropdown */}
+              <div className="relative group">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="relative bg-white/10 hover:bg-white/20 text-white rounded-full p-2 h-9 w-9"
+                >
+                  <Bell className="h-4 w-4" />
+                  <span className="absolute -top-1 -right-1 h-4 w-4 flex items-center justify-center bg-amber-500 text-[10px] text-white font-bold rounded-full shadow-sm border border-white/20">
+                    4
+                  </span>
+                </Button>
+                <div className="absolute right-0 mt-2 w-80 max-w-[90vw] bg-white rounded-lg shadow-xl overflow-hidden z-50 opacity-0 group-hover:opacity-100 invisible group-hover:visible border border-gray-100">
+                  <div className="p-3 border-b border-gray-100 bg-gray-50 flex justify-between items-center">
+                    <h3 className="text-sm font-semibold text-gray-700">
+                      {t("common.notifications")}
+                    </h3>
+                    <span className="text-xs text-gray-500 bg-gray-200 rounded-full px-2 py-0.5">
+                      4 nouvelles
+                    </span>
                   </div>
-                  <div className="text-xs text-gray-500">
-                    {user?.specialite}
+                  <div className="max-h-72 overflow-y-auto">
+                    <div className="p-3 hover:bg-gray-50 border-l-4 border-orange-500">
+                      <div className="flex items-start">
+                        <div className="bg-orange-100 p-1.5 rounded-full mr-3">
+                          <BarChart3 className="h-4 w-4 text-orange-600" />
+                        </div>
+                        <div className="flex-1">
+                          <p className="text-sm font-medium text-gray-800">
+                            23 notes à saisir
+                          </p>
+                          <p className="text-xs text-gray-500 mt-1">
+                            Examens terminés
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="p-3 hover:bg-gray-50 border-l-4 border-blue-500">
+                      <div className="flex items-start">
+                        <div className="bg-blue-100 p-1.5 rounded-full mr-3">
+                          <MessageSquare className="h-4 w-4 text-blue-600" />
+                        </div>
+                        <div className="flex-1">
+                          <p className="text-sm font-medium text-gray-800">
+                            5 nouveaux messages
+                          </p>
+                          <p className="text-xs text-gray-500 mt-1">
+                            Questions d'étudiants
+                          </p>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <div className="text-xs text-gray-500">
-                    {t("auth.roles.teacher")}
+                  <div className="p-2 bg-gray-50 border-t border-gray-100 flex justify-between items-center">
+                    <Link
+                      to="/teacher/notifications"
+                      className="text-xs font-medium text-primary hover:text-primary/80 flex items-center"
+                    >
+                      Voir toutes{" "}
+                      <ChevronRight className="h-3 w-3 ml-1" />
+                    </Link>
+                  </div>
+                </div>
+              </div>
+
+              {/* User profile dropdown */}
+              <div className="relative group">
+                <div className="flex items-center space-x-2 bg-white/10 hover:bg-white/15 p-1.5 rounded-full cursor-pointer pr-3">
+                  <Avatar className="h-7 w-7 border-2 border-white/30">
+                    <AvatarImage src={user?.avatar} />
+                    <AvatarFallback className="bg-primary-foreground text-primary font-medium text-xs">
+                      {user?.nom
+                        .split(" ")
+                        .map((n) => n[0])
+                        .join("")}
+                    </AvatarFallback>
+                  </Avatar>
+                  <div className="hidden md:block">
+                    <div className="text-sm font-medium text-white flex items-center">
+                      {user?.nom}
+                      <ChevronDown className="h-3 w-3 ml-1 opacity-70" />
+                    </div>
+                    <div className="text-[10px] text-white/70 capitalize -mt-0.5">
+                      {user?.specialite} • Enseignant
+                    </div>
+                  </div>
+                </div>
+
+                {/* User dropdown menu */}
+                <div className="absolute right-0 mt-2 w-56 max-w-[90vw] bg-white rounded-lg shadow-xl overflow-hidden z-50 opacity-0 group-hover:opacity-100 invisible group-hover:visible border border-gray-100">
+                  <div className="p-3 border-b border-gray-100 bg-gray-50">
+                    <p className="text-sm font-medium text-gray-700">
+                      {user?.nom}
+                    </p>
+                    <p className="text-xs text-gray-500 mt-0.5">
+                      {user?.specialite} • {t("auth.roles.teacher")}
+                    </p>
+                  </div>
+                  <div className="py-1">
+                    <Link
+                      to="/teacher/profile"
+                      className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
+                    >
+                      <User className="h-4 w-4 mr-3 text-gray-400" />
+                      {t("common.profile")}
+                    </Link>
+                    <Link
+                      to="/teacher/messages"
+                      className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
+                    >
+                      <MessageSquare className="h-4 w-4 mr-3 text-gray-400" />
+                      {t("common.messages")}
+                    </Link>
+                    <Link
+                      to="/teacher/settings"
+                      className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
+                    >
+                      <Settings className="h-4 w-4 mr-3 text-gray-400" />
+                      {t("common.settings")}
+                    </Link>
+                  </div>
+                  <div className="py-1 border-t border-gray-100 bg-gray-50">
+                    <button
+                      onClick={logout}
+                      className="flex w-full items-center px-4 py-2 text-sm text-red-600 hover:bg-red-50"
+                    >
+                      <LogOut className="h-4 w-4 mr-3 text-red-500" />
+                      {t("common.logout")}
+                    </button>
                   </div>
                 </div>
               </div>
 
               {/* Language switcher */}
               <LanguageSwitcher />
-
-              <Button variant="outline" size="sm" onClick={logout}>
-                <LogOut className="h-4 w-4" />
-                <span className="hidden md:inline ml-2">
-                  {t("common.logout")}
-                </span>
-              </Button>
             </div>
           </div>
         </div>
