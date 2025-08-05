@@ -72,11 +72,10 @@ export default function Layout({ children }: LayoutProps) {
                 </div>
                 <div className="ml-3 flex flex-col">
                   <h1 className="text-lg md:text-xl font-bold text-white tracking-tight">
-                    Edu<span className="text-white/90">Manage</span>
-                    <span className="text-amber-300 font-light">Pro</span>
+                    EP<span className="text-amber-300">FPS</span>
                   </h1>
                   <span className="text-[10px] text-white/60 -mt-1 tracking-wider uppercase hidden md:inline-block">
-                    {t("common.academics")} {new Date().getFullYear()}
+                    École de formation santé • {new Date().getFullYear()}
                   </span>
                 </div>
               </Link>
