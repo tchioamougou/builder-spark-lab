@@ -528,7 +528,9 @@ const LandingPage: React.FC = () => {
                 <p className="text-lg font-medium text-gray-200 mb-1">
                   {t("landingPage.stats.studentsFormed")}
                 </p>
-                <p className="text-sm text-gray-400">{t("landingPage.stats.since2008")}</p>
+                <p className="text-sm text-gray-400">
+                  {t("landingPage.stats.since2008")}
+                </p>
               </div>
 
               {/* Statistique 2 */}
@@ -554,7 +556,9 @@ const LandingPage: React.FC = () => {
                 <p className="text-lg font-medium text-gray-200 mb-1">
                   {t("landingPage.stats.professionalExperts")}
                 </p>
-                <p className="text-sm text-gray-400">{t("landingPage.stats.qualifiedTeachers")}</p>
+                <p className="text-sm text-gray-400">
+                  {t("landingPage.stats.qualifiedTeachers")}
+                </p>
               </div>
 
               {/* Statistique 3 */}
@@ -580,7 +584,9 @@ const LandingPage: React.FC = () => {
                 <p className="text-lg font-medium text-gray-200 mb-1">
                   {t("landingPage.stats.partners")}
                 </p>
-                <p className="text-sm text-gray-400">{t("landingPage.stats.hospitalsAndCenters")}</p>
+                <p className="text-sm text-gray-400">
+                  {t("landingPage.stats.hospitalsAndCenters")}
+                </p>
               </div>
 
               {/* Statistique 4 */}
@@ -606,7 +612,9 @@ const LandingPage: React.FC = () => {
                 <p className="text-lg font-medium text-gray-200 mb-1">
                   {t("landingPage.stats.campus")}
                 </p>
-                <p className="text-sm text-gray-400">{t("landingPage.stats.inMeiganga")}</p>
+                <p className="text-sm text-gray-400">
+                  {t("landingPage.stats.inMeiganga")}
+                </p>
               </div>
             </div>
           </div>
@@ -812,7 +820,9 @@ const LandingPage: React.FC = () => {
                       <span className="text-white font-bold">AM</span>
                     </div>
                     <div>
-                      <p className="font-bold text-[#3b2c6a]">{t("landingPage.campusLife.studentTestimonial.name")}</p>
+                      <p className="font-bold text-[#3b2c6a]">
+                        {t("landingPage.campusLife.studentTestimonial.name")}
+                      </p>
                       <p className="text-gray-500 text-sm">
                         {t("landingPage.campusLife.studentTestimonial.title")}
                       </p>
@@ -1198,9 +1208,15 @@ const LandingPage: React.FC = () => {
                       />
                     </svg>
                   </div>
-                  <h4 className="text-white font-bold mb-2">{t("landingPage.cta.callUs")}</h4>
-                  <p className="text-gray-200 text-sm">{t("landingPage.cta.phoneNumber")}</p>
-                  <p className="text-gray-200 text-sm">{t("landingPage.cta.mondayFriday")}</p>
+                  <h4 className="text-white font-bold mb-2">
+                    {t("landingPage.cta.callUs")}
+                  </h4>
+                  <p className="text-gray-200 text-sm">
+                    {t("landingPage.cta.phoneNumber")}
+                  </p>
+                  <p className="text-gray-200 text-sm">
+                    {t("landingPage.cta.mondayFriday")}
+                  </p>
                 </div>
               </div>
 
@@ -1231,7 +1247,9 @@ const LandingPage: React.FC = () => {
                   <h4 className="text-white font-bold mb-2">
                     {t("landingPage.cta.visitCampus")}
                   </h4>
-                  <p className="text-gray-200 text-sm">{t("landingPage.cta.location")}</p>
+                  <p className="text-gray-200 text-sm">
+                    {t("landingPage.cta.location")}
+                  </p>
                   <p className="text-gray-200 text-sm">
                     {t("landingPage.cta.guidedTours")}
                   </p>
@@ -1256,9 +1274,13 @@ const LandingPage: React.FC = () => {
                       />
                     </svg>
                   </div>
-                  <h4 className="text-white font-bold mb-2">{t("landingPage.cta.writeUs")}</h4>
+                  <h4 className="text-white font-bold mb-2">
+                    {t("landingPage.cta.writeUs")}
+                  </h4>
                   <p className="text-gray-200 text-sm">contact@epfps.cm</p>
-                  <p className="text-gray-200 text-sm">{t("landingPage.cta.responseTime")}</p>
+                  <p className="text-gray-200 text-sm">
+                    {t("landingPage.cta.responseTime")}
+                  </p>
                 </div>
               </div>
             </div>

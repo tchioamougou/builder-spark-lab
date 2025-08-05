@@ -272,16 +272,22 @@ export default function StudentLayout({ children }: StudentLayoutProps) {
                           : "text-gray-700 hover:bg-gradient-to-r hover:from-gray-100 hover:to-gray-50 hover:shadow-md",
                       )}
                     >
-                      <div className={cn(
-                        "p-1.5 rounded-lg transition-colors",
-                        isActive
-                          ? "bg-white/20"
-                          : "bg-gray-100 group-hover:bg-primary/10"
-                      )}>
-                        <item.icon className={cn(
-                          "h-4 w-4",
-                          isActive ? "text-white" : "text-gray-600 group-hover:text-primary"
-                        )} />
+                      <div
+                        className={cn(
+                          "p-1.5 rounded-lg transition-colors",
+                          isActive
+                            ? "bg-white/20"
+                            : "bg-gray-100 group-hover:bg-primary/10",
+                        )}
+                      >
+                        <item.icon
+                          className={cn(
+                            "h-4 w-4",
+                            isActive
+                              ? "text-white"
+                              : "text-gray-600 group-hover:text-primary",
+                          )}
+                        />
                       </div>
                       <span className="font-medium">{item.name}</span>
                     </Link>

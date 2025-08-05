@@ -293,8 +293,7 @@ export default function TeacherLayout({ children }: TeacherLayoutProps) {
                       to="/teacher/notifications"
                       className="text-xs font-medium text-primary hover:text-primary/80 flex items-center"
                     >
-                      Voir toutes{" "}
-                      <ChevronRight className="h-3 w-3 ml-1" />
+                      Voir toutes <ChevronRight className="h-3 w-3 ml-1" />
                     </Link>
                   </div>
                 </div>
@@ -418,16 +417,22 @@ export default function TeacherLayout({ children }: TeacherLayoutProps) {
                           : "text-gray-700 hover:bg-gradient-to-r hover:from-gray-100 hover:to-gray-50 hover:shadow-md",
                       )}
                     >
-                      <div className={cn(
-                        "p-1.5 rounded-lg transition-colors",
-                        isActive
-                          ? "bg-white/20"
-                          : "bg-gray-100 group-hover:bg-primary/10"
-                      )}>
-                        <item.icon className={cn(
-                          "h-4 w-4",
-                          isActive ? "text-white" : "text-gray-600 group-hover:text-primary"
-                        )} />
+                      <div
+                        className={cn(
+                          "p-1.5 rounded-lg transition-colors",
+                          isActive
+                            ? "bg-white/20"
+                            : "bg-gray-100 group-hover:bg-primary/10",
+                        )}
+                      >
+                        <item.icon
+                          className={cn(
+                            "h-4 w-4",
+                            isActive
+                              ? "text-white"
+                              : "text-gray-600 group-hover:text-primary",
+                          )}
+                        />
                       </div>
                       <span className="font-medium">{item.name}</span>
                     </Link>
