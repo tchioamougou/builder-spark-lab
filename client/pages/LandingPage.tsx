@@ -492,15 +492,14 @@ const LandingPage: React.FC = () => {
             <div className="text-center mb-16">
               <div className="inline-flex items-center justify-center p-2 bg-white/10 rounded-full mb-6">
                 <span className="text-white text-sm font-semibold px-4 py-2 bg-[#ff9900] rounded-full">
-                  NOS CHIFFRES
+                  {t("landingPage.stats.sectionLabel")}
                 </span>
               </div>
               <h2 className="heading-font text-3xl md:text-5xl font-bold mb-4">
-                L'Excellence en Chiffres
+                {t("landingPage.stats.title")}
               </h2>
               <p className="text-gray-300 max-w-2xl mx-auto text-lg">
-                Plus de 15 ans d'expérience dans la formation des professionnels
-                de santé
+                {t("landingPage.stats.subtitle")}
               </p>
             </div>
 
