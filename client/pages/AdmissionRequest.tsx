@@ -40,7 +40,10 @@ import {
 } from "lucide-react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Progress } from "@/components/ui/progress";
-import { generateAdmissionPDF, generateConfirmationPDF } from "@/lib/pdf-generator";
+import {
+  generateAdmissionPDF,
+  generateConfirmationPDF,
+} from "@/lib/pdf-generator";
 
 interface FormData {
   // Informations personnelles
@@ -54,13 +57,13 @@ interface FormData {
   contactMere: string;
   nomTuteur: string;
   adresseTuteur: string;
-  
+
   // Origine du candidat
   region: string;
   arrondissement: string;
   departement: string;
   village: string;
-  
+
   // Informations complémentaires
   niveauEnseignement: string;
   ethnie: string;
@@ -183,8 +186,16 @@ const AdmissionRequest: React.FC = () => {
   ];
 
   const regions = [
-    "Adamaoua", "Centre", "Est", "Extrême-Nord", "Littoral", 
-    "Nord", "Nord-Ouest", "Ouest", "Sud", "Sud-Ouest"
+    "Adamaoua",
+    "Centre",
+    "Est",
+    "Extrême-Nord",
+    "Littoral",
+    "Nord",
+    "Nord-Ouest",
+    "Ouest",
+    "Sud",
+    "Sud-Ouest",
   ];
 
   const handleInputChange = (field: string, value: string) => {
@@ -222,14 +233,17 @@ const AdmissionRequest: React.FC = () => {
         break;
 
       case 4: // Informations Académiques
-        if (!formData.formation) newErrors.formation = "La formation est requise";
+        if (!formData.formation)
+          newErrors.formation = "La formation est requise";
         break;
 
       case 5: // Documents
         if (!formData.documents.photoIdentiteRecto)
-          newErrors.photoIdentiteRecto = "La photo d'identité (recto) est requise";
+          newErrors.photoIdentiteRecto =
+            "La photo d'identité (recto) est requise";
         if (!formData.documents.photoIdentiteVerso)
-          newErrors.photoIdentiteVerso = "La photo d'identité (verso) est requise";
+          newErrors.photoIdentiteVerso =
+            "La photo d'identité (verso) est requise";
         if (!formData.documents.photo4x4)
           newErrors.photo4x4 = "La photo 4x4 est requise";
         break;
@@ -333,9 +347,7 @@ const AdmissionRequest: React.FC = () => {
       <Label className="text-sm font-medium text-gray-700">
         {label} {required && <span className="text-red-500">*</span>}
       </Label>
-      {description && (
-        <p className="text-xs text-gray-500">{description}</p>
-      )}
+      {description && <p className="text-xs text-gray-500">{description}</p>}
       <div className="border-2 border-dashed border-gray-300 rounded-lg p-4 hover:border-[#ff9900] transition-colors">
         <input
           type="file"
@@ -360,9 +372,7 @@ const AdmissionRequest: React.FC = () => {
                 </p>
               )}
             </div>
-            <p className="text-xs text-gray-500 mt-1">
-              JPG, PNG (max 5MB)
-            </p>
+            <p className="text-xs text-gray-500 mt-1">JPG, PNG (max 5MB)</p>
           </div>
         </label>
       </div>
@@ -401,9 +411,7 @@ const AdmissionRequest: React.FC = () => {
                 <Input
                   id="prenom"
                   value={formData.prenom}
-                  onChange={(e) =>
-                    handleInputChange("prenom", e.target.value)
-                  }
+                  onChange={(e) => handleInputChange("prenom", e.target.value)}
                   placeholder="Prénom"
                   className={errors.prenom ? "border-red-500" : ""}
                 />
@@ -428,9 +436,7 @@ const AdmissionRequest: React.FC = () => {
                   className={errors.dateNaissance ? "border-red-500" : ""}
                 />
                 {errors.dateNaissance && (
-                  <p className="text-sm text-red-600">
-                    {errors.dateNaissance}
-                  </p>
+                  <p className="text-sm text-red-600">{errors.dateNaissance}</p>
                 )}
               </div>
 
@@ -461,9 +467,7 @@ const AdmissionRequest: React.FC = () => {
                 <Input
                   id="nomPere"
                   value={formData.nomPere}
-                  onChange={(e) =>
-                    handleInputChange("nomPere", e.target.value)
-                  }
+                  onChange={(e) => handleInputChange("nomPere", e.target.value)}
                   placeholder="Nom complet du père"
                   className={errors.nomPere ? "border-red-500" : ""}
                 />
@@ -488,14 +492,13 @@ const AdmissionRequest: React.FC = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-2">
                 <Label htmlFor="nomMere">
-                  Nom et prénom de la mère <span className="text-red-500">*</span>
+                  Nom et prénom de la mère{" "}
+                  <span className="text-red-500">*</span>
                 </Label>
                 <Input
                   id="nomMere"
                   value={formData.nomMere}
-                  onChange={(e) =>
-                    handleInputChange("nomMere", e.target.value)
-                  }
+                  onChange={(e) => handleInputChange("nomMere", e.target.value)}
                   placeholder="Nom complet de la mère"
                   className={errors.nomMere ? "border-red-500" : ""}
                 />
@@ -531,7 +534,9 @@ const AdmissionRequest: React.FC = () => {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="adresseTuteur">Adresse et contact du tuteur</Label>
+                <Label htmlFor="adresseTuteur">
+                  Adresse et contact du tuteur
+                </Label>
                 <Input
                   id="adresseTuteur"
                   value={formData.adresseTuteur}
@@ -553,9 +558,7 @@ const AdmissionRequest: React.FC = () => {
                 <Label htmlFor="region">Région</Label>
                 <Select
                   value={formData.region}
-                  onValueChange={(value) =>
-                    handleInputChange("region", value)
-                  }
+                  onValueChange={(value) => handleInputChange("region", value)}
                 >
                   <SelectTrigger>
                     <SelectValue placeholder="Sélectionnez la région" />
@@ -601,9 +604,7 @@ const AdmissionRequest: React.FC = () => {
                 <Input
                   id="village"
                   value={formData.village}
-                  onChange={(e) =>
-                    handleInputChange("village", e.target.value)
-                  }
+                  onChange={(e) => handleInputChange("village", e.target.value)}
                   placeholder="Village"
                 />
               </div>
@@ -616,7 +617,9 @@ const AdmissionRequest: React.FC = () => {
           <div className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-2">
-                <Label htmlFor="niveauEnseignement">Niveau d'enseignement général</Label>
+                <Label htmlFor="niveauEnseignement">
+                  Niveau d'enseignement général
+                </Label>
                 <Select
                   value={formData.niveauEnseignement}
                   onValueChange={(value) =>
@@ -641,9 +644,7 @@ const AdmissionRequest: React.FC = () => {
                 <Input
                   id="ethnie"
                   value={formData.ethnie}
-                  onChange={(e) =>
-                    handleInputChange("ethnie", e.target.value)
-                  }
+                  onChange={(e) => handleInputChange("ethnie", e.target.value)}
                   placeholder="Ethnie"
                 />
               </div>
@@ -651,7 +652,9 @@ const AdmissionRequest: React.FC = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-2">
-                <Label htmlFor="situationMatrimoniale">Situation matrimoniale</Label>
+                <Label htmlFor="situationMatrimoniale">
+                  Situation matrimoniale
+                </Label>
                 <Select
                   value={formData.situationMatrimoniale}
                   onValueChange={(value) =>
@@ -671,7 +674,9 @@ const AdmissionRequest: React.FC = () => {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="nomEpoux">Nom de l'époux ou épouse si marié(e)</Label>
+                <Label htmlFor="nomEpoux">
+                  Nom de l'époux ou épouse si marié(e)
+                </Label>
                 <Input
                   id="nomEpoux"
                   value={formData.nomEpoux}
@@ -685,7 +690,9 @@ const AdmissionRequest: React.FC = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-2">
-                <Label htmlFor="contactEpoux">Contact de l'époux ou épouse</Label>
+                <Label htmlFor="contactEpoux">
+                  Contact de l'époux ou épouse
+                </Label>
                 <Input
                   id="contactEpoux"
                   value={formData.contactEpoux}
@@ -720,9 +727,7 @@ const AdmissionRequest: React.FC = () => {
               </Label>
               <Select
                 value={formData.formation}
-                onValueChange={(value) =>
-                  handleInputChange("formation", value)
-                }
+                onValueChange={(value) => handleInputChange("formation", value)}
               >
                 <SelectTrigger
                   className={errors.formation ? "border-red-500" : ""}
@@ -757,9 +762,7 @@ const AdmissionRequest: React.FC = () => {
                   <SelectContent>
                     <SelectItem value="bepc">BEPC</SelectItem>
                     <SelectItem value="probatoire">Probatoire</SelectItem>
-                    <SelectItem value="baccalaureat">
-                      Baccalauréat
-                    </SelectItem>
+                    <SelectItem value="baccalaureat">Baccalauréat</SelectItem>
                     <SelectItem value="licence">Licence</SelectItem>
                     <SelectItem value="master">Master</SelectItem>
                   </SelectContent>
@@ -774,10 +777,7 @@ const AdmissionRequest: React.FC = () => {
                   id="etablissementOrigine"
                   value={formData.etablissementOrigine}
                   onChange={(e) =>
-                    handleInputChange(
-                      "etablissementOrigine",
-                      e.target.value,
-                    )
+                    handleInputChange("etablissementOrigine", e.target.value)
                   }
                   placeholder="Nom de votre dernier établissement"
                 />
@@ -876,15 +876,17 @@ const AdmissionRequest: React.FC = () => {
                     <span className="font-medium">Nom:</span> {formData.nom}
                   </div>
                   <div>
-                    <span className="font-medium">Prénom:</span> {formData.prenom}
+                    <span className="font-medium">Prénom:</span>{" "}
+                    {formData.prenom}
                   </div>
                   <div>
-                    <span className="font-medium">Date de naissance:</span> {formData.dateNaissance}
+                    <span className="font-medium">Date de naissance:</span>{" "}
+                    {formData.dateNaissance}
                   </div>
                   <div>
-                    <span className="font-medium">Formation souhaitée:</span> {
-                      formations.find(f => f.id === formData.formation)?.nom || formData.formation
-                    }
+                    <span className="font-medium">Formation souhaitée:</span>{" "}
+                    {formations.find((f) => f.id === formData.formation)?.nom ||
+                      formData.formation}
                   </div>
                 </div>
               </div>
@@ -899,21 +901,28 @@ const AdmissionRequest: React.FC = () => {
                 <div className="flex items-center gap-3 p-3 bg-white rounded border">
                   <FileText className="h-5 w-5 text-[#ff9900]" />
                   <div>
-                    <p className="font-medium">Fiche de Renseignements Officielle</p>
-                    <p className="text-sm text-gray-600">Document officiel avec toutes vos informations</p>
+                    <p className="font-medium">
+                      Fiche de Renseignements Officielle
+                    </p>
+                    <p className="text-sm text-gray-600">
+                      Document officiel avec toutes vos informations
+                    </p>
                   </div>
                 </div>
                 <div className="flex items-center gap-3 p-3 bg-white rounded border">
                   <CheckCircle className="h-5 w-5 text-green-600" />
                   <div>
                     <p className="font-medium">Confirmation d'Inscription</p>
-                    <p className="text-sm text-gray-600">Accusé de réception de votre demande</p>
+                    <p className="text-sm text-gray-600">
+                      Accusé de réception de votre demande
+                    </p>
                   </div>
                 </div>
               </div>
               <div className="mt-4 p-3 bg-yellow-50 rounded border border-yellow-200">
                 <p className="text-sm text-yellow-800">
-                  📋 Ces documents seront automatiquement téléchargés après validation de votre demande.
+                  📋 Ces documents seront automatiquement téléchargés après
+                  validation de votre demande.
                 </p>
               </div>
             </div>
@@ -938,23 +947,22 @@ const AdmissionRequest: React.FC = () => {
                   <span className="text-red-500">*</span>
                 </label>
                 <p className="text-xs text-muted-foreground">
-                  En cochant cette case, je confirme que toutes les
-                  informations fournies sont exactes et j'accepte les
-                  conditions d'admission de l'EPFPS.
+                  En cochant cette case, je confirme que toutes les informations
+                  fournies sont exactes et j'accepte les conditions d'admission
+                  de l'EPFPS.
                 </p>
               </div>
             </div>
             {errors.accepteConditions && (
-              <p className="text-sm text-red-600">
-                {errors.accepteConditions}
-              </p>
+              <p className="text-sm text-red-600">{errors.accepteConditions}</p>
             )}
 
             {Object.keys(errors).length > 0 && (
               <Alert>
                 <AlertCircle className="h-4 w-4" />
                 <AlertDescription>
-                  Veuillez corriger les erreurs avant de soumettre votre demande.
+                  Veuillez corriger les erreurs avant de soumettre votre
+                  demande.
                 </AlertDescription>
               </Alert>
             )}
@@ -966,7 +974,7 @@ const AdmissionRequest: React.FC = () => {
     }
   };
 
-  const currentStepData = STEPS.find(step => step.id === currentStep);
+  const currentStepData = STEPS.find((step) => step.id === currentStep);
   const progress = (currentStep / STEPS.length) * 100;
 
   return (
@@ -987,7 +995,9 @@ const AdmissionRequest: React.FC = () => {
                     ÉCOLE PRIVÉE DE FORMATION DES PROFESSIONNELS DE LA SANTÉ
                   </h2>
                   <p className="text-xs text-gray-600">MEIGANGA - CAMEROUN</p>
-                  <p className="text-xs text-gray-500">Tél: +237 XXX XXX XXX | Email: contact@epfps.cm</p>
+                  <p className="text-xs text-gray-500">
+                    Tél: +237 XXX XXX XXX | Email: contact@epfps.cm
+                  </p>
                 </div>
               </div>
 
@@ -1007,15 +1017,15 @@ const AdmissionRequest: React.FC = () => {
                 {Math.round(progress)}% complété
               </span>
             </div>
-            
+
             <Progress value={progress} className="mb-6" />
-            
+
             <div className="flex justify-between items-center mb-6">
               {STEPS.map((step) => {
                 const Icon = step.icon;
                 const isActive = step.id === currentStep;
                 const isCompleted = step.id < currentStep;
-                
+
                 return (
                   <div
                     key={step.id}
@@ -1023,8 +1033,8 @@ const AdmissionRequest: React.FC = () => {
                       isActive
                         ? "text-[#ff9900]"
                         : isCompleted
-                        ? "text-green-600"
-                        : "text-gray-400"
+                          ? "text-green-600"
+                          : "text-gray-400"
                     }`}
                   >
                     <div
@@ -1032,8 +1042,8 @@ const AdmissionRequest: React.FC = () => {
                         isActive
                           ? "bg-[#ff9900] text-white"
                           : isCompleted
-                          ? "bg-green-600 text-white"
-                          : "bg-gray-200"
+                            ? "bg-green-600 text-white"
+                            : "bg-gray-200"
                       }`}
                     >
                       {isCompleted ? (
@@ -1063,14 +1073,10 @@ const AdmissionRequest: React.FC = () => {
                 )}
               </CardTitle>
               {currentStepData && (
-                <CardDescription>
-                  {currentStepData.description}
-                </CardDescription>
+                <CardDescription>{currentStepData.description}</CardDescription>
               )}
             </CardHeader>
-            <CardContent>
-              {renderStepContent()}
-            </CardContent>
+            <CardContent>{renderStepContent()}</CardContent>
           </Card>
 
           {/* Navigation Buttons */}
@@ -1099,9 +1105,7 @@ const AdmissionRequest: React.FC = () => {
                 disabled={isSubmitting}
                 className="bg-[#ff9900] hover:bg-[#e68a00] text-white"
               >
-                {isSubmitting
-                  ? "Envoi en cours..."
-                  : "Soumettre ma demande"}
+                {isSubmitting ? "Envoi en cours..." : "Soumettre ma demande"}
               </Button>
             )}
           </div>
