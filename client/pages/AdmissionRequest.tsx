@@ -40,6 +40,7 @@ import {
 } from "lucide-react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Progress } from "@/components/ui/progress";
+import { generateAdmissionPDF, generateConfirmationPDF } from "@/lib/pdf-generator";
 
 interface FormData {
   // Informations personnelles
