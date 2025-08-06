@@ -49,13 +49,13 @@ interface FormData {
   contactMere: string;
   nomTuteur: string;
   adresseTuteur: string;
-  
+
   // Origine du candidat
   region: string;
   arrondissement: string;
   departement: string;
   village: string;
-  
+
   // Informations complémentaires
   niveauEnseignement: string;
   ethnie: string;
@@ -138,8 +138,16 @@ const AdmissionRequest: React.FC = () => {
   ];
 
   const regions = [
-    "Adamaoua", "Centre", "Est", "Extrême-Nord", "Littoral", 
-    "Nord", "Nord-Ouest", "Ouest", "Sud", "Sud-Ouest"
+    "Adamaoua",
+    "Centre",
+    "Est",
+    "Extrême-Nord",
+    "Littoral",
+    "Nord",
+    "Nord-Ouest",
+    "Ouest",
+    "Sud",
+    "Sud-Ouest",
   ];
 
   const handleInputChange = (field: string, value: string) => {
@@ -234,9 +242,7 @@ const AdmissionRequest: React.FC = () => {
       <Label className="text-sm font-medium text-gray-700">
         {label} {required && <span className="text-red-500">*</span>}
       </Label>
-      {description && (
-        <p className="text-xs text-gray-500">{description}</p>
-      )}
+      {description && <p className="text-xs text-gray-500">{description}</p>}
       <div className="border-2 border-dashed border-gray-300 rounded-lg p-4 hover:border-[#ff9900] transition-colors">
         <input
           type="file"
@@ -261,9 +267,7 @@ const AdmissionRequest: React.FC = () => {
                 </p>
               )}
             </div>
-            <p className="text-xs text-gray-500 mt-1">
-              JPG, PNG (max 5MB)
-            </p>
+            <p className="text-xs text-gray-500 mt-1">JPG, PNG (max 5MB)</p>
           </div>
         </label>
       </div>
@@ -286,30 +290,47 @@ const AdmissionRequest: React.FC = () => {
                 <div className="text-left">
                   <p className="text-xs font-bold">RÉPUBLIQUE DU CAMEROUN</p>
                   <p className="text-xs">Paix - Travail - Patrie</p>
-                  <p className="text-xs font-bold mt-2">MINISTÈRE DE LA SANTÉ PUBLIQUE</p>
+                  <p className="text-xs font-bold mt-2">
+                    MINISTÈRE DE LA SANTÉ PUBLIQUE
+                  </p>
                   <p className="text-xs">SECRÉTARIAT GÉNÉRAL</p>
-                  <p className="text-xs mt-2">DIRECTION DES RESSOURCES HUMAINES</p>
-                  <p className="text-xs">SOUS-DIRECTION DU DÉVELOPPEMENT DES RESSOURCES HUMAINES</p>
-                  <p className="text-xs font-bold mt-2">ÉCOLE PRIVÉE DE FORMATION DES PROFESSIONNELS DE LA SANTÉ DE MEIGANGA</p>
+                  <p className="text-xs mt-2">
+                    DIRECTION DES RESSOURCES HUMAINES
+                  </p>
+                  <p className="text-xs">
+                    SOUS-DIRECTION DU DÉVELOPPEMENT DES RESSOURCES HUMAINES
+                  </p>
+                  <p className="text-xs font-bold mt-2">
+                    ÉCOLE PRIVÉE DE FORMATION DES PROFESSIONNELS DE LA SANTÉ DE
+                    MEIGANGA
+                  </p>
                 </div>
-                
+
                 <div className="flex justify-center">
                   <div className="w-20 h-20 bg-gray-200 rounded-full flex items-center justify-center">
                     <span className="text-xs text-gray-500">LOGO</span>
                   </div>
                 </div>
-                
+
                 <div className="text-right">
                   <p className="text-xs font-bold">REPUBLIC OF CAMEROON</p>
                   <p className="text-xs">Peace - Work - Fatherland</p>
-                  <p className="text-xs font-bold mt-2">MINISTRY OF PUBLIC HEALTH</p>
+                  <p className="text-xs font-bold mt-2">
+                    MINISTRY OF PUBLIC HEALTH
+                  </p>
                   <p className="text-xs">GENERAL SECRETARIAT</p>
-                  <p className="text-xs mt-2">DEPARTMENT OF HUMAN DEVELOPMENT OF HUMAN RESOURCES</p>
-                  <p className="text-xs">SUB DEPARTMENT OF DEVELOPMENT OF HUMAN RESOURCES</p>
-                  <p className="text-xs font-bold mt-2">PRIVATE TRAINING SCHOOL FOR HEALTH PROFESSIONALS OF MEIGANGA</p>
+                  <p className="text-xs mt-2">
+                    DEPARTMENT OF HUMAN DEVELOPMENT OF HUMAN RESOURCES
+                  </p>
+                  <p className="text-xs">
+                    SUB DEPARTMENT OF DEVELOPMENT OF HUMAN RESOURCES
+                  </p>
+                  <p className="text-xs font-bold mt-2">
+                    PRIVATE TRAINING SCHOOL FOR HEALTH PROFESSIONALS OF MEIGANGA
+                  </p>
                 </div>
               </div>
-              
+
               <h1 className="heading-font text-2xl font-bold text-[#3b2c6a] mb-4">
                 FICHE DE RENSEIGNEMENTS
               </h1>
@@ -397,7 +418,9 @@ const AdmissionRequest: React.FC = () => {
                       className={errors.lieuNaissance ? "border-red-500" : ""}
                     />
                     {errors.lieuNaissance && (
-                      <p className="text-sm text-red-600">{errors.lieuNaissance}</p>
+                      <p className="text-sm text-red-600">
+                        {errors.lieuNaissance}
+                      </p>
                     )}
                   </div>
                 </div>
@@ -405,7 +428,8 @@ const AdmissionRequest: React.FC = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
                     <Label htmlFor="nomPere">
-                      Nom et prénom du père <span className="text-red-500">*</span>
+                      Nom et prénom du père{" "}
+                      <span className="text-red-500">*</span>
                     </Label>
                     <Input
                       id="nomPere"
@@ -437,7 +461,8 @@ const AdmissionRequest: React.FC = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
                     <Label htmlFor="nomMere">
-                      Nom et prénom de la mère <span className="text-red-500">*</span>
+                      Nom et prénom de la mère{" "}
+                      <span className="text-red-500">*</span>
                     </Label>
                     <Input
                       id="nomMere"
@@ -480,7 +505,9 @@ const AdmissionRequest: React.FC = () => {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="adresseTuteur">Adresse et contact du tuteur</Label>
+                    <Label htmlFor="adresseTuteur">
+                      Adresse et contact du tuteur
+                    </Label>
                     <Input
                       id="adresseTuteur"
                       value={formData.adresseTuteur}
@@ -577,7 +604,9 @@ const AdmissionRequest: React.FC = () => {
               <CardContent className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <Label htmlFor="niveauEnseignement">Niveau d'enseignement général</Label>
+                    <Label htmlFor="niveauEnseignement">
+                      Niveau d'enseignement général
+                    </Label>
                     <Select
                       value={formData.niveauEnseignement}
                       onValueChange={(value) =>
@@ -590,7 +619,9 @@ const AdmissionRequest: React.FC = () => {
                       <SelectContent>
                         <SelectItem value="bepc">BEPC</SelectItem>
                         <SelectItem value="probatoire">Probatoire</SelectItem>
-                        <SelectItem value="baccalaureat">Baccalauréat</SelectItem>
+                        <SelectItem value="baccalaureat">
+                          Baccalauréat
+                        </SelectItem>
                         <SelectItem value="licence">Licence</SelectItem>
                         <SelectItem value="master">Master</SelectItem>
                       </SelectContent>
@@ -612,7 +643,9 @@ const AdmissionRequest: React.FC = () => {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <Label htmlFor="situationMatrimoniale">Situation matrimoniale</Label>
+                    <Label htmlFor="situationMatrimoniale">
+                      Situation matrimoniale
+                    </Label>
                     <Select
                       value={formData.situationMatrimoniale}
                       onValueChange={(value) =>
@@ -632,7 +665,9 @@ const AdmissionRequest: React.FC = () => {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="nomEpoux">Nom de l'époux ou épouse si marié(e)</Label>
+                    <Label htmlFor="nomEpoux">
+                      Nom de l'époux ou épouse si marié(e)
+                    </Label>
                     <Input
                       id="nomEpoux"
                       value={formData.nomEpoux}
@@ -646,7 +681,9 @@ const AdmissionRequest: React.FC = () => {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <Label htmlFor="contactEpoux">Contact de l'époux ou épouse</Label>
+                    <Label htmlFor="contactEpoux">
+                      Contact de l'époux ou épouse
+                    </Label>
                     <Input
                       id="contactEpoux"
                       value={formData.contactEpoux}
@@ -658,7 +695,9 @@ const AdmissionRequest: React.FC = () => {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="numeroCNI">Numéro CNI du candidat (délivré le ___ à ___)</Label>
+                    <Label htmlFor="numeroCNI">
+                      Numéro CNI du candidat (délivré le ___ à ___)
+                    </Label>
                     <Input
                       id="numeroCNI"
                       value={formData.numeroCNI}
