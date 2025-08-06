@@ -282,8 +282,8 @@ const AdmissionRequest: React.FC = () => {
       // Simulation de l'envoi du formulaire
       await new Promise((resolve) => setTimeout(resolve, 2000));
 
-      // Génération des PDFs
-      const pdfData = {
+      // Données à sauvegarder et pour les PDFs
+      const requestData = {
         nom: formData.nom,
         prenom: formData.prenom,
         dateNaissance: formData.dateNaissance,
@@ -310,16 +310,20 @@ const AdmissionRequest: React.FC = () => {
         matriculeConcours: formData.matriculeConcours,
       };
 
+      // Sauvegarder la demande d'admission
+      const requestId = AdmissionStorage.saveAdmissionRequest(requestData);
+      console.log('Demande d\'admission sauvegardée avec l\'ID:', requestId);
+
       // Générer la fiche de renseignements officielle
-      generateAdmissionPDF(pdfData);
+      generateAdmissionPDF(requestData);
 
       // Générer le document de confirmation
       setTimeout(() => {
-        generateConfirmationPDF(pdfData);
+        generateConfirmationPDF(requestData);
       }, 1000);
 
       alert(
-        "Votre demande d'admission a été soumise avec succès ! Les documents PDF ont été générés et téléchargés automatiquement.",
+        "Votre demande d'admission a été soumise avec succès ! Les documents PDF ont été générés et téléchargés automatiquement. Votre numéro de dossier est : " + requestId,
       );
       navigate("/");
     } catch (error) {
