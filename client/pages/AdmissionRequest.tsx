@@ -44,6 +44,7 @@ import {
   generateAdmissionPDF,
   generateConfirmationPDF,
 } from "@/lib/pdf-generator";
+import { AdmissionStorage } from "@/lib/admission-storage";
 
 interface FormData {
   // Informations personnelles
