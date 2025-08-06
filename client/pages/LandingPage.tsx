@@ -4,14 +4,14 @@ import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
 import LandingHeader from "../components/LandingHeader";
 import LandingFooter from "../components/LandingFooter";
-import HeroImage from "@/assets/images/landingpageimage/group_five_african_college_students_spending_time_together_campus.jpg";
-import MyFie from "@/assets/images/landingpageimage/medium-shot-health-worker-wearing-mask.jpg";
-import StudentsStudying from "@/assets/images/landingpageimage/students-studying-together-medium-shot.jpg";
-import ClassroomImage from "@/assets/images/landingpageimage/close-up-students-learning-class.jpg";
-import StudyGroupImage from "@/assets/images/landingpageimage/study-group-african-people.jpg";
-import StudentWoman from "@/assets/images/landingpageimage/african_american_woman_wearing_student_backpack_holding_books_smiling.jpg";
-import StudyGroup2 from "@/assets/images/landingpageimage/study-group-african-people (1).jpg";
-import CollegeStudents from "@/assets/images/landingpageimage/college-students-different-ethnicities-cramming.jpg";
+import HeroImage from "@/assets/images/landingpageimage/group_five_african_college_students_spending_time_together_campus-min.jpg";
+import MyFie from "@/assets/images/landingpageimage/medium-shot-health-worker-wearing-mask-min.jpg";
+import StudentsStudying from "@/assets/images/landingpageimage/students-studying-together-medium-shot-min.jpg";
+import ClassroomImage from "@/assets/images/landingpageimage/close-up-students-learning-class-min.jpg";
+import StudyGroupImage from "@/assets/images/landingpageimage/study-group-african-people-min.jpg";
+import StudentWoman from "@/assets/images/landingpageimage/african_american_woman_wearing_student_backpack_holding_books_smiling-min.jpg";
+import StudyGroup2 from "@/assets/images/landingpageimage/study-group-african-people (1)-min.jpg";
+import CollegeStudents from "@/assets/images/landingpageimage/college-students-different-ethnicities-cramming-min.jpg";
 
 const LandingPage: React.FC = () => {
   const { t, i18n } = useTranslation();
@@ -40,7 +40,7 @@ const LandingPage: React.FC = () => {
         </div>
       </div>
     );
-  }
+  }else
 
   return (
     <div className="landing-page">

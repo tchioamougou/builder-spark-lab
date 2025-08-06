@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import LandingHeader from "../components/LandingHeader";
 import LandingFooter from "../components/LandingFooter";
-import HeroImage from "@/assets/images/landingpageimage/group_five_african_college_students_spending_time_together_campus.jpg";
-import StudentsStudying from "@/assets/images/landingpageimage/students-studying-together-medium-shot.jpg";
+import HeroImage from "@/assets/images/landingpageimage/group_five_african_college_students_spending_time_together_campus-min.jpg";
+import StudentsStudying from "@/assets/images/landingpageimage/students-studying-together-medium-shot-min.jpg";
 
 const Admissions: React.FC = () => {
   const { t } = useTranslation();

@@ -225,7 +225,17 @@
     "templateType": "Template Type",
     "creationDate": "Creation Date",
     "version": "Version",
-    "usages": "Usages"
+    "usages": "Usages",
+     "title": "Files",
+    "subtitle": "Document and file management",
+    "uploadFile": "Upload file",
+    "fileName": "File name",
+    "fileSize": "File size",
+    "uploadDate": "Upload date",
+    "actions": "Actions",
+    "download": "Download",
+    "delete": "Delete",
+    "preview": "Preview"
   },
   "messages": {
     "inbox": "Inbox",
@@ -319,7 +329,20 @@
     "partnerships": "Partnerships",
     "partnershipsText": "Partner hospitals and health centers",
     "excellence": "Excellence",
-    "excellenceText": "95% success rate in state exams"
+    "excellenceText": "95% success rate in state exams",
+    "historyImageAlt": "History of the school",
+    "missionsSubtitle": "EPFPS is committed to a holistic approach to health training, integrating innovation, community engagement and sustainable development.",
+    "directorImageAlt": "School Director",
+    "directorName": "Dr. Jean MBARGA",
+    "directorDescription": "Doctor of Medicine, specialist in Public Health with more than 20 years of experience in medical training and management of health facilities.",
+    "pedagogicalDirectorImageAlt": "Pedagogical Director",
+    "pedagogicalDirectorName": "Dr. Marie FOUDA",
+    "pedagogicalDirectorTitle": "Pedagogical Director",
+    "pedagogicalDirectorDescription": "State-certified nurse, Master in Education Sciences. Expert in curriculum development and active pedagogy.",
+    "academicCoordinatorImageAlt": "Academic Coordinator",
+    "academicCoordinatorName": "Mr. Paul NGOA",
+    "academicCoordinatorTitle": "Academic Coordinator",
+    "academicCoordinatorDescription": "Physiotherapist, Master in Management of Health Establishments. Responsible for coordinating programs and internships."
   },
   "formations": {
     "title": "Our Programs",
@@ -460,6 +483,13 @@
     "interactiveMap": "Interactive location map"
   },
   "landingPage": {
+    "title": "Home Page",
+    "welcome": "Welcome",
+    "subtitle": "Health training school",
+    "learnMore": "Learn more",
+    "ourPrograms": "Our programs",
+    "whyChooseUs": "Why choose us",
+    "contact": "Contact",
     "hero": {
       "schoolNameFull": "Private School for Health Professionals Training of Meiganga",
       "tagline": "Transform your life through health education",
@@ -730,28 +760,6 @@
     "assign": "Assign",
     "unassign": "Unassign",
     "viewAssignments": "View assignments"
-  },
-  "files": {
-    "title": "Files",
-    "subtitle": "Document and file management",
-    "uploadFile": "Upload file",
-    "fileName": "File name",
-    "fileSize": "File size",
-    "uploadDate": "Upload date",
-    "actions": "Actions",
-    "download": "Download",
-    "delete": "Delete",
-    "preview": "Preview"
-  },
-  "landingPage": {
-    "title": "Home Page",
-    "welcome": "Welcome",
-    "subtitle": "Health training school",
-    "learnMore": "Learn more",
-    "ourPrograms": "Our programs",
-    "whyChooseUs": "Why choose us",
-    "testimonials": "Testimonials",
-    "contact": "Contact"
   },
   "login": {
     "title": "Login",

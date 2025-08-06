@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import LandingHeader from "../components/LandingHeader";
 import LandingFooter from "../components/LandingFooter";
-import HeroImage from "@/assets/images/landingpageimage/group_five_african_college_students_spending_time_together_campus.jpg";
-import MyFie from "@/assets/images/landingpageimage/medium-shot-health-worker-wearing-mask.jpg";
-import ClassroomImage from "@/assets/images/landingpageimage/close-up-students-learning-class.jpg";
-import StudentsStudying from "@/assets/images/landingpageimage/students-studying-together-medium-shot.jpg";
+import HeroImage from "@/assets/images/landingpageimage/group_five_african_college_students_spending_time_together_campus-min.jpg";
+import MyFie from "@/assets/images/landingpageimage/medium-shot-health-worker-wearing-mask-min.jpg";
+import ClassroomImage from "@/assets/images/landingpageimage/close-up-students-learning-class-min.jpg";
+import StudentsStudying from "@/assets/images/landingpageimage/students-studying-together-medium-shot-min.jpg";
 
 const Formations: React.FC = () => {
   const { t } = useTranslation();

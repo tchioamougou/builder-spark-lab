@@ -7,6 +7,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { generateBulletinPDF } from "@/lib/pdf-utils";
 import AbsenceRequestDialog from "@/components/AbsenceRequestDialog";
 import { useTranslation } from "react-i18next";
+import LogoEcole from "@/assets/images/landingpageimage/Logo de EPFPS.png";
 import LanguageSwitcher from "./LanguageSwitcher";
 import {
   Home,
@@ -91,13 +92,14 @@ export default function StudentLayout({ children }: StudentLayoutProps) {
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
       <header className="bg-gradient-to-r from-primary/95 via-primary to-primary/90 shadow-lg border-b border-primary/20 sticky top-0 z-50">
-        <div className="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+        <div className="mx-auto px-4 sm:px-6 lg:px-8 ">
           <div className="flex h-16 md:h-20 justify-between items-center min-w-0">
             {/* Logo and Brand */}
             <div className="flex items-center">
               <Link to="/student/dashboard" className="flex items-center">
-                <div className="flex items-center bg-white/15 p-2 rounded-full shadow-md border border-white/10">
-                  <GraduationCap className="h-7 w-7 text-white" />
+                <div className="flex items-center bg-white/15  rounded-full shadow-md border border-white/10">
+                <img src={LogoEcole} alt="Logo EPFPS" className="h-10 w-auto rounded-full" />
+
                 </div>
                 <div className="ml-3 flex flex-col">
                   <h1 className="text-lg md:text-xl font-bold text-white tracking-tight">

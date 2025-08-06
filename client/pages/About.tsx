@@ -2,9 +2,9 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import LandingHeader from "../components/LandingHeader";
 import LandingFooter from "../components/LandingFooter";
-import HeroImage from "@/assets/images/landingpageimage/group_five_african_college_students_spending_time_together_campus.jpg";
-import ClassroomImage from "@/assets/images/landingpageimage/close-up-students-learning-class.jpg";
-import MyFie from "@/assets/images/landingpageimage/medium-shot-health-worker-wearing-mask.jpg";
+import HeroImage from "@/assets/images/landingpageimage/group_five_african_college_students_spending_time_together_campus-min.jpg";
+import ClassroomImage from "@/assets/images/landingpageimage/close-up-students-learning-class-min.jpg";
+import MyFie from "@/assets/images/landingpageimage/medium-shot-health-worker-wearing-mask-min.jpg";
 
 const About: React.FC = () => {
   const { t } = useTranslation();

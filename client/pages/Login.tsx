@@ -28,6 +28,7 @@ import {
   BookOpen,
 } from "lucide-react";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
+import LogoEcole from "@/assets/images/landingpageimage/Logo de EPFPS.png";
 
 export default function LoginPage() {
   const { t } = useTranslation();
@@ -123,28 +124,16 @@ export default function LoginPage() {
         {/* Header */}
         <div className="text-center">
           <div className="flex justify-center mb-6">
-            <div className="relative">
-              <div className="p-4 bg-gradient-to-r from-[#3b2c6a] to-[#ff9900] rounded-2xl shadow-lg">
-                <Heart className="h-12 w-12 text-white" />
+            <div className="relative flex justify-center ">
+              <div className="rounded-2xl shadow-lg">
+                <img src={LogoEcole} alt="Logo EPFPS" className="h-16 w-auto" />
               </div>
+              <h1 className="text-4xl md:text-5xl font-bold text-[#3b2c6a] mb-2 align-middle self-center">
+                EPFPS
+              </h1>
             </div>
           </div>
-          <h1 className="text-4xl md:text-5xl font-bold text-[#3b2c6a] mb-2">
-            EPFPS
-          </h1>
-          <h2 className="text-xl md:text-2xl font-semibold text-gray-700 mb-2">
-            École Privée de Formation des
-          </h2>
-          <h2 className="text-xl md:text-2xl font-semibold text-[#ff9900] mb-4">
-            Professionnels de Santé
-          </h2>
-          <p className="text-gray-600">
-            Système de gestion éducative - Meiganga
-          </p>
-          <div className="mt-4 flex items-center justify-center space-x-2 text-sm text-gray-500">
-            <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-            <span>Système sécurisé</span>
-          </div>
+
         </div>
 
         {/* Login Form */}

@@ -226,7 +226,17 @@
     "templateType": "Type de modèle",
     "creationDate": "Date de création",
     "version": "Version",
-    "usages": "Utilisations"
+    "usages": "Utilisations",
+        "title": "Fichiers",
+    "subtitle": "Gestion des documents et fichiers",
+    "uploadFile": "Téléverser fichier",
+    "fileName": "Nom du fichier",
+    "fileSize": "Taille",
+    "uploadDate": "Date de téléversement",
+    "actions": "Actions",
+    "download": "Télécharger",
+    "delete": "Supprimer",
+    "preview": "Aperçu"
   },
   "messages": {
     "inbox": "Boîte de réception",
@@ -461,6 +471,13 @@
     "interactiveMap": "Carte interactive de localisation"
   },
   "landingPage": {
+       "title": "Page d'accueil",
+    "welcome": "Bienvenue",
+    "subtitle": "École de formation en santé",
+    "learnMore": "En savoir plus",
+    "ourPrograms": "Nos programmes",
+    "whyChooseUs": "Pourquoi nous choisir",
+    "contact": "Contact",
     "hero": {
       "schoolNameFull": "École Privée de Formation des Professionnels de Santé de Meiganga",
       "tagline": "Transformez votre vie grâce à l'éducation en santé",
@@ -758,28 +775,6 @@
     "assign": "Assigner",
     "unassign": "Désassigner",
     "viewAssignments": "Voir les attributions"
-  },
-  "files": {
-    "title": "Fichiers",
-    "subtitle": "Gestion des documents et fichiers",
-    "uploadFile": "Téléverser fichier",
-    "fileName": "Nom du fichier",
-    "fileSize": "Taille",
-    "uploadDate": "Date de téléversement",
-    "actions": "Actions",
-    "download": "Télécharger",
-    "delete": "Supprimer",
-    "preview": "Aperçu"
-  },
-  "landingPage": {
-    "title": "Page d'accueil",
-    "welcome": "Bienvenue",
-    "subtitle": "École de formation en santé",
-    "learnMore": "En savoir plus",
-    "ourPrograms": "Nos programmes",
-    "whyChooseUs": "Pourquoi nous choisir",
-    "testimonials": "Témoignages",
-    "contact": "Contact"
   },
   "login": {
     "title": "Connexion",
