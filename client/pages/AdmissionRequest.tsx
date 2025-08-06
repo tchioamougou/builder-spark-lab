@@ -909,38 +909,23 @@ const AdmissionRequest: React.FC = () => {
 
       <main className="py-20">
         <div className="container mx-auto px-4 max-w-4xl">
-          {/* En-tête officiel */}
+          {/* En-tête simplifié */}
           <div className="text-center mb-8">
             <div className="bg-white p-6 rounded-lg shadow-lg border-2 border-gray-200 mb-8">
-              <div className="grid grid-cols-3 items-center gap-4 mb-6">
-                <div className="text-left">
-                  <p className="text-xs font-bold">RÉPUBLIQUE DU CAMEROUN</p>
-                  <p className="text-xs">Paix - Travail - Patrie</p>
-                  <p className="text-xs font-bold mt-2">MINISTÈRE DE LA SANTÉ PUBLIQUE</p>
-                  <p className="text-xs">SECRÉTARIAT GÉNÉRAL</p>
-                  <p className="text-xs mt-2">DIRECTION DES RESSOURCES HUMAINES</p>
-                  <p className="text-xs">SOUS-DIRECTION DU DÉVELOPPEMENT DES RESSOURCES HUMAINES</p>
-                  <p className="text-xs font-bold mt-2">ÉCOLE PRIVÉE DE FORMATION DES PROFESSIONNELS DE LA SANTÉ DE MEIGANGA</p>
+              <div className="flex items-center justify-center gap-4 mb-6">
+                <div className="w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center">
+                  <span className="text-xs text-gray-500">LOGO</span>
                 </div>
-                
-                <div className="flex justify-center">
-                  <div className="w-20 h-20 bg-gray-200 rounded-full flex items-center justify-center">
-                    <span className="text-xs text-gray-500">LOGO</span>
-                  </div>
-                </div>
-                
-                <div className="text-right">
-                  <p className="text-xs font-bold">REPUBLIC OF CAMEROON</p>
-                  <p className="text-xs">Peace - Work - Fatherland</p>
-                  <p className="text-xs font-bold mt-2">MINISTRY OF PUBLIC HEALTH</p>
-                  <p className="text-xs">GENERAL SECRETARIAT</p>
-                  <p className="text-xs mt-2">DEPARTMENT OF HUMAN DEVELOPMENT OF HUMAN RESOURCES</p>
-                  <p className="text-xs">SUB DEPARTMENT OF DEVELOPMENT OF HUMAN RESOURCES</p>
-                  <p className="text-xs font-bold mt-2">PRIVATE TRAINING SCHOOL FOR HEALTH PROFESSIONALS OF MEIGANGA</p>
+                <div className="text-center">
+                  <h2 className="text-sm font-bold text-[#3b2c6a] mb-1">
+                    ÉCOLE PRIVÉE DE FORMATION DES PROFESSIONNELS DE LA SANTÉ
+                  </h2>
+                  <p className="text-xs text-gray-600">MEIGANGA - CAMEROUN</p>
+                  <p className="text-xs text-gray-500">Tél: +237 XXX XXX XXX | Email: contact@epfps.cm</p>
                 </div>
               </div>
-              
-              <h1 className="heading-font text-2xl font-bold text-[#3b2c6a] mb-4">
+
+              <h1 className="heading-font text-3xl font-bold text-[#3b2c6a] mb-4">
                 FICHE DE RENSEIGNEMENTS
               </h1>
             </div>
