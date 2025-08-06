@@ -32,6 +32,8 @@ import {
   Mail,
   MapPin,
   Calendar,
+  Camera,
+  CreditCard,
 } from "lucide-react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 
@@ -41,11 +43,26 @@ interface FormData {
   prenom: string;
   dateNaissance: string;
   lieuNaissance: string;
-  nationalite: string;
-  sexe: string;
-  telephone: string;
-  email: string;
-  adresse: string;
+  nomPere: string;
+  contactPere: string;
+  nomMere: string;
+  contactMere: string;
+  nomTuteur: string;
+  adresseTuteur: string;
+  
+  // Origine du candidat
+  region: string;
+  arrondissement: string;
+  departement: string;
+  village: string;
+  
+  // Informations complémentaires
+  niveauEnseignement: string;
+  ethnie: string;
+  situationMatrimoniale: string;
+  nomEpoux: string;
+  contactEpoux: string;
+  numeroCNI: string;
 
   // Informations académiques
   formation: string;
@@ -58,7 +75,9 @@ interface FormData {
     releveNotes: File | null;
     diplome: File | null;
     acteNaissance: File | null;
-    photo: File | null;
+    photoIdentiteRecto: File | null;
+    photoIdentiteVerso: File | null;
+    photo4x4: File | null;
     attestationConcours: File | null;
   };
 
@@ -75,11 +94,22 @@ const AdmissionRequest: React.FC = () => {
     prenom: "",
     dateNaissance: "",
     lieuNaissance: "",
-    nationalite: "Camerounaise",
-    sexe: "",
-    telephone: "",
-    email: "",
-    adresse: "",
+    nomPere: "",
+    contactPere: "",
+    nomMere: "",
+    contactMere: "",
+    nomTuteur: "",
+    adresseTuteur: "",
+    region: "",
+    arrondissement: "",
+    departement: "",
+    village: "",
+    niveauEnseignement: "",
+    ethnie: "",
+    situationMatrimoniale: "",
+    nomEpoux: "",
+    contactEpoux: "",
+    numeroCNI: "",
     formation: "",
     niveauEtude: "",
     etablissementOrigine: "",
@@ -88,7 +118,9 @@ const AdmissionRequest: React.FC = () => {
       releveNotes: null,
       diplome: null,
       acteNaissance: null,
-      photo: null,
+      photoIdentiteRecto: null,
+      photoIdentiteVerso: null,
+      photo4x4: null,
       attestationConcours: null,
     },
     accepteConditions: false,
@@ -103,6 +135,11 @@ const AdmissionRequest: React.FC = () => {
     { id: "agent-sante-communautaire", nom: "Agent de Santé Communautaire" },
     { id: "sage-femme", nom: "Sage-Femme" },
     { id: "technicien-labo", nom: "Technicien de Laboratoire" },
+  ];
+
+  const regions = [
+    "Adamaoua", "Centre", "Est", "Extrême-Nord", "Littoral", 
+    "Nord", "Nord-Ouest", "Ouest", "Sud", "Sud-Ouest"
   ];
 
   const handleInputChange = (field: string, value: string) => {
@@ -130,30 +167,21 @@ const AdmissionRequest: React.FC = () => {
     if (!formData.prenom.trim()) newErrors.prenom = "Le prénom est requis";
     if (!formData.dateNaissance)
       newErrors.dateNaissance = "La date de naissance est requise";
-    if (!formData.telephone.trim())
-      newErrors.telephone = "Le téléphone est requis";
-    if (!formData.email.trim()) newErrors.email = "L'email est requis";
+    if (!formData.lieuNaissance.trim())
+      newErrors.lieuNaissance = "Le lieu de naissance est requis";
+    if (!formData.nomPere.trim())
+      newErrors.nomPere = "Le nom du père est requis";
+    if (!formData.nomMere.trim())
+      newErrors.nomMere = "Le nom de la mère est requis";
     if (!formData.formation) newErrors.formation = "La formation est requise";
-    if (!formData.matriculeConcours.trim())
-      newErrors.matriculeConcours =
-        "Le matricule de réussite au concours est requis";
-
-    // Validation de l'email
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (formData.email && !emailRegex.test(formData.email)) {
-      newErrors.email = "Format d'email invalide";
-    }
 
     // Validation des documents requis
-    if (!formData.documents.releveNotes)
-      newErrors.releveNotes = "Le relevé de notes est requis";
-    if (!formData.documents.acteNaissance)
-      newErrors.acteNaissance = "L'acte de naissance est requis";
-    if (!formData.documents.photo)
-      newErrors.photo = "La photo d'identité est requise";
-    if (!formData.documents.attestationConcours)
-      newErrors.attestationConcours =
-        "L'attestation de réussite au concours est requise";
+    if (!formData.documents.photoIdentiteRecto)
+      newErrors.photoIdentiteRecto = "La photo d'identité (recto) est requise";
+    if (!formData.documents.photoIdentiteVerso)
+      newErrors.photoIdentiteVerso = "La photo d'identité (verso) est requise";
+    if (!formData.documents.photo4x4)
+      newErrors.photo4x4 = "La photo 4x4 est requise";
 
     // Validation des conditions
     if (!formData.accepteConditions)
@@ -174,10 +202,8 @@ const AdmissionRequest: React.FC = () => {
 
     try {
       // Simulation de l'envoi du formulaire
-      // Ici vous ajouteriez l'appel API réel
       await new Promise((resolve) => setTimeout(resolve, 2000));
 
-      // Redirection vers une page de confirmation
       alert(
         "Votre demande d'admission a été soumise avec succès ! Vous recevrez une confirmation par email.",
       );
@@ -196,16 +222,21 @@ const AdmissionRequest: React.FC = () => {
     documentType,
     required = false,
     accept = ".pdf,.jpg,.jpeg,.png",
+    description,
   }: {
     label: string;
     documentType: keyof FormData["documents"];
     required?: boolean;
     accept?: string;
+    description?: string;
   }) => (
     <div className="space-y-2">
       <Label className="text-sm font-medium text-gray-700">
         {label} {required && <span className="text-red-500">*</span>}
       </Label>
+      {description && (
+        <p className="text-xs text-gray-500">{description}</p>
+      )}
       <div className="border-2 border-dashed border-gray-300 rounded-lg p-4 hover:border-[#ff9900] transition-colors">
         <input
           type="file"
@@ -231,7 +262,7 @@ const AdmissionRequest: React.FC = () => {
               )}
             </div>
             <p className="text-xs text-gray-500 mt-1">
-              PDF, JPG, PNG (max 5MB)
+              JPG, PNG (max 5MB)
             </p>
           </div>
         </label>
@@ -248,30 +279,51 @@ const AdmissionRequest: React.FC = () => {
 
       <main className="py-20">
         <div className="container mx-auto px-4 max-w-4xl">
-          {/* En-tête */}
-          <div className="text-center mb-12">
-            <h1 className="heading-font text-4xl md:text-5xl font-bold text-[#3b2c6a] mb-4">
-              Demande d'Admission
-            </h1>
-            <div className="w-20 h-1 bg-[#ff9900] mx-auto mb-6"></div>
-            <p className="text-gray-600 text-lg leading-relaxed max-w-2xl mx-auto">
-              Remplissez ce formulaire pour soumettre votre demande d'admission
-              à l'EPFPS. Assurez-vous de fournir toutes les informations
-              requises et de joindre les documents nécessaires.
-            </p>
+          {/* En-tête officiel */}
+          <div className="text-center mb-8">
+            <div className="bg-white p-6 rounded-lg shadow-lg border-2 border-gray-200 mb-8">
+              <div className="grid grid-cols-3 items-center gap-4 mb-6">
+                <div className="text-left">
+                  <p className="text-xs font-bold">RÉPUBLIQUE DU CAMEROUN</p>
+                  <p className="text-xs">Paix - Travail - Patrie</p>
+                  <p className="text-xs font-bold mt-2">MINISTÈRE DE LA SANTÉ PUBLIQUE</p>
+                  <p className="text-xs">SECRÉTARIAT GÉNÉRAL</p>
+                  <p className="text-xs mt-2">DIRECTION DES RESSOURCES HUMAINES</p>
+                  <p className="text-xs">SOUS-DIRECTION DU DÉVELOPPEMENT DES RESSOURCES HUMAINES</p>
+                  <p className="text-xs font-bold mt-2">ÉCOLE PRIVÉE DE FORMATION DES PROFESSIONNELS DE LA SANTÉ DE MEIGANGA</p>
+                </div>
+                
+                <div className="flex justify-center">
+                  <div className="w-20 h-20 bg-gray-200 rounded-full flex items-center justify-center">
+                    <span className="text-xs text-gray-500">LOGO</span>
+                  </div>
+                </div>
+                
+                <div className="text-right">
+                  <p className="text-xs font-bold">REPUBLIC OF CAMEROON</p>
+                  <p className="text-xs">Peace - Work - Fatherland</p>
+                  <p className="text-xs font-bold mt-2">MINISTRY OF PUBLIC HEALTH</p>
+                  <p className="text-xs">GENERAL SECRETARIAT</p>
+                  <p className="text-xs mt-2">DEPARTMENT OF HUMAN DEVELOPMENT OF HUMAN RESOURCES</p>
+                  <p className="text-xs">SUB DEPARTMENT OF DEVELOPMENT OF HUMAN RESOURCES</p>
+                  <p className="text-xs font-bold mt-2">PRIVATE TRAINING SCHOOL FOR HEALTH PROFESSIONALS OF MEIGANGA</p>
+                </div>
+              </div>
+              
+              <h1 className="heading-font text-2xl font-bold text-[#3b2c6a] mb-4">
+                FICHE DE RENSEIGNEMENTS
+              </h1>
+            </div>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-8">
-            {/* Informations Personnelles */}
+            {/* Informations Personnelles de Base */}
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-[#3b2c6a]">
                   <User className="h-5 w-5" />
                   Informations Personnelles
                 </CardTitle>
-                <CardDescription>
-                  Veuillez fournir vos informations personnelles exactes
-                </CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -283,7 +335,7 @@ const AdmissionRequest: React.FC = () => {
                       id="nom"
                       value={formData.nom}
                       onChange={(e) => handleInputChange("nom", e.target.value)}
-                      placeholder="Votre nom de famille"
+                      placeholder="Nom de famille"
                       className={errors.nom ? "border-red-500" : ""}
                     />
                     {errors.nom && (
@@ -301,7 +353,7 @@ const AdmissionRequest: React.FC = () => {
                       onChange={(e) =>
                         handleInputChange("prenom", e.target.value)
                       }
-                      placeholder="Votre prénom"
+                      placeholder="Prénom"
                       className={errors.prenom ? "border-red-500" : ""}
                     />
                     {errors.prenom && (
@@ -332,7 +384,9 @@ const AdmissionRequest: React.FC = () => {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="lieuNaissance">Lieu de Naissance</Label>
+                    <Label htmlFor="lieuNaissance">
+                      Lieu de Naissance <span className="text-red-500">*</span>
+                    </Label>
                     <Input
                       id="lieuNaissance"
                       value={formData.lieuNaissance}
@@ -340,94 +394,280 @@ const AdmissionRequest: React.FC = () => {
                         handleInputChange("lieuNaissance", e.target.value)
                       }
                       placeholder="Ville, Pays"
+                      className={errors.lieuNaissance ? "border-red-500" : ""}
+                    />
+                    {errors.lieuNaissance && (
+                      <p className="text-sm text-red-600">{errors.lieuNaissance}</p>
+                    )}
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <Label htmlFor="nomPere">
+                      Nom et prénom du père <span className="text-red-500">*</span>
+                    </Label>
+                    <Input
+                      id="nomPere"
+                      value={formData.nomPere}
+                      onChange={(e) =>
+                        handleInputChange("nomPere", e.target.value)
+                      }
+                      placeholder="Nom complet du père"
+                      className={errors.nomPere ? "border-red-500" : ""}
+                    />
+                    {errors.nomPere && (
+                      <p className="text-sm text-red-600">{errors.nomPere}</p>
+                    )}
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="contactPere">Contact du père</Label>
+                    <Input
+                      id="contactPere"
+                      value={formData.contactPere}
+                      onChange={(e) =>
+                        handleInputChange("contactPere", e.target.value)
+                      }
+                      placeholder="Téléphone du père"
                     />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <Label htmlFor="sexe">
-                      Sexe <span className="text-red-500">*</span>
+                    <Label htmlFor="nomMere">
+                      Nom et prénom de la mère <span className="text-red-500">*</span>
                     </Label>
+                    <Input
+                      id="nomMere"
+                      value={formData.nomMere}
+                      onChange={(e) =>
+                        handleInputChange("nomMere", e.target.value)
+                      }
+                      placeholder="Nom complet de la mère"
+                      className={errors.nomMere ? "border-red-500" : ""}
+                    />
+                    {errors.nomMere && (
+                      <p className="text-sm text-red-600">{errors.nomMere}</p>
+                    )}
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="contactMere">Contact de la mère</Label>
+                    <Input
+                      id="contactMere"
+                      value={formData.contactMere}
+                      onChange={(e) =>
+                        handleInputChange("contactMere", e.target.value)
+                      }
+                      placeholder="Téléphone de la mère"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <Label htmlFor="nomTuteur">Nom du tuteur</Label>
+                    <Input
+                      id="nomTuteur"
+                      value={formData.nomTuteur}
+                      onChange={(e) =>
+                        handleInputChange("nomTuteur", e.target.value)
+                      }
+                      placeholder="Nom complet du tuteur"
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="adresseTuteur">Adresse et contact du tuteur</Label>
+                    <Input
+                      id="adresseTuteur"
+                      value={formData.adresseTuteur}
+                      onChange={(e) =>
+                        handleInputChange("adresseTuteur", e.target.value)
+                      }
+                      placeholder="Adresse et téléphone du tuteur"
+                    />
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Origine du candidat */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2 text-[#3b2c6a]">
+                  <MapPin className="h-5 w-5" />
+                  Origine du candidat
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <Label htmlFor="region">Région</Label>
                     <Select
-                      value={formData.sexe}
+                      value={formData.region}
                       onValueChange={(value) =>
-                        handleInputChange("sexe", value)
+                        handleInputChange("region", value)
                       }
                     >
                       <SelectTrigger>
-                        <SelectValue placeholder="Sélectionnez votre sexe" />
+                        <SelectValue placeholder="Sélectionnez la région" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="masculin">Masculin</SelectItem>
-                        <SelectItem value="feminin">Féminin</SelectItem>
+                        {regions.map((region) => (
+                          <SelectItem key={region} value={region}>
+                            {region}
+                          </SelectItem>
+                        ))}
                       </SelectContent>
                     </Select>
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="nationalite">Nationalité</Label>
+                    <Label htmlFor="arrondissement">Arrondissement</Label>
                     <Input
-                      id="nationalite"
-                      value={formData.nationalite}
+                      id="arrondissement"
+                      value={formData.arrondissement}
                       onChange={(e) =>
-                        handleInputChange("nationalite", e.target.value)
+                        handleInputChange("arrondissement", e.target.value)
                       }
-                      placeholder="Nationalité"
+                      placeholder="Arrondissement"
                     />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <Label htmlFor="telephone">
-                      Téléphone <span className="text-red-500">*</span>
-                    </Label>
+                    <Label htmlFor="departement">Département</Label>
                     <Input
-                      id="telephone"
-                      value={formData.telephone}
+                      id="departement"
+                      value={formData.departement}
                       onChange={(e) =>
-                        handleInputChange("telephone", e.target.value)
+                        handleInputChange("departement", e.target.value)
                       }
-                      placeholder="+237 6XX XXX XXX"
-                      className={errors.telephone ? "border-red-500" : ""}
+                      placeholder="Département"
                     />
-                    {errors.telephone && (
-                      <p className="text-sm text-red-600">{errors.telephone}</p>
-                    )}
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="email">
-                      Email <span className="text-red-500">*</span>
-                    </Label>
+                    <Label htmlFor="village">Village</Label>
                     <Input
-                      id="email"
-                      type="email"
-                      value={formData.email}
+                      id="village"
+                      value={formData.village}
                       onChange={(e) =>
-                        handleInputChange("email", e.target.value)
+                        handleInputChange("village", e.target.value)
                       }
-                      placeholder="votre.email@exemple.com"
-                      className={errors.email ? "border-red-500" : ""}
+                      placeholder="Village"
                     />
-                    {errors.email && (
-                      <p className="text-sm text-red-600">{errors.email}</p>
-                    )}
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Informations complémentaires */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2 text-[#3b2c6a]">
+                  <User className="h-5 w-5" />
+                  Informations complémentaires
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <Label htmlFor="niveauEnseignement">Niveau d'enseignement général</Label>
+                    <Select
+                      value={formData.niveauEnseignement}
+                      onValueChange={(value) =>
+                        handleInputChange("niveauEnseignement", value)
+                      }
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Sélectionnez le niveau" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="bepc">BEPC</SelectItem>
+                        <SelectItem value="probatoire">Probatoire</SelectItem>
+                        <SelectItem value="baccalaureat">Baccalauréat</SelectItem>
+                        <SelectItem value="licence">Licence</SelectItem>
+                        <SelectItem value="master">Master</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="ethnie">Ethnie</Label>
+                    <Input
+                      id="ethnie"
+                      value={formData.ethnie}
+                      onChange={(e) =>
+                        handleInputChange("ethnie", e.target.value)
+                      }
+                      placeholder="Ethnie"
+                    />
                   </div>
                 </div>
 
-                <div className="space-y-2">
-                  <Label htmlFor="adresse">Adresse Complète</Label>
-                  <Textarea
-                    id="adresse"
-                    value={formData.adresse}
-                    onChange={(e) =>
-                      handleInputChange("adresse", e.target.value)
-                    }
-                    placeholder="Quartier, ville, région..."
-                    rows={3}
-                  />
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <Label htmlFor="situationMatrimoniale">Situation matrimoniale</Label>
+                    <Select
+                      value={formData.situationMatrimoniale}
+                      onValueChange={(value) =>
+                        handleInputChange("situationMatrimoniale", value)
+                      }
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Situation matrimoniale" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="celibataire">Célibataire</SelectItem>
+                        <SelectItem value="marie">Marié(e)</SelectItem>
+                        <SelectItem value="divorce">Divorcé(e)</SelectItem>
+                        <SelectItem value="veuf">Veuf(ve)</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="nomEpoux">Nom de l'époux ou épouse si marié(e)</Label>
+                    <Input
+                      id="nomEpoux"
+                      value={formData.nomEpoux}
+                      onChange={(e) =>
+                        handleInputChange("nomEpoux", e.target.value)
+                      }
+                      placeholder="Nom de l'époux/épouse"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <Label htmlFor="contactEpoux">Contact de l'époux ou épouse</Label>
+                    <Input
+                      id="contactEpoux"
+                      value={formData.contactEpoux}
+                      onChange={(e) =>
+                        handleInputChange("contactEpoux", e.target.value)
+                      }
+                      placeholder="Contact de l'époux/épouse"
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="numeroCNI">Numéro CNI du candidat (délivré le ___ à ___)</Label>
+                    <Input
+                      id="numeroCNI"
+                      value={formData.numeroCNI}
+                      onChange={(e) =>
+                        handleInputChange("numeroCNI", e.target.value)
+                      }
+                      placeholder="Numéro de carte nationale d'identité"
+                    />
+                  </div>
                 </div>
               </CardContent>
             </Card>
@@ -516,8 +756,7 @@ const AdmissionRequest: React.FC = () => {
 
                 <div className="space-y-2">
                   <Label htmlFor="matriculeConcours">
-                    Matricule de Réussite au Concours{" "}
-                    <span className="text-red-500">*</span>
+                    Matricule de Réussite au Concours
                   </Label>
                   <Input
                     id="matriculeConcours"
@@ -526,13 +765,7 @@ const AdmissionRequest: React.FC = () => {
                       handleInputChange("matriculeConcours", e.target.value)
                     }
                     placeholder="Votre matricule de réussite au concours d'entrée"
-                    className={errors.matriculeConcours ? "border-red-500" : ""}
                   />
-                  {errors.matriculeConcours && (
-                    <p className="text-sm text-red-600">
-                      {errors.matriculeConcours}
-                    </p>
-                  )}
                   <p className="text-sm text-gray-500">
                     Ce matricule vous a été attribué lors de votre réussite au
                     concours d'entrée à l'EPFPS
@@ -550,41 +783,74 @@ const AdmissionRequest: React.FC = () => {
                 </CardTitle>
                 <CardDescription>
                   Veuillez joindre tous les documents requis (formats acceptés:
-                  PDF, JPG, PNG)
+                  JPG, PNG)
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <FileUpload
-                    label="Relevé de Notes"
-                    documentType="releveNotes"
+                    label="Photo d'identité (Recto)"
+                    documentType="photoIdentiteRecto"
                     required
+                    accept=".jpg,.jpeg,.png"
+                    description="Face avant de votre carte d'identité"
                   />
 
                   <FileUpload
+                    label="Photo d'identité (Verso)"
+                    documentType="photoIdentiteVerso"
+                    required
+                    accept=".jpg,.jpeg,.png"
+                    description="Face arrière de votre carte d'identité"
+                  />
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <FileUpload
+                    label="Photo 4x4"
+                    documentType="photo4x4"
+                    required
+                    accept=".jpg,.jpeg,.png"
+                    description="Photo format 4cm x 4cm, récente et en couleur"
+                  />
+
+                  <FileUpload
+                    label="Relevé de Notes"
+                    documentType="releveNotes"
+                    accept=".pdf,.jpg,.jpeg,.png"
+                  />
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <FileUpload
                     label="Diplôme/Certificat"
                     documentType="diplome"
+                    accept=".pdf,.jpg,.jpeg,.png"
                   />
 
                   <FileUpload
                     label="Acte de Naissance"
                     documentType="acteNaissance"
-                    required
-                  />
-
-                  <FileUpload
-                    label="Photo d'Identité"
-                    documentType="photo"
-                    required
-                    accept=".jpg,.jpeg,.png"
+                    accept=".pdf,.jpg,.jpeg,.png"
                   />
                 </div>
 
                 <FileUpload
                   label="Attestation de Réussite au Concours"
                   documentType="attestationConcours"
-                  required
+                  accept=".pdf,.jpg,.jpeg,.png"
                 />
+
+                {/* Espace réservé à la photo comme dans le document original */}
+                <div className="mt-8 flex justify-center">
+                  <div className="border-2 border-black w-32 h-40 flex items-center justify-center bg-gray-50">
+                    <div className="text-center">
+                      <Camera className="mx-auto h-8 w-8 text-gray-400 mb-2" />
+                      <p className="text-xs text-gray-500">Espace réservé</p>
+                      <p className="text-xs text-gray-500">à la photo</p>
+                    </div>
+                  </div>
+                </div>
               </CardContent>
             </Card>
 
