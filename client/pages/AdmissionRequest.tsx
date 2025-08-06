@@ -890,6 +890,34 @@ const AdmissionRequest: React.FC = () => {
               </div>
             </div>
 
+            <div className="bg-blue-50 p-6 rounded-lg border border-blue-200">
+              <h3 className="text-lg font-semibold mb-4 text-blue-800 flex items-center gap-2">
+                <FileText className="h-5 w-5" />
+                Documents qui seront générés
+              </h3>
+              <div className="space-y-3">
+                <div className="flex items-center gap-3 p-3 bg-white rounded border">
+                  <FileText className="h-5 w-5 text-[#ff9900]" />
+                  <div>
+                    <p className="font-medium">Fiche de Renseignements Officielle</p>
+                    <p className="text-sm text-gray-600">Document officiel avec toutes vos informations</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-3 p-3 bg-white rounded border">
+                  <CheckCircle className="h-5 w-5 text-green-600" />
+                  <div>
+                    <p className="font-medium">Confirmation d'Inscription</p>
+                    <p className="text-sm text-gray-600">Accusé de réception de votre demande</p>
+                  </div>
+                </div>
+              </div>
+              <div className="mt-4 p-3 bg-yellow-50 rounded border border-yellow-200">
+                <p className="text-sm text-yellow-800">
+                  📋 Ces documents seront automatiquement téléchargés après validation de votre demande.
+                </p>
+              </div>
+            </div>
+
             <div className="flex items-start space-x-2">
               <Checkbox
                 id="accepteConditions"
