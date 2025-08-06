@@ -312,7 +312,7 @@ const AdmissionRequest: React.FC = () => {
 
       // Sauvegarder la demande d'admission
       const requestId = AdmissionStorage.saveAdmissionRequest(requestData);
-      console.log('Demande d\'admission sauvegardée avec l\'ID:', requestId);
+      console.log("Demande d'admission sauvegardée avec l'ID:", requestId);
 
       // Générer la fiche de renseignements officielle
       generateAdmissionPDF(requestData);
@@ -323,7 +323,8 @@ const AdmissionRequest: React.FC = () => {
       }, 1000);
 
       alert(
-        "Votre demande d'admission a été soumise avec succès ! Les documents PDF ont été générés et téléchargés automatiquement. Votre numéro de dossier est : " + requestId,
+        "Votre demande d'admission a été soumise avec succès ! Les documents PDF ont été générés et téléchargés automatiquement. Votre numéro de dossier est : " +
+          requestId,
       );
       navigate("/");
     } catch (error) {
