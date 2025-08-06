@@ -264,10 +264,47 @@ const AdmissionRequest: React.FC = () => {
     setIsSubmitting(true);
 
     try {
+      // Simulation de l'envoi du formulaire
       await new Promise((resolve) => setTimeout(resolve, 2000));
 
+      // Génération des PDFs
+      const pdfData = {
+        nom: formData.nom,
+        prenom: formData.prenom,
+        dateNaissance: formData.dateNaissance,
+        lieuNaissance: formData.lieuNaissance,
+        nomPere: formData.nomPere,
+        contactPere: formData.contactPere,
+        nomMere: formData.nomMere,
+        contactMere: formData.contactMere,
+        nomTuteur: formData.nomTuteur,
+        adresseTuteur: formData.adresseTuteur,
+        region: formData.region,
+        arrondissement: formData.arrondissement,
+        departement: formData.departement,
+        village: formData.village,
+        niveauEnseignement: formData.niveauEnseignement,
+        ethnie: formData.ethnie,
+        situationMatrimoniale: formData.situationMatrimoniale,
+        nomEpoux: formData.nomEpoux,
+        contactEpoux: formData.contactEpoux,
+        numeroCNI: formData.numeroCNI,
+        formation: formData.formation,
+        niveauEtude: formData.niveauEtude,
+        etablissementOrigine: formData.etablissementOrigine,
+        matriculeConcours: formData.matriculeConcours,
+      };
+
+      // Générer la fiche de renseignements officielle
+      generateAdmissionPDF(pdfData);
+
+      // Générer le document de confirmation
+      setTimeout(() => {
+        generateConfirmationPDF(pdfData);
+      }, 1000);
+
       alert(
-        "Votre demande d'admission a été soumise avec succès ! Vous recevrez une confirmation par email.",
+        "Votre demande d'admission a été soumise avec succès ! Les documents PDF ont été générés et téléchargés automatiquement.",
       );
       navigate("/");
     } catch (error) {
